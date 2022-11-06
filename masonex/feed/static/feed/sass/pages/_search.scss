@@ -1,0 +1,26 @@
+.search-result__heading {
+    font-size: 22px !important;
+}
+
+.search-result__author__name {
+    font-weight: 500;
+}
+
+.search-result__create-date {
+    color: $light-arsenic;
+}
+
+.search-result__description {
+    font-size: 16px !important;
+}
+
+.search-result__image img {
+    width: 112px;
+    height: 112px;
+    object-fit: cover;
+}
+
+.search-result__author__avatar {
+    color: $dark;
+    margin: 0;
+}

@@ -1,0 +1,44 @@
+.component-article-listing {
+    position: relative;
+}
+
+.article-listing__photo {
+    width: 300px;
+    height: 230px;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+}
+
+.article-listing__heading:after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: block;
+    content: "";
+}
+
+.article-listing__heading {
+    font-weight: bold;
+    color: $dark;
+    transition: color .2s !important;
+    font-size: clamp(12px, 1.5vw + 3px, 18px) !important;
+}
+
+.article-listing__heading:hover {
+    color: $pistachio;
+    text-decoration: none !important;
+}
+
+.article-listing__category {
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.article-listing__category,
+.article-listing__author {
+    font-size: clamp(10px, 1.5vw + 3px, 12px) !important;
+    color: $light-arsenic;
+}

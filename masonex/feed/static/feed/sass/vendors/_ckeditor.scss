@@ -1,0 +1,34 @@
+.django-ckeditor-widget{
+    width: 100%;
+}
+
+.cke_chrome {
+    border: 1px solid var(--border-color) !important;
+    box-shadow: none !important;
+}
+
+.cke_bottom {
+    border-top: 1px solid var(--border-color) !important;
+    background-color: white !important;
+}
+
+.cke_path_item {
+    color: var(--dark) !important;
+}
+
+.cke_dialog_body {
+    border: 1px solid var(--dark) !important;
+    box-shadow: none !important;
+}
+
+.cke_resizer {
+    border-right-color: var(--border-color) !important;
+}
+
+.cke_dialog_footer .cke_resizer {
+    display: none !important;
+}
+
+.cke_resizer:hover {
+    cursor: s-resize !important;
+}

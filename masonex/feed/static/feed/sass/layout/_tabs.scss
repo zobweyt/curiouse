@@ -1,0 +1,20 @@
+.btn-back {
+    margin-bottom: .875em;
+    padding: 0;
+    background-color: transparent;
+    border: none;
+    appearance: none;
+}
+
+@media screen and (max-width: map-get($grid-breakpoints, "md")) {
+    .responsive-tabs .list-group-item.active {
+        color: var(--bs-list-group-color);
+        background-color: var(--bs-list-group-bg);
+        border: var(--bs-list-group-border-width) solid var(--bs-list-group-border-color);
+    }
+
+    .responsive-tabs .list-group-item:hover {
+        color: var(--bs-list-group-action-hover-color);
+        background-color: var(--bs-list-group-action-hover-bg);
+    }
+}

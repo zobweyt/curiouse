@@ -1,0 +1,10 @@
+header {
+    z-index: 1050 !important;
+}
+
+.user-menu-dropdown-toggle {
+    &:hover,
+    &.show {
+        background-color: $gray-200;
+    }
+}

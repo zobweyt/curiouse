@@ -1,0 +1,9 @@
+#scroll-to-top {
+    background-color: $white;
+    bottom: .825em;
+    right: 1em;
+    border: none;
+    appearance: none;
+    z-index: $zindex-back-to-top;
+    transition: transform .475s cubic-bezier(.4, 0, .2, 1);
+}

@@ -1,0 +1,34 @@
+{% extends 'feed/base_site.html' %}
+
+{% block content %}
+<h2 class="my-4 text-center">DIY & How-To Everything</h2>
+<div class="row">
+    {% for post in posts %}
+    <article class="col-lg-3 col-6 mb-4 component-article-listing">
+        <img src="{{ post.photo.url }}" class="article-listing__photo rounded" alt="post-image" loading="lazy">
+        <h6 class="mt-xl-3 mt-2 mb-1 article-listing__category">{{ post.category.name }}</h6>
+        <a href="{{ post.get_absolute_url }}" class="fw-bold text-break article-listing__heading">{{ post.title | truncatechars:64 }}</a>
+        <h6 class="mt-1 article-listing__author">By {{ post.author.get_full_name }}</h6>
+    </article>
+    {% endfor %}
+</div>
+{% if page_obj.has_other_pages %}
+<nav class="mt-2">
+	<ul class="pagination justify-content-center">
+		{% if page_obj.has_previous %}
+        <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous"><span>&laquo;</span></a></li>
+		{% endif %}
+		{% for page in paginator.page_range %}
+		{% if page_obj.number == page %}
+        <li class="page-item active"><span class="page-link">{{ page }}</span></li>
+		{% elif page <= page_obj.number|add:2 and page >= page_obj.number|add:-2 %}
+        <li class="page-item"><a class="page-link" href="?page={{ page }}">{{ page }}</a></li>
+		{% endif %}
+		{% endfor %}
+		{% if page_obj.has_next %}
+        <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next"><span>&raquo;</span></a></li>
+		{% endif %}
+	</ul>
+</nav>
+{% endif %}
+{% endblock content %}

@@ -1,0 +1,60 @@
+$pistachio:         #a5d66b;
+$ocean-boat-blue:   #007cbe;
+$light-arsenic:     #606B71;
+$arsenic:           #333640;
+
+$primary:           #3d64e4;
+$secondary:         #606e7a;
+$dark:              #2e2e30;
+
+$input-btn-focus-color: none;
+
+$component-active-bg:      $arsenic;
+
+$zindex-header:         1040;
+$zindex-footer:         $zindex-header;
+$zindex-back-to-top:    1050;
+
+$enable-caret:                 false;
+
+$dropdown-caret-size: 16px;
+
+$modal-fade-transform:   translateY(20px) scale(.875, .925);
+$modal-transition:       transform .27s cubic-bezier(.4, 0, .2, 1);
+
+$alert-bg-scale: -88%;
+
+@import "../../../bootstrap/scss/functions";
+@import "../../../bootstrap/scss/variables";
+
+$dropdown-link-active-color:   $dark;
+$dropdown-link-active-bg:      $gray-400;
+
+$info:           $blue-400;
+$warning:        $orange-400;
+$light:          $gray-100;
+
+$custom-colors: (
+    "primary":         $primary,
+    "secondary":       $secondary,
+    "info":            $info,
+    "warning":         $warning,
+    "light":           $light,
+    "dark":            $dark,
+);
+
+$theme-colors: map-merge($theme-colors, $custom-colors);
+
+$form-feedback-icon-valid:    url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' stroke-width='2' stroke='#{$form-feedback-icon-valid-color}' fill='none' stroke-linecap='round' stroke-linejoin='round'><path stroke='none' d='M0 0h24v24H0z' fill='none'></path><circle cx='12' cy='12' r='9'></circle><path d='M9 12l2 2l4 -4'></path></svg>");
+$form-feedback-icon-invalid:  url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' stroke-width='2' stroke='#{$form-feedback-icon-invalid-color}' fill='none' stroke-linecap='round' stroke-linejoin='round'><path stroke='none' d='M0 0h24v24H0z' fill='none'></path><circle cx='12' cy='12' r='9'></circle><line x1='12' y1='8' x2='12' y2='12'></line><line x1='12' y1='16' x2='12.01' y2='16'></line></svg>");
+
+$form-validation-states: (
+  "valid": (
+    "color":  $form-feedback-valid-color,
+    "icon":   $form-feedback-icon-valid,
+  ),
+  "invalid": (
+    "color":  $form-feedback-invalid-color,
+    "icon":   $form-feedback-icon-invalid,
+  ),
+);

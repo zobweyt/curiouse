@@ -1,0 +1,45 @@
+@import "../../../bootstrap/scss/functions";
+@import "../../../bootstrap/scss/variables";
+@import "../../../bootstrap/scss/maps";
+@import "../../../bootstrap/scss/utilities";
+
+$utilities: map-merge(
+    $utilities, (
+        "width": map-merge(
+            map-get($utilities, "width"),
+            ( responsive: true ),
+        ),
+        "border": map-merge(
+            map-get($utilities, "border"),
+            ( responsive: true ),
+        ),
+        "border-top": map-merge(
+            map-get($utilities, "border-top"),
+            ( responsive: true ),
+        ),
+        "border-end": map-merge(
+            map-get($utilities, "border-end"),
+            ( responsive: true ),
+        ),
+        "border-bottom": map-merge(
+            map-get($utilities, "border-bottom"),
+            ( responsive: true ),
+        ),
+        "border-start": map-merge(
+            map-get($utilities, "border-start"),
+            ( responsive: true ),
+        ),
+    )
+);
+
+.dropdown-toggle-arrow-hide::after {
+    content: none !important;
+}
+
+.circle-divider:after {
+    content: "\00B7";
+}
+
+.transition-all {
+    transition: $transition-base;
+}

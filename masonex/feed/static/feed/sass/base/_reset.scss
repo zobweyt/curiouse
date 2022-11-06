@@ -1,0 +1,41 @@
+:focus-visible {
+    outline: solid $ocean-boat-blue;
+    outline-width: 2px;
+    outline-offset: 2px;
+}
+
+a {
+    text-decoration: none !important;
+}
+
+.link:hover {
+    text-decoration: underline !important;
+}
+
+.disabled,
+button:disabled {
+    pointer-events: auto !important;
+    cursor: not-allowed;
+}
+
+.badge {
+    text-transform: capitalize;
+
+    &:hover {
+        box-shadow: $box-shadow-sm;
+    }
+}
+
+.icon {
+    width: 1.0666666667em;
+    height: 1.0666666667em;
+    vertical-align: -0.255em;
+}
+
+.dropdown-chevron {
+    transition: all .17s cubic-bezier(.4, 0, .2, 1); // need to find rotate transition properety
+}
+
+.flip {
+    transform: rotate(-180deg);
+}

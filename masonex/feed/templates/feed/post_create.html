@@ -1,7 +1,7 @@
 {% extends 'feed/base_site.html' %}
 
 {% block content %}
-<form class="create-post-form needs-validation" novalidate action="{% url 'add_post' %}" method="post" enctype="multipart/form-data">
+<form class="create-post-form needs-validation" novalidate action="{% url 'post_create' %}" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.media }}
     {% if form.non_field_errors %}

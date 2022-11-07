@@ -1,36 +1,55 @@
+from django.http import Http404
 from django.shortcuts import redirect
+from django.views.generic import UpdateView
 
-from feed.models import Post, User
+from .models import Post
 
 
-def get_client_ip(request):
-    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-    if x_forwarded_for:
-        ip = x_forwarded_for.split(',')[0]
-    else:
-        ip = request.META.get('REMOTE_ADDR')
-    return ip
-    
-
-class PostAuthorRequiredMixin:
+class AuthorRequiredMixin:
     def dispatch(self, request, *args, **kwargs):
-        post = Post.objects.get(pk=kwargs[self.pk_url_kwarg])
-        if not request.user.is_staff and request.user.pk != post.author.pk:
-            return self.handle_no_permission()
+        object = super().get_object()
+        if not request.user.is_staff and request.user.pk != object.author.pk:
+            raise Http404()
         return super().dispatch(request, *args, **kwargs)
 
 
 class ExcludeAuthenticatedUsersMixin:
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated:
-            return self.handle_no_permission()
+            return redirect('home')
         return super().dispatch(request, *args, **kwargs)
 
 
-class InputClassMixin:
+class FormControlMixin:
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field in self.fields:
-            self.fields[field].widget.attrs.update(
-                {'class': 'form-control form-control-sm lh-sm'}
-            )
+            self.fields[field].widget.attrs.update({'class': 'form-control form-control-sm lh-sm'})
+
+
+class PostsMixin:
+    model = Post
+    template_name = 'feed/index.html'
+    context_object_name = 'posts'
+    paginate_by = 16
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Masonex'
+        return context
+
+    def get_queryset(self):
+        return super().get_queryset().select_related('category', 'author')
+
+
+class PostMixin:
+    model = Post    
+    context_object_name = 'post'
+    pk_url_kwarg = 'post_id'
+    slug_url_kwarg = 'post_slug'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        is_update_view = self.__class__.__bases__.__contains__(UpdateView)
+        context['title'] = ('Edit: ' if is_update_view else '') + self.object.title
+        return context

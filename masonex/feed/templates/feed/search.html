@@ -1,6 +1,5 @@
 {% extends 'feed/base_site.html' %}
-{% load static %}
-{% load feed_tags %}
+{% load static feed_tags %}
 
 {% block content %}
 <h1 class="mb-0 mb-lg-2 pb-2 border-bottom fs-3 fw-normal">Search results {% if request.GET.query %}for <b>{{ request.GET.query }}</b>{% endif %}</h1>
@@ -13,10 +12,10 @@
                 <article>
                     <div class="d-flex align-items-center gap-2 mb-2">
                         <figure class="search-result__author__avatar">
-                            {% if result.author.photo %}
-                            <img src="{{ result.author.photo.url }}" class="rounded-circle" width="24" alt="Post author avatar">
+                            {% if result.author.avatar %}
+                            <img src="{{ result.author.avatar.url }}" class="rounded-circle" width="24" alt="Post author avatar">
                             {% else %}
-                            <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" width="24">
+                            <img src="{% static 'feed/dist/images/user.png' %}" width="24">
                             {% endif %}
                         </figure>
                         <div class="search-result__summary">
@@ -25,7 +24,7 @@
                             </a>
                             <span class="circle-divider"></span>
                             <span class="search-result__create-date">
-                                {{ result.create_date|date:"F, d, Y" }}
+                                {{ result.created_at|date:"F, d, Y" }}
                             </span>
                         </div>
                     </div>
@@ -39,7 +38,7 @@
                                 <ul class="list-unstyled d-flex gap-1">
                                     <li>
                                         <a href="{{ result.category.get_absolute_url }}">
-                                            <span class="badge rounded-pill text-bg-bright-gray fw-medium border">{{ result.category.name }}</span>
+                                            <span class="badge rounded-pill text-bg-bright-gray fw-medium border text-dark">{{ result.category.name }}</span>
                                         </a>
                                     </li>
                                 </ul>
@@ -47,7 +46,7 @@
                         </div>
                         <span class="ms-4 ms-md-5 d-flex align-items-center justify-content-end">
                             <picture class="search-result__image">
-                                <img class="rounded" src="{{ result.photo.url }}" alt="Cover photo">
+                                <img class="rounded" src="{{ result.thumbnail.url }}" alt="{{ result.title }}" loading="lazy">
                             </picture>
                         </span>
                     </div>
@@ -117,7 +116,7 @@
                         </svg>
                     </button>
                 </div>
-                <span class="d-block mt-2">
+                {% comment %} <span class="d-block mt-2">
                     <select class="form-select form-select-sm" name="category" onchange="this.form.submit()">
                         {% for pk, label in form.categories.field.choices %}
                         <option value="{{ pk }}" {% if pk|slugify in request.GET.category %} selected {% endif %}>{{ label }}</option>
@@ -139,7 +138,7 @@
                            name='order_by' value='{{ value }}' id='order_by_{{ value }}'>
                     <label class="btn btn-sm btn-outline-secondary" for="order_by_{{ value }}">{{ label }}</label>
                     {% endfor %}
-                </fieldset>
+                </fieldset> {% endcomment %}
             </form>
         </div>
     </aside>

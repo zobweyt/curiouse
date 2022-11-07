@@ -6,10 +6,20 @@ $arsenic:           #333640;
 $primary:           #3d64e4;
 $secondary:         #606e7a;
 $dark:              #2e2e30;
+$danger:            #dc3545;
+$success:           #198754;
+$focus-color:       #68aeff;
 
-$input-btn-focus-color: none;
+$input-btn-focus-width:         .1875em;
+
+$input-focus-width:             .0875em;
+$input-focus-border-color:      $focus-color;
+$input-focus-box-shadow:        0 0 0 $input-focus-width $focus-color;
 
 $component-active-bg:      $arsenic;
+
+$form-check-input-focus-box-shadow:   none;
+$form-check-input-checked-bg-color:   $success;
 
 $zindex-header:         1040;
 $zindex-footer:         $zindex-header;

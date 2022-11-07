@@ -7,14 +7,6 @@ from django.urls import reverse
 from masonex.settings import PHOTOS_PATH, AUTH_USER_MODEL
 
 
-class User(AbstractUser):
-    bio = models.TextField(max_length=256, blank=True)
-    photo = models.ImageField(upload_to=PHOTOS_PATH, null=True, blank=True) 
-
-    def __str__(self):
-        return self.username
-
-
 class Category(models.Model):
     name = models.CharField(max_length=64, db_index=True)
     slug = models.SlugField(max_length=64, unique=True, db_index=True)
@@ -26,8 +18,9 @@ class Category(models.Model):
         return reverse('category', kwargs={'category_slug': self.slug})
 
     class Meta:
+        verbose_name = 'category'
         verbose_name_plural = 'categories'
-        ordering = ['name', 'pk']
+        ordering = ['name', 'slug', 'pk']
 
 
 class Post(models.Model):
@@ -35,18 +28,37 @@ class Post(models.Model):
     category = models.ForeignKey(Category, on_delete=models.PROTECT)
     title = models.CharField(max_length=128, db_index=True)
     slug = AutoSlugField(populate_from='title', db_index=True)
-    description = models.CharField(max_length=512, db_index=True)
-    photo = models.ImageField(upload_to=PHOTOS_PATH) # cover_photo or cover
+    description = models.CharField(max_length=256, db_index=True)
+    thumbnail = models.ImageField(upload_to=PHOTOS_PATH)
     body = RichTextField()
     likes = models.ManyToManyField(AUTH_USER_MODEL, related_name='likes', related_query_name='like')
-    create_date = models.DateTimeField(auto_now_add=True) # time_create
-    update_date = models.DateTimeField(auto_now=True) # time_update
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('post', kwargs={'post_id': self.pk, 'post_slug': self.slug})
+        return reverse('post_detail', kwargs={'post_id': self.pk, 'post_slug': self.slug})
 
     class Meta:
-        ordering = ['-create_date', 'title']
+        verbose_name = 'post'
+        verbose_name_plural = 'posts'
+        ordering = ['-created_at', 'title', 'description', 'slug', 'pk']
+
+
+class User(AbstractUser):
+    bio = models.TextField(max_length=128, blank=True)
+    avatar = models.ImageField(upload_to=PHOTOS_PATH, null=True, blank=True)
+    bookmarks = models.ManyToManyField(Post, related_name='bookmarks', related_query_name='bookmark')
+
+    def __str__(self):
+        return self.username
+
+    def get_absolute_url(self):
+        return reverse('user', kwargs={'username': self.username})
+
+    class Meta:
+        verbose_name = 'user'
+        verbose_name_plural = 'users'
+        ordering = ['username']

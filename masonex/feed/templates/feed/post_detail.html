@@ -4,20 +4,20 @@
 {% block content %}
 <section class="col-12 col-lg-8">
     <div class="d-flex">
-        <a href="{% url 'update_post' post.pk post.slug %}" class="mb-2 btn btn-sm btn-outline-secondary">Edit this post</a>
+        <a href="{% url 'post_update' post.pk post.slug %}" class="mb-2 btn btn-sm btn-outline-secondary">Edit this post</a>
     </div>
     <h1 class="fs-3">{{ post.title }}</h1>
     <div class="d-flex align-items-center gap-2 mb-2">
         <a href="#" class="fs-4">{{ post.author.get_full_name }}</a>
         <span class="circle-divider fs-4"></span>
-        <span class="fs-4">{{ post.create_date|date:"F, d, Y" }}</span>
+        <span class="fs-4">{{ post.created_at|date:"F, d, Y" }}</span>
         <span class="circle-divider fs-4"></span>
         {% get_hit_count for post %} views
     </div>
     <div class="d-flex">
         <h2 class="category-badge mb-3">{{ post.category.name }}</h2>
     </div>
-    <img src="{{ post.photo.url }}" width="256" class="rounded mb-2">
+    <img src="{{ post.thumbnail.url }}" width="256" class="rounded mb-2">
     <article class="text-break">{{ post.body|safe }}</article>
 </section>
 {% endblock content %}

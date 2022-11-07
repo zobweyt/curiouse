@@ -32,7 +32,7 @@
             {% if user.is_authenticated %}
             <div class="dropdown text-end">
                 <a href="#" type="button" class="d-block rounded p-1 dropdown-toggle user-menu-dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
-                    <img src="{% if user.photo %}{{ user.photo.url }}{% else %}{% static 'feed/dist/images/user.png' %}{% endif %}" alt="Profile photo" width="32" height="32" class="rounded-circle">
+                    <img src="{% if user.avatar %}{{ user.avatar.url }}{% else %}{% static 'feed/dist/images/user.png' %}{% endif %}" alt="Profile photo" width="32" height="32" class="rounded-circle">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon text-dark dropdown-chevron" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                         <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                         <polyline points="6 9 12 15 18 9"></polyline>
@@ -42,7 +42,7 @@
                     <li class="p-2">
                         <a class="dropdown-item bg-light py-2 pe-1 rounded" href="{% url 'profile' %}">
                             <div class="d-flex align-items-center fs-sm">
-                                <img src="{% if user.photo %}{{ user.photo.url }}{% else %}{% static 'feed/dist/images/user.png' %}{% endif %}" alt="Profile photo" width="32" height="32" class="rounded-circle">
+                                <img src="{% if user.avatar %}{{ user.avatar.url }}{% else %}{% static 'feed/dist/images/user.png' %}{% endif %}" alt="Profile photo" width="32" height="32" class="rounded-circle">
                                 <div class="ms-2">
                                     <p class="mb-0 lh-sm fw-medium">{{ user.get_full_name }}</p>
                                     <p class="mb-0 lh-sm text-info">Customize profile</p>
@@ -57,7 +57,7 @@
                     <li>
                     <hr class="dropdown-divider"></li>
                     <li>
-                        <a class="dropdown-item" href="{% url 'add_post' %}">
+                        <a class="dropdown-item" href="{% url 'post_create' %}">
                             <div class="d-flex align-items-center gap-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>

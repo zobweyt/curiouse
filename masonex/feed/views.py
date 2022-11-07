@@ -1,106 +1,58 @@
-import operator
-from datetime import datetime, date, timedelta
-from functools import reduce
 from hitcount.views import HitCountDetailView
 
-from django.contrib.auth import logout, login
+from django.contrib.auth import login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
 from django.db.models import Q
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView
 
 from feed.forms import PostForm, UserLoginForm, UserRegistrationForm, ProfileForm, SearchForm
-from feed.models import Post, Category, User
-from feed.utils import ExcludeAuthenticatedUsersMixin, PostAuthorRequiredMixin
-
-# add mixin to populate post title
+from feed.models import Post, User
+from feed.utils import ExcludeAuthenticatedUsersMixin, AuthorRequiredMixin, PostsMixin, PostMixin
 
 
-class HomeView(ListView):
-    model = Post
-    template_name = 'feed/index.html'
-    extra_context = {'title': 'Masonex', 'categories': Category.objects.all()[:4]}
-    context_object_name = 'posts'
-    paginate_by = 16
+class HomeView(PostsMixin, ListView):
+    pass
 
+
+class CategoryView(PostsMixin, ListView):
     def get_queryset(self):
-        return super().get_queryset().select_related('category', 'author')
-
-
-class CategoryView(ListView):
-    model = Post
-    template_name = 'feed/index.html'
-    extra_context = {'title': 'Masonex', 'categories': Category.objects.all()[:4]}
-    context_object_name = 'posts'
-    paginate_by = 8
-
-    def get_queryset(self):
-        return super().get_queryset().filter(category__slug=self.kwargs['category_slug']).select_related('category', 'author')
+        return super().get_queryset().filter(category__slug=self.kwargs['category_slug'])
 
 
 class SearchView(ListView):
     model = Post
     template_name = 'feed/search.html'
-    extra_context = {'title': 'Search', 'categories': Category.objects.all(), 'form': SearchForm}
+    extra_context = {'title': 'Search', 'form': SearchForm}
     context_object_name = 'results'
     paginate_by = 12
 
-    # refactor the method below
     def get_queryset(self):
+        posts = super().get_queryset().select_related('category', 'author')
+
         if self.request.method == 'GET':
             form = SearchForm(self.request.GET)
-            lookups = Q()
-
             query = form.data.get('query')
+
             if query:
                 query = query.strip()
-                lookups &= Q(title__icontains=query) | Q(slug__icontains=query) | Q(description__icontains=query)
+                lookups = Q(title__icontains=query) | Q(slug__icontains=query) | Q(description__icontains=query)
+                return posts.filter(lookups)
 
-            categories = form.data.getlist('category')
-            if categories:
-                pairs = (Q(category_id=int(pk)) for pk in categories)
-                lookups &= reduce(operator.or_, pairs)
-
-            published = form.data.get('published')
-            if published:
-                if published == 'today':
-                    lookups &= Q(create_date__day=datetime.utcnow().day)
-                if published == 'week':
-                    lookups &= Q(create_date__day__range=[datetime.utcnow().day - datetime.utcnow().weekday(), datetime.utcnow().day])
-                if published == 'month':
-                    lookups &= Q(create_date__month=datetime.now().month)
-                if published == 'year':
-                    lookups &= Q(create_date__year=datetime.now().year)
-
-            order = form.data.get('order_by')
-
-            return super().get_queryset().filter(
-                lookups).select_related('category', 'author').order_by(
-                order if order else 'pk')
-
-        return super().get_queryset().select_related('category', 'author')
+        return posts
 
 
-class PostDetailView(HitCountDetailView):
-    model = Post
+class PostDetailView(PostMixin, HitCountDetailView):
+    template_name = 'feed/post_detail.html'
     count_hit = True
-    context_object_name = 'post'
-    pk_url_kwarg = 'post_id'
-    slug_url_kwarg = 'post_slug'
-    template_name = 'feed/post.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['title'] = self.object.title
-        return context
 
 
 class PostCreateView(LoginRequiredMixin, CreateView):
     form_class = PostForm
-    template_name = 'feed/add.html'
-    extra_context = {'title': 'Add post'}
+    template_name = 'feed/post_create.html'
+    extra_context = {'title': 'Create post'}
 
     def form_valid(self, form):
         post = form.save(commit=False)
@@ -109,14 +61,9 @@ class PostCreateView(LoginRequiredMixin, CreateView):
         return redirect(post.get_absolute_url())
 
 
-class PostUpdateView(LoginRequiredMixin, PostAuthorRequiredMixin, UpdateView):
-    model = Post
+class PostUpdateView(AuthorRequiredMixin, PostMixin, UpdateView):
     form_class = PostForm
-    template_name = 'feed/edit.html'
-    context_object_name = 'post'
-    extra_context = {'title': 'Edit post'}
-    pk_url_kwarg = 'post_id'
-    slug_url_kwarg = 'post_slug'
+    template_name = 'feed/post_update.html'
 
 
 class UserProfileView(LoginRequiredMixin, UpdateView):

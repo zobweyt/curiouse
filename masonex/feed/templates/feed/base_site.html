@@ -40,12 +40,12 @@
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end shadow-sm">
                     <li class="p-2">
-                        <a class="dropdown-item bg-light py-2 pe-1 rounded" href="{% url 'profile' %}">
+                        <a class="dropdown-item py-2 pe-1 rounded border" href="{% url 'profile' %}">
                             <div class="d-flex align-items-center fs-sm">
                                 <img src="{% if user.avatar %}{{ user.avatar.url }}{% else %}{% static 'feed/dist/images/user.png' %}{% endif %}" alt="Profile photo" width="32" height="32" class="rounded-circle">
                                 <div class="ms-2">
                                     <p class="mb-0 lh-sm fw-medium">{{ user.get_full_name }}</p>
-                                    <p class="mb-0 lh-sm text-info">Customize profile</p>
+                                    <p class="mb-0 lh-sm text-muted">Customize profile</p>
                                 </div>
                                 <svg xmlns="http://www.w3.org/2000/svg" class="icon ms-2 align-self-center text-muted" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>

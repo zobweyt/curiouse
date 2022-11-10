@@ -50,7 +50,7 @@ class Post(models.Model):
 class User(AbstractUser):
     bio = models.TextField(max_length=128, blank=True)
     avatar = models.ImageField(upload_to=PHOTOS_PATH, null=True, blank=True)
-    bookmarks = models.ManyToManyField(Post, related_name='bookmarks', related_query_name='bookmark')
+    bookmarks = models.ManyToManyField(Post, related_name='bookmarks', related_query_name='bookmark', blank=True)
 
     def __str__(self):
         return self.username

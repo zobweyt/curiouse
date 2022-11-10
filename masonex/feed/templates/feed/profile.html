@@ -2,202 +2,175 @@
 {% load static %}
 
 {% block content %}
-    <div class="container-lg flex-fill d-flex flex-column my-2 my-md-3 col-xxl-6 col-xl-7 col-lg-8 col-md-10">
-        <div class="responsive-tabs row">
-            <div class="col-12 col-md-4">
-                <h1 class="ms-2 fs-4" role="tablist-header" default-title="Settings">Settings</h1>
-                <div class="list-group mb-2 mb-sm-0 sticky-sm-top" style="top: 5.5rem;" role="tablist">
-                    <button class="list-group-item list-group-item-action active" id="settings-general-tab" data-bs-toggle="pill" data-bs-target="#settings-general" role="tab" aria-controls="settings-general">
-                        <div class="d-flex align-items-center gap-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                <circle cx="12" cy="12" r="9"></circle>
-                                <line x1="3.6" y1="9" x2="20.4" y2="9"></line>
-                                <line x1="3.6" y1="15" x2="20.4" y2="15"></line>
-                                <path d="M11.5 3a17 17 0 0 0 0 18"></path>
-                                <path d="M12.5 3a17 17 0 0 1 0 18"></path>
-                            </svg>
-                            General
-                        </div> 
-                    </button>
-                    <button class="list-group-item list-group-item-action" id="settings-secutity-tab" data-bs-toggle="pill" data-bs-target="#settings-secutity" role="tab" aria-controls="settings-secutity">
-                        <div class="d-flex align-items-center gap-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                <path d="M9 12l2 2l4 -4"></path>
-                                <path d="M12 3a12 12 0 0 0 8.5 3a12 12 0 0 1 -8.5 15a12 12 0 0 1 -8.5 -15a12 12 0 0 0 8.5 -3"></path>
-                            </svg>
-                            Security
-                        </div> 
-                    </button>
-                    <button class="list-group-item list-group-item-action" id="settings-notifications-tab" data-bs-toggle="pill" data-bs-target="#settings-notifications" role="tab" aria-controls="settings-notifications">
-                        <div class="d-flex align-items-center gap-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                <path d="M10 5a2 2 0 0 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6"></path>
-                                <path d="M9 17v1a3 3 0 0 0 6 0v-1"></path>
-                            </svg>
-                            Notifications
+<div class="container-lg col-12 col-md-7 col-lg-6 col-xl-5">
+    {% if not user.bio %}
+    <div class="mb-3 alert alert-info alert-dismissible fade show d-flex align-items-center gap-2" role="alert">
+        <div class="align-self-start">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="22" height="22" viewBox="0 0 24 24"
+                stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                <circle cx="12" cy="12" r="9"></circle>
+                <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                <polyline points="11 12 12 12 12 16 13 16"></polyline>
+            </svg>
+        </div>
+        <span>Adding a profile bio can help us recommend you in searches!</span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endif %}
+    <div class="tab-content border rounded p-3" role="contentlist">
+        <form class="needs-validation" novalidate action="{% url 'profile' %}" method="post"
+            enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="d-flex">
+                <div class="dropdown">
+                    <span class="dropdown-toggle dropdown-toggle-arrow-hide" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        <div class="avatar--change" id="avatar">
+                            <img src="{% if user.avatar %}{{ user.avatar.url }}{% else %}{% static 'feed/dist/images/user.png' %}{% endif %}"
+                                alt="Profile photo" width="64" height="64" class="rounded">
+                            <div class="avatar--change__pen p-1 rounded">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24"
+                                    stroke-width="2" stroke="white" fill="none" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                    <path
+                                        d="M5 7h1a2 2 0 0 0 2 -2a1 1 0 0 1 1 -1h6a1 1 0 0 1 1 1a2 2 0 0 0 2 2h1a2 2 0 0 1 2 2v9a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-9a2 2 0 0 1 2 -2">
+                                    </path>
+                                    <circle cx="12" cy="13" r="3"></circle>
+                                </svg>
+                            </div>
                         </div>
-                    </button>
+                    </span>
+                    <ul class="dropdown-menu border-0 shadow fs-sm">
+                        <li class="dropdown-item" type="button" style="cursor: pointer;">
+                            <label for="{{ form.avatar.id_for_label }}" style="cursor: pointer;"
+                                class="d-flex align-items-center">
+                                {% if user.avatar %}
+                                Change photo
+                                {% else %}
+                                Add photo
+                                {% endif %}
+                            </label>
+                            {{ form.avatar }}
+                        </li>
+                        {% if user.avatar %}
+                        <li class="dropdown-item text-danger d-flex align-items-center" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal" style="cursor: pointer;">
+                            Delete photo
+                        </li>
+                        {% endif %}
+                    </ul>
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Delete photo?</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body fs-6">
+                                    Do you really want to delete profile photo?
+                                    <span class="text-muted">This action cannot be undone.</span>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-sm btn-secondary"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <input type="checkbox" name="remove_photo" class="btn-check" id="id_remove_photo"
+                                        data-target="#avatar" data-toggle="delete-avatar">
+                                    <label class="btn btn-sm btn-danger" for="id_remove_photo"
+                                        data-bs-dismiss="modal">Delete</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ms-2">
+                    <h3 class="fs-6 mb-1">{{ user.get_full_name }}</h3>
+                    <p class="text-muted fs-sm fw-normal lh-sm mb-0">Provide basic information to make using Masonex
+                        more convenient</p>
                 </div>
             </div>
-            <div class="col-12 col-md-8">
-                {% if not user.bio %}
-                <div class="mb-3 alert alert-info alert-dismissible fade show d-flex align-items-center gap-2" role="alert">
-                    <div class="align-self-start">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <div class="row mt-2">
+                <div class="col-6">
+                    <label for="first_name" class="form-label mb-0 text-muted fs-sm">{{ form.first_name.label }}</label>
+                    {{ form.first_name }}
+                </div>
+                <div class="col-6">
+                    <label for="last_name" class="form-label mb-0 text-muted fs-sm">{{ form.last_name.label }}</label>
+                    {{ form.last_name }}
+                </div>
+            </div>
+            <div class="mt-2">
+                <label for="bio" class="form-label mb-0 fs-sm text-muted">{{ form.bio.label }}</label>
+                {{ form.bio }}
+            </div>
+            <div class="border rounded p-2 mt-3">
+                <div class="d-flex align-items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-lg me-2" width="40" height="40"
+                        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <rect x="3" y="5" width="18" height="14" rx="2"></rect>
+                        <polyline points="3 7 12 13 21 7"></polyline>
+                    </svg>
+                    <p class="lh-sm text-muted m-0">{{ request.user.email }}</p>
+                    <div class="ms-auto text-muted">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="20" height="20" viewBox="0 0 24 24"
+                            stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+                            stroke-linejoin="round">
                             <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                            <circle cx="12" cy="12" r="9"></circle>
-                            <line x1="12" y1="8" x2="12.01" y2="8"></line>
-                            <polyline points="11 12 12 12 12 16 13 16"></polyline>
+                            <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4"></path>
+                            <line x1="13.5" y1="6.5" x2="17.5" y2="10.5"></line>
                         </svg>
                     </div>
-                    <span>Adding a profile bio can help us recommend you in searches!</span>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
-                {% endif %}                
-                <div class="tab-content border rounded p-3" role="contentlist">
-                    <div class="tab-pane active" id="settings-general" role="tabpanel" aria-labelledby="settings-general-tab">
-                        <form class="needs-validation" novalidate action="{% url 'profile' %}" method="post" enctype="multipart/form-data">
-                            {% csrf_token %}
-                            <div class="d-flex">
-                                <div class="dropdown">
-                                    <span class="dropdown-toggle dropdown-toggle-arrow-hide" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <div class="avatar--change" id="avatar">
-                                            <img src="{% if user.avatar %}{{ user.avatar.url }}{% else %}{% static 'feed/dist/images/user.png' %}{% endif %}" alt="Profile photo" width="64" height="64" class="rounded-circle">
-                                            <div class="avatar--change__pen p-1 rounded">                                        
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" stroke-width="2" stroke="white" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                                    <path d="M5 7h1a2 2 0 0 0 2 -2a1 1 0 0 1 1 -1h6a1 1 0 0 1 1 1a2 2 0 0 0 2 2h1a2 2 0 0 1 2 2v9a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-9a2 2 0 0 1 2 -2"></path>
-                                                    <circle cx="12" cy="13" r="3"></circle>
-                                                </svg>
-                                            </div>
-                                        </div>
-                                    </span>
-                                    <ul class="dropdown-menu">
-                                        <li class="dropdown-item" type="button" style="cursor: pointer;">
-                                            <label for="{{ form.avatar.id_for_label }}" style="cursor: pointer;" class="d-flex align-items-center">
-                                                {% if user.avatar %}
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="me-2" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                                    <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4"></path>
-                                                    <line x1="13.5" y1="6.5" x2="17.5" y2="10.5"></line>
-                                                </svg>
-                                                Change photo
-                                                {% else %}
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="me-2 icon" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                                    <path d="M15 8h.01"></path>
-                                                    <path d="M12 20h-5a3 3 0 0 1 -3 -3v-10a3 3 0 0 1 3 -3h10a3 3 0 0 1 3 3v5"></path>
-                                                    <path d="M4 15l4 -4c.928 -.893 2.072 -.893 3 0l4 4"></path>
-                                                    <path d="M14 14l1 -1c.617 -.593 1.328 -.793 2.009 -.598"></path>
-                                                    <path d="M16 19h6"></path>
-                                                    <path d="M19 16v6"></path>
-                                                 </svg>
-                                                Add photo
-                                                {% endif %}
-                                            </label>
-                                            {{ form.avatar }}
-                                        </li>
-                                        {% if user.avatar %}
-                                        <li class="dropdown-item text-danger d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#exampleModal" style="cursor: pointer;">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="me-2 icon" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                                <line x1="4" y1="7" x2="20" y2="7"></line>
-                                                <line x1="10" y1="11" x2="10" y2="17"></line>
-                                                <line x1="14" y1="11" x2="14" y2="17"></line>
-                                                <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path>
-                                                <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>
-                                             </svg>
-                                             Delete photo
-                                        </li>
-                                        {% endif %}
-                                    </ul>
-                                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Delete photo?</h1>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                 </div>
-                                                <div class="modal-body fs-6">
-                                                    Do you really want to delete profile photo?
-                                                    <span class="text-muted">This action cannot be undone.</span>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                                    <input type="checkbox" name="remove_photo" class="btn-check" id="id_remove_photo" data-target="#avatar" data-toggle="delete-avatar">
-                                                    <label class="btn btn-sm btn-danger" for="id_remove_photo" data-bs-dismiss="modal">Delete</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="ms-2">
-                                    <h3 class="fs-6 mb-1">{{ user.get_full_name }}</h3>
-                                    <p class="text-muted fs-sm fw-normal lh-sm mb-0">Provide basic information to make using Masonex more convenient</p>
-                                </div>
-                            </div>
-                            <div class="row mt-2">
-                                <div class="col-6">                                    
-                                    <label for="first_name" class="form-label mb-0 text-muted fs-sm">{{ form.first_name.label }}</label>
-                                    {{ form.first_name }}
-                                </div>
-                                <div class="col-6">
-                                    <label for="last_name" class="form-label mb-0 text-muted fs-sm">{{ form.last_name.label }}</label>
-                                    {{ form.last_name }}
-                                </div>
-                            </div>
-                            <div class="mt-2">
-                                <label for="bio" class="form-label mb-0 fs-sm text-muted">{{ form.bio.label }}</label>
-                                {{ form.bio }}
-                            </div>
-                            <button type="submit" class="w-100 w-sm-auto btn btn-sm btn-success mt-3 px-3" on-validation-text="Saving..." disabled>Save</button>                                                
-                        </form>
-                    </div>
-                    <div class="tab-pane" id="settings-secutity" role="tabpanel" aria-labelledby="settings-secutity-tab">
-                        <p class="text-muted">{{ user.email }}</p>
-                        <div class="input-group input-group-sm w-100">                            
-                            <input type="password" class="form-control form-control-sm" disabled value="password">
-                            <button type="submit" class="btn btn-secondary">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                    <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4"></path>
-                                    <line x1="13.5" y1="6.5" x2="17.5" y2="10.5"></line>
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="tab-pane" id="settings-notifications" role="tabpanel" aria-labelledby="settings-notifications-tab">
-                        Notifications
-                        <div class="form-check form-switch">
-                            <label class="form-check-label" for="flexSwitchCheckDefault">Enable notifications</label>
-                            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
-                        </div>
+                <div class="mt-2 d-flex align-items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-lg me-2" width="40" height="40"
+                        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <path
+                            d="M16.555 3.843l3.602 3.602a2.877 2.877 0 0 1 0 4.069l-2.643 2.643a2.877 2.877 0 0 1 -4.069 0l-.301 -.301l-6.558 6.558a2 2 0 0 1 -1.239 .578l-.175 .008h-1.172a1 1 0 0 1 -.993 -.883l-.007 -.117v-1.172a2 2 0 0 1 .467 -1.284l.119 -.13l.414 -.414h2v-2h2v-2l2.144 -2.144l-.301 -.301a2.877 2.877 0 0 1 0 -4.069l2.643 -2.643a2.877 2.877 0 0 1 4.069 0z">
+                        </path>
+                        <path d="M15 9h.01"></path>
+                    </svg>
+                    <p class="lh-sm text-muted m-0">Password</p>
+                    <div class="ms-auto text-muted">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="20" height="20" viewBox="0 0 24 24"
+                            stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4"></path>
+                            <line x1="13.5" y1="6.5" x2="17.5" y2="10.5"></line>
+                        </svg>
                     </div>
                 </div>
             </div>
-        </div>
+            <button type="submit" class="w-100 w-sm-auto btn btn-sm btn-success mt-3 px-3 fw-medium"
+                on-validation-text="Saving..." disabled>Save</button>
+        </form>
     </div>
-    <script type="text/javascript">
-        function changeAvatar(input, image) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();            
-                reader.onload = function (e) {
-                    image.attr('src', e.target.result);
-                }            
-                reader.readAsDataURL(input.files[0]);
+</div>
+<script type="text/javascript">
+    function changeAvatar(input, image) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                image.attr('src', e.target.result);
             }
+            reader.readAsDataURL(input.files[0]);
         }
-        
-        $('[data-toggle="change-avatar"]').change(function() {
-            changeAvatar(this, $($(this).attr('data-target')).find('img'));
-        });
+    }
 
-        $('[data-toggle="delete-avatar"]').click(function() {
-            $($(this).attr('data-target')).find('img').attr('src', "{% static 'feed/dist/images/user.png' %}");            
-        });
-    </script>
+    $('[data-toggle="change-avatar"]').change(function () {
+        changeAvatar(this, $($(this).attr('data-target')).find('img'));
+    });
+
+    $('[data-toggle="delete-avatar"]').click(function () {
+        $($(this).attr('data-target')).find('img').attr('src', "{% static 'feed/dist/images/user.png' %}");
+    });
+</script>
 </body>
 {% endblock content %}

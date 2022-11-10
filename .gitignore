@@ -1,2 +1,7 @@
 /.vscode
 /venv
+**/__pycache__
+**/media
+**/bootstrap
+*.sqlite3
+*.pyc

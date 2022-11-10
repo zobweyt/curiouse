@@ -18,8 +18,7 @@ $input-focus-box-shadow:        0 0 0 $input-focus-width $focus-color;
 
 $component-active-bg:      $arsenic;
 
-$form-check-input-focus-box-shadow:   none;
-$form-check-input-checked-bg-color:   $success;
+$dropdown-min-width: auto;
 
 $zindex-header:         1040;
 $zindex-footer:         $zindex-header;
@@ -37,8 +36,9 @@ $alert-bg-scale: -88%;
 @import "../../../bootstrap/scss/functions";
 @import "../../../bootstrap/scss/variables";
 
+$dropdown-link-active-bg:      $gray-200;
 $dropdown-link-active-color:   $dark;
-$dropdown-link-active-bg:      $gray-400;
+$dropdown-link-hover-bg:       $gray-100;
 
 $info:           $blue-400;
 $warning:        $orange-400;

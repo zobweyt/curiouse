@@ -24,7 +24,8 @@ class FormControlMixin:
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field in self.fields:
-            self.fields[field].widget.attrs.update({'class': 'form-control form-control-sm lh-sm'})
+            self.fields[field].widget.attrs.update(
+                {'class': 'form-control form-control-sm lh-sm'})
 
 
 class PostsMixin:
@@ -43,7 +44,7 @@ class PostsMixin:
 
 
 class PostMixin:
-    model = Post    
+    model = Post
     context_object_name = 'post'
     pk_url_kwarg = 'post_id'
     slug_url_kwarg = 'post_slug'
@@ -51,5 +52,6 @@ class PostMixin:
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         is_update_view = self.__class__.__bases__.__contains__(UpdateView)
-        context['title'] = ('Edit: ' if is_update_view else '') + self.object.title
+        context['title'] = (
+            'Edit: ' if is_update_view else '') + self.object.title
         return context

@@ -5,6 +5,11 @@
 
 $utilities: map-merge(
     $utilities, (
+        "cursor": (
+            property: cursor,
+            class: cursor,
+            values: auto pointer grab,
+        ),
         "width": map-merge(
             map-get($utilities, "width"),
             ( responsive: true ),

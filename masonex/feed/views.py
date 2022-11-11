@@ -2,13 +2,14 @@ from hitcount.views import HitCountDetailView
 
 from django.contrib.auth import login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView, PasswordChangeView
+from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models import Q
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView
 
-from feed.forms import PostForm, UserLoginForm, UserRegistrationForm, ProfileForm, SearchForm
+from feed.forms import PostForm, UserLoginForm, UserRegistrationForm, ProfileForm, UserPasswordChangeForm, SearchForm
 from feed.models import Post, User
 from feed.utils import ExcludeAuthenticatedUsersMixin, AuthorRequiredMixin, PostsMixin, PostMixin
 
@@ -66,17 +67,23 @@ class PostUpdateView(AuthorRequiredMixin, PostMixin, UpdateView):
     template_name = 'feed/post_update.html'
 
 
-class UserProfileView(LoginRequiredMixin, UpdateView):
+class UserProfileView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = User
     form_class = ProfileForm
     template_name = 'feed/profile.html'
     extra_context = {'title': 'Profile'}
+    success_message = 'The profile has been successfully updated!'
 
     def get_object(self):
         return self.request.user
 
     def get_success_url(self):
         return reverse_lazy('profile')
+
+
+class PasswordChangeView(PasswordChangeView):
+    success_url = reverse_lazy("password_change")
+    template_name = 'feed/password_change.html'
 
 
 class UserAuthenticiationView(ExcludeAuthenticatedUsersMixin, LoginView):

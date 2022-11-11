@@ -10,6 +10,7 @@ from feed.views import (
     UserAuthenticiationView,
     UserRegistrationView,
     UserProfileView,
+    PasswordChangeView,
     logout_user,
 )
 
@@ -25,5 +26,6 @@ urlpatterns = [
     path('login/', UserAuthenticiationView.as_view(), name='login'),
     path('register/', UserRegistrationView.as_view(), name='register'),
     path('profile/', UserProfileView.as_view(), name='profile'),
+    path('password-change/', PasswordChangeView.as_view(), name='password_change'),
     path('logout/', logout_user, name='logout'),
 ]

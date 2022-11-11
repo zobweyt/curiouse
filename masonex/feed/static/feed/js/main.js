@@ -25,6 +25,20 @@ $(document).ready(function() {
         }
     });
 
+    function changeAvatar(input, image) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                image.attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $('[data-toggle="change-avatar"]').change(function () {
+        changeAvatar(this, $($(this).attr('data-target')).find('img'));
+    });
+
     const scrollToTop = $('#scroll-to-top');
     scrollToTop.hide();
     scrollToTop.css("transform", "translateY(75px)");

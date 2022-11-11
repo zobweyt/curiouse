@@ -1,12 +1,12 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm
 from django.core.exceptions import ValidationError
 
 from feed.models import Post, User, Category
-from feed.utils import FormControlMixin
+from feed.utils import FormSmallControlMixin
 
 
-class PostForm(FormControlMixin, forms.ModelForm):
+class PostForm(FormSmallControlMixin, forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['category'].empty_label = 'Not selected'
@@ -17,7 +17,7 @@ class PostForm(FormControlMixin, forms.ModelForm):
         exclude = ('author', 'slug')
 
 
-class UserRegistrationForm(FormControlMixin, UserCreationForm):
+class UserRegistrationForm(FormSmallControlMixin, UserCreationForm):
     email = forms.EmailField(required=True)
     last_name = forms.CharField(required=True)
     first_name = forms.CharField(required=True)
@@ -48,7 +48,7 @@ class SearchForm(forms.Form):
     order_by = forms.ChoiceField(choices=POST_ORDER_CHOICES)
 
 
-class UserLoginForm(FormControlMixin, AuthenticationForm):
+class UserLoginForm(FormSmallControlMixin, AuthenticationForm):
     username = forms.CharField(widget=forms.TextInput(attrs={'autofocus': 'true'}))
     password = forms.CharField(widget=forms.PasswordInput)
 
@@ -56,15 +56,27 @@ class UserLoginForm(FormControlMixin, AuthenticationForm):
         return ValidationError('Incorrect username or password.')
 
 
-class ProfileForm(FormControlMixin, forms.ModelForm):
-    avatar = forms.ImageField(widget=forms.FileInput(attrs={'hidden': True, 'accept': '.png, .jpg, .jpeg', 'data-toggle': 'change-avatar', 'data-target': '#avatar'}), required=False)
-    remove_photo= forms.BooleanField(required=False)
+class ProfileForm(FormSmallControlMixin, forms.ModelForm):
+    avatar = forms.ImageField(widget=forms.FileInput(attrs={
+        'hidden': True, 
+        'accept': '.png, .jpg, .jpeg', 
+        'data-toggle': 'change-avatar', 
+        'data-target': '#avatar'
+        }), 
+        required=False)
+    remove_photo = forms.BooleanField(label='Delete photo?', help_text='This action cannot be undone.', 
+        widget=forms.CheckboxInput(attrs={
+            'class': 'btn-check',
+            'onchange': 'this.form.submit();'
+        }), 
+        required=False)
     first_name = forms.CharField(required=True)
     last_name = forms.CharField(required=True)
-    bio = forms.CharField(widget=forms.Textarea(attrs={'rows': 5}), required=False)
+    bio = forms.CharField(widget=forms.Textarea(attrs={'rows': 5}), 
+    help_text='Adding a profile bio can help us promote you!', required=False)
 
     def save(self, *args, **kwargs):
-        user = super(self.__class__, self).save(*args, **kwargs)
+        user = super().save(*args, **kwargs)
         if self.cleaned_data.get('remove_photo'):
             user.avatar.delete()
         return user
@@ -72,3 +84,8 @@ class ProfileForm(FormControlMixin, forms.ModelForm):
     class Meta:
         model = User
         fields = ('avatar', 'first_name', 'last_name', 'bio')
+
+
+class UserPasswordChangeForm(FormSmallControlMixin, PasswordChangeForm):
+    pass
+        

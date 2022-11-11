@@ -3,5 +3,6 @@
 **/__pycache__
 **/media
 **/bootstrap
+**/node_modules
 *.sqlite3
 *.pyc

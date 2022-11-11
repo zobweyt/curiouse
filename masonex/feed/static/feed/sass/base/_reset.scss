@@ -32,13 +32,8 @@ button:disabled {
     vertical-align: -0.255em;
 }
 
-.icon-lg {
-    width: 1.4766666667em;
-    height: 1.4766666667em;
-}
-
 .dropdown-chevron {
-    transition: all .17s cubic-bezier(.4, 0, .2, 1); // need to find rotate transition properety
+    transition: all 0.2s ease; 
 }
 
 .flip {

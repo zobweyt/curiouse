@@ -1,6 +1,7 @@
 from django.http import Http404
 from django.shortcuts import redirect
 from django.views.generic import UpdateView
+from django.forms.fields import CharField
 
 from .models import Post
 
@@ -20,12 +21,14 @@ class ExcludeAuthenticatedUsersMixin:
         return super().dispatch(request, *args, **kwargs)
 
 
-class FormControlMixin:
+class FormSmallControlMixin:
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        for field in self.fields:
-            self.fields[field].widget.attrs.update(
-                {'class': 'form-control form-control-sm lh-sm'})
+        for field_name in self.fields:
+            field = self.fields[field_name]
+            if isinstance(field, CharField):
+                field.widget.attrs.update(
+                    {'class': 'form-control form-control-sm lh-sm'})
 
 
 class PostsMixin:

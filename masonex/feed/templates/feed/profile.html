@@ -1,176 +1,112 @@
-{% extends 'feed/base_site.html' %}
-{% load static %}
+{% extends 'feed/base.html' %}
+{% load static feed_tags %}
 
-{% block content %}
-<div class="container-lg col-12 col-md-7 col-lg-6 col-xl-5">
-    {% if not user.bio %}
-    <div class="mb-3 alert alert-info alert-dismissible fade show d-flex align-items-center gap-2" role="alert">
-        <div class="align-self-start">
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="22" height="22" viewBox="0 0 24 24"
-                stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                <circle cx="12" cy="12" r="9"></circle>
-                <line x1="12" y1="8" x2="12.01" y2="8"></line>
-                <polyline points="11 12 12 12 12 16 13 16"></polyline>
-            </svg>
-        </div>
-        <span>Adding a profile bio can help us recommend you in searches!</span>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
+{% block body %}
+{% include 'feed/snippets/header.html' %}
+<main class="container-xxl my-md-4 my-3 mx-auto" style="max-width: 25em;">
+    {% if messages %}
+        {% for message in messages %}
+        {% include 'feed/snippets/alert.html' with style='success' content=message %}
+        {% endfor %}
     {% endif %}
-    <div class="tab-content border rounded p-3" role="contentlist">
-        <form class="needs-validation" novalidate action="{% url 'profile' %}" method="post"
-            enctype="multipart/form-data">
+    {% if not user.bio %}
+    {% include 'feed/snippets/alert.html' with style='info' content=form.bio.help_text %}
+    {% endif %}
+    <section class="border rounded p-3">
+        <form action="{% url 'profile' %}" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
             {% csrf_token %}
-            <div class="d-flex">
-                <div class="dropdown">
-                    <span class="dropdown-toggle dropdown-toggle-arrow-hide" type="button" data-bs-toggle="dropdown"
-                        aria-expanded="false">
-                        <div class="avatar--change" id="avatar">
-                            <img src="{% if user.avatar %}{{ user.avatar.url }}{% else %}{% static 'feed/dist/images/user.png' %}{% endif %}"
-                                alt="Profile photo" width="64" height="64" class="rounded">
-                            <div class="avatar--change__pen p-1 rounded">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24"
-                                    stroke-width="2" stroke="white" fill="none" stroke-linecap="round"
-                                    stroke-linejoin="round">
-                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                    <path
-                                        d="M5 7h1a2 2 0 0 0 2 -2a1 1 0 0 1 1 -1h6a1 1 0 0 1 1 1a2 2 0 0 0 2 2h1a2 2 0 0 1 2 2v9a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-9a2 2 0 0 1 2 -2">
-                                    </path>
-                                    <circle cx="12" cy="13" r="3"></circle>
-                                </svg>
-                            </div>
-                        </div>
-                    </span>
-                    <ul class="dropdown-menu border-0 shadow fs-sm">
-                        <li class="dropdown-item" type="button" style="cursor: pointer;">
-                            <label for="{{ form.avatar.id_for_label }}" style="cursor: pointer;"
-                                class="d-flex align-items-center">
-                                {% if user.avatar %}
-                                Change photo
-                                {% else %}
-                                Add photo
-                                {% endif %}
-                            </label>
-                            {{ form.avatar }}
-                        </li>
-                        {% if user.avatar %}
-                        <li class="dropdown-item text-danger d-flex align-items-center" data-bs-toggle="modal"
-                            data-bs-target="#exampleModal" style="cursor: pointer;">
-                            Delete photo
-                        </li>
-                        {% endif %}
-                    </ul>
-                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                        aria-hidden="true">
+            <section class="d-flex mb-2">
+                <section class="me-2">
+                    <div class="dropdown">
+                        <a href="#" class="dropdown-toggle dropdown-toggle-arrow-hide" id="avatar" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="{% if user.avatar %}{{ user.avatar.url }}{% else %} 
+                                      {% static 'feed/dist/images/user.png' %}{% endif %}" 
+                                      alt="{{ user.username }}" class="rounded d-block" style="width: 3.4em;">
+                        </a>
+                        <ul class="dropdown-menu border-0 shadow fs-md">
+                            <li>
+                                <label for="{{ form.avatar.id_for_label }}" class="dropdown-item cursor-pointer">
+                                    Change photo
+                                    {{ form.avatar }}
+                                </label>
+                            </li>
+                            {% if user.avatar %}
+                            <li>
+                                <a href="#" class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#avatarDeleteModal">
+                                    Delete photo
+                                </a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                    <div class="modal fade" id="avatarDeleteModal" tabindex="-1" aria-labelledby="avatarDeleteModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Delete photo?</h1>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    <h1 class="modal-title fs-6" id="avatarDeleteModalLabel">{{ form.remove_photo.label }}</h1>
+                                    <button type="button" class="btn-close fs-md" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                                 </div>
-                                <div class="modal-body fs-6">
-                                    Do you really want to delete profile photo?
-                                    <span class="text-muted">This action cannot be undone.</span>
+                                <div class="modal-body">
+                                    <p class="mb-0">
+                                        Do you really want to delete profile photo?
+                                        <span class="text-muted">{{ form.remove_photo.help_text }}</span>
+                                    </p>                                    
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-sm btn-secondary"
                                         data-bs-dismiss="modal">Cancel</button>
-                                    <input type="checkbox" name="remove_photo" class="btn-check" id="id_remove_photo"
-                                        data-target="#avatar" data-toggle="delete-avatar">
-                                    <label class="btn btn-sm btn-danger" for="id_remove_photo"
-                                        data-bs-dismiss="modal">Delete</label>
+                                    <label class="btn btn-sm btn-danger" for="{{ form.remove_photo.id_for_label }}" data-bs-dismiss="modal">Delete</label>
+                                    {{ form.remove_photo }}
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="ms-2">
-                    <h3 class="fs-6 mb-1">{{ user.get_full_name }}</h3>
-                    <p class="text-muted fs-sm fw-normal lh-sm mb-0">Provide basic information to make using Masonex
-                        more convenient</p>
-                </div>
-            </div>
-            <div class="row mt-2">
-                <div class="col-6">
-                    <label for="first_name" class="form-label mb-0 text-muted fs-sm">{{ form.first_name.label }}</label>
-                    {{ form.first_name }}
-                </div>
-                <div class="col-6">
-                    <label for="last_name" class="form-label mb-0 text-muted fs-sm">{{ form.last_name.label }}</label>
-                    {{ form.last_name }}
-                </div>
-            </div>
-            <div class="mt-2">
-                <label for="bio" class="form-label mb-0 fs-sm text-muted">{{ form.bio.label }}</label>
-                {{ form.bio }}
-            </div>
-            <div class="border rounded p-2 mt-3">
-                <div class="d-flex align-items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-lg me-2" width="40" height="40"
-                        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                        <rect x="3" y="5" width="18" height="14" rx="2"></rect>
-                        <polyline points="3 7 12 13 21 7"></polyline>
-                    </svg>
-                    <p class="lh-sm text-muted m-0">{{ request.user.email }}</p>
-                    <div class="ms-auto text-muted">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="20" height="20" viewBox="0 0 24 24"
-                            stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
-                            stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                            <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4"></path>
-                            <line x1="13.5" y1="6.5" x2="17.5" y2="10.5"></line>
-                        </svg>
+                </section>                
+                <hgroup>
+                    <h2 class="mb-1 fs-md">{{ user.get_full_name }}</h2>
+                    <p class="mb-0 text-muted lh-1"><small>Provide basic information to make using Masonex more convenient</small></p>
+                </hgroup>
+            </section>
+            <section class="mb-3">
+                <fieldset>
+                    <fieldset class="row mb-1">
+                        <div class="col-6">
+                            <label for="{{ form.first_name.id_for_label }}" class="form-label mb-0 text-muted fs-sm">{{ form.first_name.label }}</label>
+                            {{ form.first_name }}
+                        </div>
+                        <div class="col-6">
+                            <label for="{{ form.last_name.id_for_label }}" class="form-label mb-0 text-muted fs-sm">{{ form.last_name.label }}</label>
+                            {{ form.last_name }}
+                        </div>
+                    </fieldset>                
+                    <div>
+                        <label for="{{ form.bio.id_for_label }}" class="form-label mb-0 fs-sm text-muted">{{ form.bio.label }}</label>
+                        {{ form.bio }}
                     </div>
-                </div>
-                <div class="mt-2 d-flex align-items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-lg me-2" width="40" height="40"
-                        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                        <path
-                            d="M16.555 3.843l3.602 3.602a2.877 2.877 0 0 1 0 4.069l-2.643 2.643a2.877 2.877 0 0 1 -4.069 0l-.301 -.301l-6.558 6.558a2 2 0 0 1 -1.239 .578l-.175 .008h-1.172a1 1 0 0 1 -.993 -.883l-.007 -.117v-1.172a2 2 0 0 1 .467 -1.284l.119 -.13l.414 -.414h2v-2h2v-2l2.144 -2.144l-.301 -.301a2.877 2.877 0 0 1 0 -4.069l2.643 -2.643a2.877 2.877 0 0 1 4.069 0z">
-                        </path>
-                        <path d="M15 9h.01"></path>
-                    </svg>
-                    <p class="lh-sm text-muted m-0">Password</p>
-                    <div class="ms-auto text-muted">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="20" height="20" viewBox="0 0 24 24"
-                            stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
-                            stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                            <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4"></path>
-                            <line x1="13.5" y1="6.5" x2="17.5" y2="10.5"></line>
-                        </svg>
+                </fieldset>                
+            </section>
+            <section class="mb-3 border rounded p-2">
+                <fieldset class="d-flex flex-column gap-1">
+                    <div class="d-flex align-items-center">
+                        <p class="m-0 text-muted fs-md">{{ request.user.email|truncatemail:2 }}</p>
+                        <a href="#" class="ms-auto text-muted" rel="tooltip" title="Edit email" data-bs-placement="left">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon fs-6 d-block" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1"></path>
+                                <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z"></path>
+                                <path d="M16 5l3 3"></path>
+                            </svg>
+                        </a>
                     </div>
-                </div>
-            </div>
-            <button type="submit" class="w-100 w-sm-auto btn btn-sm btn-success mt-3 px-3 fw-medium"
-                on-validation-text="Saving..." disabled>Save</button>
+                    <div class="d-flex align-items-center">
+                        <a href="{% url 'password_change' %}" class="mb-0 link fs-md">Change password</a>
+                    </div>                    
+                </fieldset>
+            </section>
+            <button type="submit" class="w-100 w-sm-auto btn btn-sm btn-success px-3 fw-medium" on-validation-text="Saving..." disabled>Save</button>
         </form>
-    </div>
-</div>
-<script type="text/javascript">
-    function changeAvatar(input, image) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                image.attr('src', e.target.result);
-            }
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
-
-    $('[data-toggle="change-avatar"]').change(function () {
-        changeAvatar(this, $($(this).attr('data-target')).find('img'));
-    });
-
-    $('[data-toggle="delete-avatar"]').click(function () {
-        $($(this).attr('data-target')).find('img').attr('src', "{% static 'feed/dist/images/user.png' %}");
-    });
-</script>
+    </section>
+</main>
 </body>
-{% endblock content %}
+{% endblock body %}

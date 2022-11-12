@@ -7,3 +7,10 @@
     z-index: $zindex-back-to-top;
     transition: transform .475s cubic-bezier(.4, 0, .2, 1);
 }
+
+.border-dashed {
+    background-image: repeating-linear-gradient(0deg, #acb0b9, #acb0b9 9px, transparent 9px, transparent 12px, #acb0b9 12px), repeating-linear-gradient(90deg, #acb0b9, #acb0b9 9px, transparent 9px, transparent 12px, #acb0b9 12px), repeating-linear-gradient(180deg, #acb0b9, #acb0b9 9px, transparent 9px, transparent 12px, #acb0b9 12px), repeating-linear-gradient(270deg, #acb0b9, #acb0b9 9px, transparent 9px, transparent 12px, #acb0b9 12px);
+    background-size: 2px 100%, 100% 2px, 2px 100% , 100% 2px;
+    background-position: 0 0, 0 0, 100% 0, 0 100%;
+    background-repeat: no-repeat;
+    }

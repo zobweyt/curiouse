@@ -72,16 +72,16 @@
                 <fieldset>
                     <fieldset class="row mb-1">
                         <div class="col-6">
-                            <label for="{{ form.first_name.id_for_label }}" class="form-label mb-0 text-muted fs-sm">{{ form.first_name.label }}</label>
+                            <label for="{{ form.first_name.id_for_label }}" class="form-label">{{ form.first_name.label }}</label>
                             {{ form.first_name }}
                         </div>
                         <div class="col-6">
-                            <label for="{{ form.last_name.id_for_label }}" class="form-label mb-0 text-muted fs-sm">{{ form.last_name.label }}</label>
+                            <label for="{{ form.last_name.id_for_label }}" class="form-label">{{ form.last_name.label }}</label>
                             {{ form.last_name }}
                         </div>
-                    </fieldset>                
+                    </fieldset>
                     <div>
-                        <label for="{{ form.bio.id_for_label }}" class="form-label mb-0 fs-sm text-muted">{{ form.bio.label }}</label>
+                        <label for="{{ form.bio.id_for_label }}" class="form-label">{{ form.bio.label }}</label>
                         {{ form.bio }}
                     </div>
                 </fieldset>                
@@ -90,7 +90,7 @@
                 <fieldset class="d-flex flex-column gap-1">
                     <div class="d-flex align-items-center">
                         <p class="m-0 text-muted fs-md">{{ request.user.email|truncatemail:2 }}</p>
-                        <a href="#" class="ms-auto text-muted" rel="tooltip" title="Edit email" data-bs-placement="left">
+                        <a href="{% url 'email_change' %}" class="ms-auto text-muted" rel="tooltip" title="Edit email" data-bs-placement="left">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon fs-6 d-block" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                 <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1"></path>

@@ -5,6 +5,7 @@ from masonex import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('editorjs/', include('django_editorjs_fields.urls')),
     path('', include('feed.urls')),
 ]
 

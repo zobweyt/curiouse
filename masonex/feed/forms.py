@@ -3,10 +3,21 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, Pass
 from django.core.exceptions import ValidationError
 
 from feed.models import Post, User, Category
-from feed.utils import FormSmallControlMixin
+from feed.utils import CharFieldCSSClassMixin
 
 
-class PostForm(FormSmallControlMixin, forms.ModelForm):
+class PostForm(forms.ModelForm):
+    title = forms.CharField(widget=forms.TextInput(attrs={
+        'placeholder': 'Title based on content',
+        'class': 'border-0 d-block bg-light mt-2 form-control form-control-sm',
+        }))
+    description = forms.CharField(widget=forms.Textarea(attrs={
+        'rows': 3,
+        'placeholder': 'Description',
+        'class': 'border-0 d-block bg-light mt-2 form-control form-control-sm',
+        }))
+
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['category'].empty_label = 'Not selected'
@@ -17,7 +28,7 @@ class PostForm(FormSmallControlMixin, forms.ModelForm):
         exclude = ('author', 'slug')
 
 
-class UserRegistrationForm(FormSmallControlMixin, UserCreationForm):
+class UserRegistrationForm(CharFieldCSSClassMixin, UserCreationForm):
     email = forms.EmailField(required=True)
     last_name = forms.CharField(required=True)
     first_name = forms.CharField(required=True)
@@ -48,7 +59,7 @@ class SearchForm(forms.Form):
     order_by = forms.ChoiceField(choices=POST_ORDER_CHOICES)
 
 
-class UserLoginForm(FormSmallControlMixin, AuthenticationForm):
+class UserLoginForm(CharFieldCSSClassMixin, AuthenticationForm):
     username = forms.CharField(widget=forms.TextInput(attrs={'autofocus': 'true'}))
     password = forms.CharField(widget=forms.PasswordInput)
 
@@ -56,24 +67,29 @@ class UserLoginForm(FormSmallControlMixin, AuthenticationForm):
         return ValidationError('Incorrect username or password.')
 
 
-class ProfileForm(FormSmallControlMixin, forms.ModelForm):
-    avatar = forms.ImageField(widget=forms.FileInput(attrs={
+class ProfileForm(CharFieldCSSClassMixin, forms.ModelForm):
+    avatar = forms.ImageField(
+        required=False,
+        widget=forms.FileInput(attrs={
         'hidden': True, 
         'accept': '.png, .jpg, .jpeg', 
         'data-toggle': 'change-avatar', 
         'data-target': '#avatar'
-        }), 
-        required=False)
-    remove_photo = forms.BooleanField(label='Delete photo?', help_text='This action cannot be undone.', 
+        }))
+    remove_photo = forms.BooleanField(
+        label='Delete photo?', 
+        help_text='This action cannot be undone.', 
+        required=False,
         widget=forms.CheckboxInput(attrs={
             'class': 'btn-check',
             'onchange': 'this.form.submit();'
-        }), 
-        required=False)
+        }))
     first_name = forms.CharField(required=True)
     last_name = forms.CharField(required=True)
-    bio = forms.CharField(widget=forms.Textarea(attrs={'rows': 5}), 
-    help_text='Adding a profile bio can help us promote you!', required=False)
+    bio = forms.CharField(
+        help_text='Adding a profile bio can help us promote you!', 
+        required=False,
+        widget=forms.Textarea(attrs={'rows': 5}))
 
     def save(self, *args, **kwargs):
         user = super().save(*args, **kwargs)
@@ -86,6 +102,21 @@ class ProfileForm(FormSmallControlMixin, forms.ModelForm):
         fields = ('avatar', 'first_name', 'last_name', 'bio')
 
 
-class UserPasswordChangeForm(FormSmallControlMixin, PasswordChangeForm):
+class UserPasswordChangeForm(CharFieldCSSClassMixin, PasswordChangeForm):
     pass
-        
+
+
+class UserEmailChangeForm(CharFieldCSSClassMixin, forms.Form):
+    email = forms.EmailField(widget=forms.EmailInput)
+
+    def __init__(self, user, *args, **kwargs):
+        self.user = user
+        super().__init__(*args, **kwargs)
+
+    def save(self, commit=True):
+        email = self.cleaned_data['email']
+        self.user.email = email
+        if commit:
+            self.user.save()  
+        return self.user
+    

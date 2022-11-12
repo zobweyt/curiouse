@@ -24,7 +24,7 @@
     font-weight: bold;
     color: $dark;
     transition: color .2s !important;
-    font-size: clamp(12px, 1.5vw + 3px, 18px) !important;
+    font-size: 18px !important;
 }
 
 .article-listing__heading:hover {
@@ -39,6 +39,6 @@
 
 .article-listing__category,
 .article-listing__author {
-    font-size: clamp(10px, 1.5vw + 3px, 12px) !important;
+    font-size: 12px !important;
     color: $light-arsenic;
 }

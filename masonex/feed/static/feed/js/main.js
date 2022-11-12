@@ -39,6 +39,14 @@ $(document).ready(function() {
         changeAvatar(this, $($(this).attr('data-target')).find('img'));
     });
 
+    $('#fileField').change(function() {
+        d = document.createElement('img');
+        $(d).css('max-width', '230px')
+        $(d).addClass('rounded')
+        $('#weap').html($(d));
+        changeAvatar(this, $(d));
+    })
+
     const scrollToTop = $('#scroll-to-top');
     scrollToTop.hide();
     scrollToTop.css("transform", "translateY(75px)");

@@ -1,7 +1,7 @@
 from django.http import Http404
 from django.shortcuts import redirect
 from django.views.generic import UpdateView
-from django.forms.fields import CharField
+from django.forms.fields import CharField, ChoiceField
 
 from .models import Post
 
@@ -21,14 +21,28 @@ class ExcludeAuthenticatedUsersMixin:
         return super().dispatch(request, *args, **kwargs)
 
 
-class FormSmallControlMixin:
+class CharFieldCSSClassMixin:
+    """Adds custom CSS class to every CharField in a form."""
+
+    input_css_class = 'form-control'
+    input_font_size_css_class = 'sm'
+
     def __init__(self, *args, **kwargs):
+        if not self.input_css_class:
+            raise AttributeError('input_css_class must be provided.')
+
+        classes = [self.input_css_class]
+
+        if self.input_font_size_css_class:
+            classes.append(f'{self.input_css_class}-{self.input_font_size_css_class}')
+
+        formated_classes = ' '.join(classes)
+
         super().__init__(*args, **kwargs)
         for field_name in self.fields:
             field = self.fields[field_name]
-            if isinstance(field, CharField):
-                field.widget.attrs.update(
-                    {'class': 'form-control form-control-sm lh-sm'})
+            if isinstance(field, CharField) or isinstance(field, ChoiceField):
+                field.widget.attrs.update({'class': formated_classes})
 
 
 class PostsMixin:

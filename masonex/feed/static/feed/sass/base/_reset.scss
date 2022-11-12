@@ -1,7 +1,6 @@
 :focus-visible {
     outline: solid $ocean-boat-blue;
     outline-width: 2px;
-    outline-offset: 2px;
 }
 
 a {
@@ -12,24 +11,24 @@ a {
     text-decoration: underline !important;
 }
 
-.disabled,
-button:disabled {
-    pointer-events: auto !important;
-    cursor: not-allowed;
+.form-label {
+    color: $text-muted;
+    font-size: $small-font-size;
+    margin-bottom: 0 !important;
 }
 
 .badge {
     text-transform: capitalize;
-
-    &:hover {
-        box-shadow: $box-shadow-sm;
-    }
 }
 
 .icon {
     width: 1.0666666667em;
     height: 1.0666666667em;
     vertical-align: -0.255em;
+}
+
+.dropdown-item {
+    transition: background-color 0.2s ease;
 }
 
 .dropdown-chevron {

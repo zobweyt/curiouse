@@ -19,8 +19,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_cleanup.apps.CleanupConfig',
+    'django_sass',
     'debug_toolbar',
-    'ckeditor',
+    'django_editorjs_fields',
     'hitcount',
     'feed.apps.FeedConfig',
 ]
@@ -97,22 +98,3 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = 'media/'
 
 PHOTOS_PATH = 'photos/%Y/%m/%d/'
-
-CKEDITOR_CONFIGS = {
-    'default': {
-        'skin': 'office2013',
-        'format_tags': 'h2;h3;p',
-        'toolbar': [
-            ['Image', 'Table'],
-            ['Format', 'Bold', 'Italic', 'Underline'],
-            ['NumberedList', 'BulletedList', 'Blockquote'],
-            ['SimpleLink', 'RemoveFormat'],
-        ],
-        'allowedContent': True,
-        'width': '100%',
-        'extraPlugins': ['SimpleLink', 'image2'],
-        'removePlugins': ['link', 'image'],
-        'removeDialogTabs': 'image:Upload;link:target;link:upload;',
-        'allowedContent': 'h2 h3 p b i u ol ul blockquote;a[!href];img(left,right)[!src,alt,width,height];table tr th;',
-    },
-}

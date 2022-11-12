@@ -7,9 +7,9 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models import Q
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
-from django.views.generic import ListView, CreateView, UpdateView
+from django.views.generic import ListView, CreateView, UpdateView, FormView
 
-from feed.forms import PostForm, UserLoginForm, UserRegistrationForm, ProfileForm, UserPasswordChangeForm, SearchForm
+from feed.forms import PostForm, UserLoginForm, UserRegistrationForm, ProfileForm, UserPasswordChangeForm, UserEmailChangeForm, SearchForm
 from feed.models import Post, User
 from feed.utils import ExcludeAuthenticatedUsersMixin, AuthorRequiredMixin, PostsMixin, PostMixin
 
@@ -81,9 +81,28 @@ class UserProfileView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         return reverse_lazy('profile')
 
 
-class PasswordChangeView(PasswordChangeView):
-    success_url = reverse_lazy("password_change")
+class UserPasswordChangeView(SuccessMessageMixin, PasswordChangeView):
+    form_class = UserPasswordChangeForm
     template_name = 'feed/password_change.html'
+    success_url = reverse_lazy('profile')
+    success_message = 'The password has been successfully changed!'
+
+
+class UserEmailChangeView(LoginRequiredMixin, SuccessMessageMixin, FormView):
+    form_class = UserEmailChangeForm
+    template_name = 'feed/email_change.html'
+    success_url = reverse_lazy('profile')
+    success_message = 'The email has been successfully changed!'
+    extra_context = {'title': 'Email change'}
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid(form)
 
 
 class UserAuthenticiationView(ExcludeAuthenticatedUsersMixin, LoginView):

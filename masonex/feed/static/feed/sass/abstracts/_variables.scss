@@ -12,9 +12,12 @@ $focus-color:       #68aeff;
 
 $input-btn-focus-width:         .1875em;
 
-$input-focus-width:             .0875em;
-$input-focus-border-color:      $focus-color;
-$input-focus-box-shadow:        0 0 0 $input-focus-width $focus-color;
+// $input-focus-width:             .0875em;
+// $input-focus-border-color:      $focus-color;
+// $input-focus-box-shadow:        0 0 0 $input-focus-width $focus-color;
+$input-focus-width:             0;
+$input-focus-border-color:      $dark;
+$input-focus-box-shadow:        none;
 
 $component-active-bg:      $arsenic;
 
@@ -27,6 +30,7 @@ $zindex-footer:         $zindex-header;
 $zindex-back-to-top:    1050;
 
 $enable-caret:                 false;
+$enable-negative-margins:       true;
 
 $dropdown-caret-size: 16px;
 

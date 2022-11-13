@@ -25,7 +25,7 @@ $(document).ready(function() {
         }
     });
 
-    function changeAvatar(input, image) {
+    function changeImage(input, image) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
             reader.onload = function (e) {
@@ -35,17 +35,23 @@ $(document).ready(function() {
         }
     }
 
-    $('[data-toggle="change-avatar"]').change(function () {
-        changeAvatar(this, $($(this).attr('data-target')).find('img'));
+    $('[data-toggle="change-image"]').change(function () {
+        let target = $($(this).attr('data-target'));
+        let image = $(target.find('img'));
+        const tagName = image.prop('tagName');
+
+        if (tagName == undefined || tagName.toLowerCase() != 'img') {
+            image = $(document.createElement('img'));
+            image.addClass('rounded cover-image cursor-pointer');
+            target.html(image);
+        }
+
+        changeImage(this, image);
     });
 
-    $('#fileField').change(function() {
-        d = document.createElement('img');
-        $(d).css('max-width', '230px')
-        $(d).addClass('rounded')
-        $('#weap').html($(d));
-        changeAvatar(this, $(d));
-    })
+    $('.bs-searchbox').find('.form-control').addClass('form-control-sm');
+    $('.bs-searchbox').find('.form-control').attr('placeholder', 'Filter');
+    $('.bs-searchbox').addClass('mb-1');
 
     const scrollToTop = $('#scroll-to-top');
     scrollToTop.hide();
@@ -81,37 +87,6 @@ $(document).ready(function() {
         if (previousScrollPosition > 400) {
             scrollToTop.css("transform", "none");
         } 
-    });
-    
-    const responsiveTabs = $('.responsive-tabs');
-    
-    responsiveTabs.find('[role="tablist"]').addClass('d-md-block');
-    responsiveTabs.find('[role="tablist-header"]').addClass('d-block d-md-none');
-    responsiveTabs.find('[role="contentlist"]').addClass('d-none d-md-block');
-    
-    responsiveTabs.find('.tab-pane').prepend(`
-    <button class="btn-back d-block d-md-none rounded" data-toggle="close-tab">
-        <svg xmlns="http://www.w3.org/2000/svg" class="me-1" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-            <line x1="5" y1="12" x2="19" y2="12"></line>
-            <line x1="5" y1="12" x2="11" y2="18"></line>
-            <line x1="5" y1="12" x2="11" y2="6"></line>
-        </svg>
-        <span>Back</span>
-    </button>`);
-
-    responsiveTabs.find('[data-toggle="close-tab"]').on('click', function() {
-        const tablist = $('#' + $(this).parent().attr('aria-labelledby')).closest('[role="tablist"]');
-        $(this).closest('[role="contentlist"]').addClass('d-none');
-        tablist.removeClass('d-none');
-        const header = tablist.parent().find('[role="tablist-header"]');
-        header.html(header.attr('default-title'));
-    });
-
-    responsiveTabs.find('[role="tab"]').on('click', function() {
-        $(this).closest('[role="tablist"]').addClass('d-none');
-        $('#' + $(this).attr('aria-controls')).closest('.tab-content').removeClass('d-none');
-        $('[role="tablist-header"]').html($(this).html());
     });
 
     $('.dropdown-toggle').on('show.bs.dropdown', function() {

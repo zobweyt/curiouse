@@ -2,15 +2,15 @@
 {% load static feed_tags %}
 
 {% block body %}
-{% include 'feed/snippets/header.html' %}
+{% include 'feed/includes/header.html' %}
 <main class="container-xxl my-md-4 my-3 mx-auto" style="max-width: 25em;">
     {% if messages %}
         {% for message in messages %}
-        {% include 'feed/snippets/alert.html' with style='success' content=message %}
+        {% include 'feed/includes/alert.html' with style='success' content=message %}
         {% endfor %}
     {% endif %}
     {% if not user.bio %}
-    {% include 'feed/snippets/alert.html' with style='info' content=form.bio.help_text %}
+    {% include 'feed/includes/alert.html' with style='info' content=form.bio.help_text %}
     {% endif %}
     <section class="border rounded p-3">
         <form action="{% url 'profile' %}" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>

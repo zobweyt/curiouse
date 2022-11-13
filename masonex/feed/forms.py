@@ -9,18 +9,30 @@ from feed.utils import CharFieldCSSClassMixin
 class PostForm(forms.ModelForm):
     title = forms.CharField(widget=forms.TextInput(attrs={
         'placeholder': 'Title based on content',
-        'class': 'border-0 d-block bg-light mt-2 form-control form-control-sm',
-        }))
+        'class': 'form-inline-control bg-light fw-medium fs-6',
+    }))
     description = forms.CharField(widget=forms.Textarea(attrs={
         'rows': 3,
         'placeholder': 'Description',
-        'class': 'border-0 d-block bg-light mt-2 form-control form-control-sm',
-        }))
-
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['category'].empty_label = 'Not selected'
+        'class': 'form-inline-control bg-light',
+    }))
+    category = forms.ModelChoiceField(
+        queryset=Category.objects.all(), 
+        widget=forms.Select(attrs={
+            'class': 'selectpicker',
+            'title': 'Select a category',
+            'data-width': '100%',
+            'data-live-search': 'true',
+            'data-size': '5',
+        }),
+        empty_label=None
+    )
+    thumbnail = forms.ImageField(widget=forms.FileInput(attrs={
+        'hidden': True,
+        'accept': '.png, .jpg, .jpeg, .webp',
+        'data-toggle': 'change-image',
+        'data-target': '#thumbnail',
+    }))
 
     class Meta:
         model = Post
@@ -73,7 +85,7 @@ class ProfileForm(CharFieldCSSClassMixin, forms.ModelForm):
         widget=forms.FileInput(attrs={
         'hidden': True, 
         'accept': '.png, .jpg, .jpeg', 
-        'data-toggle': 'change-avatar', 
+        'data-toggle': 'change-image', 
         'data-target': '#avatar'
         }))
     remove_photo = forms.BooleanField(

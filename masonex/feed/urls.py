@@ -21,7 +21,7 @@ urlpatterns = [
     path('search/', SearchView.as_view(), name='search'),
     path('post/<int:post_id>/<slug:post_slug>/', PostDetailView.as_view(), name='post_detail'),
     path('post/<int:post_id>/', PostDetailView.as_view()),
-    path('add/', PostCreateView.as_view(), name='post_create'),
+    path('create-post/', PostCreateView.as_view(), name='post_create'),
     path('edit/<int:post_id>/<slug:post_slug>/', PostUpdateView.as_view(), name='post_update'),
     path('edit/<int:post_id>/', PostUpdateView.as_view()),
     path('login/', UserAuthenticiationView.as_view(), name='login'),

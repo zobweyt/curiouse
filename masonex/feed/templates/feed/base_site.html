@@ -1,7 +1,7 @@
 {% extends 'feed/base.html' %}
 
 {% block body %}
-{% include 'feed/snippets/header.html' %}
+{% include 'feed/includes/header.html' %}
 <main class="container-xxl flex-fill d-flex flex-column my-md-4 my-2">
     {% block content %}
     {% endblock content %}
@@ -12,5 +12,5 @@
          </svg>
     </button>
 </main>
-{% include 'feed/snippets/footer.html' %}
+{% include 'feed/includes/footer.html' %}
 {% endblock body %}

@@ -25,6 +25,9 @@ $dropdown-min-width: auto;
 
 $btn-close-focus-shadow: none;
 
+$badge-font-weight: 500;
+$transition-base-timing-function: cubic-bezier(.4, 0, .2, 1);
+
 $zindex-header:         1040;
 $zindex-footer:         $zindex-header;
 $zindex-back-to-top:    1050;
@@ -35,7 +38,7 @@ $enable-negative-margins:       true;
 $dropdown-caret-size: 16px;
 
 $modal-fade-transform:   translateY(20px) scale(.875, .925);
-$modal-transition:       transform .27s cubic-bezier(.4, 0, .2, 1);
+$modal-transition:       transform .27s $transition-base-timing-function;
 
 $alert-bg-scale: -88%;
 

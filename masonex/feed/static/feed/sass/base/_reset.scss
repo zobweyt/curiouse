@@ -7,6 +7,10 @@ a {
     text-decoration: none !important;
 }
 
+img {
+    border-radius: $border-radius;
+}
+
 .link:hover {
     text-decoration: underline !important;
 }
@@ -15,10 +19,6 @@ a {
     color: $text-muted;
     font-size: $small-font-size;
     margin-bottom: 0 !important;
-}
-
-.badge {
-    text-transform: capitalize;
 }
 
 .icon {

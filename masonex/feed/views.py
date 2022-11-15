@@ -5,7 +5,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, PasswordChangeView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models import Q
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, FormView
 
@@ -123,6 +123,16 @@ class UserRegistrationView(ExcludeAuthenticatedUsersMixin, CreateView):
         user = form.save()
         login(self.request, user)
         return redirect('home')
+
+
+def user_detail(request, username):
+    user = User.objects.get(username=username)
+    context = {
+        'title': user.username,
+        'user': user
+    }
+
+    return render(request, 'feed/user_detail.html', context)
 
 
 def logout_user(request):

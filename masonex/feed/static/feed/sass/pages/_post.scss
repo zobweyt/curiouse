@@ -1,0 +1,11 @@
+@import 'bootstrap/scss/mixins';
+
+.post__thumbnail {
+    width: 512px;
+}
+
+@include media-breakpoint-down(sm) {
+    .post__thumbnail {
+        width: 100%;
+    }
+}

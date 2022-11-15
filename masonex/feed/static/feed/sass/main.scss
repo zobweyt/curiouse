@@ -4,6 +4,7 @@
 @import 'base/typography';
 @import 'base/reset';
 
+@import 'components/badges';
 @import 'components/buttons';
 
 @import 'layout/header';
@@ -12,10 +13,11 @@
 @import 'layout/forms';
 @import 'layout/tabs';
 
-@import 'vendors/ckeditor';
-
 @import 'pages/index';
+@import 'pages/post';
 @import 'pages/profile';
 @import 'pages/search';
+
+@import 'vendors/editorjs';
 
 @import "bootstrap/scss/bootstrap";

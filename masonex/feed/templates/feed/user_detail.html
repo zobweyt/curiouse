@@ -1,0 +1,7 @@
+{% extends 'feed/base_site.html' %}
+
+{% block content %}
+<img src="{{ user.avatar.url }}" alt="avatar" width="64">
+{{ user.username }}
+{{ user.bio }}
+{% endblock content %}

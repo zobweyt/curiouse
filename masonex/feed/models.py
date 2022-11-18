@@ -4,7 +4,7 @@ from django.db import models
 from django.urls import reverse
 from django_editorjs_fields import EditorJsJSONField
 
-from masonex.settings import PHOTOS_PATH, AUTH_USER_MODEL
+from masonex.settings import PHOTOS_PATH, AUTH_USER_MODEL, EDITORJS_CONFIG
 
 
 class Category(models.Model):
@@ -30,7 +30,7 @@ class Post(models.Model):
     slug = AutoSlugField(populate_from='title', db_index=True)
     description = models.CharField(max_length=256, db_index=True)
     thumbnail = models.ImageField(upload_to=PHOTOS_PATH)
-    body = EditorJsJSONField()
+    body = EditorJsJSONField(**EDITORJS_CONFIG)
     likes = models.ManyToManyField(AUTH_USER_MODEL, related_name='likes', related_query_name='like')
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)

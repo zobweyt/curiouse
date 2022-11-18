@@ -98,3 +98,40 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = 'media/'
 
 PHOTOS_PATH = 'photos/%Y/%m/%d/'
+
+EDITORJS_CONFIG = {
+    'plugins': [
+        '@editorjs/paragraph',
+        '@editorjs/header',
+        '@editorjs/list',
+        '@editorjs/quote',
+        '@editorjs/image',
+        '@editorjs/inline-code',
+        '@editorjs/underline',
+        'editorjs-strikethrough',
+    ],
+    'tools': {
+        'Underline': {
+            'class': 'Underline',
+            'shortcut': 'CMD+U',
+        },
+        'strikethrough': {
+            'class': 'Strikethrough',
+            'shortcut': 'CMD+X',
+        },
+        'InlineCode': {
+            'class': 'InlineCode',
+            'shortcut': 'CMD+M',
+        },
+    },
+    'inlineToolbar': ('bold', 'italic', 'Underline', 'strikethrough', 'InlineCode', 'link'),
+    'minHeight': 156,
+    'i18n': {
+        'messages': {
+            'toolNames': {
+                'InlineCode': 'Monospace',
+                'Strikethrough': 'Cross',
+            },
+        },
+    },
+}

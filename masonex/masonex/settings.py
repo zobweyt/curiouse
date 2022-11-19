@@ -1,6 +1,8 @@
 import os
 from pathlib import Path
 
+from django.urls import reverse_lazy
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-9(=z-=^wn=k%_7wvls6spp=fl^%d181@8pp=*-&hb)9-#=f$s3'
@@ -111,17 +113,34 @@ EDITORJS_CONFIG = {
         'editorjs-strikethrough',
     ],
     'tools': {
+        'Header': {
+            'class': 'Header',
+            'config': {
+                'placeholder': 'Enter heading',
+                'levels': [2, 3],
+                'defaultLevel': 2,
+            }
+        },
+        'Quote': {
+            'class': 'Quote',
+            'inlineToolbar': True,
+            'shortcut': 'CMD+SHIFT+O',
+            'config': {
+                'quotePlaceholder': 'Enter the quote',
+                'captionPlaceholder': 'Quote by...',
+            },
+        },
         'Underline': {
             'class': 'Underline',
             'shortcut': 'CMD+U',
         },
         'strikethrough': {
             'class': 'Strikethrough',
-            'shortcut': 'CMD+X',
+            'shortcut': 'CMD+SHIFT+X',
         },
         'InlineCode': {
             'class': 'InlineCode',
-            'shortcut': 'CMD+M',
+            'shortcut': 'CMD+SHIFT+M',
         },
     },
     'inlineToolbar': ('bold', 'italic', 'Underline', 'strikethrough', 'InlineCode', 'link'),

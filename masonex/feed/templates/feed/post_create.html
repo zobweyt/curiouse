@@ -2,7 +2,7 @@
 
 {% block body %}
 {% include 'feed/includes/header.html' %}
-<main class="container-xxl mx-auto my-3 my-md-4" style="max-width: 50em;">
+<main class="container-xxl mx-auto my-3 my-md-4" style="max-width: 60em;">
     <form action="{% url 'post_create' %}" method="post" enctype="multipart/form-data" class="create-post-form needs-validation" novalidate>
         {% csrf_token %}
         {{ form.media }}

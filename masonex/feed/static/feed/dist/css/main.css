@@ -260,6 +260,30 @@ footer {
   margin: 0;
 }
 
+[data-tool="strikethrough"] svg {
+  width: 17px;
+  height: 17px;
+}
+
+.image-tool__caption,
+.cdx-settings-button[data-tune='withBorder'],
+.cdx-settings-button[data-tune='withBackground'],
+.cdx-settings-button[data-tune='stretched'] {
+  display: none;
+}
+
+.codex-editor .ce-header {
+  font-weight: 500 !important;
+}
+
+.codex-editor .cdx-list {
+  padding-left: 16px !important;
+}
+
+.codex-editor .cdx-list__item {
+  padding: 0 0.5rem !important;
+}
+
 /*!
    * Bootstrap  v5.2.2 (https://getbootstrap.com/)
    * Copyright 2011-2022 The Bootstrap Authors

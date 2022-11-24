@@ -69,10 +69,21 @@ img {
     outline-width: 1px !important;
 }
 
-div[data-editorjs-holder] {
-    width: 100% !important;
-    max-width: none !important;
-    border: none !important;
-    background-color: $light !important;
-    box-shadow: $box-shadow-sm !important;
+ol, ul {
+    padding-left: 1rem !important;
+
+    li {
+        padding: 0 $list-inline-padding !important;
+    }
+}
+
+blockquote {
+    border-left: 2px $border-style $border-color;
+    padding-left: 0.625rem;
+
+    cite {
+        display: block;
+        color: $gray-700;
+        margin-top: 0.125rem;
+    }
 }

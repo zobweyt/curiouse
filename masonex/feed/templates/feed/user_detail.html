@@ -1,7 +1,23 @@
 {% extends 'feed/base_site.html' %}
 
 {% block content %}
-<img src="{{ user.avatar.url }}" alt="avatar" width="64">
-{{ user.username }}
-{{ user.bio }}
+<div class="row flex-fill">
+    <section class="col-md-3 col-12 border-end-md border-end-0 flex-fill">
+        {% if user.avatar %}
+        <img src="{{ user.avatar.url }}" alt="avatar" width="64">
+        {% endif %}
+        <h1 class="fs-5 mt-2 mb-1">{{ user.get_full_name }}</h1>
+        <p class="lh-sm">{{ user.bio }}</p>
+        {% if request.user == user %}
+        <a href="{% url 'profile' %}" class="link">Edit profile</a>
+        {% endif %}
+    </section>
+    <section class="col-md-9 col-12">
+        <h2>Posts</h2>
+        {% for post in posts %}
+        <a href="{{ post.get_absolute_url }}" class="link">{{ post.title }}</a>
+        <br>
+        {% endfor %}
+    </section>
+</div>
 {% endblock content %}

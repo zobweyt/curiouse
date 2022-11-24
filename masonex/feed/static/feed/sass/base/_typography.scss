@@ -1,14 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
 @import "../../../bootstrap/scss/functions";
 
-$font-family-base:     'Rubik', sans-serif;
-$font-size-base:       .875rem;
-$medium-font-size:     .825rem;
-$small-font-size:      .725rem;
-$font-weight-medium:   500;
-$body-color:           $dark;
-$link-color:           $ocean-boat-blue;
-$link-hover-color:     shift-color($link-color, $link-shade-percentage);
+$font-family-base:          'Rubik', sans-serif;
+$font-size-base:            .875rem;
+$medium-font-size:          .825rem;
+$small-font-size:           .725rem;
+$paragraph-margin-bottom:   0.875rem;
+$line-height-base:          1.375;
+$font-weight-medium:        500;
+$body-color:                $dark;
+$link-color:                $ocean-boat-blue;
+$link-hover-color:          shift-color($link-color, $link-shade-percentage);
 
 .fs-sm {
     font-size: $small-font-size !important;

@@ -127,9 +127,11 @@ class UserRegistrationView(ExcludeAuthenticatedUsersMixin, CreateView):
 
 def user_detail(request, username):
     user = User.objects.get(username=username)
+    posts = Post.objects.filter(author=user)
     context = {
         'title': user.username,
-        'user': user
+        'user': user,
+        'posts': posts,
     }
 
     return render(request, 'feed/user_detail.html', context)

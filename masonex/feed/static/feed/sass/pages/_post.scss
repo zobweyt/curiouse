@@ -1,5 +1,13 @@
 @import 'bootstrap/scss/mixins';
 
+.codex-editor,
+.post__article {
+    img {
+        max-width: 456px;
+        margin-bottom: 0.625rem;
+    }
+}
+
 .post__thumbnail {
     width: 512px;
 }

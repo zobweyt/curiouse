@@ -1,23 +1,46 @@
+[data-editorjs-holder] {
+    width: 100% !important;
+    max-width: none !important;
+    border: none !important;
+    background-color: $light !important;
+    box-shadow: $box-shadow-sm !important;
+}
+
 [data-tool="strikethrough"] svg {
     width: 17px;
     height: 17px;
 }
 
-.image-tool__caption,
-.cdx-settings-button[data-tune='withBorder'],
-.cdx-settings-button[data-tune='withBackground'],
-.cdx-settings-button[data-tune='stretched'] {
-    display: none;
-}
+.codex-editor {
+    .cdx-block {
+        padding: 0 !important;
+    }
 
-.codex-editor .ce-header {
-    font-weight: $font-weight-medium !important;
-}
+    .ce-header {
+        font-weight: $headings-font-weight !important;
+        line-height: $headings-line-height !important;
+        margin-bottom: $headings-margin-bottom !important;
+        padding: 0 !important;
+    }
 
-.codex-editor .cdx-list {
-    padding-left: 16px !important;
-}
+    .ce-paragraph {
+        line-height: $line-height-base !important;
+        margin-bottom: $paragraph-margin-bottom;
+    }
 
-.codex-editor .cdx-list__item {
-    padding: 0 $list-inline-padding !important;
+    .cdx-list {
+        padding-left: 1rem !important;
+
+        .cdx-list__item {
+            padding: 0 $list-inline-padding !important;
+        }
+    }
+    
+    .cdx-quote-settings,
+    .image-tool__caption,
+    .cdx-settings-button[data-tune='withBorder'],
+    .cdx-settings-button[data-tune='withBackground'],
+    .cdx-settings-button[data-tune='stretched'] {
+        display: none;
+    }
 }

@@ -115,6 +115,8 @@ EDITORJS_CONFIG = {
     'tools': {
         'Header': {
             'class': 'Header',
+            'inlineToolbar': False,
+            'shortcut': 'CMD+SHIFT+H',
             'config': {
                 'placeholder': 'Enter heading',
                 'levels': [2, 3],
@@ -129,6 +131,11 @@ EDITORJS_CONFIG = {
                 'quotePlaceholder': 'Enter the quote',
                 'captionPlaceholder': 'Quote by...',
             },
+        },
+        'List': {
+            'class': 'List',
+            'inlineToolbar': True,
+            'shortcut': 'CMD+SHIFT+L',
         },
         'Underline': {
             'class': 'Underline',

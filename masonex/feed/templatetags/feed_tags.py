@@ -19,3 +19,16 @@ def highlight(text: str, to_highlight: str) -> str:
 def truncatemail(email: str, chars: int) -> str:
     domain = email.split('@')[-1]
     return f'{email[0:chars]}***@{domain}'
+
+
+from django import template
+
+register = template.Library()
+
+@register.simple_tag(takes_context=True)
+def query_transform(context, **kwargs):
+    query = context['request'].GET.copy()
+    for k, v in kwargs.items():
+        query[k] = v
+    return query.urlencode()
+

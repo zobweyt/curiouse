@@ -28,7 +28,7 @@ class SearchView(ListView):
     template_name = 'feed/search.html'
     extra_context = {'title': 'Search', 'form': SearchForm}
     context_object_name = 'results'
-    paginate_by = 12
+    paginate_by = 2
 
     def get_queryset(self):
         posts = super().get_queryset().select_related('category', 'author')

@@ -1,6 +1,6 @@
-<ul class="list-unstyled">
+<ul class="article-listing">
     {% for post in posts %}
-    <li class="pb-4 mt-4 border-bottom">
+    <li class="article-listing__component">
         {% include 'feed/includes/post_cover.html' with post=post %}
     </li>
     {% endfor %}

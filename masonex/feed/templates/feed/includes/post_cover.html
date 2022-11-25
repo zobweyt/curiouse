@@ -1,0 +1,36 @@
+{% load static %}
+
+<article>
+    <section class="d-flex align-items-center gap-2 mb-1">
+        <a href="{{ post.author.get_absolute_url }}">
+            {% include 'feed/includes/user_avatar.html' with user=user width=24 class='rounded-circle' %}
+        </a>
+        <div class="d-flex align-items-center gap-1 fs-md">
+            <a href="{{ post.author.get_absolute_url }}" class="text-dark">{{ post.author.get_full_name }}</a>
+            <span class="circle-divider fs-sm"></span>
+            <time datetime="{{ post.created_at|date:"Y-m-d" }}" class="text-muted">{{ post.created_at|date:"F d, Y" }}</time>
+        </div>
+    </section>
+    <div class="d-flex">
+        <div class="flex-fill flex-wrap">
+            <div class="component-article-listing pb-3">
+                <a href="{{ post.get_absolute_url }}" class="mb-1 article-listing__heading search-result__heading">{{ post.title|truncatechars:48 }}</a>
+                <p class="search-result__description text-break mb-1">{{ post.description|truncatechars:196 }}</p>
+            </div>
+            <div class="d-flex align-items-center">
+                <a href="{{ post.category.get_absolute_url }}">
+                    <span class="badge category-badge">{{ post.category.name }}</span>
+                </a>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon text-muted ms-auto fs-5" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                    <path d="M9 4h6a2 2 0 0 1 2 2v14l-5 -3l-5 3v-14a2 2 0 0 1 2 -2"></path>
+                </svg>
+            </div>
+        </div>
+        <div class="ms-4 ms-md-5 d-flex align-items-center justify-content-end">
+            <a href="{{ post.get_absolute_url }}" class="search-result__image">
+                <img src="{{ post.thumbnail.url }}" alt="{{ post.title }}" loading="lazy">
+            </a>
+        </div>
+    </div>
+</article>

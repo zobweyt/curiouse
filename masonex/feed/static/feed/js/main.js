@@ -96,4 +96,6 @@ $(document).ready(function() {
     $('.dropdown-toggle').on('hide.bs.dropdown', function() {
         $(this).find('.dropdown-chevron').removeClass('flip');
     });
+
+    $('[data-bs-toggle="popover"]').popover();
 });

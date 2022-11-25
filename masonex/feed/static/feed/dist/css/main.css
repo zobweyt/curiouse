@@ -89,10 +89,6 @@ img {
   outline-width: 1px !important;
 }
 
-ol, ul {
-  padding-left: 1rem !important;
-}
-
 ol li, ul li {
   padding: 0 0 !important;
 }

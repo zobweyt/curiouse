@@ -1,0 +1,7 @@
+<ul class="list-unstyled">
+    {% for post in posts %}
+    <li class="pb-4 mt-4 border-bottom">
+        {% include 'feed/includes/post_cover.html' with post=post %}
+    </li>
+    {% endfor %}
+</ul>

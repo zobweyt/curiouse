@@ -9,23 +9,20 @@ $dark:              #2e2e30;
 $danger:            #dc3545;
 $success:           #198754;
 $focus-color:       #68aeff;
-
-$input-btn-focus-width:         .1875em;
-
-// $input-focus-width:             .0875em;
-// $input-focus-border-color:      $focus-color;
-// $input-focus-box-shadow:        0 0 0 $input-focus-width $focus-color;
-$input-focus-width:             0;
-$input-focus-border-color:      $dark;
-$input-focus-box-shadow:        none;
+$text-muted:        #606B71;
 
 $list-inline-padding: 0;
 $mark-padding: 0;
 
 $component-active-bg:      $arsenic;
 
-$dropdown-min-width: auto;
+$input-btn-focus-width:         .1875em;
 
+$input-focus-border-color:      $pistachio;
+$input-focus-width:             0;
+$input-focus-box-shadow:        none;
+
+$dropdown-min-width: auto;
 $btn-close-focus-shadow: none;
 
 $badge-font-weight: 500;
@@ -36,7 +33,7 @@ $zindex-footer:         $zindex-header;
 $zindex-back-to-top:    1050;
 
 $enable-caret:                 false;
-$enable-negative-margins:       true;
+$enable-negative-margins:      true;
 
 $dropdown-caret-size: 16px;
 

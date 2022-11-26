@@ -14,6 +14,10 @@ $utilities: map-merge(
             map-get($utilities, "width"),
             ( responsive: true ),
         ),
+        "height": map-merge(
+            map-get($utilities, "height"),
+            ( responsive: true ),
+        ),
         "border": map-merge(
             map-get($utilities, "border"),
             ( responsive: true ),

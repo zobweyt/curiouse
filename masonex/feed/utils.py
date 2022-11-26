@@ -69,6 +69,5 @@ class PostMixin:
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         is_update_view = self.__class__.__bases__.__contains__(UpdateView)
-        context['title'] = (
-            'Edit: ' if is_update_view else '') + self.object.title
+        context['title'] = ('Edit: ' if is_update_view else '') + self.object.title
         return context

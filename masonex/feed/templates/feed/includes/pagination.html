@@ -4,23 +4,21 @@
 <nav class="mt-2">
     <ul class="pagination pagination-sm">
         <li class="page-item {% if not page_obj.has_previous %}disabled{% endif %}">
-            <a {% if page_obj.has_previous %}href="?{% query_transform page=page_obj.previous_page_number %}"{% endif %} class="page-link">
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                    <polyline points="15 6 9 12 15 18"></polyline>
-                </svg>
-            </a>
+            {% if page_obj.has_previous %}
+            <a href="?{% query_transform page=page_obj.previous_page_number %}" class="page-link">&laquo;</a>
+            {% else %}
+            <span class="page-link">&laquo;</span>
+            {% endif %}
         </li>
         <li class="page-item active">
             <span class="page-link">Page {{ page_obj.number }} of {{ paginator.num_pages }}</span>
         </li>
         <li class="page-item {% if not page_obj.has_next %}disabled{% endif %}">
-            <a {% if page_obj.has_next %}href="?{% query_transform page=page_obj.next_page_number %}"{% endif %} class="page-link">
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                    <polyline points="9 6 15 12 9 18"></polyline>
-                </svg>
-            </a>
+            {% if page_obj.has_next %}
+            <a href="?{% query_transform page=page_obj.next_page_number %}" class="page-link">&raquo;</a>
+            {% else %}
+            <span class="page-link">&raquo;</span>
+            {% endif %}
         </li>
     </ul>
 </nav>

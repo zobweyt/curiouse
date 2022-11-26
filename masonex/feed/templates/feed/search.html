@@ -2,42 +2,44 @@
 {% load static feed_tags %}
 
 {% block content %}
-<section class="mb-2">
-    <form action="{% url 'search' %}" method="GET">
-        <div class="input-group input-group-sm" style="max-width: 420px;">
-            <input type="text" class="form-control" placeholder="Search" name="{{ form.query.name }}" value="{{ request.GET.query }}" required>
-            <button type="submit" class="btn btn-secondary">
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                    <circle cx="10" cy="10" r="7"></circle>
-                    <line x1="21" y1="21" x2="15" y2="15"></line>
-                </svg>
-            </button>
+<div style="max-width: 32.5rem;">        
+    <section class="mb-2">
+        <form action="{% url 'search' %}" method="GET">
+            <div class="input-group input-group-sm">
+                {{ form.query }}
+                <button type="submit" class="btn btn-secondary">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <circle cx="10" cy="10" r="7"></circle>
+                        <line x1="21" y1="21" x2="15" y2="15"></line>
+                    </svg>
+                </button>
+            </div>
+        </form>
+    </section>
+    <section>
+        {% if request.GET.query %}
+        <h1 class="fs-5 fw-normal">Search results for <strong class="text-break">{{ request.GET.query }}</strong></h1>
+        {% if results %}
+        <ul class="list-unstyled">
+            {% for result in results %}
+            <li class="mb-2">
+                <a href="{{ result.get_absolute_url }}" class="link mb-1">{{ result.title|truncatechars:64|highlight:request.GET.query }}</a>
+                <p class="mb-0 text-break">{{ result.description|truncatechars:196|highlight:request.GET.query }}</p>
+            </li>
+            {% endfor %}
+        </ul>
+        {% include 'feed/includes/pagination.html' %}
+        {% else %}
+        <div class="text-muted">
+            <p class="mb-0">Make sure all words are spelled correctly.</p>
+            <p class="mb-0">Try different keywords.</p>
+            <p class="mb-0">Try more general keywords.</p>
         </div>
-    </form>
-</section>
-<section style="max-width: 32.5rem;">
-    {% if request.GET.query %}
-    <h1 class="fs-5 fw-normal">Search results for <strong>{{ request.GET.query }}</strong></h1>
-    {% if results %}
-    <ul class="list-unstyled">
-        {% for result in results %}
-        <li class="mb-2">
-            <a href="{{ result.get_absolute_url }}" class="link mb-1">{{ result.title|truncatechars:64|highlight:request.GET.query }}</a>
-            <p class="mb-0 text-break">{{ result.description|truncatechars:196|highlight:request.GET.query }}</p>
-        </li>
-        {% endfor %}
-    </ul>
-    {% include 'feed/includes/pagination.html' %}
-    {% else %}
-    <div class="text-muted">
-        <p class="mb-0">Make sure all words are spelled correctly.</p>
-        <p class="mb-0">Try different keywords.</p>
-        <p class="mb-0">Try more general keywords.</p>
-    </div>
-    {% endif %}
-    {% else %}
-    <h1 class="mb-0 fs-5">Make a query to search.</h1>
-    {% endif %}
-</section>
+        {% endif %}
+        {% else %}
+        <h1 class="mb-0 fs-5">Make a query to search.</h1>
+        {% endif %}
+    </section>
+</div>
 {% endblock content %}

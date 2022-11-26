@@ -3,10 +3,16 @@
 
 {% block content %}
 <section class="mb-3">
-    <div class="d-flex mb-2">
+    <div class="d-block mb-2">
         <a href="{{ post.category.get_absolute_url }}" class="badge category-badge">{{ post.category.name }}</a>
-    </div>
-    <h1 class="fs-4 mb-1">{{ post.title }}</h1>
+    </div>   
+    <h1 class="fs-4 mb-1">
+        {{ post.title }} 
+        {% if request.user == post.author %}
+        <span class="circle-divider"></span>
+        <a href="{% url 'post_update' post.pk post.slug %}" class="link">edit</a>
+        {% endif %}
+    </h1>
     <div class="d-flex align-items-center gap-1 mb-2 fs-sm">
         <p class="mb-0">By <a href="{{ post.author.get_absolute_url }}" class="link">{{ post.author.get_full_name }}</a></p>
         <span class="circle-divider"></span>
@@ -34,11 +40,4 @@
 <article class="post__article text-break col-12 col-lg-8">
     {{ post.body | editorjs }}
 </article>
-<section>
-    {% if user == post.author %}
-    <div class="d-flex">
-        <a href="{% url 'post_update' post.pk post.slug %}" class="btn btn-sm btn-outline-dark">Edit this post</a>
-    </div>
-    {% endif %}
-</section>
 {% endblock content %}

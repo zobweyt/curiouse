@@ -41,9 +41,9 @@ class PostForm(forms.ModelForm):
 
 
 class UserRegistrationForm(CharFieldCSSClassMixin, UserCreationForm):
-    email = forms.EmailField(required=True)
     last_name = forms.CharField(required=True)
     first_name = forms.CharField(required=True)
+    email = forms.EmailField(required=True)
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
     password2 = forms.CharField(label='Confirm password', widget=forms.PasswordInput)
 
@@ -52,23 +52,9 @@ class UserRegistrationForm(CharFieldCSSClassMixin, UserCreationForm):
         fields = ('first_name', 'last_name', 'username', 'email', 'password1', 'password2')
 
 
-POST_ORDER_CHOICES = [
-    ('category', 'Category'),
-    ('-created_at', 'Create date'),
-    ('-modified_at', 'Update date'),
-]
-
-
-class SearchForm(forms.Form):
-    query = forms.CharField(max_length=128)
-    categories = forms.ModelMultipleChoiceField(queryset=Category.objects.all())
-    published = forms.ChoiceField(choices=[
-        ('today', 'Today'),
-        ('week', 'This week'),
-        ('month', 'This month'),
-        ('year', 'This year')
-    ])
-    order_by = forms.ChoiceField(choices=POST_ORDER_CHOICES)
+class SearchForm(CharFieldCSSClassMixin, forms.Form):
+    query = forms.CharField(max_length=64, required=True,
+        widget=forms.TextInput(attrs={'placeholder': 'Search'}))
 
 
 class UserLoginForm(CharFieldCSSClassMixin, AuthenticationForm):

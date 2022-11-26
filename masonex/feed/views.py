@@ -7,6 +7,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models import Q
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
+from django.shortcuts import get_object_or_404
 from django.views.generic import ListView, CreateView, UpdateView, FormView
 
 from feed.forms import PostForm, UserLoginForm, UserRegistrationForm, ProfileForm, UserPasswordChangeForm, UserEmailChangeForm, SearchForm
@@ -26,21 +27,31 @@ class CategoryView(PostsMixin, ListView):
 class SearchView(ListView):
     model = Post
     template_name = 'feed/search.html'
-    extra_context = {'title': 'Search', 'form': SearchForm}
+    extra_context = {'form': SearchForm}
     context_object_name = 'results'
-    paginate_by = 2
+    paginate_by = 12
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        query = self.request.GET.get('query')
+        context['title'] = 'Search ' + (query if query else '')
+        return context
 
     def get_queryset(self):
         posts = super().get_queryset().select_related('category', 'author')
 
         if self.request.method == 'GET':
             form = SearchForm(self.request.GET)
-            query = form.data.get('query')
 
-            if query:
-                query = query.strip()
-                lookups = Q(title__icontains=query) | Q(slug__icontains=query) | Q(description__icontains=query)
-                return posts.filter(lookups)
+            if form.is_valid():
+                query = form.data.get('query')
+
+                if query:
+                    query = query.strip()
+                    lookups = Q(title__icontains=query) | Q(slug__icontains=query) | Q(description__icontains=query)
+                    return posts.filter(lookups)
+
+            return Post.objects.none()
 
         return posts
 
@@ -125,16 +136,20 @@ class UserRegistrationView(ExcludeAuthenticatedUsersMixin, CreateView):
         return redirect('home')
 
 
-def user_detail(request, username):
-    user = User.objects.get(username=username)
-    posts = Post.objects.filter(author=user)
-    context = {
-        'title': user.username,
-        'user': user,
-        'posts': posts,
-    }
+class AuthorDetailView(PostsMixin, ListView):
+    template_name = 'feed/author_detail.html'
 
-    return render(request, 'feed/user_detail.html', context)
+    def get_context_data(self, **kwargs):   
+        context = super().get_context_data(**kwargs)
+        extra_context = {
+            'title': self.author.get_full_name(),
+            'author': self.author,
+        }
+        return context | extra_context
+
+    def get_queryset(self):
+        self.author = get_object_or_404(User, username=self.kwargs['username'])
+        return super().get_queryset().filter(author=self.author)
 
 
 def logout_user(request):

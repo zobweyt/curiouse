@@ -1,17 +1,25 @@
-from django.template.defaultfilters import stringfilter, register
+import re
+
+from django import template
+from django.http import QueryDict
+from django.template.defaultfilters import stringfilter
 from django.utils.safestring import mark_safe
-from re import sub, IGNORECASE
+
+register = template.Library()
 
 
 @register.filter
-def get_list(dictionary: dict, key: str) -> list:
+def get_list(dictionary: QueryDict, key: str) -> list:
     return dictionary.getlist(key)
 
 
-@register.filter
+@register.filter()
 @stringfilter
 def highlight(text: str, to_highlight: str) -> str:
-    return mark_safe(sub(f'({to_highlight})', r'<mark class="p-0">\1</mark>', text, flags=IGNORECASE))
+    pattern = f'{to_highlight.strip()}+'
+    repl = r'<mark>\g<0></mark>'
+    highlighted_text = re.sub(pattern, repl, text, flags=re.IGNORECASE)
+    return mark_safe(highlighted_text)
 
 
 @register.filter
@@ -20,10 +28,6 @@ def truncatemail(email: str, chars: int) -> str:
     domain = email.split('@')[-1]
     return f'{email[0:chars]}***@{domain}'
 
-
-from django import template
-
-register = template.Library()
 
 @register.simple_tag(takes_context=True)
 def query_transform(context, **kwargs):

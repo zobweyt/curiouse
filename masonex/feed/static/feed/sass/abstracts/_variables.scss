@@ -18,9 +18,11 @@ $component-active-bg:      $arsenic;
 
 $input-btn-focus-width:         .1875em;
 
-$input-focus-border-color:      $pistachio;
-$input-focus-width:             0;
-$input-focus-box-shadow:        none;
+$btn-transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out, transform .15s ease-in-out;
+
+$input-focus-border-color:      $light-arsenic;
+$input-focus-width:             0.0325rem;
+$input-focus-box-shadow:        0 0 0 $input-focus-width $input-focus-border-color;
 
 $dropdown-min-width: auto;
 $btn-close-focus-shadow: none;
@@ -45,9 +47,9 @@ $alert-bg-scale: -88%;
 @import "../../../bootstrap/scss/functions";
 @import "../../../bootstrap/scss/variables";
 
-$dropdown-link-active-bg:      $gray-200;
 $dropdown-link-active-color:   $dark;
-$dropdown-link-hover-bg:       $gray-100;
+$dropdown-link-active-bg:      #e2e6f3;
+$dropdown-link-hover-bg:       #f1f2fb;
 
 $info:           $blue-400;
 $warning:        $orange-400;

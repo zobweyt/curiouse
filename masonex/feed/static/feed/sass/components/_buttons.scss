@@ -1,3 +1,7 @@
+.btn:active {
+    transform: scale(0.95) translateY(0.03125rem);
+}
+
 #scroll-to-top {
     background-color: $white;
     bottom: .825em;

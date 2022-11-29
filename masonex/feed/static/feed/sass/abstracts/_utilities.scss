@@ -12,7 +12,20 @@ $utilities: map-merge(
         ),
         "width": map-merge(
             map-get($utilities, "width"),
-            ( responsive: true ),
+            ( 
+                values: map-merge(
+                    map-get(map-get($utilities, "width"), "values"),
+                    (
+                        1: 5rem,
+                        2: 10rem,
+                        3: 15rem,
+                        4: 20rem,
+                        5: 25rem,
+                        6: 30rem,
+                    ),
+                ),
+                responsive: true,
+            ),
         ),
         "height": map-merge(
             map-get($utilities, "height"),
@@ -50,8 +63,17 @@ $utilities: map-merge(
 }
 
 .border-dashed {
-    background-image: repeating-linear-gradient(0deg, #acb0b9, #acb0b9 9px, transparent 9px, transparent 12px, #acb0b9 12px), repeating-linear-gradient(90deg, #acb0b9, #acb0b9 9px, transparent 9px, transparent 12px, #acb0b9 12px), repeating-linear-gradient(180deg, #acb0b9, #acb0b9 9px, transparent 9px, transparent 12px, #acb0b9 12px), repeating-linear-gradient(270deg, #acb0b9, #acb0b9 9px, transparent 9px, transparent 12px, #acb0b9 12px);
-    background-size: 2px 100%, 100% 2px, 2px 100% , 100% 2px;
-    background-position: 0 0, 0 0, 100% 0, 0 100%;
-    background-repeat: no-repeat;
+    background-image: none !important;
+    border: 2px dashed $gray-700;
+}
+
+.image-upload {
+    cursor: pointer;
+    width: 212px;
+    height: 132px;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }

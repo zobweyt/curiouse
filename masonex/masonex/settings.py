@@ -1,8 +1,6 @@
 import os
 from pathlib import Path
 
-from django.urls import reverse_lazy
-
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-9(=z-=^wn=k%_7wvls6spp=fl^%d181@8pp=*-&hb)9-#=f$s3'
@@ -87,7 +85,7 @@ LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
 
-USE_I18N = True
+USE_I18N = False
 
 USE_TZ = True
 
@@ -161,5 +159,3 @@ EDITORJS_CONFIG = {
         },
     },
 }
-
-# test commit

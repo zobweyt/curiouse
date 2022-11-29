@@ -5,39 +5,19 @@
 <section class="mb-3">
     <div class="d-block mb-2">
         <a href="{{ post.category.get_absolute_url }}" class="badge category-badge">{{ post.category.name }}</a>
-    </div>   
-    <h1 class="fs-4 mb-1">
-        {{ post.title }} 
-        {% if request.user == post.author %}
-        <span class="circle-divider"></span>
-        <a href="{% url 'post_update' post.pk post.slug %}" class="link">edit</a>
-        {% endif %}
-    </h1>
-    <div class="d-flex align-items-center gap-1 mb-2 fs-sm">
+    </div>
+    <div class="d-flex align-items-center gap-1 fs-sm">
         <p class="mb-0">By <a href="{{ post.author.get_absolute_url }}" class="link">{{ post.author.get_full_name }}</a></p>
         <span class="circle-divider"></span>
         <time datetime="{{ post.created_at|date:"Y-m-d" }}">{{ post.created_at|date:"F, d, Y" }}</time>
         <span class="circle-divider"></span>
         <p class="mb-0 text-muted">{% get_hit_count for post %} views</p>
     </div>
-    <img src="{{ post.thumbnail.url }}" alt="Article thumbnail" class="post__thumbnail">
-    <div class="d-flex mt-2 gap-2">
-        <button class="btn btn-like py-1 px-2 fs-6 d-flex align-items-center gap-1 rounded-3">
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="currentColor" stroke-linecap="round" stroke-linejoin="round">
-                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                <path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428m0 0a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"></path>
-            </svg>
-            214
-        </button>
-        <button class="btn btn-bookmark">
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon fs-5" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="currentColor" stroke-linecap="round" stroke-linejoin="round">
-                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                <path d="M9 4h6a2 2 0 0 1 2 2v14l-5 -3l-5 3v-14a2 2 0 0 1 2 -2"></path>
-            </svg>
-        </button>
-    </div>
 </section>
 <article class="post__article text-break col-12 col-lg-8">
     {{ post.body | editorjs }}
 </article>
+{% if request.user == post.author %}
+<a href="{% url 'post_update' post.pk post.slug %}" class="link">edit</a>
+{% endif %}
 {% endblock content %}

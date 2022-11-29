@@ -28,8 +28,8 @@ urlpatterns = [
     path('login/', UserAuthenticiationView.as_view(), name='login'),
     path('register/', UserRegistrationView.as_view(), name='register'),
     path('profile/', UserProfileView.as_view(), name='profile'),
-    path('password-change/', UserPasswordChangeView.as_view(), name='password_change'),
-    path('email-change/', UserEmailChangeView.as_view(), name='email_change'),
+    path('profile/password-change/', UserPasswordChangeView.as_view(), name='password_change'),
+    path('profile/email-change/', UserEmailChangeView.as_view(), name='email_change'),
     path('user/<str:username>/', AuthorDetailView.as_view(), name='user'),
     path('logout/', logout_user, name='logout'),
 ]

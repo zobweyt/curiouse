@@ -69,10 +69,10 @@ class ProfileForm(CharFieldCSSClassMixin, forms.ModelForm):
     avatar = forms.ImageField(
         required=False,
         widget=forms.FileInput(attrs={
-        'hidden': True, 
-        'accept': '.png, .jpg, .jpeg', 
-        'data-toggle': 'change-image', 
-        'data-target': '#avatar'
+            'hidden': True, 
+            'accept': '.png, .jpg, .jpeg', 
+            'data-toggle': 'change-image', 
+            'data-target': '#avatar'
         }))
     remove_photo = forms.BooleanField(
         label='Delete photo?', 
@@ -84,10 +84,7 @@ class ProfileForm(CharFieldCSSClassMixin, forms.ModelForm):
         }))
     first_name = forms.CharField(required=True)
     last_name = forms.CharField(required=True)
-    bio = forms.CharField(
-        help_text='Adding a profile bio can help us promote you!', 
-        required=False,
-        widget=forms.Textarea(attrs={'rows': 5}))
+    bio = forms.CharField(required=False, widget=forms.Textarea(attrs={'rows': 5}))
 
     def save(self, *args, **kwargs):
         user = super().save(*args, **kwargs)

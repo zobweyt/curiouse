@@ -19,13 +19,13 @@ class PostForm(forms.ModelForm):
     category = forms.ModelChoiceField(
         queryset=Category.objects.all(), 
         widget=forms.Select(attrs={
-            'class': 'selectpicker',
+            'class': 'selectpicker mb-3',
             'title': 'Select a category',
-            'data-width': '100%',
             'data-live-search': 'true',
-            'data-size': '5',
+            'data-size': 5,
         }),
-        empty_label=None
+        empty_label=None,
+        help_text='Choose the most appropriate category for your post.'
     )
     thumbnail = forms.ImageField(widget=forms.FileInput(attrs={
         'hidden': True,

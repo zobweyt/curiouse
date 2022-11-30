@@ -18,7 +18,7 @@ $component-active-bg:      $arsenic;
 
 $input-btn-focus-width:         .1875em;
 
-$btn-transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out, transform .15s ease-in-out;
+$btn-transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out, transform .15s cubic-bezier(0.415, 0.255, 0.085, 0.890);
 
 $input-focus-border-color:      $light-arsenic;
 $input-focus-width:             0.0325rem;

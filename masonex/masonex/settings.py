@@ -7,7 +7,7 @@ SECRET_KEY = 'django-insecure-9(=z-=^wn=k%_7wvls6spp=fl^%d181@8pp=*-&hb)9-#=f$s3
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['127.0.0.1', '192.168.89.250', 'localhost']
 
 INTERNAL_IPS = ['127.0.0.1']
 

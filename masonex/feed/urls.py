@@ -7,6 +7,7 @@ from feed.views import (
     PostDetailView,
     PostCreateView,
     PostUpdateView,
+    post_delete,
     UserAuthenticiationView,
     UserRegistrationView,
     UserProfileView,
@@ -14,7 +15,6 @@ from feed.views import (
     UserEmailChangeView,
     AuthorDetailView,
     logout_user,
-    post_delete,
 )
 
 urlpatterns = [
@@ -36,6 +36,3 @@ urlpatterns = [
     path('post/<int:post_id>/<slug:post_slug>/delete/', post_delete, name='post_delete'),
     path('post/<int:post_id>/delete/',post_delete),
 ]
-
-# handler404 = None
-# handler500 = None

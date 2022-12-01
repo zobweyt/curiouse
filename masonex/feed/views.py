@@ -96,7 +96,7 @@ class PostUpdateView(AuthorRequiredMixin, PostMixin, UpdateView):
 class UserProfileView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = User
     form_class = ProfileForm
-    template_name = 'feed/profile/profile_update.html'
+    template_name = 'feed/profile_update.html'
     extra_context = {'title': 'Profile'}
     success_message = 'The profile has been successfully updated!'
 
@@ -109,7 +109,7 @@ class UserProfileView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 
 class UserPasswordChangeView(SuccessMessageMixin, PasswordChangeView):
     form_class = UserPasswordChangeForm
-    template_name = 'feed/profile/profile_auth_update_form.html'
+    template_name = 'feed/profile_auth_update_form.html'
     success_url = reverse_lazy('profile')
     success_message = 'The password has been successfully changed!'
     extra_context = {'action': reverse_lazy('password_change')}
@@ -117,7 +117,7 @@ class UserPasswordChangeView(SuccessMessageMixin, PasswordChangeView):
 
 class UserEmailChangeView(LoginRequiredMixin, SuccessMessageMixin, FormView):
     form_class = UserEmailChangeForm
-    template_name = 'feed/profile/profile_auth_update_form.html'
+    template_name = 'feed/profile_auth_update_form.html'
     success_url = reverse_lazy('profile')
     success_message = 'The email has been successfully changed!'
     extra_context = {
@@ -180,3 +180,11 @@ def post_delete(request, post_id, post_slug):
     post = get_object_or_404(Post, pk=post_id)
     post.delete()
     return redirect('home')
+
+
+def handle_page_not_found(request, exception):
+    return render(request, 'feed/handlers/404.html')
+        
+
+def handle_server_error(request, *args, **kwargs):
+    return render(request, 'feed/handlers/500.html')

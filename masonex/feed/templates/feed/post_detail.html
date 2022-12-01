@@ -17,7 +17,10 @@
 <article class="post__article text-break col-12 col-lg-8">
     {{ post.body | editorjs }}
 </article>
-{% if request.user == post.author %}
-<a href="{% url 'post_update' post.pk post.slug %}" class="link">edit</a>
+{% if request.user == post.author or request.user.is_staff %}
+<div class="d-flex gap-2">
+    <a href="{% url 'post_update' post.pk post.slug %}" class="btn btn-sm btn-outline-secondary">Edit</a>
+    <a href="{% url 'post_delete' post.pk post.slug %}" class="btn btn-sm btn-outline-danger">Delete</a>
+</div>
 {% endif %}
 {% endblock content %}

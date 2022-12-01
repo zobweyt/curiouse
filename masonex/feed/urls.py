@@ -14,6 +14,7 @@ from feed.views import (
     UserEmailChangeView,
     AuthorDetailView,
     logout_user,
+    post_delete,
 )
 
 urlpatterns = [
@@ -32,4 +33,9 @@ urlpatterns = [
     path('profile/email-change/', UserEmailChangeView.as_view(), name='email_change'),
     path('user/<str:username>/', AuthorDetailView.as_view(), name='user'),
     path('logout/', logout_user, name='logout'),
+    path('post/<int:post_id>/<slug:post_slug>/delete/', post_delete, name='post_delete'),
+    path('post/<int:post_id>/delete/',post_delete),
 ]
+
+# handler404 = None
+# handler500 = None

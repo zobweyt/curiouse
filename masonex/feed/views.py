@@ -63,8 +63,14 @@ class PostDetailView(PostMixin, HitCountDetailView):
 
 class PostCreateView(LoginRequiredMixin, CreateView):
     form_class = PostForm
-    template_name = 'feed/post_create.html'
+    template_name = 'feed/post_editor.html'
     extra_context = {'title': 'Create post'}
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['submit'] = 'Publish'
+        context['action'] = reverse_lazy('post_create')
+        return context
 
     def form_valid(self, form):
         post = form.save(commit=False)
@@ -75,13 +81,22 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 
 class PostUpdateView(AuthorRequiredMixin, PostMixin, UpdateView):
     form_class = PostForm
-    template_name = 'feed/post_update.html'
+    template_name = 'feed/post_editor.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        post = self.get_object()
+        context['submit'] = 'Edit'
+        context['action'] = reverse_lazy('post_update', kwargs={
+            self.pk_url_kwarg: post.pk, self.slug_url_kwarg: post.slug
+        })
+        return context
 
 
 class UserProfileView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = User
     form_class = ProfileForm
-    template_name = 'feed/profile.html'
+    template_name = 'feed/profile/profile_update.html'
     extra_context = {'title': 'Profile'}
     success_message = 'The profile has been successfully updated!'
 
@@ -94,17 +109,21 @@ class UserProfileView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 
 class UserPasswordChangeView(SuccessMessageMixin, PasswordChangeView):
     form_class = UserPasswordChangeForm
-    template_name = 'feed/password_change.html'
+    template_name = 'feed/profile/profile_auth_update_form.html'
     success_url = reverse_lazy('profile')
     success_message = 'The password has been successfully changed!'
+    extra_context = {'action': reverse_lazy('password_change')}
 
 
 class UserEmailChangeView(LoginRequiredMixin, SuccessMessageMixin, FormView):
     form_class = UserEmailChangeForm
-    template_name = 'feed/email_change.html'
+    template_name = 'feed/profile/profile_auth_update_form.html'
     success_url = reverse_lazy('profile')
     success_message = 'The email has been successfully changed!'
-    extra_context = {'title': 'Email change'}
+    extra_context = {
+        'title': 'Email change',
+        'action': reverse_lazy('email_change')
+    }
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
@@ -118,7 +137,7 @@ class UserEmailChangeView(LoginRequiredMixin, SuccessMessageMixin, FormView):
 
 class UserAuthenticiationView(ExcludeAuthenticatedUsersMixin, LoginView):
     form_class = UserLoginForm
-    template_name = 'feed/login.html'
+    template_name = 'feed/auth/login.html'
     extra_context = {'title': 'Sign in'}
 
     def get_success_url(self):
@@ -127,7 +146,7 @@ class UserAuthenticiationView(ExcludeAuthenticatedUsersMixin, LoginView):
 
 class UserRegistrationView(ExcludeAuthenticatedUsersMixin, CreateView):
     form_class = UserRegistrationForm
-    template_name = 'feed/register.html'
+    template_name = 'feed/auth/register.html'
     extra_context = {'title': 'Sign up'}
 
     def form_valid(self, form):
@@ -155,3 +174,9 @@ class AuthorDetailView(PostsMixin, ListView):
 def logout_user(request):
     logout(request)
     return redirect('login')
+
+
+def post_delete(request, post_id, post_slug):
+    post = get_object_or_404(Post, pk=post_id)
+    post.delete()
+    return redirect('home')

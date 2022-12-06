@@ -16,12 +16,12 @@
     <section>
         {% if request.GET.query %}
         <h1 class="fs-5 fw-normal">Search results for <strong class="text-break">{{ request.GET.query }}</strong></h1>
-        {% if results %}
+        {% if articles %}
         <ul class="list-unstyled">
-            {% for result in results %}
+            {% for article in articles %}
             <li class="mb-2">
-                <a href="{{ result.get_absolute_url }}" class="link mb-1">{{ result.title|truncatechars:64|highlight:request.GET.query }}</a>
-                <p class="mb-0 text-break">{{ result.description|truncatechars:196|highlight:request.GET.query }}</p>
+                <a href="{{ article.get_absolute_url }}" class="link mb-1">{{ article.title|truncatechars:64|highlight:request.GET.query }}</a>
+                <p class="mb-0 text-break">{{ article.description|truncatechars:196|highlight:request.GET.query }}</p>
             </li>
             {% endfor %}
         </ul>

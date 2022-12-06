@@ -1,6 +1,6 @@
+from .article import *
 from .user import *
 from .handlers import *
-from .post import *
 
 __all__ = [
     'UserAuthenticiationView',
@@ -9,12 +9,12 @@ __all__ = [
     'UserSettingsView',
     'UserEmailChangeView',
     'UserPasswordChangeView',
-    'PostCreateView',
-    'PostDetailView',
-    'PostUpdateView',
-    'post_delete',
-    'PostListingView',
-    'CategoryView',
-    'PostSearchView',
-    'AuthorDetailView',
+    'ArticleCreateView',
+    'ArticleDetailView',
+    'ArticleUpdateView',
+    'article_delete',
+    'ArticleListView',
+    'ArticleCategoryListView',
+    'ArticleSearchView',
+    'AuthorArticleListView',
 ]

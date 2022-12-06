@@ -4,17 +4,8 @@ from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
 
-from .mixins import ExcludeAuthenticatedUsersMixin
-from feed.forms import UserLoginForm, UserRegistrationForm
-
-
-class UserAuthenticiationView(ExcludeAuthenticatedUsersMixin, LoginView):
-    form_class = UserLoginForm
-    template_name = 'feed/auth/login.html'
-    extra_context = {'title': 'Sign in'}
-
-    def get_success_url(self):
-        return reverse_lazy('home')
+from .utils import ExcludeAuthenticatedUsersMixin
+from feed.forms import UserRegistrationForm, UserAuthenticiationForm
 
 
 class UserRegistrationView(ExcludeAuthenticatedUsersMixin, CreateView):
@@ -25,7 +16,16 @@ class UserRegistrationView(ExcludeAuthenticatedUsersMixin, CreateView):
     def form_valid(self, form):
         user = form.save()
         login(self.request, user)
-        return redirect('home')
+        return redirect('home') 
+
+
+class UserAuthenticiationView(ExcludeAuthenticatedUsersMixin, LoginView):
+    form_class = UserAuthenticiationForm
+    template_name = 'feed/auth/login.html'
+    extra_context = {'title': 'Sign in'}
+
+    def get_success_url(self):
+        return reverse_lazy('home')
 
 
 def logout_user(request):

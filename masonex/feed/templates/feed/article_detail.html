@@ -1,0 +1,24 @@
+{% extends 'feed/base_site.html' %}
+{% load editorjs %}
+
+{% block content %}
+<section class="mb-3">
+    <div class="d-block mb-2">
+        <a href="{{ article.category.get_absolute_url }}" class="badge category-badge">{{ article.category.name }}</a>
+    </div>
+    <div class="d-flex align-items-center gap-1 fs-sm">
+        <p class="mb-0">By <a href="{{ article.author.get_absolute_url }}" class="link">{{ article.author.get_full_name }}</a></p>
+        <span class="circle-divider"></span>
+        <time datetime="{{ article.created_at|date:"Y-m-d" }}">{{ article.created_at|date:"F, d, Y" }}</time>
+    </div>
+</section>
+<article class="post__article text-break col-12 col-lg-8">
+    {{ article.body | editorjs }}
+</article>
+{% if request.user == article.author or request.user.is_staff %}
+<div class="d-flex gap-2">
+    <a href="{% url 'article_update' article.pk article.slug %}" class="btn btn-sm btn-outline-secondary">Edit</a>
+    <a href="{% url 'article_delete' article.pk article.slug %}" class="btn btn-sm btn-outline-danger">Delete</a>
+</div>
+{% endif %}
+{% endblock content %}

@@ -4,16 +4,17 @@ from django.contrib.auth.views import PasswordChangeView
 from django.urls import reverse_lazy
 from django.views.generic import UpdateView, FormView
 
-from feed.forms import ProfileForm, UserPasswordChangeForm, UserEmailChangeForm
+from .utils import SettingsAuthUpdateMixin
+from feed.forms import ProfileForm, UserEmailChangeForm, UserPasswordChangeForm
 from feed.models import User
 
 
 class UserSettingsView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = User
     form_class = ProfileForm
-    template_name = 'feed/profile_update.html'
-    extra_context = {'title': 'Profile'}
+    template_name = 'feed/settings_update.html'
     success_message = 'The profile has been successfully updated!'
+    extra_context = {'title': 'Profile'}
 
     def get_object(self):
         return self.request.user
@@ -22,19 +23,13 @@ class UserSettingsView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         return reverse_lazy('profile')
 
 
-class UserEmailChangeView(LoginRequiredMixin, SuccessMessageMixin, FormView):
+class UserEmailChangeView(SettingsAuthUpdateMixin, FormView):
     form_class = UserEmailChangeForm
-    template_name = 'feed/profile_auth_update_form.html'
-    success_url = reverse_lazy('profile')
-    success_message = 'The email has been successfully changed!'
-    extra_context = {
-        'title': 'Change email',
-        'action': reverse_lazy('email_change')
-    }
+    updating_object = 'email'
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
-        kwargs['user'] = self.request.user
+        kwargs.update(user=self.request.user)
         return kwargs
 
     def form_valid(self, form):
@@ -42,12 +37,6 @@ class UserEmailChangeView(LoginRequiredMixin, SuccessMessageMixin, FormView):
         return super().form_valid(form)
 
 
-class UserPasswordChangeView(SuccessMessageMixin, PasswordChangeView):
+class UserPasswordChangeView(SettingsAuthUpdateMixin, PasswordChangeView):
     form_class = UserPasswordChangeForm
-    template_name = 'feed/profile_auth_update_form.html'
-    success_url = reverse_lazy('profile')
-    success_message = 'The password has been successfully changed!'
-    extra_context = {
-        'title': 'Change password',
-        'action': reverse_lazy('password_change')
-    }
+    updating_object = 'password'

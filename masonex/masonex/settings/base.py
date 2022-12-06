@@ -19,7 +19,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_cleanup.apps.CleanupConfig',
     'django_editorjs_fields',
-    'hitcount',
     'feed.apps.FeedConfig',
 ]
 

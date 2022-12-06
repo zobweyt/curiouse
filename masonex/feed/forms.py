@@ -2,11 +2,11 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm
 from django.core.exceptions import ValidationError
 
-from feed.models import Post, User, Category
+from feed.models import Article, User, Category
 from feed.utils import CharFieldCSSClassMixin
 
 
-class PostForm(forms.ModelForm):
+class ArticleEditorForm(forms.ModelForm):
     title = forms.CharField(widget=forms.TextInput(attrs={
         'placeholder': 'Title based on content',
         'class': 'form-inline-control bg-light fw-medium fs-6',
@@ -25,7 +25,7 @@ class PostForm(forms.ModelForm):
             'data-size': 5,
         }),
         empty_label=None,
-        help_text='Choose the most appropriate category for your post.'
+        help_text='Choose the most appropriate category for your article.'
     )
     thumbnail = forms.ImageField(widget=forms.FileInput(attrs={
         'hidden': True,
@@ -35,7 +35,7 @@ class PostForm(forms.ModelForm):
     }))
 
     class Meta:
-        model = Post
+        model = Article
         fields = ('thumbnail', 'title', 'description', 'body', 'category')
         exclude = ('author', 'slug')
 
@@ -57,7 +57,7 @@ class SearchForm(CharFieldCSSClassMixin, forms.Form):
         widget=forms.TextInput(attrs={'placeholder': 'Search'}))
 
 
-class UserLoginForm(CharFieldCSSClassMixin, AuthenticationForm):
+class UserAuthenticiationForm(CharFieldCSSClassMixin, AuthenticationForm):
     username = forms.CharField(widget=forms.TextInput(attrs={'autofocus': 'true'}))
     password = forms.CharField(widget=forms.PasswordInput)
 

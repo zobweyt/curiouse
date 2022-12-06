@@ -23,7 +23,7 @@ class Category(models.Model):
         ordering = ['name', 'slug', 'pk']
 
 
-class Post(models.Model):
+class Article(models.Model):
     author = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.PROTECT)
     title = models.CharField(max_length=128, db_index=True)
@@ -31,7 +31,6 @@ class Post(models.Model):
     description = models.CharField(max_length=256, db_index=True)
     thumbnail = models.ImageField(upload_to=PHOTOS_PATH)
     body = EditorJsJSONField(**EDITORJS_CONFIG)
-    likes = models.ManyToManyField(AUTH_USER_MODEL, related_name='likes', related_query_name='like')
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
 
@@ -39,18 +38,17 @@ class Post(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('post_detail', kwargs={'post_id': self.pk, 'post_slug': self.slug})
+        return reverse('article_detail', kwargs={'article_pk': self.pk, 'article_slug': self.slug})
 
     class Meta:
-        verbose_name = 'post'
-        verbose_name_plural = 'posts'
+        verbose_name = 'article'
+        verbose_name_plural = 'articles'
         ordering = ['-created_at', 'title', 'description', 'slug', 'pk']
 
 
 class User(AbstractUser):
     bio = models.TextField(max_length=128, blank=True)
     avatar = models.ImageField(upload_to=PHOTOS_PATH, null=True, blank=True)
-    bookmarks = models.ManyToManyField(Post, related_name='bookmarks', related_query_name='bookmark', blank=True)
 
     def __str__(self):
         return self.username

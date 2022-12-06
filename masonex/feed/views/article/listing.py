@@ -1,15 +1,18 @@
+from functools import reduce
+from operator import or_
+
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
 from django.views.generic import ListView
 
 from feed.forms import SearchForm
-from feed.models import Post, User
+from feed.models import Article, User
 
 
-class PostListingView(ListView):
-    model = Post
+class ArticleListView(ListView):
+    model = Article
     template_name = 'feed/index.html'
-    context_object_name = 'posts'
+    context_object_name = 'articles'
     paginate_by = 16
 
     def get_context_data(self, **kwargs):
@@ -21,17 +24,14 @@ class PostListingView(ListView):
         return super().get_queryset().select_related('category', 'author')
 
 
-class CategoryView(PostListingView):
+class ArticleCategoryListView(ArticleListView):
     def get_queryset(self):
         return super().get_queryset().filter(category__slug=self.kwargs['category_slug'])
 
 
-class PostSearchView(ListView):
-    model = Post
-    template_name = 'feed/search.html'
+class ArticleSearchView(ArticleListView, ListView):
+    template_name = 'feed/article_search.html'
     extra_context = {'form': SearchForm}
-    context_object_name = 'results'
-    paginate_by = 12
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -40,7 +40,7 @@ class PostSearchView(ListView):
         return context
 
     def get_queryset(self):
-        posts = super().get_queryset().select_related('category', 'author')
+        posts = super().get_queryset()
 
         if self.request.method == 'GET':
             form = SearchForm(self.request.GET)
@@ -50,15 +50,21 @@ class PostSearchView(ListView):
 
                 if query:
                     query = query.strip()
-                    lookups = Q(title__icontains=query) | Q(slug__icontains=query) | Q(description__icontains=query)
-                    return posts.filter(lookups)
+                    lookups = {'title__icontains', 'slug__icontains', 'description__icontains'}
+                    query_filter = Q()
 
-            return Post.objects.none()
+                    for lookup in lookups:
+                        query_filter |= Q(**{lookup: query})
+                        print(query_filter)
+
+                    return posts.filter(query_filter)
+
+            return Article.objects.none()
 
         return posts
 
 
-class AuthorDetailView(PostListingView, ListView):
+class AuthorArticleListView(ArticleListView, ListView):
     template_name = 'feed/author_detail.html'
 
     def get_context_data(self, **kwargs):

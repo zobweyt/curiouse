@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Category, Post, User
+from .models import Category, Article, User
 
 
 @admin.register(Category)
@@ -11,8 +11,8 @@ class CategoryAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
 
 
-@admin.register(Post)
-class PostAdmin(admin.ModelAdmin):
+@admin.register(Article)
+class ArticleAdmin(admin.ModelAdmin):
     list_display = ('id', 'title', 'created_at')
     list_display_links = ('title',)
     list_filter = ('category', 'created_at', 'modified_at')

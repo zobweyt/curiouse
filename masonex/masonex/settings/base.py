@@ -1,15 +1,17 @@
 import os
+import sys
 from pathlib import Path
-from environ import Env
+from dotenv import load_dotenv
 
 from .editorjs import *
 
-env = Env()
-Env.read_env()
+load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
-SECRET_KEY = env('SECRET_KEY')
+sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
+
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -68,6 +70,57 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+LOGGING_ROOT = os.path.join(BASE_DIR, 'logs')
+
+if not os.path.exists(LOGGING_ROOT):
+    os.mkdir(LOGGING_ROOT)
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} | {asctime} | {name} >> {message}',
+            'datefmt': '%Y-%m-%d %H:%M:%S',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(LOGGING_ROOT, 'logs.log'),
+            'formatter': 'verbose',
+        },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console', 'file'],
+            'level': os.getenv('DJANGO_LOG_LEVEL', 'WARNING'),
+            'propagate': False,
+        },
+        'accounts': {
+            'handlers': ['file'],
+            'level': os.getenv('GLOBAL_LOG_LEVEL', 'WARNING'),
+            'propagate': False,
+        },
+        'articles': {
+            'handlers': ['file'],
+            'level': os.getenv('GLOBAL_LOG_LEVEL', 'WARNING'),
+            'propagate': False,
+        },
+    },
+    'root': {
+       'handlers': ['file'],
+       'level': os.getenv('ROOT_LOG_LEVEL', 'ERROR'),
+    },
+}
 
 AUTH_USER_MODEL = 'accounts.User'
 

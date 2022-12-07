@@ -1,6 +1,6 @@
 from django import forms
 
-from utils import InputFieldCSSClassMixin
+from core.utils import InputFieldCSSClassMixin
 
 from articles.models import Article, Category
 

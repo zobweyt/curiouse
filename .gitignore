@@ -11,6 +11,7 @@
 **/bootstrap
 **/dist
 
+**/logs
 **/cache
 **/media
 **/staticfiles

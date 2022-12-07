@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm
 from django.core.exceptions import ValidationError
 
-from utils import InputFieldCSSClassMixin
+from core.utils import InputFieldCSSClassMixin
 
 from accounts.models import User
 

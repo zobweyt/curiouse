@@ -1,6 +1,0 @@
-{% load static %}
-
-<img src="{% if user.avatar %}{{ user.avatar.url }}{% else %}{% static 'feed/dist/images/user.png' %}{% endif %}" 
-     alt="User avatar" 
-     {% if width %}style="width: {{ width }};"{% endif %}
-     {% if class %}class="{{ class }}"{% endif %}>

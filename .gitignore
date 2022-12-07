@@ -11,5 +11,7 @@
 **/bootstrap
 **/dist
 
+**/cache
 **/media
+**/staticfiles
 *.sqlite3

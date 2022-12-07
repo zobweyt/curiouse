@@ -1,13 +1,14 @@
 from django.contrib import admin
+from django.conf import settings
 from django.urls import path, include
-
-from masonex import settings
-from feed.views import handle_page_not_found, handle_server_error
+from django.views.generic.base import RedirectView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('editorjs/', include('django_editorjs_fields.urls')),
-    path('', include('feed.urls')),
+    path('accounts/', include(('accounts.urls', 'accounts'), namespace='accounts')),
+    path('articles/', include('articles.urls')),
+    path('',  RedirectView.as_view(pattern_name='home', permanent=False), name='index'),
 ]
 
 if settings.DEBUG:
@@ -16,6 +17,3 @@ if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     
     urlpatterns.append(path('__debug__', include('debug_toolbar.urls')))
-
-handler404 = handle_page_not_found
-handler500 = handle_server_error

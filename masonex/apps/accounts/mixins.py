@@ -1,26 +1,43 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
-from django.shortcuts import redirect
+from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 
+from core.utils import TitleMixin
 
-class ExcludeAuthenticatedUsersMixin:
+
+class RedirectAuthenticatedUsersMixin:
+    """
+    Redirects the current user to 'fail_url' if authenticated.
+    """
+
+    fail_url = reverse_lazy('index')
+
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated:
-            return redirect('home')
-            
+            return HttpResponseRedirect(self.fail_url)
+
         return super().dispatch(request, *args, **kwargs)
 
 
-class SettingsAuthUpdateMixin(LoginRequiredMixin, SuccessMessageMixin):
+class ProfileUpdateMixin(LoginRequiredMixin, SuccessMessageMixin, TitleMixin):
+    """
+    Adds title to the context and creates success message depending on 'updating_object'.
+    """
+
     template_name = 'accounts/settings_auth_update_form.html'
     success_url = reverse_lazy('accounts:profile')
+    
+    form_action_url = reverse_lazy('accounts:profile')
+    updating_object = 'profile'
 
-    def __init__(self):
-        super().__init__()
-        
-        self.success_message = f'The {self.updating_object} has been successfully changed!'
-        self.extra_context = {
-            'title': f'{str.capitalize(self.updating_object)} change',
-            'action': reverse_lazy(f'accounts:{self.updating_object}_change')
-        }
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form_action'] = self.form_action_url
+        return context
+
+    def get_success_message(self, cleaned_data):
+        return f'The {self.updating_object} has been successfully updated!'
+
+    def get_title(self, context):
+        return f'Change {self.updating_object}'

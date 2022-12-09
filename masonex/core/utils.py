@@ -1,9 +1,23 @@
 from django.forms.fields import CharField, ChoiceField
 
 
-class InputFieldCSSClassMixin:
-    """Adds custom CSS class to every CharField in a form."""
+class TitleMixin:
+    """
+    Provides an easy way to work with page title.
+    """
 
+    title = None
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = self.get_title(context)
+        return context
+    
+    def get_title(self, context):
+        return self.title
+
+
+class DecorateInputsMixin:
     input_css_class = 'form-control'
     input_size_css_class = 'sm'
 

@@ -76,6 +76,8 @@ LOGGING_ROOT = os.path.join(BASE_DIR, 'logs')
 if not os.path.exists(LOGGING_ROOT):
     os.mkdir(LOGGING_ROOT)
 
+GLOBAL_LOG_LEVEL = os.getenv('GLOBAL_LOG_LEVEL', 'WARNING')
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -106,13 +108,13 @@ LOGGING = {
             'propagate': False,
         },
         'accounts': {
-            'handlers': ['file'],
-            'level': os.getenv('GLOBAL_LOG_LEVEL', 'WARNING'),
+            'handlers': ['console', 'file'],
+            'level': GLOBAL_LOG_LEVEL,
             'propagate': False,
         },
         'articles': {
-            'handlers': ['file'],
-            'level': os.getenv('GLOBAL_LOG_LEVEL', 'WARNING'),
+            'handlers': ['console', 'file'],
+            'level': GLOBAL_LOG_LEVEL,
             'propagate': False,
         },
     },

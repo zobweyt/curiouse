@@ -2,9 +2,10 @@ from django.db.models import Q
 from django.shortcuts import get_object_or_404
 from django.views.generic import ListView
 
+from core.services import all_objects
+from accounts.models import User
 from articles.forms import SearchForm
 from articles.models import Article
-from accounts.models import User
 
 
 class ArticleListView(ListView):
@@ -19,12 +20,17 @@ class ArticleListView(ListView):
         return context
 
     def get_queryset(self):
-        return super().get_queryset().select_related('category', 'author')
+        return all_objects(
+            objects=super().get_queryset(),
+            select_related=('author', 'category'),
+        )
 
 
 class ArticleCategoryListView(ArticleListView):
     def get_queryset(self):
-        return super().get_queryset().filter(category__slug=self.kwargs['category_slug'])
+        return super().get_queryset().filter(
+            category__slug=self.kwargs['category_slug']
+        )
 
 
 class ArticleSearchView(ArticleListView, ListView):

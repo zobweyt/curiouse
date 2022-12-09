@@ -2,27 +2,24 @@ from django.db.models import Q
 from django.shortcuts import get_object_or_404
 from django.views.generic import ListView
 
-from core.services import all_objects
+from core.utils import TitleMixin
 from accounts.models import User
 from articles.forms import SearchForm
-from articles.models import Article
+from articles.models import Category, Article
 
 
-class ArticleListView(ListView):
+class ArticleListView(TitleMixin, ListView):
     model = Article
-    template_name = 'feed/index.html'
+    template_name = 'articles/index.html'
     context_object_name = 'articles'
     paginate_by = 16
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['title'] = 'Masonex'
-        return context
+    title = 'Articles'
 
     def get_queryset(self):
-        return all_objects(
-            objects=super().get_queryset(),
-            select_related=('author', 'category'),
+        return super().get_queryset().select_related(
+            'author', 'category'
+        ).only(
+            'author__first_name', 'author__last_name', 'category__name', 'title', 'thumbnail', 'slug'
         )
 
 
@@ -32,53 +29,61 @@ class ArticleCategoryListView(ArticleListView):
             category__slug=self.kwargs['category_slug']
         )
 
+    def get_title(self):
+        return get_object_or_404(Category, slug=self.kwargs['category_slug'])
+
 
 class ArticleSearchView(ArticleListView, ListView):
-    template_name = 'feed/article_search.html'
+    template_name = 'articles/article_search.html'
     extra_context = {'form': SearchForm}
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+    query = None
+    
+    def get(self, request, *args, **kwargs):
         query = self.request.GET.get('query')
-        context['title'] = 'Search ' + (query if query else '')
-        return context
+
+        if query:
+            self.query = query.strip()
+
+        return super().get(request, *args, **kwargs)
 
     def get_queryset(self):
-        posts = super().get_queryset()
+        articles = super().get_queryset()
 
         if self.request.method == 'GET':
             form = SearchForm(self.request.GET)
 
             if form.is_valid():
-                query = form.data.get('query')
-
-                if query:
-                    query = query.strip()
+                if self.query:
                     lookups = {'title__icontains', 'slug__icontains', 'description__icontains'}
                     query_filter = Q()
 
                     for lookup in lookups:
-                        query_filter |= Q(**{lookup: query})
-                        print(query_filter)
+                        query_filter |= Q(**{lookup: self.query})
 
-                    return posts.filter(query_filter)
+                    return articles.filter(query_filter)
 
             return Article.objects.none()
 
-        return posts
+        return articles
+
+    def get_title(self):
+        return 'Search results for' + (f' "{self.query}"' if self.query else '')
 
 
 class AuthorArticleListView(ArticleListView, ListView):
-    template_name = 'feed/author_detail.html'
+    template_name = 'articles/author_detail.html'
+
+    def get(self, request, *args, **kwargs):
+        self.author = get_object_or_404(User, username=self.kwargs['username'])
+        return super().get(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        extra_context = {
-            'title': self.author.get_full_name(),
-            'author': self.author,
-        }
-        return context | extra_context
+        context['author'] = self.author
+        return context
 
     def get_queryset(self):
-        self.author = get_object_or_404(User, username=self.kwargs['username'])
         return super().get_queryset().filter(author=self.author)
+
+    def get_title(self):
+        return self.author.get_full_name()

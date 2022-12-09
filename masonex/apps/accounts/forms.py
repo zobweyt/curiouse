@@ -8,8 +8,8 @@ from .models import User
 
 
 class SignUpForm(DecorateInputsMixin, UserCreationForm):
-    last_name = forms.CharField(required=True)
     first_name = forms.CharField(required=True)
+    last_name = forms.CharField(required=True)
     email = forms.EmailField(required=True)
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
     password2 = forms.CharField(label='Confirm password', widget=forms.PasswordInput)

@@ -1,9 +1,10 @@
-from autoslug import AutoSlugField
+from django.contrib.auth import get_user_model
+from django.conf import settings
 from django.db import models
 from django.urls import reverse
-from django_editorjs_fields import EditorJsJSONField
 
-from masonex.settings import PHOTOS_PATH, AUTH_USER_MODEL, EDITORJS_CONFIG
+from autoslug import AutoSlugField
+from django_editorjs_fields import EditorJsJSONField
 
 
 class Category(models.Model):
@@ -23,13 +24,13 @@ class Category(models.Model):
 
 
 class Article(models.Model):
-    author = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE)
+    author = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.PROTECT)
     title = models.CharField(max_length=128, db_index=True)
     slug = AutoSlugField(populate_from='title', db_index=True)
     description = models.CharField(max_length=256, db_index=True)
-    thumbnail = models.ImageField(upload_to=PHOTOS_PATH)
-    body = EditorJsJSONField(**EDITORJS_CONFIG)
+    thumbnail = models.ImageField(upload_to=settings.PHOTOS_PATH)
+    body = EditorJsJSONField(**settings.EDITORJS_CONFIG)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
 

@@ -4,14 +4,16 @@ from django.urls import reverse_lazy
 from django.shortcuts import get_object_or_404
 from django.views.generic import CreateView, DetailView, UpdateView
 
+
+from core.utils import TitleMixin
 from .utils import ArticleAuthorRequiredMixin, ArticleEditorMixin, ArticleMixin
 from articles.models import Article
 
 
-class ArticleCreateView(LoginRequiredMixin, ArticleEditorMixin, CreateView):
-    extra_context = {'title': 'Create article'}
+class ArticleCreateView(LoginRequiredMixin, ArticleEditorMixin, TitleMixin, CreateView):
     form_action = reverse_lazy('article_create')
     form_submit_button_text = 'Publish'
+    title = 'Create article'
 
     def form_valid(self, form):
         article = form.save(commit=False)
@@ -21,7 +23,7 @@ class ArticleCreateView(LoginRequiredMixin, ArticleEditorMixin, CreateView):
 
 
 class ArticleDetailView(ArticleMixin, DetailView):
-    template_name = 'feed/article_detail.html'
+    template_name = 'articles/article_detail.html'
     
 
 class ArticleUpdateView(ArticleAuthorRequiredMixin, ArticleMixin, ArticleEditorMixin, UpdateView):

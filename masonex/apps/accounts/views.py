@@ -49,7 +49,7 @@ class ProfileUpdateView(ProfileUpdateMixin, UpdateView):
     def get_object(self):
         return self.request.user
 
-    def get_title(self, context):
+    def get_title(self):
         return 'Profile'
 
 

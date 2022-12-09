@@ -22,12 +22,12 @@ class RedirectAuthenticatedUsersMixin:
 
 class ProfileUpdateMixin(LoginRequiredMixin, SuccessMessageMixin, TitleMixin):
     """
-    Adds title to the context and creates success message depending on 'updating_object'.
+    Adds 'form_action_url' with title to the context and creates success message depending on 'updating_object'.
     """
 
     template_name = 'accounts/settings_auth_update_form.html'
     success_url = reverse_lazy('accounts:profile')
-    
+
     form_action_url = reverse_lazy('accounts:profile')
     updating_object = 'profile'
 
@@ -39,5 +39,5 @@ class ProfileUpdateMixin(LoginRequiredMixin, SuccessMessageMixin, TitleMixin):
     def get_success_message(self, cleaned_data):
         return f'The {self.updating_object} has been successfully updated!'
 
-    def get_title(self, context):
+    def get_title(self):
         return f'Change {self.updating_object}'

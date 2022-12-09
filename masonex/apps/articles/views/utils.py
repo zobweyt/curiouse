@@ -1,6 +1,7 @@
 from django.http import Http404
 from django.views.generic import UpdateView
 
+from core.utils import TitleMixin
 from articles.models import Article
 from articles.forms import ArticleEditorForm
 
@@ -17,7 +18,7 @@ class ArticleAuthorRequiredMixin:
 
 class ArticleEditorMixin:
     form_class = ArticleEditorForm
-    template_name = 'feed/article_editor.html'
+    template_name = 'articles/article_editor.html'
     form_action = None
     form_submit_button_text = None
 
@@ -31,14 +32,12 @@ class ArticleEditorMixin:
         return context
 
 
-class ArticleMixin:
+class ArticleMixin(TitleMixin):
     model = Article
     context_object_name = 'article'
     pk_url_kwarg = 'article_pk'
     slug_url_kwarg = 'article_slug'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+    def get_title(self):
         is_update_view = self.__class__.__bases__.__contains__(UpdateView)
-        context['title'] = ('Edit: ' if is_update_view else '') + self.object.title
-        return context
+        return ('Edit: ' if is_update_view else '') + self.object.title

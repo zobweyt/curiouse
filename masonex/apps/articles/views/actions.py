@@ -11,7 +11,7 @@ from articles.models import Article
 
 
 class ArticleCreateView(LoginRequiredMixin, ArticleEditorMixin, TitleMixin, CreateView):
-    form_action = reverse_lazy('article_create')
+    form_action = reverse_lazy('articles:article_create')
     form_submit_button_text = 'Publish'
     title = 'Create article'
 
@@ -32,7 +32,7 @@ class ArticleUpdateView(ArticleAuthorRequiredMixin, ArticleMixin, ArticleEditorM
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         article = self.get_object()
-        context['action'] = reverse_lazy('article_update', kwargs={
+        context['action'] = reverse_lazy('articles:article_update', kwargs={
             self.pk_url_kwarg: article.pk, self.slug_url_kwarg: article.slug
         })
         return context
@@ -40,4 +40,4 @@ class ArticleUpdateView(ArticleAuthorRequiredMixin, ArticleMixin, ArticleEditorM
 
 def article_delete(request, article_pk, article_slug):
     get_object_or_404(Article, pk=article_pk, slug=article_slug).delete()
-    return redirect('home')
+    return redirect('index')

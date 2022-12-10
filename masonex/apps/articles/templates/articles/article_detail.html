@@ -17,8 +17,8 @@
 </article>
 {% if request.user == article.author or request.user.is_staff %}
 <div class="d-flex gap-2">
-    <a href="{% url 'article_update' article.pk article.slug %}" class="btn btn-sm btn-outline-secondary">Edit</a>
-    <a href="{% url 'article_delete' article.pk article.slug %}" class="btn btn-sm btn-outline-danger">Delete</a>
+    <a href="{% url 'articles:article_update' article.pk article.slug %}" class="btn btn-sm btn-outline-secondary">Edit</a>
+    <a href="{% url 'articles:article_delete' article.pk article.slug %}" class="btn btn-sm btn-outline-danger">Delete</a>
 </div>
 {% endif %}
 {% endblock content %}

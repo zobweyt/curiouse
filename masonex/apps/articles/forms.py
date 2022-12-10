@@ -1,6 +1,6 @@
 from django import forms
 
-from core.utils import DecorateInputsMixin
+from core.utils import DecorateFormInputsMixin
 
 from articles.models import Article, Category
 
@@ -39,7 +39,7 @@ class ArticleEditorForm(forms.ModelForm):
         exclude = ('author', 'slug')
 
 
-class SearchForm(DecorateInputsMixin, forms.Form):
+class SearchForm(DecorateFormInputsMixin, forms.Form):
     query = forms.CharField(max_length=64, required=True,
         widget=forms.TextInput(attrs={'placeholder': 'Search'}))
     

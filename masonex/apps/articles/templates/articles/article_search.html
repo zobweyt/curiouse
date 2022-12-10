@@ -4,7 +4,7 @@
 {% block content %}
 <div style="max-width: 32.5rem;">        
     <section class="mb-2">
-        <form action="{% url 'search' %}" method="GET">
+        <form action="{% url 'articles:search' %}" method="GET">
             <div class="input-group input-group-sm">
                 {{ form.query }}
                 <button type="submit" class="btn btn-secondary">

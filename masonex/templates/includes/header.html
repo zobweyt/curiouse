@@ -3,11 +3,11 @@
 <header class="sticky-top border-bottom py-2">
     <div class="container-xxl">
         <div class="d-flex flex-wrap align-items-center justify-content-center">
-            <a href="{% url 'home' %}" class="d-flex align-items-center">
+            <a href="{% url 'index' %}" class="d-flex align-items-center">
                 <img src="{% static 'dist/images/logo_full.png' %}" height="32">
             </a>
             <div class="ms-auto me-2 me-md-3">
-                <a href="{% url 'search' %}">
+                <a href="{% url 'articles:search' %}">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path id="primary" d="M19,11a8,8,0,1,1-8-8A8,8,0,0,1,19,11Zm2,10-4.34-4.34" style="fill: none; stroke: #333640; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path></svg>
                 </a>
             </div>
@@ -38,7 +38,7 @@
                     </li>
                     <li class="p-0"><hr class="dropdown-divider"></li>
                     <li>
-                        <a class="dropdown-item" href="{% url 'article_create' %}">
+                        <a class="dropdown-item" href="{% url 'articles:article_create' %}">
                             <div class="d-flex align-items-center gap-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                     <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
@@ -51,7 +51,7 @@
                         </a>
                     </li>
                     <li>
-                        <a class="dropdown-item" href="{% url 'user' request.user.username %}">
+                        <a class="dropdown-item" href="{% url 'articles:user' request.user.username %}">
                             <div class="d-flex align-items-center gap-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                     <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>

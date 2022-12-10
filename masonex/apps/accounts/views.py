@@ -10,7 +10,7 @@ from .mixins import RedirectAuthenticatedUsersMixin, ProfileUpdateMixin
 from .forms import (
     SignUpForm,
     SignInForm,
-    UserSettingsForm,
+    UserProfileUpdateForm,
     UserEmailChangeForm,
     UserPasswordChangeForm,
 )
@@ -43,7 +43,7 @@ def logout_user_view(request):
 
 class ProfileUpdateView(ProfileUpdateMixin, UpdateView):
     model = User
-    form_class = UserSettingsForm
+    form_class = UserProfileUpdateForm
     template_name = 'accounts/settings_update.html'
 
     def get_object(self):
@@ -72,13 +72,3 @@ class UserPasswordChangeView(ProfileUpdateMixin, PasswordChangeView):
     form_class = UserPasswordChangeForm
     updating_object = 'password'
     form_action_url = reverse_lazy('accounts:password_change')
-
-
-__all__ = [
-    'SignUpView',
-    'SignInView',
-    'logout_user_view',
-    'ProfileUpdateView',
-    'UserEmailChangeView',
-    'UserPasswordChangeView',
-]

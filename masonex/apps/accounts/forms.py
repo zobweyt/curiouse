@@ -2,12 +2,12 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm
 from django.core.exceptions import ValidationError
 
-from core.utils import DecorateInputsMixin
+from core.utils import DecorateFormInputsMixin
 
 from .models import User
 
 
-class SignUpForm(DecorateInputsMixin, UserCreationForm):
+class SignUpForm(DecorateFormInputsMixin, UserCreationForm):
     first_name = forms.CharField(required=True)
     last_name = forms.CharField(required=True)
     email = forms.EmailField(required=True)
@@ -19,7 +19,7 @@ class SignUpForm(DecorateInputsMixin, UserCreationForm):
         fields = ('first_name', 'last_name', 'username', 'email', 'password1', 'password2')
 
 
-class SignInForm(DecorateInputsMixin, AuthenticationForm):
+class SignInForm(DecorateFormInputsMixin, AuthenticationForm):
     username = forms.CharField(widget=forms.TextInput(attrs={'autofocus': 'true'}))
     password = forms.CharField(widget=forms.PasswordInput)
 
@@ -27,7 +27,7 @@ class SignInForm(DecorateInputsMixin, AuthenticationForm):
         return ValidationError('Incorrect username or password.')
 
 
-class UserSettingsForm(DecorateInputsMixin, forms.ModelForm):
+class UserProfileUpdateForm(DecorateFormInputsMixin, forms.ModelForm):
     avatar = forms.ImageField(
         required=False,
         widget=forms.FileInput(attrs={
@@ -59,11 +59,11 @@ class UserSettingsForm(DecorateInputsMixin, forms.ModelForm):
         fields = ('avatar', 'first_name', 'last_name', 'bio')
 
 
-class UserPasswordChangeForm(DecorateInputsMixin, PasswordChangeForm):
+class UserPasswordChangeForm(DecorateFormInputsMixin, PasswordChangeForm):
     pass
 
 
-class UserEmailChangeForm(DecorateInputsMixin, forms.Form):
+class UserEmailChangeForm(DecorateFormInputsMixin, forms.Form):
     email = forms.EmailField(widget=forms.EmailInput)
 
     def __init__(self, user, *args, **kwargs):

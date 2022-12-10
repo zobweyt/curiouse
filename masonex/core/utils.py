@@ -17,26 +17,24 @@ class TitleMixin:
         return self.title
 
 
-class DecorateInputsMixin:
-    input_css_class = 'form-control'
-    input_size_css_class = 'sm'
+class DecorateFormInputsMixin:
+    """
+    Adds 'css_class' CSS class attribute to every 'css_decorated_fields' fields in a form.
+    """
+
+    css_class_decorated_fields = (
+        CharField,
+        ChoiceField,
+    )
+
+    css_class = 'form-control form-control-sm lh-sm fs-md'
 
     def __init__(self, *args, **kwargs):
-        if not self.input_css_class:
-            raise AttributeError('input_css_class must be provided.')
-
-        classes = [self.input_css_class]
-
-        if self.input_size_css_class:
-            classes.append(f'{self.input_css_class}-{self.input_size_css_class}')
-
-        formated_classes = ' '.join(classes)
-
         super().__init__(*args, **kwargs)
+        
+        for field in self.fields.values():
+            self.__decorate_field(field)
 
-        [
-            field.widget.attrs.update({'class': formated_classes}) 
-            for field 
-            in self.fields.values() 
-            if isinstance(field, CharField) or isinstance(field, ChoiceField)
-        ]
+    def __decorate_field(self, field):
+        if isinstance(field, self.css_class_decorated_fields):
+            field.widget.attrs.update({'class': self.css_class})

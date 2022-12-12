@@ -29,7 +29,7 @@ class ArticleEditorForm(forms.ModelForm):
     thumbnail = forms.ImageField(widget=forms.FileInput(attrs={
         'hidden': True,
         'accept': '.png, .jpg, .jpeg, .webp',
-        'data-toggle': 'change-image',
+        'data-toggle': 'image',
         'data-target': '#thumbnail',
     }))
 

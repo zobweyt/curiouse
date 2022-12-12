@@ -3,8 +3,8 @@
 {% block body %}
 {% include 'includes/header.html' %}
 <main class="container-md my-3 flex-fill d-flex flex-column align-items-center">
-    <div class="w-100 w-md-{% if width %}{{ width }}{% else %}5{% endif %} flex-fill d-flex flex-column">
-        {% if use_back %}
+    <div class="w-100 {% if form_width %}{{ form_width }}{% else %}w-md-5{% endif %} flex-fill d-flex flex-column">
+        {% if use_main_profile_page_button %}
         <div class="mb-2 d-flex">
             <a href="{% url 'accounts:profile' %}" class="text-muted d-flex p-2 align-items-center rounded border">
                 <svg xmlns="http://www.w3.org/2000/svg" class="icon d-block fs-5" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -16,22 +16,21 @@
             </a>
         </div>
         {% endif %}
-        {% if messages %}
+        {% if messages or form.errors.items %}
         <section>
             <ul class="list-unstyled mb-0">
                 {% for message in messages %}
-                <li>{% include 'includes/alert.html' with style='success' content=message %}</li>
+                    <li>{% include 'includes/alert.html' with style='success' content=message %}</li>
+                {% empty %}
+                    {% for field, errors in form.errors.items %}
+                        {% for error in errors %}
+                            <li>{% include 'includes/alert.html' with style='danger' content=error %}</li>
+                        {% endfor %}
+                    {% endfor %}
                 {% endfor %}
             </ul>
         </section>
         {% endif %}
-        {% for field in form %}
-        {% if field.errors %}
-        {% for error in field.errors %}
-        {% include 'includes/alert.html' with style='danger' content=error %}
-        {% endfor %}
-        {% endif %}
-        {% endfor %}
         <div class="border-md rounded p-md-3 flex-grow-1 flex-md-grow-0 d-flex flex-column">
             <form action="{{ form_action }}" method="post" enctype="multipart/form-data" class="flex-fill d-flex flex-column needs-validation" novalidate>
                 {% csrf_token %}
@@ -44,5 +43,4 @@
         </div>        
     </div>
 </main>
-</body>
 {% endblock body %}

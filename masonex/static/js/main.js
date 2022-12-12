@@ -35,7 +35,7 @@ $(document).ready(function() {
         }
     }
 
-    $('[data-toggle="change-image"]').change(function () {
+    $('[data-toggle="image"]').change(function () {
         let target = $($(this).attr('data-target'));
         let image = $(target.find('img'));
         const tagName = image.prop('tagName');

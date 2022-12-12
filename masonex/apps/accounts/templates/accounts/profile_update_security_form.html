@@ -1,8 +1,5 @@
-{% extends 'accounts/settings_update_form.html' %}
+{% extends 'accounts/profile_update_form.html' %}
 
-{% block body %}
-{% with width=4 use_back=True %}{{ block.super }}{% endwith %}
-{% endblock body %}
 {% block form_content %}
 <fieldset class="mb-2">
     <legend class="mb-1 fs-5">{{ title }}</legend>

@@ -27,40 +27,33 @@ class SignInForm(DecorateFormInputsMixin, AuthenticationForm):
         return ValidationError('Incorrect username or password.')
 
 
-class UserProfileUpdateForm(DecorateFormInputsMixin, forms.ModelForm):
+class ProfileUpdateForm(DecorateFormInputsMixin, forms.ModelForm):
     avatar = forms.ImageField(
+        label='Upload photo',
         required=False,
         widget=forms.FileInput(attrs={
-            'hidden': True, 
-            'accept': '.png, .jpg, .jpeg', 
-            'data-toggle': 'change-image', 
+            'hidden': True,
+            'accept': '.png, .jpg, .jpeg',
+            'data-toggle': 'image',
             'data-target': '#avatar'
         }))
-    remove_photo = forms.BooleanField(
-        label='Delete photo?', 
-        help_text='This action cannot be undone.', 
-        required=False,
-        widget=forms.CheckboxInput(attrs={
-            'class': 'btn-check',
-            'onchange': 'this.form.submit();'
-        }))
+    delete_avatar = forms.BooleanField(
+        label='Delete photo',
+        help_text='Do you really want to delete profile photo? This action cannot be undone.',        
+        required=False)
     first_name = forms.CharField(required=True)
     last_name = forms.CharField(required=True)
     bio = forms.CharField(required=False, widget=forms.Textarea(attrs={'rows': 5}))
 
     def save(self, *args, **kwargs):
         user = super().save(*args, **kwargs)
-        if self.cleaned_data.get('remove_photo'):
+        if self.cleaned_data.get('delete_avatar'):
             user.avatar.delete()
         return user
 
     class Meta:
         model = User
         fields = ('avatar', 'first_name', 'last_name', 'bio')
-
-
-class UserPasswordChangeForm(DecorateFormInputsMixin, PasswordChangeForm):
-    pass
 
 
 class UserEmailChangeForm(DecorateFormInputsMixin, forms.Form):
@@ -76,3 +69,16 @@ class UserEmailChangeForm(DecorateFormInputsMixin, forms.Form):
         if commit:
             self.user.save()
         return self.user
+
+
+class UserPasswordChangeForm(DecorateFormInputsMixin, PasswordChangeForm):
+    pass
+
+
+__all__ = [
+    'SignUpForm',
+    'SignInForm',
+    'ProfileUpdateForm',
+    'UserEmailChangeForm',
+    'UserPasswordChangeForm',
+]

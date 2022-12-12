@@ -6,14 +6,8 @@ from django.views.generic import CreateView, UpdateView, FormView
 
 from core.utils import TitleMixin
 from .models import User
-from .mixins import RedirectAuthenticatedUsersMixin, ProfileUpdateMixin
-from .forms import (
-    SignUpForm,
-    SignInForm,
-    UserProfileUpdateForm,
-    UserEmailChangeForm,
-    UserPasswordChangeForm,
-)
+from .mixins import RedirectAuthenticatedUsersMixin, ProfileUpdateMixin, ProfileSecurityUpdateMixin
+from .forms import *
 
 
 class SignUpView(RedirectAuthenticatedUsersMixin, TitleMixin, CreateView):
@@ -43,8 +37,8 @@ def logout_user_view(request):
 
 class ProfileUpdateView(ProfileUpdateMixin, UpdateView):
     model = User
-    form_class = UserProfileUpdateForm
-    template_name = 'accounts/settings_update.html'
+    form_class = ProfileUpdateForm
+    template_name = 'accounts/profile_update.html'
 
     def get_object(self):
         return self.request.user
@@ -53,7 +47,7 @@ class ProfileUpdateView(ProfileUpdateMixin, UpdateView):
         return 'Profile'
 
 
-class UserEmailChangeView(ProfileUpdateMixin, FormView):
+class UserEmailChangeView(ProfileSecurityUpdateMixin, FormView):
     form_class = UserEmailChangeForm
     updating_object = 'email'
     form_action_url = reverse_lazy('accounts:email_change')
@@ -68,7 +62,17 @@ class UserEmailChangeView(ProfileUpdateMixin, FormView):
         return super().form_valid(form)
 
 
-class UserPasswordChangeView(ProfileUpdateMixin, PasswordChangeView):
+class UserPasswordChangeView(ProfileSecurityUpdateMixin, PasswordChangeView):
     form_class = UserPasswordChangeForm
     updating_object = 'password'
     form_action_url = reverse_lazy('accounts:password_change')
+
+
+__all__ = [
+    'SignUpView',
+    'SignInView',
+    'logout_user_view',
+    'ProfileUpdateView',
+    'UserEmailChangeView',
+    'UserPasswordChangeView',
+]

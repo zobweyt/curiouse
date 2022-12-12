@@ -1,0 +1,19 @@
+<div class="modal fade" id="{{ id }}" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-6">{{ field.label }}?</h1>
+                <button type="button" class="btn-close fs-md" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="mb-0">{{ field.help_text }}</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <label class="btn btn-sm btn-danger" for="{{ field.id_for_label }}" data-bs-dismiss="modal">Delete</label>
+                <input type="checkbox" name="{{ field.name }}" class="btn-check" onchange="this.form.submit();" id="{{ field.id_for_label }}">
+            </div>
+        </div>
+    </div>
+</div>

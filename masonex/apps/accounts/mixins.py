@@ -25,11 +25,11 @@ class ProfileUpdateMixin(LoginRequiredMixin, SuccessMessageMixin, TitleMixin):
     Adds 'form_action_url' with title to the context and creates success message depending on 'updating_object'.
     """
 
-    template_name = 'accounts/settings_auth_update_form.html'
+    template_name = 'accounts/profile_update_security_form.html'
     success_url = reverse_lazy('accounts:profile')
 
-    form_action_url = reverse_lazy('accounts:profile')
     updating_object = 'profile'
+    form_action_url = success_url
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -41,3 +41,19 @@ class ProfileUpdateMixin(LoginRequiredMixin, SuccessMessageMixin, TitleMixin):
 
     def get_title(self):
         return f'Change {self.updating_object}'
+
+
+class ProfileSecurityUpdateMixin(ProfileUpdateMixin):
+    """
+    Changes the form width and adds back to main profile page button.
+    """
+
+    css_form_width_class = 'w-md-4'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update({
+            'use_main_profile_page_button': True,
+            'form_width': self.css_form_width_class,
+        })
+        return context

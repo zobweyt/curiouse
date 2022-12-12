@@ -48,7 +48,7 @@ def article_delete(request, article_pk, article_slug):
 
 class ArticleListView(TitleMixin, ListView):
     model = Article
-    template_name = 'articles/index.html'
+    template_name = 'articles/article_list.html'
     context_object_name = 'articles'
     paginate_by = 16
     title = 'Articles'

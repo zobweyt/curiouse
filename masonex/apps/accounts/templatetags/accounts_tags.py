@@ -7,5 +7,5 @@ register = template.Library()
 @register.filter
 @stringfilter
 def truncatemail(email: str, chars: int) -> str:
-    domain = email.split('@')[-1]
-    return f'{email[0:chars]}***@{domain}'
+    name, domain = email.split('@')
+    return f'{name[0:chars]}***@{domain}'

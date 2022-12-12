@@ -10,12 +10,22 @@
         <div class="mx-auto px-3">
             <main>
                 <div class="mb-3 text-center">
-                    <h1 class="fs-4">Sign in to Masonex</h1>
+                    <h1 class="fs-4">{{ title }} to Masonex</h1>
                 </div>
-                {% if form.non_field_errors %}
-                {% for error in form.non_field_errors %}
-                {% include 'includes/alert.html' with style='danger' content=error %}
-                {% endfor %}
+                {% if form.non_field_errors or form.errors.items %}
+                <section>
+                    <ul class="list-unstyled mb-0">
+                        {% for error in form.non_field_errors %}
+                            <li>{% include 'includes/alert.html' with style='danger' content=error %}</li>
+                        {% empty %}
+                            {% for field, errors in form.errors.items %}
+                                {% for error in errors %}
+                                    <li>{% include 'includes/alert.html' with style='danger' content=error %}</li>
+                                {% endfor %}
+                            {% endfor %}
+                        {% endfor %}
+                    </ul>
+                </section>
                 {% endif %}
                 <form method="post" class="p-3 border rounded bg-light needs-validation" novalidate>
                     {% csrf_token %}

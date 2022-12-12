@@ -9,7 +9,6 @@ from articles.forms import ArticleEditorForm
 class ArticleAuthorRequiredMixin:
     def dispatch(self, request, *args, **kwargs):
         object = super().get_object()
-        
         if not request.user.is_staff and request.user.pk != object.author.pk:
             raise Http404()
 
@@ -32,7 +31,7 @@ class ArticleEditorMixin:
         return context
 
 
-class ArticleMixin(TitleMixin):
+class ArticleTitleMixin(TitleMixin):
     model = Article
     context_object_name = 'article'
     pk_url_kwarg = 'article_pk'

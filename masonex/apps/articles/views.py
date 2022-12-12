@@ -1,11 +1,49 @@
-from django.db.models import Q
+from django.contrib.auth import get_user_model
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import redirect
+from django.urls import reverse_lazy
 from django.shortcuts import get_object_or_404
-from django.views.generic import ListView
+from django.views.generic import CreateView, DetailView, UpdateView, ListView
+from django.db.models import Q
 
 from core.utils import TitleMixin
-from accounts.models import User
-from articles.forms import SearchForm
-from articles.models import Category, Article
+from .models import Category, Article
+from .mixins import ArticleAuthorRequiredMixin, ArticleEditorMixin, ArticleTitleMixin
+from .forms import SearchForm
+
+
+class ArticleCreateView(LoginRequiredMixin, ArticleEditorMixin, TitleMixin, CreateView):
+    form_action = reverse_lazy('articles:article_create')
+    form_submit_button_text = 'Publish'
+    title = 'Create article'
+
+    def form_valid(self, form):
+        article = form.save(commit=False)
+        article.author = self.request.user
+        article.save()
+        return redirect(article.get_absolute_url())
+
+
+class ArticleDetailView(ArticleTitleMixin, DetailView):
+    template_name = 'articles/article_detail.html'
+    
+
+class ArticleUpdateView(ArticleAuthorRequiredMixin, ArticleTitleMixin, ArticleEditorMixin, UpdateView):
+    form_submit_button_text = 'Update'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        article = self.get_object()
+        context['action'] = reverse_lazy('articles:article_update', kwargs={
+            self.pk_url_kwarg: article.pk, 
+            self.slug_url_kwarg: article.slug
+        })
+        return context
+
+
+def article_delete(request, article_pk, article_slug):
+    get_object_or_404(Article, pk=article_pk, slug=article_slug).delete()
+    return redirect('index')
 
 
 class ArticleListView(TitleMixin, ListView):
@@ -74,7 +112,7 @@ class AuthorArticleListView(ArticleListView, ListView):
     template_name = 'articles/author_detail.html'
 
     def get(self, request, *args, **kwargs):
-        self.author = get_object_or_404(User, username=self.kwargs['username'])
+        self.author = get_object_or_404(get_user_model(), username=self.kwargs['username'])
         return super().get(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):

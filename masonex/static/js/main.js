@@ -1,8 +1,6 @@
 $(document).ready(function() {
     $('[rel="tooltip"]').tooltip();
-    $('[rel="tooltip').on('click', function() {
-        $(this).tooltip('hide');
-    });
+    $('[data-bs-toggle="popover"]').popover();
 
     $('.needs-validation').on('change input', function() {
         $(this).find('button[type=submit]').attr('disabled', false);
@@ -52,50 +50,4 @@ $(document).ready(function() {
     $('.bs-searchbox').find('.form-control').addClass('form-control-sm');
     $('.bs-searchbox').find('.form-control').attr('placeholder', 'Filter');
     $('.bs-searchbox').addClass('mb-1');
-
-    const scrollToTop = $('#scroll-to-top');
-    scrollToTop.hide();
-    scrollToTop.css("transform", "translateY(75px)");
-    var previousScrollPosition = $(window).scrollTop();
- 
-    $(window).scroll(function() {
-        var currentScrollPosition = $(window).scrollTop();
-        if (currentScrollPosition < 400) {
-            scrollToTop.css("transform", "translateY(75px)");
-        } 
-        else if (currentScrollPosition > previousScrollPosition) {
-            scrollToTop.css("transform", "translateY(75px)");
-            scrollToTop.show();
-        } else {
-            scrollToTop.css("transform", "none");
-        }
-        previousScrollPosition = currentScrollPosition;
-    });
-
-    scrollToTop.on('click', function() {
-        window.scroll({
-            top: 0,
-            left: 0,
-        });
-    });
-
-    scrollToTop.mouseover(function(){
-        if (previousScrollPosition > 400) {
-            scrollToTop.css("transform", "translateY(-5px)");
-        } 
-    }).mouseleave(function(){
-        if (previousScrollPosition > 400) {
-            scrollToTop.css("transform", "none");
-        } 
-    });
-
-    $('.dropdown-toggle').on('show.bs.dropdown', function() {
-        $(this).find('.dropdown-chevron').addClass('flip');
-    });
-
-    $('.dropdown-toggle').on('hide.bs.dropdown', function() {
-        $(this).find('.dropdown-chevron').removeClass('flip');
-    });
-
-    $('[data-bs-toggle="popover"]').popover();
 });

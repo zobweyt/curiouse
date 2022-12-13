@@ -3,8 +3,8 @@
 {% if articles %}
 <ul class="list-unstyled row">
     {% for article in articles %}
-    <li class="col-lg-3 col-6 mb-4">
-        <article class="component-article-listing">
+    <li class="col-lg-3 col-md-4 col-6 mb-4">
+        <article class="component-article-listing scale-in">
             <img src="{{ article.thumbnail.url }}" class="article-listing__thumbnail" alt="Thumbnail" loading="lazy">
             <h6 class="mt-xl-3 mt-2 mb-1 article-listing__category">{{ article.category.name }}</h6>
             <a href="{{ article.get_absolute_url }}" class="text-break article-listing__heading">{{ article.title|truncatechars:56 }}</a>

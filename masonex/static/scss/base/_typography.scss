@@ -11,6 +11,7 @@ $font-weight-medium:        500;
 $body-color:                $dark;
 $link-color:                $ocean-boat-blue;
 $link-hover-color:          shift-color($link-color, $link-shade-percentage);
+$link-decoration:           none;
 
 .fs-sm {
     font-size: $small-font-size !important;

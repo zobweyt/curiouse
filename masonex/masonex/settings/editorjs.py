@@ -47,7 +47,7 @@ EDITORJS_CONFIG = {
         },
     },
     'inlineToolbar': ('bold', 'italic', 'Underline', 'strikethrough', 'InlineCode', 'link'),
-    'minHeight': 156,
+    'minHeight': 256,
     'i18n': {
         'messages': {
             'toolNames': {

@@ -1,9 +1,12 @@
+[data-editorjs-textarea] {
+    display: none !important;
+}
+
 [data-editorjs-holder] {
     width: 100% !important;
     max-width: none !important;
-    border: none !important;
+    border: $border-width $border-style $border-color !important;
     background-color: $light !important;
-    box-shadow: $box-shadow-sm !important;
 }
 
 [data-tool="strikethrough"] svg {

@@ -54,9 +54,14 @@ $utilities: map-merge(
     )
 );
 
-// .dropdown-toggle-arrow-hide::after {
-//     content: none !important;
-// }
+.scale-in {
+    scale: 1 !important;
+    transition: scale .1s ease-out, background-color .1s ease-out;
+}
+
+.scale-in:active {
+    scale: 0.95 !important;
+}
 
 .circle-divider:after {
     content: "\00B7";
@@ -64,15 +69,4 @@ $utilities: map-merge(
 
 .border-dashed {
     border: 2px dashed $border-color;
-}
-
-.image-upload {
-    cursor: pointer;
-    width: 212px;
-    height: 132px;
-    border-radius: 4px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
 }

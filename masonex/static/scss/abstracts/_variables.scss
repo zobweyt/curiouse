@@ -11,6 +11,9 @@ $success:           #198754;
 $focus-color:       #68aeff;
 $text-muted:        #606B71;
 
+$zindex-header:         1040;
+$zindex-footer:         $zindex-header;
+
 $list-inline-padding: 0;
 $mark-padding: 0;
 
@@ -18,33 +21,29 @@ $component-active-bg:      $arsenic;
 
 $input-btn-focus-width:         .1875em;
 
+$btn-close-focus-shadow: none;
+
 $btn-transition: color .1s ease-out, background-color .1s ease-out, border-color .1s ease-out, box-shadow .1s ease-out, scale .1s ease-out;
 
 $input-focus-border-color:      $light-arsenic;
 $input-focus-width:             0.0325rem;
 $input-focus-box-shadow:        0 0 0 $input-focus-width $input-focus-border-color;
 
-$btn-close-focus-shadow: none;
-
 $badge-font-weight: 500;
-$transition-base-timing-function: cubic-bezier(.4, 0, .2, 1);
-
-$zindex-header:         1040;
-$zindex-footer:         $zindex-header;
-
-$enable-caret:                 false;
-$enable-negative-margins:      true;
-
-$modal-fade-transform:   translateY(12px) scale(0.875, 0.925);
-$modal-transition:       transform 0.27s $transition-base-timing-function;
 
 $alert-bg-scale: -88%;
+
+$modal-fade-transform:   translateY(12px) scale(0.875, 0.925);
+$modal-transition:       transform 0.27s cubic-bezier(0.4, 0, 0.2, 1);
+
+$enable-caret:              false;
+$enable-negative-margins:   true;
 
 @import "bootstrap/scss/functions";
 @import "bootstrap/scss/variables";
 
-$dropdown-item-padding-x:      $spacer * .45;
-$dropdown-item-padding-y:      $spacer * .35;
+$dropdown-item-padding-x:      $spacer * 0.45;
+$dropdown-item-padding-y:      $spacer * 0.35;
 $dropdown-min-width:           auto;
 $dropdown-link-hover-bg:     #f4f6f7;
 $dropdown-link-active-bg:      $dropdown-link-hover-bg;

@@ -1,36 +1,11 @@
-a {
-    text-decoration: none !important;
-}
-
-img {
-    border-radius: $border-radius;
-}
-
 .link:hover {
     text-decoration: underline !important;
-}
-
-.form-label {
-    color: $text-muted;
-    font-size: $small-font-size;
-    margin-bottom: 0 !important;
-}
-
-.scale-in {
-    transition: scale .1s ease-out, background-color .1s ease-out;
-}
-
-.scale-in:active {
-    scale: 0.95;
-}
-
-.btn-close {
-    @extend .scale-in;
 }
 
 .dropdown-item {
     line-height: 1 !important;
     @extend .scale-in;
+    transition: scale .1s ease-out, background-color .1s ease-out, opacity .1s ease-out;
     display: flex !important;
     align-items: center;
     gap: 0.5rem;
@@ -49,6 +24,20 @@ img {
     font-size: $font-size-lg !important;
 }
 
+.btn:active {
+    scale: 0.95;
+}
+
+.btn-close {
+    @extend .scale-in;
+}
+
+.form-label {
+    color: $text-muted;
+    font-size: $small-font-size;
+    margin-bottom: 0 !important;
+}
+
 .form-inline-control {
     font-size: $medium-font-size;
     padding: 0;
@@ -61,14 +50,6 @@ img {
     border: none;
 }
 
-.cover-image {
-    width: 210px;
-    height: 140px;
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: cover;
-}
-
 .bootstrap-select .dropdown-toggle,
 .bootstrap-select .dropdown-menu {
     font-size: $medium-font-size;
@@ -77,23 +58,4 @@ img {
 .bootstrap-select .dropdown-toggle {
     border: 1px solid $text-muted;
     outline-width: 1px !important;
-}
-
-// ol, ul {
-//     padding-left: 1rem !important;
-
-//     li {
-//         padding: 0 $list-inline-padding !important;
-//     }
-// }
-
-blockquote {
-    border-left: 2px $border-style $border-color;
-    padding-left: 0.625rem;
-
-    cite {
-        display: block;
-        color: $gray-700;
-        margin-top: 0.125rem;
-    }
 }

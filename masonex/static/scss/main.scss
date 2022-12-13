@@ -4,21 +4,8 @@
 @import 'base/typography';
 @import 'base/reset';
 
-@import 'components/badges';
-@import 'components/buttons';
-@import 'components/lists';
-
 @import 'layout/header';
-@import 'layout/footer';
-@import 'layout/sidebar';
-@import 'layout/forms';
-@import 'layout/tabs';
 
-@import 'pages/index';
-@import 'pages/post';
-@import 'pages/profile';
-@import 'pages/search';
-
-@import 'vendors/editorjs';
+@import 'articles/scss/main';
 
 @import "bootstrap/scss/bootstrap";

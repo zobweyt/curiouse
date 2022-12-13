@@ -1,12 +1,45 @@
-header {
-    background: rgba($light, 0.825);
-    backdrop-filter: blur(6px);
-    z-index: 1050 !important;
+.search-form {
+    .form-control, .btn {
+        border: $border-width $border-style $border-color !important;
+        background-color: $gray-100;
+    }
+
+    .form-control {
+        color: $gray-700;
+        border-right: none !important;
+        transition: border-color .1s ease-out, background-color .1s ease-out;
+    }
+
+    .btn {
+        color: $gray-500;
+        border-left: none !important;
+    }
+    
+    &:hover {
+        .form-control, .btn {
+            color: $arsenic;
+            border-color: $gray-500 !important;
+        }
+    }
+
+    &.active {
+        .form-control, .btn {
+            color: $black;
+            border-color: $arsenic !important;
+            background-color: $white;
+            box-shadow: none !important;
+        }
+    }
 }
 
-.user-menu-dropdown-toggle {
-    &:hover,
-    &.show {
-        background-color: $gray-200;
-    }
+.dropdown-chevron {
+    transition: all 0.1s ease-out; 
+}
+
+.flip {
+    transform: rotate(-180deg);
+}
+
+.user-menu-dropdown-toggle:hover {
+    border-color: $gray-500 !important;
 }

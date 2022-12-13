@@ -5,10 +5,10 @@
 <div class="d-flex mb-2">
     <section class="me-2">
         <div class="dropdown">
-            <a href="#" class="dropdown-toggle dropdown-toggle-arrow-hide" id="avatar" data-bs-toggle="dropdown" aria-expanded="false">
-                {% include 'includes/user_avatar.html' with width='3.4em' class='d-block' %}
+            <a href="#" class="dropdown-toggle" id="avatar" data-bs-toggle="dropdown" aria-expanded="false">
+                {% include 'includes/user_avatar.html' with style='width: 3.4em;' class='d-block scale-in' %}
             </a>
-            <ul class="dropdown-menu border-0 shadow fs-md">
+            <ul class="dropdown-menu border-0 shadow fs-md mt-1">
                 <li>
                     <label for="{{ form.avatar.id_for_label }}" class="dropdown-item cursor-pointer">
                         {{ form.avatar.label }}

@@ -2,7 +2,7 @@
 
 {% block content %}
 <section class="border-bottom text-center mb-4 pb-5">
-    {% include 'includes/user_avatar.html' with user=author width='8rem' class='mb-3' %}
+    {% include 'includes/user_avatar.html' with user=author style='width: 8rem;' class='mb-3' %}
     <h1 class="fs-5 mb-1">{{ author.get_full_name }}</h1>
     {% if author.bio %}
     <p class="lh-sm mb-0">{{ author.bio }}</p>

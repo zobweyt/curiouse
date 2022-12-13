@@ -2,17 +2,7 @@
 {% load static articles_tags %}
 
 {% block content %}
-<div style="max-width: 32.5rem;">        
-    <section class="mb-2">
-        <form action="{% url 'articles:search' %}" method="GET">
-            <div class="input-group input-group-sm">
-                {{ form.query }}
-                <button type="submit" class="btn btn-secondary">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 24 24" width="24" height="24"><path id="primary" d="M19,11a8,8,0,1,1-8-8A8,8,0,0,1,19,11Zm2,10-4.34-4.34" style="fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path></svg>
-                </button>
-            </div>
-        </form>
-    </section>
+<div class="w-6">
     <section>
         {% if request.GET.query %}
         <h1 class="fs-5 fw-normal">Search results for <strong class="text-break">{{ request.GET.query }}</strong></h1>

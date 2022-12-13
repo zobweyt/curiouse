@@ -2,11 +2,15 @@ $(document).ready(function() {
     $('[rel="tooltip"]').tooltip();
     $('[data-bs-toggle="popover"]').popover();
 
+    $('.search-form .form-control').on('focus focusout', function() {
+        $(this).closest('.search-form').toggleClass('active');
+    });
+
     $('.needs-validation').on('change input', function() {
         $(this).find('button[type=submit]').attr('disabled', false);
-    })
+    });
 
-    $('.needs-validation').on('submit', function() {
+    $('.needs-validation').submit(function() {
         const button = $(this).find('button[type=submit]');
         button.prop('disabled', true);
 
@@ -45,6 +49,14 @@ $(document).ready(function() {
         }
 
         changeImage(this, image);
+    });
+
+    $('.dropdown-toggle').on('show.bs.dropdown', function() {
+        $(this).find('.dropdown-chevron').addClass('flip');
+    });
+
+    $('.dropdown-toggle').on('hide.bs.dropdown', function() {
+        $(this).find('.dropdown-chevron').removeClass('flip');
     });
 
     $('.bs-searchbox').find('.form-control').addClass('form-control-sm');

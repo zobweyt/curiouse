@@ -1,5 +1,11 @@
 .component-article-listing {
     position: relative;
+    transition: scale .1s ease-out;
+    scale: 1;
+}
+
+.component-article-listing:active {
+    scale: 0.95;
 }
 
 .article-listing__thumbnail {

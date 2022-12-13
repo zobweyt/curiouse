@@ -18,7 +18,7 @@ $component-active-bg:      $arsenic;
 
 $input-btn-focus-width:         .1875em;
 
-$btn-transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out, transform .15s cubic-bezier(0.415, 0.255, 0.085, 0.890);
+$btn-transition: color .1s ease-out, background-color .1s ease-out, border-color .1s ease-out, box-shadow .1s ease-out, scale .1s ease-out;
 
 $input-focus-border-color:      $light-arsenic;
 $input-focus-width:             0.0325rem;
@@ -31,13 +31,12 @@ $transition-base-timing-function: cubic-bezier(.4, 0, .2, 1);
 
 $zindex-header:         1040;
 $zindex-footer:         $zindex-header;
-$zindex-back-to-top:    1050;
 
 $enable-caret:                 false;
 $enable-negative-margins:      true;
 
-$modal-fade-transform:   translateY(20px) scale(.875, .925);
-$modal-transition:       transform .27s $transition-base-timing-function;
+$modal-fade-transform:   translateY(12px) scale(0.875, 0.925);
+$modal-transition:       transform 0.27s $transition-base-timing-function;
 
 $alert-bg-scale: -88%;
 
@@ -45,12 +44,11 @@ $alert-bg-scale: -88%;
 @import "bootstrap/scss/variables";
 
 $dropdown-item-padding-x:      $spacer * .45;
-$dropdown-item-padding-y:      $spacer * .3;
+$dropdown-item-padding-y:      $spacer * .35;
 $dropdown-min-width:           auto;
-$dropdown-caret-size:          16px;
-$dropdown-link-hover-bg:       tint-color($gray-200, 35%);
-$dropdown-link-active-color:   $dark;
-$dropdown-link-active-bg:      $gray-200;
+$dropdown-link-hover-bg:     #f4f6f7;
+$dropdown-link-active-bg:      $dropdown-link-hover-bg;
+$dropdown-link-active-color:   auto;
 
 $info:           $blue-400;
 $warning:        $orange-400;
@@ -62,6 +60,7 @@ $custom-colors: (
     "info":            $info,
     "warning":         $warning,
     "light":           $light,
+    "arsenic":         $arsenic,
     "dark":            $dark,
 );
 
@@ -71,12 +70,12 @@ $form-feedback-icon-valid:    url("data:image/svg+xml,<svg xmlns='http://www.w3.
 $form-feedback-icon-invalid:  url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' stroke-width='2' stroke='#{$form-feedback-icon-invalid-color}' fill='none' stroke-linecap='round' stroke-linejoin='round'><path stroke='none' d='M0 0h24v24H0z' fill='none'></path><circle cx='12' cy='12' r='9'></circle><line x1='12' y1='8' x2='12' y2='12'></line><line x1='12' y1='16' x2='12.01' y2='16'></line></svg>");
 
 $form-validation-states: (
-  "valid": (
-    "color":  $form-feedback-valid-color,
-    "icon":   $form-feedback-icon-valid,
-  ),
-  "invalid": (
-    "color":  $form-feedback-invalid-color,
-    "icon":   $form-feedback-icon-invalid,
-  ),
+    "valid": (
+        "color":  $form-feedback-valid-color,
+        "icon":   $form-feedback-icon-valid,
+    ),
+    "invalid": (
+        "color":  $form-feedback-invalid-color,
+        "icon":   $form-feedback-icon-invalid,
+    ),
 );

@@ -54,17 +54,16 @@ $utilities: map-merge(
     )
 );
 
-.dropdown-toggle-arrow-hide::after {
-    content: none !important;
-}
+// .dropdown-toggle-arrow-hide::after {
+//     content: none !important;
+// }
 
 .circle-divider:after {
     content: "\00B7";
 }
 
 .border-dashed {
-    background-image: none !important;
-    border: 2px dashed $gray-700;
+    border: 2px dashed $border-color;
 }
 
 .image-upload {

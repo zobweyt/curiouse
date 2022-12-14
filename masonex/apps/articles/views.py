@@ -15,7 +15,7 @@ from .forms import SearchForm
 class ArticleCreateView(LoginRequiredMixin, ArticleEditorMixin, TitleMixin, CreateView):
     form_action = reverse_lazy('articles:article_create')
     form_submit_button_text = 'Publish'
-    title = 'Create article'
+    title = 'New article'
 
     def form_valid(self, form):
         article = form.save(commit=False)

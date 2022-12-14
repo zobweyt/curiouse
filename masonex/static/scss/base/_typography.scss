@@ -10,7 +10,7 @@ $line-height-base:          1.375;
 $font-weight-medium:        500;
 $body-color:                $dark;
 $link-color:                $ocean-boat-blue;
-$link-hover-color:          shift-color($link-color, $link-shade-percentage);
+$link-hover-color:          $body-color;
 $link-decoration:           none;
 
 .fs-sm {

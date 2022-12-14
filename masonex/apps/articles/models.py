@@ -30,7 +30,7 @@ class Article(models.Model):
     slug = AutoSlugField(populate_from='title', db_index=True)
     description = models.CharField(max_length=256, db_index=True)
     thumbnail = models.ImageField(upload_to=settings.PHOTOS_PATH)
-    body = EditorJsJSONField(**settings.EDITORJS_CONFIG)
+    body = EditorJsJSONField(**settings.EDITORJS_CONFIG_OVERRIDE)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
 

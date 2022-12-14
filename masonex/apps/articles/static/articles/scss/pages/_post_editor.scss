@@ -9,11 +9,6 @@
     background-color: $light !important;
 }
 
-[data-tool="strikethrough"] svg {
-    width: 17px;
-    height: 17px;
-}
-
 .codex-editor {
     .cdx-block {
         padding: 0 !important;
@@ -39,11 +34,10 @@
         }
     }
     
-    .cdx-quote-settings,
     .image-tool__caption,
-    .cdx-settings-button[data-tune='withBorder'],
-    .cdx-settings-button[data-tune='withBackground'],
-    .cdx-settings-button[data-tune='stretched'] {
-        display: none;
+    [data-item-name="withBorder"],
+    [data-item-name="withBackground"],
+    [data-item-name="stretched"] {
+        display: none !important;
     }
 }

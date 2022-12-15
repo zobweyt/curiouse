@@ -26,17 +26,30 @@ class ArticleCreateView(LoginRequiredMixin, ArticleEditorMixin, TitleMixin, Crea
 
 class ArticleDetailView(ArticleTitleMixin, DetailView):
     template_name = 'articles/article_detail.html'
+
+    def get_queryset(self):
+        return super().get_queryset().select_related(
+            'author', 'category'
+        ).only(
+            'category__name', 'category__slug',
+            'author__first_name', 'author__last_name', 'author__username',
+            'title', 'slug', 'created_at', 'body'
+        )
     
 
 class ArticleUpdateView(ArticleAuthorRequiredMixin, ArticleTitleMixin, ArticleEditorMixin, UpdateView):
     form_submit_button_text = 'Update'
 
+    def get_queryset(self):
+        return super().get_queryset().only(
+            'category__name', 'title', 'slug', 'body', 'thumbnail', 'description'
+        )
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        article = self.get_object()
         context['action'] = reverse_lazy('articles:article_update', kwargs={
-            self.pk_url_kwarg: article.pk, 
-            self.slug_url_kwarg: article.slug
+            self.pk_url_kwarg: self.object.pk, 
+            self.slug_url_kwarg: self.object.slug
         })
         return context
 
@@ -54,10 +67,14 @@ class ArticleListView(TitleMixin, ListView):
     title = 'Articles'
 
     def get_queryset(self):
+        # !! TRY USING values()
+        # need to add select "__count"
         return super().get_queryset().select_related(
             'author', 'category'
-        ).only(
-            'author__first_name', 'author__last_name', 'category__name', 'title', 'thumbnail', 'slug'
+        ).only( 
+            'author__first_name', 'author__last_name', 
+            'category__name', 
+            'title', 'thumbnail', 'slug'
         )
 
 
@@ -98,7 +115,7 @@ class ArticleSearchView(ArticleListView, ListView):
                     for lookup in lookups:
                         query_filter |= Q(**{lookup: self.query})
 
-                    return articles.filter(query_filter)
+                    return articles.filter(query_filter) # select description here too with only
 
             return Article.objects.none()
 

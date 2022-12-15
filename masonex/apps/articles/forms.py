@@ -16,7 +16,7 @@ class ArticleEditorForm(forms.ModelForm):
         'class': 'form-inline-control bg-light',
     }))
     category = forms.ModelChoiceField(
-        queryset=Category.objects.all(), 
+        queryset=Category.objects.only('name'), 
         widget=forms.Select(attrs={
             'class': 'selectpicker mb-3',
             'title': 'Select a category',

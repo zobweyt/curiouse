@@ -1,4 +1,5 @@
 from django.http import Http404
+from django.shortcuts import get_object_or_404
 from django.views.generic import UpdateView
 
 from core.utils import TitleMixin
@@ -8,11 +9,14 @@ from articles.forms import ArticleEditorForm
 
 class ArticleAuthorRequiredMixin:
     def dispatch(self, request, *args, **kwargs):
-        object = super().get_object()
-        if not request.user.is_staff and request.user.pk != object.author.pk:
+        if not request.user.is_staff and request.user.pk != self.get_object().author.pk:
             raise Http404()
-
         return super().dispatch(request, *args, **kwargs)
+
+    def get_object(self):
+        if not hasattr(self, '_object'):
+            self._object = super().get_object()
+        return self._object
 
 
 class ArticleEditorMixin:

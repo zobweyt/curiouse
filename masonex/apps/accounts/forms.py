@@ -2,12 +2,12 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm
 from django.core.exceptions import ValidationError
 
-from core.utils import DecorateFormInputsMixin
+from core.utils import DecorateFormFieldsMixin
 
 from .models import User
 
 
-class SignUpForm(DecorateFormInputsMixin, UserCreationForm):
+class SignUpForm(DecorateFormFieldsMixin, UserCreationForm):
     first_name = forms.CharField(required=True)
     last_name = forms.CharField(required=True)
     email = forms.EmailField(required=True)
@@ -19,7 +19,7 @@ class SignUpForm(DecorateFormInputsMixin, UserCreationForm):
         fields = ('first_name', 'last_name', 'username', 'email', 'password1', 'password2')
 
 
-class SignInForm(DecorateFormInputsMixin, AuthenticationForm):
+class SignInForm(DecorateFormFieldsMixin, AuthenticationForm):
     username = forms.CharField(widget=forms.TextInput(attrs={'autofocus': 'true'}))
     password = forms.CharField(widget=forms.PasswordInput)
 
@@ -27,7 +27,7 @@ class SignInForm(DecorateFormInputsMixin, AuthenticationForm):
         return ValidationError('Incorrect username or password.')
 
 
-class ProfileUpdateForm(DecorateFormInputsMixin, forms.ModelForm):
+class ProfileUpdateForm(DecorateFormFieldsMixin, forms.ModelForm):
     avatar = forms.ImageField(
         label='Upload photo',
         required=False,
@@ -56,7 +56,7 @@ class ProfileUpdateForm(DecorateFormInputsMixin, forms.ModelForm):
         fields = ('avatar', 'first_name', 'last_name', 'bio')
 
 
-class UserEmailChangeForm(DecorateFormInputsMixin, forms.Form):
+class UserEmailChangeForm(DecorateFormFieldsMixin, forms.Form):
     email = forms.EmailField(widget=forms.EmailInput)
 
     def __init__(self, user, *args, **kwargs):
@@ -71,7 +71,7 @@ class UserEmailChangeForm(DecorateFormInputsMixin, forms.Form):
         return self.user
 
 
-class UserPasswordChangeForm(DecorateFormInputsMixin, PasswordChangeForm):
+class UserPasswordChangeForm(DecorateFormFieldsMixin, PasswordChangeForm):
     pass
 
 

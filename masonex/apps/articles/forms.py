@@ -1,6 +1,6 @@
 from django import forms
 
-from core.utils import DecorateFormInputsMixin
+from core.utils import DecorateFormFieldsMixin
 
 from articles.models import Article, Category
 
@@ -16,15 +16,15 @@ class ArticleEditorForm(forms.ModelForm):
         'class': 'form-inline-control bg-light',
     }))
     category = forms.ModelChoiceField(
-        queryset=Category.objects.only('name'), 
+        queryset=Category.objects.only('name'),
+        empty_label=None,
+        help_text='Choose the most appropriate category for your article.',
         widget=forms.Select(attrs={
             'class': 'selectpicker mb-3',
             'title': 'Select a category',
             'data-live-search': 'true',
             'data-size': 5,
         }),
-        empty_label=None,
-        help_text='Choose the most appropriate category for your article.'
     )
     thumbnail = forms.ImageField(widget=forms.FileInput(attrs={
         'hidden': True,
@@ -39,7 +39,7 @@ class ArticleEditorForm(forms.ModelForm):
         exclude = ('author', 'slug')
 
 
-class SearchForm(DecorateFormInputsMixin, forms.Form):
+class SearchForm(DecorateFormFieldsMixin, forms.Form):
     query = forms.CharField(max_length=64, required=True,
         widget=forms.TextInput(attrs={'placeholder': 'Search'}))
     

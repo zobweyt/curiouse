@@ -17,7 +17,7 @@ class TitleMixin:
         return self.title
 
 
-class DecorateFormInputsMixin:
+class DecorateFormFieldsMixin:
     """
     Adds 'css_class' CSS class attribute to every 'css_decorated_fields' fields in a form.
     """

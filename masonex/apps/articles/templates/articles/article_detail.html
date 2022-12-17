@@ -2,23 +2,40 @@
 {% load editorjs %}
 
 {% block content %}
-<section class="mb-3">
-    <div class="d-block mb-2">
-        <a href="{{ article.category.get_absolute_url }}"><span class="badge bg-arsenic fw-normal">{{ article.category.name }}</span></a>
-    </div>
-    <div class="d-flex align-items-center gap-1 fs-sm">
-        <p class="mb-0">By <a href="{{ article.author.get_absolute_url }}" class="link">{{ article.author.get_full_name }}</a></p>
-        <span class="circle-divider"></span>
-        <time datetime="{{ article.created_at|date:"Y-m-d" }}">{{ article.created_at|date:"F, d, Y" }}</time>
-    </div>
-</section>
-<article class="post__article text-break col-12 col-lg-8">
-    {{ article.body | editorjs }}
-</article>
-{% if request.user == article.author or request.user.is_staff %}
-<div class="d-flex gap-2">
-    <a href="{% url 'articles:article_update' article.pk article.slug %}" class="btn btn-sm btn-outline-secondary">Edit</a>
-    <a href="{% url 'articles:article_delete' article.pk article.slug %}" class="btn btn-sm btn-outline-danger">Delete</a>
+<div class="flex-fill d-flex flex-column" style="max-width: 46.5em;">
+    <section class="mb-3">
+        <div class="d-block mb-2">
+            <span class="badge border text-body">{{ article.category.name }}</span>
+        </div>
+        <div class="d-flex align-items-center gap-1 fs-sm">
+            <p class="mb-0">By <a href="{{ article.author.get_absolute_url }}" class="link">{{ article.author.get_full_name }}</a></p>
+            <span class="circle-divider"></span>
+            <time datetime="{{ article.created_at|date:"Y-m-d" }}">{{ article.created_at|date:"F, d, Y" }}</time>
+        </div>
+    </section>
+    <article class="post__article text-break">
+        {{ article.body | editorjs }}
+    </article>
+    {% if request.user == article.author or request.user.is_staff %}
+    <section class="mt-2 d-flex flex-fill flex-column justify-content-end">
+        <h5>Manage article</h5>
+        <ul class="list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <hgroup>
+                    <h6 class="mb-0 fs-md lh-base">Update this article</h6>
+                    <p class="mb-0 fs-md lh-1">Last modified at <time datetime="{{ article.created_at|date:"Y-m-d" }}">{{ article.created_at|date:"F, d, Y" }}</time>.</p>
+                </hgroup>
+                <a href="{% url 'articles:article_update' article.pk article.slug %}" class="btn btn-sm btn-outline-secondary">Edit</a>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <hgroup>
+                    <h6 class="mb-0 fs-md lh-base">Delete this article</h6>
+                    <p class="mb-0 fs-md lh-1">Once you delete an article, there is no going back. Please be certain.</p>
+                </hgroup>
+                <a href="{% url 'articles:article_delete' article.pk article.slug %}" class="btn btn-sm btn-outline-danger">Delete</a>
+            </li>
+        </ul>
+    </section>
+    {% endif %}
 </div>
-{% endif %}
 {% endblock content %}

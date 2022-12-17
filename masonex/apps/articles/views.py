@@ -7,15 +7,19 @@ from django.views.generic import CreateView, DetailView, UpdateView, ListView
 from django.db.models import Q
 
 from core.utils import TitleMixin
-from .models import Category, Article
+from .models import Article
 from .mixins import ArticleAuthorRequiredMixin, ArticleEditorMixin, ArticleTitleMixin
 from .forms import SearchForm
 
 
-class ArticleCreateView(LoginRequiredMixin, ArticleEditorMixin, TitleMixin, CreateView):
-    form_action = reverse_lazy('articles:article_create')
+class ArticleCreateView(LoginRequiredMixin, TitleMixin, ArticleEditorMixin, CreateView):
     form_submit_button_text = 'Publish'
     title = 'New article'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['action'] = reverse_lazy('articles:article_create')
+        return context
 
     def form_valid(self, form):
         article = form.save(commit=False)
@@ -33,7 +37,7 @@ class ArticleDetailView(ArticleTitleMixin, DetailView):
         ).only(
             'category__name', 'category__slug',
             'author__first_name', 'author__last_name', 'author__username',
-            'title', 'slug', 'created_at', 'body'
+            'title', 'slug', 'created_at', 'body', 'modified_at'
         )
     
 
@@ -76,16 +80,6 @@ class ArticleListView(TitleMixin, ListView):
             'category__name', 
             'title', 'thumbnail', 'slug'
         )
-
-
-class ArticleCategoryListView(ArticleListView):
-    def get_queryset(self):
-        return super().get_queryset().filter(
-            category__slug=self.kwargs['category_slug']
-        )
-
-    def get_title(self):
-        return get_object_or_404(Category, slug=self.kwargs['category_slug'])
 
 
 class ArticleSearchView(ArticleListView, ListView):

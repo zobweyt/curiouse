@@ -9,9 +9,9 @@ load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
-sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
-
 SECRET_KEY = os.getenv('SECRET_KEY')
+
+sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
 
 INSTALLED_APPS = [
     'django.contrib.admin',

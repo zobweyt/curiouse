@@ -44,7 +44,7 @@ class ProfileUpdateView(ProfileUpdateMixin, UpdateView):
         return self.request.user
 
     def get_title(self):
-        return 'Profile'
+        return 'Customize profile'
 
 
 class UserEmailChangeView(ProfileSecurityUpdateMixin, FormView):

@@ -12,30 +12,45 @@
                 {{ form.body }}
             </section>
             <div class="row mb-3">
-                <section class="col-12 col-lg-6">
+                <section class="col-12 col-lg-6 d-flex flex-column">
                     <h2 class="text-muted fs-5 fw-medium">Cover</h2>
-                    <div class="p-4 bg-light rounded border">
-                        <label for="{{ form.thumbnail.id_for_label }}" class="mb-3">
-                            <div id="thumbnail">
+                    <div class="p-4 bg-light rounded border flex-fill h-lg-100">
+                        <div class="d-flex align-items-center gap-1 mb-2">
+                            {% include 'includes/user_avatar.html' with user=request.user style='width: 1.25rem;' class='me-1 rounded-circle' %}
+                            <p class="article-listing__author fw-medium mb-0">{{ request.user.get_full_name }}</p>
+                        </div>
+                        <label for="{{ form.thumbnail.id_for_label }}" class="mb-2">
+                            <div id="thumbnail" class="scale-in cursor-pointer">
+                                {% if object %}
+                                <img src="{{ object.thumbnail.url }}" class="rounded" alt="Thumbnail" loading="lazy">
+                                {% else %}
                                 <div class="border-dashed border-dark image-upload">
-                                    <i class="ti ti-upload text-muted fs-4"></i>
-                                    <figcaption class="mb-0 lh-sm fs-md mt-3">Upload an image</figcaption>
+                                    <i class="ti ti-upload text-arsenic fs-4"></i>
+                                    <p class="mb-0 lh-sm fs-md mt-2">Upload an image</p>
                                     <small class="text-muted lh-sm fs-sm">JPEG, size 1080 x 760</small>
                                 </div>
+                                {% endif %}
                             </div>
                             {{ form.thumbnail }}
                         </label>
                         {{ form.title }}
-                        {{ form.description }}
                     </div>
                 </section>
                 <section class="col-12 col-lg-6 mt-3 mt-md-0 d-flex flex-column">
                     <h2 class="text-muted fs-5 fw-medium">SEO</h2>
                     <div class="p-4 bg-light rounded border flex-fill h-lg-100">
-                        <p class="text-muted">This section will help you promote your post and get more views.</p>
-                        {{ form.category }}
-                        <p class="mb-2 text-muted">Follow our <a href="#" class="link">Terms of Service</a> and be polite.</p>
-                        <p class="mb-0 text-muted">Learn more about how we use your posts <a href="#" class="link">here</a>.</p>
+                        <div class="d-flex align-items-center gap-2 mb-3 text-muted">
+                            <i class="ti ti-chart-dots fs-5"></i>
+                            <p class="mb-0 lh-sm">This section will help you promote the article and get more views.</p>
+                        </div>
+                        <div class="d-flex flex-column gap-1">
+                            <label for="{{ form.category.id_for_label }}" class="form-label">{{ form.category.label }}</label>
+                            {{ form.category }}
+                        </div>
+                        <div class="d-flex flex-column gap-1">
+                            <label for="{{ form.description.id_for_label }}" class="form-label">{{ form.description.label }}</label>
+                            {{ form.description }}
+                        </div>
                     </div>
                 </section>
             </div>

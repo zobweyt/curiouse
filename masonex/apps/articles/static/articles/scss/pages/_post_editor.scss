@@ -1,3 +1,9 @@
+#thumbnail img {
+    width: 212px;
+    height: 132px;
+    object-fit: cover;
+}
+
 [data-editorjs-textarea] {
     display: none !important;
 }

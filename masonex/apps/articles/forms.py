@@ -6,14 +6,17 @@ from articles.models import Article, Category
 
 
 class ArticleEditorForm(forms.ModelForm):
-    title = forms.CharField(widget=forms.TextInput(attrs={
+    title = forms.CharField(widget=forms.Textarea(attrs={
+        'rows': 3,
         'placeholder': 'Title based on content',
-        'class': 'form-inline-control bg-light fw-medium fs-6',
+        'class': 'form-inline-control bg-light lh-sm fw-medium fs-6',
+        'style': 'resize: none;'
     }))
     description = forms.CharField(widget=forms.Textarea(attrs={
-        'rows': 3,
-        'placeholder': 'Description',
-        'class': 'form-inline-control bg-light',
+        'rows': 4,
+        'placeholder': 'Briefly introduce the contents of the article',
+        'class': 'form-inline-control bg-light lh-sm text-arsenic',
+        'style': 'resize: none;'
     }))
     category = forms.ModelChoiceField(
         queryset=Category.objects.only('name'),
@@ -21,7 +24,7 @@ class ArticleEditorForm(forms.ModelForm):
         help_text='Choose the most appropriate category for your article.',
         widget=forms.Select(attrs={
             'class': 'selectpicker mb-3',
-            'title': 'Select a category',
+            'title': 'Select an item',
             'data-live-search': 'true',
             'data-size': 5,
         }),

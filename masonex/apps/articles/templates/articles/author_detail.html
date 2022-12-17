@@ -1,12 +1,14 @@
 {% extends 'base_site.html' %}
 
 {% block content %}
-<section class="border-bottom text-center mb-4 pb-5">
-    {% include 'includes/user_avatar.html' with user=author style='width: 8rem;' class='mb-3 rounded' %}
-    <h1 class="fs-5 mb-1">{{ author.get_full_name }}</h1>
-    {% if author.bio %}
-    <p class="lh-sm mb-0">{{ author.bio }}</p>
-    {% endif %}
+<section class="d-flex justify-content-center text-center mb-4 pb-3 border-bottom">
+    <div class="w-6">
+        {% include 'includes/user_avatar.html' with user=author style='width: 8rem;' class='mb-3 rounded' %}
+        <h1 class="fs-5 mb-1">{{ author.get_full_name }}</h1>
+        {% if author.bio %}
+        <p class="lh-sm mb-0">{{ author.bio }}</p>
+        {% endif %}
+    </div>
 </section>
 <section>
     <h2 class="text-center fs-6 mb-3">By this author</h2>

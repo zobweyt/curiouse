@@ -8,7 +8,10 @@ EDITORJS_DEFAULT_PLUGINS = (
     '@editorjs/list',
     '@editorjs/quote',
     '@editorjs/image',
+    '@editorjs/code',
+    '@editorjs/embed',
     '@editorjs/underline',
+    '@editorjs/marker',
     '@editorjs/inline-code',
 )
 
@@ -23,7 +26,7 @@ EDITORJS_DEFAULT_CONFIG_TOOLS = {
         'shortcut': 'CMD+SHIFT+H',
         'config': {
             'placeholder': 'Enter a header',
-            'levels': [1, 2, 3],
+            'levels': [1, 2, 3, 4],
         },
     },
     'List': {
@@ -40,6 +43,9 @@ EDITORJS_DEFAULT_CONFIG_TOOLS = {
             'captionPlaceholder': 'Quote by',
         },
     },
+    'Code': {
+        'class': 'CodeTool',
+    },
     'Image': {
         'class': 'ImageTool',
         'shortcut': 'CMD+SHIFT+U',
@@ -49,6 +55,9 @@ EDITORJS_DEFAULT_CONFIG_TOOLS = {
                 "byUrl": reverse_lazy('editorjs_image_by_url')
             }
         },
+    },    
+    'Embed': {
+        'class': 'Embed',
     },
     'Underline': {
         'class': 'Underline',
@@ -58,16 +67,20 @@ EDITORJS_DEFAULT_CONFIG_TOOLS = {
         'class': 'InlineCode',
         'shortcut': 'CMD+SHIFT+M',
     },
+    'Marker': {
+        'class': 'Marker',
+        'shortcut': 'CMD+SHIFT+E',
+    },
 }
 
 EDITORJS_CONFIG_OVERRIDE = {
-    'inlineToolbar': ('bold', 'italic', 'Underline', 'InlineCode', 'link'),
+    'inlineToolbar': ('bold', 'italic', 'Underline', 'InlineCode', 'Marker', 'link'),
     'minHeight': 256,
     'i18n': {
         'messages': {
             'toolNames': {
                 'InlineCode': 'Monospace',
-                'Strikethrough': 'Cross',
+                'Marker': 'Highlight',
             },
         },
     },

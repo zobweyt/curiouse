@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth import login, logout
 from django.contrib.auth.views import LoginView, PasswordChangeView
 from django.shortcuts import redirect
@@ -47,6 +48,12 @@ class ProfileUpdateView(ProfileUpdateMixin, UpdateView):
         return 'Customize profile'
 
 
+def user_avatar_delete_view(request):
+    request.user.avatar.delete()
+    messages.success(request, 'Your avatar has been successfully deleted.')
+    return redirect('accounts:profile')
+
+
 class UserEmailChangeView(ProfileSecurityUpdateMixin, FormView):
     form_class = UserEmailChangeForm
     updating_object = 'email'
@@ -73,6 +80,7 @@ __all__ = [
     'SignInView',
     'logout_user_view',
     'ProfileUpdateView',
+    'user_avatar_delete_view',
     'UserEmailChangeView',
     'UserPasswordChangeView',
 ]

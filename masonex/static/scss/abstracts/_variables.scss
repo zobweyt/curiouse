@@ -4,12 +4,12 @@ $light-arsenic:     #606B71;
 $arsenic:           #333640;
 
 $primary:           #3d64e4;
-$secondary:         #606e7a;
+$secondary:           $light-arsenic;
 $dark:              #2e2e30;
 $danger:            #dc3545;
 $success:           #198754;
 $focus-color:       #68aeff;
-$text-muted:        #606B71;
+$text-muted:          $secondary;
 
 $zindex-header:         1040;
 $zindex-footer:         $zindex-header;
@@ -66,6 +66,7 @@ $custom-colors: (
     "light":           $light,
     "arsenic":         $arsenic,
     "dark":            $dark,
+    "pistachio":       $pistachio,
 );
 
 $theme-colors: map-merge($theme-colors, $custom-colors);

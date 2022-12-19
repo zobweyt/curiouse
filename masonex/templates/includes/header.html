@@ -23,8 +23,8 @@
                     New article
                 </a>
                 <div class="dropdown text-end">
-                    <a href="#" type="button" class="dropdown-toggle user-menu-dropdown-toggle bg-light border btn btn-sm d-flex align-items-center" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" title="{{ request.user.get_full_name }}">
-                        {% include 'includes/user_avatar.html' with style='height: 1.5em;' class='rounded-circle' %}
+                    <a href="#" type="button" class="dropdown-toggle user-menu-dropdown-toggle bg-light border btn btn-sm d-flex align-items-center" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                        {% include 'includes/user_avatar.html' with width='1.5em' %}
                         <svg xmlns="http://www.w3.org/2000/svg" class="ms-1 text-dark dropdown-chevron" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                             <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                             <polyline points="6 9 12 15 18 9"></polyline>
@@ -34,7 +34,7 @@
                         <li class="px-2 py-1">
                             <a class="dropdown-item py-2 pe-1 rounded border scale-in" href="{% url 'accounts:profile' %}">
                                 <div class="d-flex align-items-center fs-sm gap-2">
-                                    {% include 'includes/user_avatar.html' with style='width: 2.25rem;' class='rounded-circle' %}
+                                    {% include 'includes/user_avatar.html' with width='2.25rem' %}
                                     <div>
                                         <p class="mb-0 lh-sm fw-medium">{{ request.user.get_full_name }}</p>
                                         <p class="mb-0 lh-sm text-muted">Customize profile</p>

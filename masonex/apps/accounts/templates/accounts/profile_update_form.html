@@ -20,7 +20,7 @@
         <section>
             <ul class="list-unstyled mb-0">
                 {% for message in messages %}
-                    <li>{% include 'includes/alert.html' with style='success' content=message %}</li>
+                    <li>{% include 'includes/alert.html' with style=message.tags content=message %}</li>
                 {% empty %}
                     {% for field, errors in form.errors.items %}
                         {% for error in errors %}

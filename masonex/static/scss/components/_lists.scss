@@ -1,0 +1,22 @@
+.list-group-item-control {
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+
+    hgroup {
+        margin-right: $spacer * 0.5;
+        
+        h6, p {
+            font-size: $medium-font-size;
+            margin-bottom: 0;
+        }
+
+        h6 {
+            line-height: $line-height-base !important;
+        }
+
+        p {
+            line-height: 1;
+        }
+    }
+}

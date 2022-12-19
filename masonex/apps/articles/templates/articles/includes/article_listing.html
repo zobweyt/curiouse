@@ -14,12 +14,4 @@
     {% endfor %}
 </ul>
 {% include 'includes/pagination.html' %}
-{% else %}
-<section>
-    <img src="{% static 'images/404.svg' %}" alt="404" class="w-3 overflow-hidden">
-    <hgroup>
-        <h1 class="fs-4 mt-3">Woops! We cannot find any articles.</h1>
-        <a href="{% url 'articles:article_create' %}" class="btn btn-sm btn-outline-primary">Create an article</a>
-    </hgroup>
-</section>
 {% endif %}

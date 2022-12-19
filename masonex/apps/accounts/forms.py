@@ -37,19 +37,9 @@ class ProfileUpdateForm(DecorateFormFieldsMixin, forms.ModelForm):
             'data-toggle': 'image',
             'data-target': '#avatar'
         }))
-    delete_avatar = forms.BooleanField(
-        label='Delete photo',
-        help_text='Do you really want to delete profile photo? This action cannot be undone.',        
-        required=False)
     first_name = forms.CharField(required=True)
     last_name = forms.CharField(required=True)
     bio = forms.CharField(required=False, widget=forms.Textarea(attrs={'rows': 5}))
-
-    def save(self, *args, **kwargs):
-        user = super().save(*args, **kwargs)
-        if self.cleaned_data.get('delete_avatar'):
-            user.avatar.delete()
-        return user
 
     class Meta:
         model = User

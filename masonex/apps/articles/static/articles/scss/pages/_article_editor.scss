@@ -1,7 +1,17 @@
-#thumbnail img {
+#thumbnail img,
+.image-upload {
     width: 212px;
     height: 132px;
     object-fit: cover;
+}
+
+.image-upload {
+    border: 2px dashed $border-color;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 [data-editorjs-textarea] {
@@ -80,6 +90,11 @@
     .image-tool__image {
         border-radius: 0;
         margin-bottom: 0;
+    }
+
+    .image-tool__image-picture {
+        border-radius: $border-radius;
+        width: 100%;
     }
 
     .image-tool .cdx-button {

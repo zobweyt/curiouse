@@ -10,21 +10,28 @@
         <ul class="list-unstyled">
             {% for article in articles %}
             <li class="mb-2">
-                <a href="{{ article.get_absolute_url }}" class="link mb-1">{{ article.title|truncatechars:64|highlight:request.GET.query }}</a>
-                <p class="mb-0 text-break">{{ article.description|truncatechars:196|highlight:request.GET.query }}</p>
+                <a href="{{ article.get_absolute_url }}" class="mb-1">
+                    {{ article.title|truncatechars:64|highlight:request.GET.query }}
+                </a>
+                <p class="text-break mb-0">
+                    {{ article.description|truncatechars:128|highlight:request.GET.query }}
+                </p>
             </li>
             {% endfor %}
         </ul>
         {% include 'includes/pagination.html' %}
         {% else %}
         <div class="text-muted">
-            <p class="mb-0">Make sure all words are spelled correctly.</p>
-            <p class="mb-0">Try different keywords.</p>
-            <p class="mb-0">Try more general keywords.</p>
+            <ul class="list-unstyled">
+                <li>Make sure all words are spelled correctly.</li>
+                <li>Try different keywords.</li>
+                <li>Try more general keywords.</li>
+            </ul>
         </div>
         {% endif %}
         {% else %}
-        <h1 class="mb-0 fs-5">Make a query to search.</h1>
+        <h1 class="fs-5">Make a query to search.</h1>
+        <a href="{% url 'articles:home' %}" class="btn btn-sm btn-primary">See featured articles</a>
         {% endif %}
     </section>
 </div>

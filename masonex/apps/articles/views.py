@@ -31,11 +31,6 @@ class ArticleCreateView(LoginRequiredMixin, TitleMixin, ArticleEditorMixin, Crea
 class ArticleDetailView(ArticleTitleMixin, DetailView):
     template_name = 'articles/article_detail.html'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['featured_articles'] = self.model.objects.only('title', 'slug')
-        return context
-
     def get_queryset(self):
         return super().get_queryset().select_related(
             'author', 'category'

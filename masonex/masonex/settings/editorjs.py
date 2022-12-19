@@ -9,7 +9,6 @@ EDITORJS_DEFAULT_PLUGINS = (
     '@editorjs/quote',
     '@editorjs/image',
     '@editorjs/code',
-    '@editorjs/embed',
     '@editorjs/underline',
     '@editorjs/marker',
     '@editorjs/inline-code',
@@ -45,6 +44,7 @@ EDITORJS_DEFAULT_CONFIG_TOOLS = {
     },
     'Code': {
         'class': 'CodeTool',
+        'shortcut': 'CMD+SHIFT+C',
     },
     'Image': {
         'class': 'ImageTool',
@@ -55,9 +55,6 @@ EDITORJS_DEFAULT_CONFIG_TOOLS = {
                 "byUrl": reverse_lazy('editorjs_image_by_url')
             }
         },
-    },    
-    'Embed': {
-        'class': 'Embed',
     },
     'Underline': {
         'class': 'Underline',

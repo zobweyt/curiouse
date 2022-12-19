@@ -6,7 +6,7 @@
     <section class="me-2">
         <div class="dropdown">
             <a href="#" class="dropdown-toggle" id="avatar" data-bs-toggle="dropdown" aria-expanded="false">
-                {% include 'includes/user_avatar.html' with style='width: 3.4em;' class='d-block rounded scale-in' %}
+                {% include 'includes/user_avatar.html' with class='d-block rounded scale-in' width='3.4em;' %}
             </a>
             <ul class="dropdown-menu border-0 shadow fs-md mt-1">
                 <li>
@@ -18,13 +18,14 @@
                 {% if user.avatar %}
                 <li>
                     <a href="#" class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#avatarDeleteModal">
-                        {{ form.delete_avatar.label }}
+                        Delete photo
                     </a>
                 </li>
                 {% endif %}
             </ul>
         </div>
-        {% include 'includes/form_field_delete_modal.html' with id='avatarDeleteModal' field=form.delete_avatar %}
+        {% url 'accounts:user_avatar_delete' as avatar_delete_url %}
+        {% include 'includes/delete_modal.html' with object_name='avatar' delete_url=avatar_delete_url %}
     </section>
     <hgroup>
         <h2 class="mb-1 fs-md">{{ user.get_full_name }}</h2>

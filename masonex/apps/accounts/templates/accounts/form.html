@@ -3,7 +3,7 @@
 
 {% block content %}
 <div class="flex-fill d-flex flex-column align-items-center">
-  <div class="w-100 w-md-4 flex-fill d-flex flex-column">
+  <div class="accounts-form flex-fill d-flex flex-column">
     {% block form_before %}
     {% endblock form_before %}
 
@@ -30,7 +30,7 @@
       <fieldset>
         
         {% block form_legend %}
-        <legend class="mb-1 fs-5">{{ title }}</legend>
+        <legend class="mb-1 fs-4">{{ title }}</legend>
         {% endblock form_legend %}
 
         {% for field in form %}
@@ -47,7 +47,7 @@
       {% endblock form_content %}
 
       <div class="mt-md-1 mt-auto">
-        <button type="submit" class="w-100 w-md-auto btn btn-sm btn-success" on-validation-text="Verifying...">
+        <button type="submit" class="w-100 w-md-auto btn btn-success mt-1" on-validation-text="Verifying...">
             {% if submit_button_text %}{{ submit_button_text }}{% else %}{{ title }}{% endif %}
         </button>
       </div>

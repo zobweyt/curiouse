@@ -3,7 +3,6 @@ a {
 }
 
 .dropdown-item {
-  line-height: 1 !important;
   @extend .scale-in;
   transition: scale 0.1s ease-out, background-color 0.1s ease-out, opacity 0.1s ease-out;
   display: flex !important;
@@ -21,13 +20,7 @@ a {
 }
 
 .dropdown-item i {
-  font-size: $font-size-lg !important;
-}
-
-button[type="submit"] {
-  font-weight: $font-weight-medium !important;
-  padding-right: $spacer !important;
-  padding-left: $spacer !important;
+  font-size: $icon-font-size !important;
 }
 
 .btn:active {
@@ -35,13 +28,17 @@ button[type="submit"] {
 }
 
 .btn-close {
-  @extend .scale-in;
+  @extend .scale-in; // спорный момент
 }
 
 .form-label {
   color: $text-muted;
   font-size: $font-size-sm;
   margin-bottom: 0 !important;
+}
+
+.ce-scroll-locked header {
+    z-index: 0 !important;
 }
 
 .form-inline-control {
@@ -64,4 +61,19 @@ button[type="submit"] {
 .bootstrap-select .dropdown-toggle {
   border: 1px solid $text-muted;
   outline-width: 1px !important;
+}
+
+
+
+
+@import "bootstrap/scss/mixins";
+
+.accounts-form {
+  width: 100%;
+}
+
+@include media-breakpoint-up("md") {
+  .accounts-form {
+    width: 22.625em;
+  }
 }

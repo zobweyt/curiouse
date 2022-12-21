@@ -15,18 +15,6 @@ $utilities: map-merge(
       map-merge(
         map-get($utilities, "width"),
         (
-          values:
-            map-merge(
-              map-get(map-get($utilities, "width"), "values"),
-              (
-                1: 5rem,
-                2: 10rem,
-                3: 15rem,
-                4: 20rem,
-                5: 25rem,
-                6: 30rem,
-              )
-            ),
           responsive: true,
         )
       ),
@@ -44,44 +32,32 @@ $utilities: map-merge(
           responsive: true,
         )
       ),
-    "border-top":
-      map-merge(
-        map-get($utilities, "border-top"),
-        (
-          responsive: true,
-        )
-      ),
-    "border-end":
-      map-merge(
-        map-get($utilities, "border-end"),
-        (
-          responsive: true,
-        )
-      ),
-    "border-bottom":
-      map-merge(
-        map-get($utilities, "border-bottom"),
-        (
-          responsive: true,
-        )
-      ),
-    "border-start":
-      map-merge(
-        map-get($utilities, "border-start"),
-        (
-          responsive: true,
-        )
-      ),
   )
 );
+
+.fs-base {
+  font-size: $font-size-base !important;
+}
+
+.fs-sm {
+  font-size: $font-size-sm !important;
+}
+
+.fs-lg {
+  font-size: $font-size-lg !important;
+}
+
+.fw-medium {
+  font-weight: $font-weight-medium !important;
+}
 
 .scale-in {
   scale: 1 !important;
   transition: scale 0.1s ease-out, background-color 0.1s ease-out;
-}
 
-.scale-in:active {
-  scale: 0.95 !important;
+  &:active {
+    scale: 0.95 !important;
+  }
 }
 
 .circle-divider:after {

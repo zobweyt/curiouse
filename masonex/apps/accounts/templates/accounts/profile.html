@@ -21,7 +21,7 @@
       <ul class="dropdown-menu shadow mt-1">
         <li>
           <label for="{{ form.avatar.id_for_label }}" class="dropdown-item cursor-pointer">
-            <i class="ti ti-upload"></i>
+            <i class="ti ti-photo-edit"></i>
             {{ form.avatar.label }}
             {{ form.avatar }}
           </label>
@@ -68,14 +68,14 @@
         <h6 class="fs-sm text-muted fw-normal mb-1">Email</h6>
         <p>{{ request.user.email|truncatemail:2 }}</p>
       </hgroup>
-      <a href="{% url 'accounts:email_change' %}" class="btn btn-sm btn-secondary px-3">Edit</a>
+      <a href="{% url 'accounts:email_change' %}" class="btn btn-secondary">Edit</a>
     </li>
     <li class="list-group-item list-group-item-control">
       <hgroup>
         <h6 class="fs-sm text-muted fw-normal mb-1">Password</h6>
         <p>********</p>
       </hgroup>
-      <a href="{% url 'accounts:password_change' %}" class="btn btn-sm btn-secondary px-3">Edit</a>
+      <a href="{% url 'accounts:password_change' %}" class="btn btn-secondary">Edit</a>
     </li>
   </ul>
 </section>

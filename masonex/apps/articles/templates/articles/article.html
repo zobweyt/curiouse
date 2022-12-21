@@ -33,14 +33,14 @@
           <h6>Update this article</h6>
           <p>Last modified at <time datetime="{{ article.created_at|date:"Y-m-d" }}">{{ article.created_at|date:"F, d, Y" }}</time>.</p>
         </hgroup>
-        <a href="{% url 'articles:article_update' article.pk article.slug %}" class="btn btn-sm btn-outline-secondary">Edit</a>
+        <a href="{% url 'articles:article_update' article.pk article.slug %}" class="btn btn-outline-secondary">Edit</a>
       </li>
       <li class="list-group-item list-group-item-control">
           <hgroup>
               <h6>Delete this article</h6>
               <p>Once you delete an article, there is no going back. Please be certain.</p>
           </hgroup>
-          <a href="#" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#articleDeleteModal">Delete</a>
+          <a href="#" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#articleDeleteModal">Delete</a>
           {% url 'articles:article_delete' article.pk article.slug as article_delete_url %}
           {% delete_confirm_modal object_name="article" delete_url=article_delete_url %}
       </li>

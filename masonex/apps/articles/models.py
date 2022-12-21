@@ -9,7 +9,6 @@ from django_editorjs_fields import EditorJsJSONField
 
 class Category(models.Model):
     name = models.CharField(max_length=64, db_index=True)
-    slug = models.SlugField(max_length=64, unique=True, db_index=True) # remove it
 
     def __str__(self):
         return self.name
@@ -17,7 +16,7 @@ class Category(models.Model):
     class Meta:
         verbose_name = 'category'
         verbose_name_plural = 'categories'
-        ordering = ['name', 'slug', 'pk']
+        ordering = ['name', 'pk']
 
 
 class Article(models.Model):

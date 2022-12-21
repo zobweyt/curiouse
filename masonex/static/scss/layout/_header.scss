@@ -41,7 +41,7 @@
     
     &:hover {
         .form-control, .btn {
-            color: $arsenic;
+            color: $dark;
             border-color: $gray-500 !important;
         }
     }
@@ -49,7 +49,7 @@
     &.active {
         .form-control, .btn {
             color: $black;
-            border-color: $arsenic !important;
+            border-color: $dark !important;
             background-color: $white;
             box-shadow: none !important;
         }

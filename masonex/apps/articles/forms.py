@@ -15,7 +15,7 @@ class ArticleEditorForm(forms.ModelForm):
     description = forms.CharField(widget=forms.Textarea(attrs={
         'rows': 4,
         'placeholder': 'Briefly introduce the contents of the article',
-        'class': 'form-inline-control bg-light lh-sm text-arsenic',
+        'class': 'form-inline-control bg-light lh-sm text-body',
         'style': 'resize: none;'
     }))
     category = forms.ModelChoiceField(

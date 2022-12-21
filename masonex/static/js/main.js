@@ -1,7 +1,4 @@
 $(document).ready(function() {
-    $('[rel="tooltip"]').tooltip();
-    $('[data-bs-toggle="popover"]').popover();
-
     $('.search-form .form-control').on('focus focusout', function() {
         $(this).closest('.search-form').toggleClass('active');
     });

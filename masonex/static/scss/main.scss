@@ -1,13 +1,13 @@
-@import 'abstracts/variables';
-@import 'abstracts/utilities';
+@import "abstracts/variables";
+@import "abstracts/utilities";
 
-@import 'base/typography';
-@import 'base/reset';
+@import "base/typography";
+@import "base/reset";
 
-@import 'components/lists';
+@import "components/lists";
 
-@import 'layout/header';
+@import "layout/header";
 
-@import 'articles/scss/main';
+@import "articles/scss/main";
 
 @import "bootstrap/scss/bootstrap";

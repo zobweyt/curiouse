@@ -6,11 +6,12 @@
   <section class="d-xl-none mb-3">
     <form action="{% url 'articles:search' %}" method="GET" class="search-form">
       <div class="input-group input-group-sm">
-        <input type="text" name="query" placeholder="Search articles" maxlength="64" class="form-control form-control-sm lh-sm fs-md">
+        <input type="text" name="query" placeholder="Search articles" maxlength="64" class="form-control form-control-sm lh-sm fs-sm">
         <button type="submit" class="btn btn-sm d-flex align-items-center"><i class="ti ti-search fw-semibold"></i></button>
       </div>
     </form>
   </section>
+  
   <section>
     {% if request.GET.query %}
     <h1 class="fs-5 fw-normal">Search results for <strong class="text-break">{{ request.GET.query }}</strong></h1>

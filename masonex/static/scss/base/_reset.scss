@@ -40,12 +40,12 @@ button[type="submit"] {
 
 .form-label {
   color: $text-muted;
-  font-size: $small-font-size;
+  font-size: $font-size-sm;
   margin-bottom: 0 !important;
 }
 
 .form-inline-control {
-  font-size: $medium-font-size;
+  font-size: $font-size-sm;
   padding: 0;
   border: none;
   width: 100%;
@@ -58,7 +58,7 @@ button[type="submit"] {
 
 .bootstrap-select .dropdown-toggle,
 .bootstrap-select .dropdown-menu {
-  font-size: $medium-font-size;
+  font-size: $font-size-sm;
 }
 
 .bootstrap-select .dropdown-toggle {

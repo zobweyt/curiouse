@@ -24,13 +24,13 @@ class ArticleCreateView(LoginRequiredMixin, TitleMixin, ArticleEditorMixin, Crea
 
 
 class ArticleDetailView(ArticleTitleMixin, DetailView):
-    template_name = 'articles/article_detail.html'
+    template_name = 'articles/article.html'
 
     def get_queryset(self):
         return super().get_queryset().select_related(
             'author', 'category'
         ).only(
-            'category__name', 'category__slug',
+            'category__name',
             'author__first_name', 'author__last_name', 'author__username', 'author__avatar',
             'title', 'slug', 'created_at', 'body', 'modified_at'
         )
@@ -52,7 +52,7 @@ def article_delete(request, article_pk, article_slug):
 
 class ArticleListView(TitleMixin, ListView):
     model = Article
-    template_name = 'articles/article_list.html'
+    template_name = 'articles/articles.html'
     context_object_name = 'articles'
     paginate_by = 24
     title = 'Articles'
@@ -70,7 +70,7 @@ class ArticleListView(TitleMixin, ListView):
 
 
 class ArticleSearchView(ArticleListView, ListView):
-    template_name = 'articles/article_search.html'
+    template_name = 'articles/search.html'
     extra_context = {'form': SearchForm}
     query = None
     
@@ -107,7 +107,7 @@ class ArticleSearchView(ArticleListView, ListView):
 
 
 class AuthorArticleListView(ArticleListView, ListView):
-    template_name = 'articles/author_detail.html'
+    template_name = 'articles/author.html'
 
     def get(self, request, *args, **kwargs):
         self.author = get_object_or_404(get_user_model(), username=self.kwargs['username'])

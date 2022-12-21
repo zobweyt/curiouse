@@ -1,86 +1,67 @@
-$pistachio:         #a5d66b;
-$ocean-boat-blue:   #007cbe;
-$light-arsenic:     #606B71;
-$arsenic:           #333640;
+$pistachio: #a5d66b;
 
-$primary:           #3d64e4;
-$secondary:           $light-arsenic;
-$dark:              #2e2e30;
-$danger:            #dc3545;
-$success:           #198754;
-$focus-color:       #68aeff;
-$text-muted:          $secondary;
+$font-size-base: 0.875rem;
 
-$zindex-header:         1040;
-$zindex-footer:         $zindex-header;
+$primary: #3d64e4;
+$secondary: #606b71;
+$dark: #2e2e30;
+$text-muted: $secondary;
+
+$zindex-header: 1040;
+$zindex-footer: $zindex-header;
 
 $list-inline-padding: 0;
 $mark-padding: 0;
 
-$component-active-bg:      $arsenic;
+$component-active-bg: $dark;
 
-$input-btn-focus-width:         .1875em;
+$input-btn-focus-width: 0.1875em;
 
 $btn-close-focus-shadow: none;
 
-$btn-transition: color .1s ease-out, background-color .1s ease-out, border-color .1s ease-out, box-shadow .1s ease-out, scale .1s ease-out;
+$btn-transition: color 0.1s ease-out, background-color 0.1s ease-out, border-color 0.1s ease-out,
+  box-shadow 0.1s ease-out, scale 0.1s ease-out;
 
-$input-focus-border-color:      $light-arsenic;
-$input-focus-width:             0.0325rem;
-$input-focus-box-shadow:        0 0 0 $input-focus-width $input-focus-border-color;
+$input-focus-border-color: #606b71;
+$input-focus-width: 0.0575rem;
+$input-focus-box-shadow: 0 0 0 $input-focus-width $input-focus-border-color;
 
 $badge-font-weight: 500;
 
-$alert-bg-scale: -88%;
+$alert-bg-scale: -87.5%;
 
-$modal-fade-transform:   translateY(12px) scale(0.875, 0.925);
-$modal-transition:       transform 0.27s cubic-bezier(0.4, 0, 0.2, 1);
+$modal-fade-transform: translateY(16px) scale(0.875, 0.925);
 
-$enable-caret:              false;
-$enable-negative-margins:   true;
+$enable-caret: false;
+$enable-negative-margins: true;
 
 @import "bootstrap/scss/functions";
 @import "bootstrap/scss/variables";
+
+$theme-colors: map-remove($theme-colors, "info", "warning", "dark");
 
 $h1-font-size: $font-size-base * 1.7;
 $h2-font-size: $font-size-base * 1.5;
 $h3-font-size: $font-size-base * 1.3;
 $h4-font-size: $font-size-base * 1.1;
 
-$dropdown-item-padding-x:      $spacer * 0.45;
-$dropdown-item-padding-y:      $spacer * 0.35;
-$dropdown-min-width:           auto;
-$dropdown-link-hover-bg:     #f4f6f7;
-$dropdown-link-active-bg:      $dropdown-link-hover-bg;
-$dropdown-link-active-color:   auto;
+$dropdown-item-padding-x: $spacer * 0.45;
+$dropdown-item-padding-y: $spacer * 0.35;
+$dropdown-min-width: auto;
+$dropdown-link-hover-bg: #f4f6f7;
+$dropdown-link-active-bg: $dropdown-link-hover-bg;
+$dropdown-link-active-color: auto;
 
-$info:           $blue-400;
-$warning:        $orange-400;
-$light:          $gray-100;
-
-$custom-colors: (
-    "primary":         $primary,
-    "secondary":       $secondary,
-    "info":            $info,
-    "warning":         $warning,
-    "light":           $light,
-    "arsenic":         $arsenic,
-    "dark":            $dark,
-    "pistachio":       $pistachio,
-);
-
-$theme-colors: map-merge($theme-colors, $custom-colors);
-
-$form-feedback-icon-valid:    url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' stroke-width='2' stroke='#{$form-feedback-icon-valid-color}' fill='none' stroke-linecap='round' stroke-linejoin='round'><path stroke='none' d='M0 0h24v24H0z' fill='none'></path><circle cx='12' cy='12' r='9'></circle><path d='M9 12l2 2l4 -4'></path></svg>");
-$form-feedback-icon-invalid:  url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' stroke-width='2' stroke='#{$form-feedback-icon-invalid-color}' fill='none' stroke-linecap='round' stroke-linejoin='round'><path stroke='none' d='M0 0h24v24H0z' fill='none'></path><circle cx='12' cy='12' r='9'></circle><line x1='12' y1='8' x2='12' y2='12'></line><line x1='12' y1='16' x2='12.01' y2='16'></line></svg>");
+$form-feedback-icon-valid: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' stroke-width='2' stroke='#{$form-feedback-icon-valid-color}' fill='none' stroke-linecap='round' stroke-linejoin='round'><path stroke='none' d='M0 0h24v24H0z' fill='none'></path><circle cx='12' cy='12' r='9'></circle><path d='M9 12l2 2l4 -4'></path></svg>");
+$form-feedback-icon-invalid: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' stroke-width='2' stroke='#{$form-feedback-icon-invalid-color}' fill='none' stroke-linecap='round' stroke-linejoin='round'><path stroke='none' d='M0 0h24v24H0z' fill='none'></path><circle cx='12' cy='12' r='9'></circle><line x1='12' y1='8' x2='12' y2='12'></line><line x1='12' y1='16' x2='12.01' y2='16'></line></svg>");
 
 $form-validation-states: (
-    "valid": (
-        "color":  $form-feedback-valid-color,
-        "icon":   $form-feedback-icon-valid,
-    ),
-    "invalid": (
-        "color":  $form-feedback-invalid-color,
-        "icon":   $form-feedback-icon-invalid,
-    ),
+  "valid": (
+    "color": $form-feedback-valid-color,
+    "icon": $form-feedback-icon-valid,
+  ),
+  "invalid": (
+    "color": $form-feedback-invalid-color,
+    "icon": $form-feedback-icon-invalid,
+  ),
 );

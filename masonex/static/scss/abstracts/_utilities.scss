@@ -4,65 +4,86 @@
 @import "bootstrap/scss/utilities";
 
 $utilities: map-merge(
-    $utilities, (
-        "cursor": (
-            property: cursor,
-            class: cursor,
-            values: auto pointer grab,
-        ),
-        "width": map-merge(
-            map-get($utilities, "width"),
-            ( 
-                values: map-merge(
-                    map-get(map-get($utilities, "width"), "values"),
-                    (
-                        1: 5rem,
-                        2: 10rem,
-                        3: 15rem,
-                        4: 20rem,
-                        5: 25rem,
-                        6: 30rem,
-                    ),
-                ),
-                responsive: true,
+  $utilities,
+  (
+    "cursor": (
+      property: cursor,
+      class: cursor,
+      values: auto pointer grab,
+    ),
+    "width":
+      map-merge(
+        map-get($utilities, "width"),
+        (
+          values:
+            map-merge(
+              map-get(map-get($utilities, "width"), "values"),
+              (
+                1: 5rem,
+                2: 10rem,
+                3: 15rem,
+                4: 20rem,
+                5: 25rem,
+                6: 30rem,
+              )
             ),
-        ),
-        "height": map-merge(
-            map-get($utilities, "height"),
-            ( responsive: true ),
-        ),
-        "border": map-merge(
-            map-get($utilities, "border"),
-            ( responsive: true ),
-        ),
-        "border-top": map-merge(
-            map-get($utilities, "border-top"),
-            ( responsive: true ),
-        ),
-        "border-end": map-merge(
-            map-get($utilities, "border-end"),
-            ( responsive: true ),
-        ),
-        "border-bottom": map-merge(
-            map-get($utilities, "border-bottom"),
-            ( responsive: true ),
-        ),
-        "border-start": map-merge(
-            map-get($utilities, "border-start"),
-            ( responsive: true ),
-        ),
-    )
+          responsive: true,
+        )
+      ),
+    "height":
+      map-merge(
+        map-get($utilities, "height"),
+        (
+          responsive: true,
+        )
+      ),
+    "border":
+      map-merge(
+        map-get($utilities, "border"),
+        (
+          responsive: true,
+        )
+      ),
+    "border-top":
+      map-merge(
+        map-get($utilities, "border-top"),
+        (
+          responsive: true,
+        )
+      ),
+    "border-end":
+      map-merge(
+        map-get($utilities, "border-end"),
+        (
+          responsive: true,
+        )
+      ),
+    "border-bottom":
+      map-merge(
+        map-get($utilities, "border-bottom"),
+        (
+          responsive: true,
+        )
+      ),
+    "border-start":
+      map-merge(
+        map-get($utilities, "border-start"),
+        (
+          responsive: true,
+        )
+      ),
+  )
 );
 
 .scale-in {
-    scale: 1 !important;
-    transition: scale .1s ease-out, background-color .1s ease-out;
+  scale: 1 !important;
+  transition: scale 0.1s ease-out, background-color 0.1s ease-out;
 }
 
 .scale-in:active {
-    scale: 0.95 !important;
+  scale: 0.95 !important;
 }
 
 .circle-divider:after {
-    content: "\00B7";
+  content: "\00B7";
 }

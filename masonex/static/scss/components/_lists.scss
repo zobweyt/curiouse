@@ -1,22 +1,24 @@
 .list-group-item-control {
-    display: flex !important;
-    align-items: center;
-    justify-content: space-between;
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
 
-    hgroup {
-        margin-right: $spacer * 0.5;
-        
-        h6, p {
-            font-size: $medium-font-size;
-            margin-bottom: 0;
-        }
+  hgroup {
+    margin-right: $spacer * 0.5;
 
-        h6 {
-            line-height: $line-height-base !important;
-        }
-
-        p {
-            line-height: 1;
-        }
+    h6,
+    p {
+      margin-bottom: 0;
     }
+
+    h6 {
+      font-size: $font-size-base;
+      line-height: $line-height-base !important;
+    }
+
+    p {
+      font-size: $font-size-sm;
+      line-height: 1;
+    }
+  }
 }

@@ -22,11 +22,11 @@ class ArticleAuthorRequiredMixin:
 class ArticleEditorMixin:
     form_class = ArticleEditorForm
     template_name = 'articles/article_editor.html'
-    form_submit_button_text = None
+    submit_button_text = None
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['submit'] = self.form_submit_button_text            
+        context['submit_button_text'] = self.submit_button_text            
         return context
 
 

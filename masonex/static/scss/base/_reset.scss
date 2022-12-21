@@ -1,61 +1,67 @@
 a {
-    transition: color .1s ease-out;
+  transition: color 0.1s ease-out;
 }
 
 .dropdown-item {
-    line-height: 1 !important;
-    @extend .scale-in;
-    transition: scale .1s ease-out, background-color .1s ease-out, opacity .1s ease-out;
-    display: flex !important;
-    align-items: center;
-    gap: 0.5rem;
-    border-radius: $border-radius;
+  line-height: 1 !important;
+  @extend .scale-in;
+  transition: scale 0.1s ease-out, background-color 0.1s ease-out, opacity 0.1s ease-out;
+  display: flex !important;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: $border-radius;
 }
 
 .dropdown-item:active {
-    opacity: 0.8;
+  opacity: 0.8;
 }
 
 .dropdown li {
-    padding: 0 0.375rem;
+  padding: 0 0.375rem;
 }
 
 .dropdown-item i {
-    font-size: $font-size-lg !important;
+  font-size: $font-size-lg !important;
+}
+
+button[type="submit"] {
+  font-weight: $font-weight-medium !important;
+  padding-right: $spacer !important;
+  padding-left: $spacer !important;
 }
 
 .btn:active {
-    scale: 0.95;
+  scale: 0.95;
 }
 
 .btn-close {
-    @extend .scale-in;
+  @extend .scale-in;
 }
 
 .form-label {
-    color: $text-muted;
-    font-size: $small-font-size;
-    margin-bottom: 0 !important;
+  color: $text-muted;
+  font-size: $small-font-size;
+  margin-bottom: 0 !important;
 }
 
 .form-inline-control {
-    font-size: $medium-font-size;
-    padding: 0;
-    border: none;    
-    width: 100%;
+  font-size: $medium-font-size;
+  padding: 0;
+  border: none;
+  width: 100%;
 }
 
 .form-inline-control:focus {
-    outline: none;
-    border: none;
+  outline: none;
+  border: none;
 }
 
 .bootstrap-select .dropdown-toggle,
 .bootstrap-select .dropdown-menu {
-    font-size: $medium-font-size;
+  font-size: $medium-font-size;
 }
 
 .bootstrap-select .dropdown-toggle {
-    border: 1px solid $text-muted;
-    outline-width: 1px !important;
+  border: 1px solid $text-muted;
+  outline-width: 1px !important;
 }

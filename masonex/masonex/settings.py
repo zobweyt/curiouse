@@ -1,19 +1,28 @@
 import os
 import sys
+
 from pathlib import Path
 from dotenv import load_dotenv
 
-from .editorjs import *
+from django.urls import reverse_lazy
 
 load_dotenv()
 
-BASE_DIR = Path(__file__).resolve().parent.parent.parent
-
-SECRET_KEY = os.getenv('SECRET_KEY')
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
 
+SECRET_KEY = os.getenv('SECRET_KEY')
+
+DEBUG = True
+
+ALLOWED_HOSTS = ['127.0.0.1']
+
+INTERNAL_IPS = ['127.0.0.1']
+
 INSTALLED_APPS = [
+    'accounts.apps.AccountsConfig',
+    'articles.apps.ArticlesConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -22,8 +31,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_cleanup.apps.CleanupConfig',
     'django_editorjs_fields',
-    'accounts.apps.AccountsConfig',
-    'articles.apps.ArticlesConfig',
+    'debug_toolbar',
+    'django_sass',
 ]
 
 MIDDLEWARE = [
@@ -34,6 +43,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'masonex.urls'
@@ -50,11 +60,21 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'libraries': {
+                'helpers': 'templatetags.helpers',
+            },
         },
     },
 ]
 
 WSGI_APPLICATION = 'masonex.wsgi.application'
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -136,4 +156,95 @@ USE_TZ = False
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = 'static/'
+
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = 'media/'
+
 PHOTOS_PATH = 'photos/%Y/%m/%d/'
+
+EDITORJS_VERSION = '2.26.2'
+
+EDITORJS_DEFAULT_PLUGINS = (
+    '@editorjs/paragraph',
+    '@editorjs/header',
+    '@editorjs/list',
+    '@editorjs/quote',
+    '@editorjs/image',
+    '@editorjs/code',
+    '@editorjs/underline',
+    '@editorjs/marker',
+    '@editorjs/inline-code',
+)
+
+EDITORJS_DEFAULT_CONFIG_TOOLS = {
+    'paragraph': {
+        'class': 'Paragraph',
+        'shortcut': 'CMD+SHIFT+A',
+    },
+    'Header': {
+        'class': 'Header',
+        'inlineToolbar': False,
+        'shortcut': 'CMD+SHIFT+H',
+        'config': {
+            'placeholder': 'Enter a header',
+            'levels': [1, 2, 3, 4],
+        },
+    },
+    'List': {
+        'class': 'List',
+        'inlineToolbar': True,
+        'shortcut': 'CMD+SHIFT+L',
+    },
+    'Quote': {
+        'class': 'Quote',
+        'inlineToolbar': True,
+        'shortcut': 'CMD+SHIFT+Q',
+        'config': {
+            'quotePlaceholder': 'Enter the quote',
+            'captionPlaceholder': 'Quote by',
+        },
+    },
+    'Code': {
+        'class': 'CodeTool',
+        'shortcut': 'CMD+SHIFT+C',
+    },
+    'Image': {
+        'class': 'ImageTool',
+        'shortcut': 'CMD+SHIFT+U',
+        "config": {
+            "endpoints": {
+                "byFile": reverse_lazy('editorjs_image_upload'),
+                "byUrl": reverse_lazy('editorjs_image_by_url')
+            }
+        },
+    },
+    'Underline': {
+        'class': 'Underline',
+        'shortcut': 'CMD+U',
+    },
+    'InlineCode': {
+        'class': 'InlineCode',
+        'shortcut': 'CMD+SHIFT+M',
+    },
+    'Marker': {
+        'class': 'Marker',
+        'shortcut': 'CMD+SHIFT+E',
+    },
+}
+
+EDITORJS_CONFIG_OVERRIDE = {
+    'inlineToolbar': ('bold', 'italic', 'Underline', 'InlineCode', 'Marker', 'link'),
+    'minHeight': 256,
+    'i18n': {
+        'messages': {
+            'toolNames': {
+                'InlineCode': 'Monospace',
+                'Marker': 'Highlight',
+            },
+        },
+    },
+}

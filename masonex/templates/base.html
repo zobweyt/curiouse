@@ -1,19 +1,15 @@
-{% load static %}
+{% load static helpers %}
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    {% if title %}
-    <title>{{ title }} - Masonex</title>
-    {% endif %}
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    {% block extrameta %}
-    {% endblock extrameta %}
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons@latest/iconfont/tabler-icons.min.css">
+  <head>
+    {% if title %}<title>{{ title }} - Masonex</title>{% endif %}
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons@latest/iconfont/tabler-icons.min.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.14.0-beta3/css/bootstrap-select.min.css"/>
-    <link rel="stylesheet" href="{% static 'dist/css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'dist/css/main.css' %}"/>
     {% block extrastyle %}
     {% endblock extrastyle %}
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
@@ -23,10 +19,16 @@
     <script src="{% static 'js/main.js' %}"></script>
     {% block extrascript %}
     {% endblock extrascript %}
-    <link rel="icon" href="{% static 'images/logo.png' %}" type="image/x-icon">
-</head>
-<body class="d-flex flex-column min-vh-100">
+    <link rel="icon" href="{% static 'images/logo.png' %}" type="image/x-icon"/>
+  </head>
+  <body class="d-flex flex-column min-vh-100">
     {% block body %}
+    {% include 'includes/header.html' %}
+    <main class="container-xxl flex-fill d-flex flex-column my-md-4 my-2">
+      {% block content %}
+      {% endblock content %}
+    </main>
+    {% include 'includes/footer.html' %}
     {% endblock body %}
-</body>
+  </body>
 </html>

@@ -13,13 +13,8 @@ from .forms import SearchForm
 
 
 class ArticleCreateView(LoginRequiredMixin, TitleMixin, ArticleEditorMixin, CreateView):
-    form_submit_button_text = 'Publish'
+    submit_button_text = 'Publish'
     title = 'New article'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['action'] = reverse_lazy('articles:article_create')
-        return context
 
     def form_valid(self, form):
         article = form.save(commit=False)
@@ -42,20 +37,12 @@ class ArticleDetailView(ArticleTitleMixin, DetailView):
     
 
 class ArticleUpdateView(ArticleAuthorRequiredMixin, ArticleTitleMixin, ArticleEditorMixin, UpdateView):
-    form_submit_button_text = 'Update'
+    submit_button_text = 'Update'
 
     def get_queryset(self):
         return super().get_queryset().only(
             'category__name', 'title', 'slug', 'body', 'thumbnail', 'description'
         )
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['action'] = reverse_lazy('articles:article_update', kwargs={
-            self.pk_url_kwarg: self.object.pk, 
-            self.slug_url_kwarg: self.object.slug
-        })
-        return context
 
 
 def article_delete(request, article_pk, article_slug):
@@ -67,7 +54,7 @@ class ArticleListView(TitleMixin, ListView):
     model = Article
     template_name = 'articles/article_list.html'
     context_object_name = 'articles'
-    paginate_by = 16
+    paginate_by = 24
     title = 'Articles'
 
     def get_queryset(self):

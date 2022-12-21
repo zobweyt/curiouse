@@ -7,12 +7,19 @@ from core.utils import DecorateFormFieldsMixin
 from .models import User
 
 
+PASSWORD_HELP_TEXT = 'Come up with a strong password of at least 8 characters.'
+
+
 class SignUpForm(DecorateFormFieldsMixin, UserCreationForm):
-    first_name = forms.CharField(required=True)
+    first_name = forms.CharField(required=True, widget=forms.TextInput(attrs={'autofocus': True}))
     last_name = forms.CharField(required=True)
+    username = forms.CharField(required=True, help_text='Short name for Masonex.')
     email = forms.EmailField(required=True)
-    password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
-    password2 = forms.CharField(label='Confirm password', widget=forms.PasswordInput)
+    password1 = forms.CharField(
+        label='Password', 
+        required=True, widget=forms.PasswordInput, 
+        help_text=PASSWORD_HELP_TEXT)
+    password2 = forms.CharField(label='Confirm password', required=True, widget=forms.PasswordInput)
 
     class Meta:
         model = User
@@ -47,7 +54,9 @@ class ProfileUpdateForm(DecorateFormFieldsMixin, forms.ModelForm):
 
 
 class UserEmailChangeForm(DecorateFormFieldsMixin, forms.Form):
-    email = forms.EmailField(widget=forms.EmailInput)
+    email = forms.EmailField(
+        widget=forms.EmailInput(attrs={'autofocus': True}), 
+        help_text='Notifications will be sent to this email.')
 
     def __init__(self, user, *args, **kwargs):
         self.user = user
@@ -62,7 +71,10 @@ class UserEmailChangeForm(DecorateFormFieldsMixin, forms.Form):
 
 
 class UserPasswordChangeForm(DecorateFormFieldsMixin, PasswordChangeForm):
-    pass
+    new_password1 = forms.CharField(
+        label='New password', 
+        widget=forms.PasswordInput(), 
+        help_text=PASSWORD_HELP_TEXT)
 
 
 __all__ = [

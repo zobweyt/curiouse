@@ -1,7 +1,0 @@
-{% load static %}
-
-<img src="{% if user.avatar %}{{ user.avatar.url }}{% else %}{% static 'images/user.png' %}{% endif %}"
-     class="{% if class %}{{ class }}{% else %}rounded-circle{% endif %}"
-     {% if width or height %}
-     style="{% if width %}width: {{ width }};{% endif %}{% if height %}height: {{ height }};{% endif %}"
-     {% endif %}>

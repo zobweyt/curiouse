@@ -1,11 +1,11 @@
-{% extends 'base_site.html' %}
-{% load editorjs %}
+{% extends 'base.html' %}
+{% load editorjs helpers %}
 
 {% block content %}
 <div class="flex-fill d-flex flex-column" style="max-width: 40rem;">
     <section class="fs-md lh-1 mb-3 d-flex gap-2">
         <a href="{{ article.author.get_absolute_url }}" class="scale-in">
-            {% include 'includes/user_avatar.html' with user=article.author width='2.5em' %}
+          {% user_avatar user=article.author width="2.5em" %}
         </a>
         <div class="d-flex flex-column justify-content-between">
             <a href="{{ article.author.get_absolute_url }}" class="link-arsenic fw-medium">
@@ -42,7 +42,7 @@
                 </hgroup>
                 <a href="#" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#articleDeleteModal">Delete</a>
                 {% url 'articles:article_delete' article.pk article.slug as article_delete_url %}
-                {% include 'includes/delete_modal.html' with object_name='article' delete_url=article_delete_url %}
+                {% delete_confirm_modal object_name="article" delete_url=article_delete_url %}
             </li>
         </ul>
     </section>

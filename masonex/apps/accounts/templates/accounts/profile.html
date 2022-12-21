@@ -1,0 +1,77 @@
+{% extends 'accounts/form.html' %}
+{% load static helpers accounts_tags %}
+
+{% if messages %}
+{% block messages %}
+<ul class="list-unstyled mb-0">
+  {% for message in messages %}
+    <li>{% alert style=message.tags content=message %}</li>
+  {% endfor %}
+</ul>
+{% endblock messages %}
+{% endif %}
+
+{% block form_content %}
+<section class="d-flex gap-2 mb-2">
+  <div>
+    <div class="dropdown">
+      <a href="#" class="dropdown-toggle" id="avatar" data-bs-toggle="dropdown" aria-expanded="false">
+        {% user_avatar css_class='d-block rounded scale-in' width='3.4em' %}
+      </a>
+      <ul class="dropdown-menu border-0 shadow fs-md mt-1">
+        <li>
+          <label for="{{ form.avatar.id_for_label }}" class="dropdown-item cursor-pointer">
+            {{ form.avatar.label }}
+            {{ form.avatar }}
+          </label>
+        </li>
+        {% if user.avatar %}
+        <li><a href="#" class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#avatarDeleteModal">Delete photo</a></li>
+        {% endif %}
+      </ul>
+    </div>
+    {% url 'accounts:user_avatar_delete' as avatar_delete_url %}
+    {% delete_confirm_modal object_name='avatar' delete_url=avatar_delete_url %}
+  </div>
+  <hgroup>
+    <h2 class="mb-1 fs-md">{{ user.get_full_name }}</h2>
+    <p class="mb-0 text-muted lh-sm fs-sm">Provide basic information to make using Masonex more convenient</p>
+  </hgroup>
+</section>
+
+<section class="mb-3">
+  <div class="row mb-1">
+    <div class="col-6">
+      <label for="{{ form.first_name.id_for_label }}" class="form-label">{{ form.first_name.label }}</label>
+      {{ form.first_name }}
+    </div>
+    <div class="col-6">
+      <label for="{{ form.last_name.id_for_label }}" class="form-label">{{ form.last_name.label }}</label>
+      {{ form.last_name }}
+    </div>
+  </div>
+  <div class="col-12">
+    <label for="{{ form.bio.id_for_label }}" class="form-label">{{ form.bio.label }}</label>
+    {{ form.bio }}
+  </div>
+</section>
+
+<section class="mb-1">
+  <ul class="list-group">
+    <li class="list-group-item list-group-item-control">
+      <hgroup>
+        <h6 class="fs-sm text-muted fw-normal mb-1">Email</h6>
+        <p>{{ request.user.email|truncatemail:2 }}</p>
+      </hgroup>
+      <a href="{% url 'accounts:email_change' %}" class="btn btn-sm btn-secondary px-3">Edit</a>
+    </li>
+    <li class="list-group-item list-group-item-control">
+      <hgroup>
+        <h6 class="fs-sm text-muted fw-normal mb-1">Password</h6>
+        <p>********</p>
+      </hgroup>
+      <a href="{% url 'accounts:password_change' %}" class="btn btn-sm btn-secondary px-3">Edit</a>
+    </li>
+  </ul>
+</section>
+{% endblock form_content %}

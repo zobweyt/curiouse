@@ -22,38 +22,22 @@ class RedirectAuthenticatedUsersMixin:
 
 class ProfileUpdateMixin(LoginRequiredMixin, SuccessMessageMixin, TitleMixin):
     """
-    Adds 'form_action_url' with title to the context and creates success message depending on 'updating_object'.
+    Adds title to the context and creates success message depending on 'updating_object'.
     """
 
-    template_name = 'accounts/profile_update_security_form.html'
+    template_name = 'accounts/profile.html'
     success_url = reverse_lazy('accounts:profile')
 
     updating_object = 'profile'
-    form_action_url = success_url
+    submit_button_text = 'Save'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['form_action'] = self.form_action_url
+        context['submit_button_text'] = self.submit_button_text
         return context
 
     def get_success_message(self, cleaned_data):
-        return f'The {self.updating_object} has been successfully updated!'
+        return f'The {self.updating_object} has been updated.'
 
     def get_title(self):
         return f'Change {self.updating_object}'
-
-
-class ProfileSecurityUpdateMixin(ProfileUpdateMixin):
-    """
-    Changes the form width and adds back to main profile page button.
-    """
-
-    css_form_width_class = 'w-md-4'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context.update({
-            'use_main_profile_page_button': True,
-            'form_width': self.css_form_width_class,
-        })
-        return context

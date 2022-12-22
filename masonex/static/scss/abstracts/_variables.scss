@@ -5,7 +5,10 @@ $font-family-base: "Rubik", sans-serif;
 $font-size-base: 0.875rem;
 $font-size-sm: 0.75rem;
 $font-size-lg: 1rem;
-$icon-font-size: 1.25rem;
+
+$icon-font-size-base: $font-size-base * 1.25;
+$icon-font-size-sm: $font-size-sm * 1.25;
+$icon-font-size-lg: $font-size-lg * 1.25;
 
 $font-weight-medium: 500;
 
@@ -40,6 +43,8 @@ $btn-close-focus-shadow: none;
 $btn-transition: color 0.1s ease-out, background-color 0.1s ease-out, border-color 0.1s ease-out,
   box-shadow 0.1s ease-out, scale 0.1s ease-out;
 
+$transition-scale-in: scale 0.1s ease-out;
+
 $badge-font-weight: 500;
 
 $alert-bg-scale: -87.5%;
@@ -53,6 +58,19 @@ $enable-negative-margins: true;
 @import "bootstrap/scss/variables";
 
 $theme-colors: map-remove($theme-colors, "info", "warning");
+
+$custom-font-sizes: (
+  "base": $font-size-base,
+  "sm": $font-size-sm,
+  "lg": $font-size-lg,
+  "icon-base": $icon-font-size-base,
+  "icon-sm": $icon-font-size-sm,
+  "icon-lg": $icon-font-size-lg,
+);
+
+$font-sizes: map-merge($font-sizes, $custom-font-sizes);
+
+$legend-font-weight: map-get($font-sizes, 4);
 
 $h1-font-size: $font-size-base * 1.7;
 $h2-font-size: $font-size-base * 1.5;

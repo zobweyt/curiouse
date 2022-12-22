@@ -9,57 +9,28 @@ $utilities: map-merge(
     "cursor": (
       property: cursor,
       class: cursor,
-      values: auto pointer grab,
+      values: auto pointer,
     ),
-    "width":
-      map-merge(
-        map-get($utilities, "width"),
-        (
-          responsive: true,
-        )
-      ),
-    "height":
-      map-merge(
-        map-get($utilities, "height"),
-        (
-          responsive: true,
-        )
-      ),
-    "border":
-      map-merge(
-        map-get($utilities, "border"),
-        (
-          responsive: true,
-        )
-      ),
+    "font-weight": map-merge(
+      map-get($utilities, "font-weight"),
+      (
+        values: map-merge(
+            map-get(map-get($utilities, "font-weight"), "values"),
+            ( medium: $font-weight-medium ),
+          ),
+      )
+    ),
+    "width": map-merge(
+      map-get($utilities, "width"),
+      ( responsive: true )
+    ),
+    "height": map-merge(
+      map-get($utilities, "height"),
+      ( responsive: true )
+    ),
+    "border": map-merge(
+      map-get($utilities, "border"),
+      ( responsive: true )
+    ),
   )
 );
-
-.fs-base {
-  font-size: $font-size-base !important;
-}
-
-.fs-sm {
-  font-size: $font-size-sm !important;
-}
-
-.fs-lg {
-  font-size: $font-size-lg !important;
-}
-
-.fw-medium {
-  font-weight: $font-weight-medium !important;
-}
-
-.scale-in {
-  scale: 1 !important;
-  transition: scale 0.1s ease-out, background-color 0.1s ease-out;
-
-  &:active {
-    scale: 0.95 !important;
-  }
-}
-
-.circle-divider:after {
-  content: "\00B7";
-}

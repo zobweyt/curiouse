@@ -1,3 +1,7 @@
+.ce-scroll-locked header {
+  z-index: 0 !important;
+}
+
 .search-form {
     .form-control, .btn {
         border: $border-width $border-style $border-color !important;

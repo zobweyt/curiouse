@@ -1,0 +1,10 @@
+@import "bootstrap/scss/mixins";
+
+.scale-in {
+  scale: 1 !important;
+  @include transition($transition-scale-in);
+
+  &:active {
+    scale: 0.95 !important;
+  }
+}

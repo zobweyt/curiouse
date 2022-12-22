@@ -20,7 +20,7 @@ a {
 }
 
 .dropdown-item i {
-  font-size: $icon-font-size !important;
+  font-size: $icon-font-size-lg !important;
 }
 
 .btn:active {
@@ -35,10 +35,6 @@ a {
   color: $text-muted;
   font-size: $font-size-sm;
   margin-bottom: 0 !important;
-}
-
-.ce-scroll-locked header {
-    z-index: 0 !important;
 }
 
 .form-inline-control {

@@ -1,10 +1,47 @@
 @import "bootstrap/scss/mixins";
 
-.scale-in {
-  scale: 1 !important;
-  @include transition($transition-scale-in);
+a {
+  @include transition($link-transition);
+}
+
+.btn:active {
+  transform: $component-active-transform;
+}
+
+.dropdown-item {
+  @include transition($dropdown-link-transition);
 
   &:active {
-    scale: 0.95 !important;
+    transform: $component-active-transform !important;
+    opacity: $dropdown-link-focus-opacity !important;
+  }
+}
+
+.dropdown-chevron {
+  transition: all 0.1s ease;
+}
+
+.flip {
+  transform: rotate(-180deg);
+}
+
+.scale-in {
+  @include transition($scale-in-transition);
+
+  &:active {
+    transform: $component-active-transform !important;
+  }
+}
+
+.picture-scale-in {
+  @include transition($picture-scale-in-transition);
+
+  &:hover {
+    filter: brightness(90%);
+  }
+
+  &:active {
+    filter: brightness(80%);
+    transform: $component-active-transform !important;
   }
 }

@@ -1,0 +1,21 @@
+@import "bootstrap/scss/mixins";
+
+.btn-bordered {
+  display: flex !important;
+  align-items: center !important;
+  border: $border-width $border-style $border-color !important;
+
+  &:hover {
+    border-color: $gray-500 !important;
+  }
+
+  &:active {
+    background-color: $light !important;
+    border-color: $gray-700 !important;
+  }
+
+  &:focus-visible {
+    background-color: $light !important;
+    box-shadow: 0 0 0 $btn-focus-width rgba(mix($black, $light, 15%), .5) !important;
+  }
+}

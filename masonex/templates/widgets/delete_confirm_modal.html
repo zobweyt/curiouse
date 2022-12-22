@@ -2,15 +2,16 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-4">Delete {{ object_name }}?</h1>
+        <h1 class="modal-title fs-3">Delete {{ object_name }}?</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <p class="mb-0">Do you really want to delete the {{ object_name }}? This action cannot be undone.</p>
+        <p class="mb-0 fs-lg">Do you really want to delete the {{ object_name }}?</p>
+        <p class="mb-0 text-muted">{% if help_text %}{{ help_text }}{% else %}This action cannot be undone.{% endif %}</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <a href="{{ delete_url }}" class="btn btn-danger">Delete</a>
+        <a href="{{ delete_url }}" class="btn btn-danger">Delete {{ object_name }}</a>
       </div>
     </div>
   </div>

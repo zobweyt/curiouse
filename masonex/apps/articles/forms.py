@@ -27,6 +27,7 @@ class ArticleEditorForm(forms.ModelForm):
             'title': 'Select an item',
             'data-live-search': 'true',
             'data-size': 5,
+            'data-style': 'btn-bordered',
         }),
     )
     thumbnail = forms.ImageField(widget=forms.FileInput(attrs={

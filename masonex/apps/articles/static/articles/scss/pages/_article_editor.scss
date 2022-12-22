@@ -1,3 +1,15 @@
+.form-inline-control {
+  font-size: $form-label-font-size;
+  padding: 0;
+  border: none;
+  width: 100%;
+}
+
+.form-inline-control:focus {
+  outline: none;
+  border: none;
+}
+
 #thumbnail img,
 .image-upload {
   width: 212px;

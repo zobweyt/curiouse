@@ -24,7 +24,6 @@ class DecorateFormFieldsMixin:
 
     css_class_decorated_fields = (
         CharField,
-        ChoiceField,
     )
 
     css_class = 'form-control'
@@ -37,4 +36,6 @@ class DecorateFormFieldsMixin:
 
     def __decorate_field(self, field):
         if isinstance(field, self.css_class_decorated_fields):
-            field.widget.attrs.update({'class': self.css_class})
+            additional_css_class = field.widget.attrs.get('class')
+            coupled_css_class = (additional_css_class + ' ' if additional_css_class else '') + self.css_class 
+            field.widget.attrs.update({'class': coupled_css_class})

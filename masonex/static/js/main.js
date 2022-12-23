@@ -3,6 +3,8 @@ $(document).ready(function() {
         $(this).closest('.search-form').toggleClass('active');
     });
 
+    $('.needs-validation').find('button[type=submit]').attr('disabled', true);
+
     $('.needs-validation').on('change input', function() {
         $(this).find('button[type=submit]').attr('disabled', false);
     });

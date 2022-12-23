@@ -6,6 +6,11 @@
 $utilities: map-merge(
   $utilities,
   (
+    "resize": (
+      property: resize,
+      class: resize,
+      values: vertical horizontal both none,
+    ),
     "cursor": (
       property: cursor,
       class: cursor,

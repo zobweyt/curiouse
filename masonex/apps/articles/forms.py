@@ -5,29 +5,25 @@ from core.utils import DecorateFormFieldsMixin
 from articles.models import Article, Category
 
 
-class ArticleEditorForm(forms.ModelForm):
+class ArticleEditorForm(DecorateFormFieldsMixin, forms.ModelForm):
     title = forms.CharField(widget=forms.Textarea(attrs={
         'rows': 3,
-        'placeholder': 'Title based on content',
-        'class': 'form-inline-control bg-light lh-sm fw-medium fs-6',
-        'style': 'resize: none;'
+        'placeholder': 'This article is about...',
+        'class': 'fw-medium fs-6',
     }))
     description = forms.CharField(widget=forms.Textarea(attrs={
         'rows': 4,
         'placeholder': 'Briefly introduce the contents of the article',
-        'class': 'form-inline-control bg-light lh-sm text-body',
-        'style': 'resize: none;'
     }))
     category = forms.ModelChoiceField(
         queryset=Category.objects.only('name'),
         empty_label=None,
-        help_text='Choose the most appropriate category for your article.',
         widget=forms.Select(attrs={
-            'class': 'selectpicker mb-3',
             'title': 'Select an item',
-            'data-live-search': 'true',
             'data-size': 5,
             'data-style': 'btn-bordered',
+            'data-live-search': 'true',
+            'class': 'selectpicker',
         }),
     )
     thumbnail = forms.ImageField(widget=forms.FileInput(attrs={
@@ -36,6 +32,7 @@ class ArticleEditorForm(forms.ModelForm):
         'data-toggle': 'image',
         'data-target': '#thumbnail',
     }))
+    css_class = 'form-control-plaintext resize-none'
 
     class Meta:
         model = Article

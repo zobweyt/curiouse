@@ -13,11 +13,11 @@
               {{ article.author.get_full_name }}
           </a>
           <div class="text-muted d-flex gap-1 fs-sm">
-              <time datetime="{{ article.created_at|date:"Y-m-d" }}">
-                  {{ article.created_at|date:"F, d, Y" }}
+              <time datetime="{{ article.created_at|date:"Y-m-d" }}" class="user-select-all">
+                  {{ article.created_at|date:"F d, Y" }}
               </time>
               <span class="circle-divider"></span>
-              <p class="mb-0">{{ article.category.name }}</p>
+              <p class="mb-0 user-select-all">{{ article.category.name }}</p>
           </div>
       </div>
   </section>
@@ -28,17 +28,17 @@
   <section class="mt-2 flex-fill d-flex flex-column justify-content-end">
     <h5>Manage article</h5>
     <ul class="list-group">
-      <li class="list-group-item list-group-item-control">
-        <hgroup>
-          <h6>Update this article</h6>
-          <p>Last modified at <time datetime="{{ article.created_at|date:"Y-m-d" }}">{{ article.created_at|date:"F, d, Y" }}</time>.</p>
+      <li class="list-group-item flush-control">
+        <hgroup class="flush-control-body">
+          <h6 class="flush-control-title">Update this article</h6>
+          <p class="flush-control-text user-select-all">Last modified at {{ article.created_at|date:"F d, Y" }}.</p>
         </hgroup>
         <a href="{% url 'articles:article_update' article.pk article.slug %}" class="btn btn-outline-secondary">Edit</a>
       </li>
-      <li class="list-group-item list-group-item-control">
-          <hgroup>
-              <h6>Delete this article</h6>
-              <p>Once you delete an article, there is no going back. Please be certain.</p>
+      <li class="list-group-item flush-control">
+          <hgroup class="flush-control-body">
+              <h6 class="flush-control-title">Delete this article</h6>
+              <p class="flush-control-text">Once you delete an article, there is no going back. Please be certain.</p>
           </hgroup>
           <a href="#" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#articleDeleteModal">Delete</a>
           {% url 'articles:article_delete' article.pk article.slug as article_delete_url %}

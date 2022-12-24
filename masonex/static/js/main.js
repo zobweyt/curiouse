@@ -59,6 +59,4 @@ $(document).ready(function() {
     });
 
     $('.bs-searchbox').find('.form-control').attr('placeholder', 'Filter');
-    $('.filter-option-inner-inner').addClass('text-muted fw-medium')
-    $('.bs-searchbox').addClass('mb-1');
 });

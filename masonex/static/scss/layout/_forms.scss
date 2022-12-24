@@ -1,0 +1,33 @@
+.search-form {
+  border: $border-style $border-width $border-color;
+  border-radius: $border-radius;
+  transition: border-color 0.1s ease-out;
+
+  .form-item {
+    background-color: $gray-100;
+    border: none !important;
+    transition: color 0.1s ease-out, background-color 0.1s ease-out !important;
+  }
+
+  button[type="submit"] {
+    color: $gray-500;
+    padding-right: map-get($spacers, 2);
+  }
+
+  &:hover {
+    border-color: $gray-500 !important;
+
+    button[type="submit"] {
+      color: $dark;
+    }
+  }
+
+  &.active {
+    border-color: $dark !important;
+
+    .form-item {
+      color: $black;
+      background-color: $white;
+    }
+  }
+}

@@ -39,6 +39,16 @@ $icon-font-size-base: $font-size-base * 1.25;
 $icon-font-size-sm:   $font-size-sm * 1.25;
 $icon-font-size-lg:   $font-size-lg * 1.25;
 
+$custom-font-sizes: (
+  "base":       $font-size-base,
+  "sm":         $font-size-sm,
+  "lg":         $font-size-lg,
+  "icon-base":  $icon-font-size-base,
+  "icon-sm":    $icon-font-size-sm,
+  "icon-lg":    $icon-font-size-lg,
+);
+
+$font-weight-normal:  400;
 $font-weight-medium:  500;
 
 $line-height-base:    1.325;
@@ -73,7 +83,7 @@ $enable-negative-margins:  true;
 // Links
 
 // scss-docs-start link-variables
-$link-color:        #2a6ed1;
+$link-color:          $primary;
 $link-hover-color:  #a5d66b;
 $link-decoration:     none;
 $link-transition:     color 0.1s ease-out, background-color 0.1s ease-out;
@@ -93,7 +103,6 @@ $paragraph-margin-bottom: 0.875rem;
 $component-active-bg:         $dark;
 $component-active-transform:  scale(0.95);
 // scss-docs-end component-variables
-
 
 // Badges
 
@@ -131,8 +140,9 @@ $btn-transition:             color 0.1s ease-out, background-color 0.1s ease-out
   border-color 0.1s ease-out, box-shadow 0.1s ease-out, transform 0.1s ease-out;
 
 // scss-docs-start form-label-variables
-$form-label-margin-bottom:   0;
+$form-label-margin-bottom:   $spacer * 0.125;
 $form-label-font-size:       $font-size-sm;
+$form-label-font-weight:     $font-weight-normal;
 $form-label-color:           $text-muted;
 // scss-docs-end form-label-variables
 
@@ -173,22 +183,9 @@ $picture-scale-in-transition:  filter 0.1s ease-out, transform 0.1s ease-out;
 @import "bootstrap/scss/functions";
 @import "bootstrap/scss/variables";
 
-// scss-docs-start colors-map
 $theme-colors: map-remove($theme-colors, "info", "warning");
 
-$custom-font-sizes: (
-  "base":       $font-size-base,
-  "sm":         $font-size-sm,
-  "lg":         $font-size-lg,
-  "icon-base":  $icon-font-size-base,
-  "icon-sm":    $icon-font-size-sm,
-  "icon-lg":    $icon-font-size-lg,
-);
-// scss-docs-end colors-map
-
-// scss-docs-start font-variables
 $font-sizes: map-merge($font-sizes, $custom-font-sizes);
-// scss-docs-end font-variables
 
 // scss-docs-start form-feedback-variables
 $form-feedback-icon-valid: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' stroke-width='2' stroke='#{$form-feedback-icon-valid-color}' fill='none' stroke-linecap='round' stroke-linejoin='round'><path stroke='none' d='M0 0h24v24H0z' fill='none'></path><circle cx='12' cy='12' r='9'></circle><path d='M9 12l2 2l4 -4'></path></svg>");

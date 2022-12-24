@@ -5,9 +5,9 @@
 <div class="w-6">
   <section class="d-xl-none mb-3">
     <form action="{% url 'articles:search' %}" method="GET" class="search-form">
-      <div class="input-group input-group-sm">
-        <input type="text" name="query" placeholder="Search articles" maxlength="64" class="form-control form-control-sm lh-sm fs-sm">
-        <button type="submit" class="btn btn-sm d-flex align-items-center"><i class="ti ti-search fw-semibold"></i></button>
+      <div class="input-group">
+        <input type="text" name="query" placeholder="Search articles" maxlength="64" class="form-item form-control shadow-none">
+        <button type="submit" class="form-item rounded-end d-flex align-items-center"><i class="ti ti-search fw-semibold"></i></button>
       </div>
     </form>
   </section>

@@ -9,8 +9,8 @@
       <div class="w-50 d-none d-xl-block">
         <form action="{% url 'articles:search' %}" method="GET" class="search-form">
           <div class="input-group">
-            <input type="text" name="query" placeholder="Search articles" maxlength="64" class="form-control">
-            <button type="submit" class="btn d-flex align-items-center py-0"><i class="ti ti-search fw-semibold"></i></button>
+            <input type="text" name="query" placeholder="Search articles" maxlength="64" class="form-item form-control shadow-none">
+            <button type="submit" class="form-item rounded-end d-flex align-items-center"><i class="ti ti-search fw-semibold"></i></button>
           </div>
         </form>
       </div>
@@ -44,6 +44,11 @@
               <li>
                 <a href="{% url 'articles:user' request.user.username %}" class="dropdown-item">
                   <i class="ti ti-id-badge-2"></i>My profile
+                </a>
+              </li>
+              <li class="d-xl-none">
+                <a href="{% url 'articles:search' %}" class="dropdown-item">
+                  <i class="ti ti-search"></i>Search
                 </a>
               </li>
               {% if request.user.is_staff %}

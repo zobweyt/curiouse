@@ -19,6 +19,7 @@ class ArticleEditorForm(DecorateFormFieldsMixin, forms.ModelForm):
         queryset=Category.objects.only('name'),
         empty_label=None,
         widget=forms.Select(attrs={
+            'required': 'true',
             'title': 'Select an item',
             'data-size': 5,
             'data-style': 'btn-bordered',

@@ -1,15 +1,31 @@
 $(document).ready(function() {
+    $('.bs-searchbox').find('.form-control').attr('placeholder', 'Filter');
+
     $('.search-form .form-control').on('focus focusout', function() {
         $(this).closest('.search-form').toggleClass('active');
     });
 
-    $('.needs-validation').find('button[type=submit]').attr('disabled', true);
+    let form = $('.needs-validation');
+    let originalForm = form.serialize();
 
-    $('.needs-validation').on('change input', function() {
-        $(this).find('button[type=submit]').attr('disabled', false);
+    form.on('change input', function() {
+        let button = $(this).find('button[type=submit]');
+
+        if ($(this).serialize() == originalForm) {
+            button.attr('disabled', true);
+            return;
+        }
+
+        let fields = $(this).find('[required]').toArray();
+
+        if (fields.some((field) => !field.value.trim().length)) {
+            button.attr('disabled', true);
+        } else {
+            button.attr('disabled', false);
+        }
     });
 
-    $('.needs-validation').submit(function() {
+    form.submit(function() {
         const button = $(this).find('button[type=submit]');
         button.prop('disabled', true);
 
@@ -57,6 +73,4 @@ $(document).ready(function() {
     $('.dropdown-toggle').on('hide.bs.dropdown', function() {
         $(this).find('.dropdown-chevron').removeClass('flip');
     });
-
-    $('.bs-searchbox').find('.form-control').attr('placeholder', 'Filter');
 });

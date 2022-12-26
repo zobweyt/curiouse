@@ -47,7 +47,7 @@
       {% endblock form_content %}
 
       <div class="mt-md-1 mt-auto">
-        <button type="submit" class="w-100 w-md-auto btn btn-success mt-1" on-validation-text="Verifying...">
+        <button type="submit" class="w-100 w-md-auto btn btn-success mt-1" disabled on-validation-text="Verifying...">
             {% if submit_button_text %}{{ submit_button_text }}{% else %}{{ title }}{% endif %}
         </button>
       </div>

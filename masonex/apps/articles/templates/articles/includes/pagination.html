@@ -2,7 +2,7 @@
 
 {% if page_obj.has_other_pages %}
 <nav class="mt-2">
-  <ul class="pagination pagination-sm">
+  <ul class="pagination">
     <li class="page-item {% if not page_obj.has_previous %}disabled{% endif %}">
       {% if page_obj.has_previous %}
       <a href="?{% query_transform page=page_obj.previous_page_number %}" class="page-link">&laquo;</a>

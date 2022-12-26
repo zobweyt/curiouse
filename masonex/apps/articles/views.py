@@ -58,11 +58,9 @@ class ArticleListView(TitleMixin, ListView):
     title = 'Articles'
 
     def get_queryset(self):
-        # !! TRY USING values()
-        # need to add select "__count"
         return super().get_queryset().select_related(
             'author', 'category'
-        ).only( 
+        ).only(
             'author__first_name', 'author__last_name', 
             'category__name', 
             'title', 'thumbnail', 'slug'
@@ -96,7 +94,7 @@ class ArticleSearchView(ArticleListView, ListView):
                     for lookup in lookups:
                         query_filter |= Q(**{lookup: self.query})
 
-                    return articles.filter(query_filter) # select description here too with only
+                    return articles.filter(query_filter)
 
             return Article.objects.none()
 
@@ -106,7 +104,7 @@ class ArticleSearchView(ArticleListView, ListView):
         return 'Search results for' + (f' "{self.query}"' if self.query else '')
 
 
-class AuthorArticleListView(ArticleListView, ListView):
+class AuthorArticleListView(ArticleListView):
     template_name = 'articles/author.html'
 
     def get(self, request, *args, **kwargs):

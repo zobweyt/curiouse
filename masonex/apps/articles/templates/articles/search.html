@@ -6,30 +6,14 @@
   <section class="d-xl-none mb-3">
     <form action="{% url 'articles:search' %}" method="GET" class="search-form">
       <div class="input-group">
-        <input type="text" name="query" placeholder="Search articles" maxlength="64" class="form-item form-control shadow-none">
+        <input type="text" name="query" placeholder="Search articles" maxlength="64" class="form-item form-control shadow-none" value="{{ request.GET.query.strip }}">
         <button type="submit" class="form-item rounded-end d-flex align-items-center"><i class="ti ti-search fw-semibold"></i></button>
       </div>
     </form>
   </section>
-  
   <section>
-    {% if request.GET.query %}
-    <h1 class="fs-5 fw-normal">Search results for <strong class="text-break">{{ request.GET.query }}</strong></h1>
-    {% endif %}
     {% if articles %}
-    <ul class="list-unstyled">
-      {% for article in articles %}
-      <li class="mb-2">
-        <a href="{{ article.get_absolute_url }}" class="mb-1">
-          {{ article.title|truncatechars:64|highlight:request.GET.query }}
-        </a>
-        <p class="text-break mb-0">
-          {{ article.description|truncatechars:128|highlight:request.GET.query }}
-        </p>
-      </li>
-      {% endfor %}
-    </ul>
-    {% include 'articles/includes/pagination.html' %}
+    {% include 'articles/includes/article_list.html' %}
     {% else %}
     <div class="text-muted">
       <ul class="list-unstyled">

@@ -30,7 +30,7 @@ def alert(style, content):
     }
 
 
-@register.inclusion_tag("widgets/delete_confirm_modal.html")
+@register.inclusion_tag("widgets/delete-confirm-modal.html")
 def delete_confirm_modal(object_name, delete_url):    
     return {
         "object_name": object_name,

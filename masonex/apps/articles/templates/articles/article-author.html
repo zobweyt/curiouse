@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load helpers %}
+
+{% block content %}
+<section class="text-center mb-4 pb-5 border-bottom d-flex justify-content-center">
+  <div class="w-6">
+    {% user_avatar user=author css_class="rounded" width="10em" %}
+    <h1 class="mb-1 mt-3 fs-4">{{ author.get_full_name }}</h1>
+    {% if author.bio %}
+    <p class="mb-0 lh-sm">{{ author.bio }}</p>
+    {% endif %}
+  </div>
+</section>
+<section>
+  {% if articles %}
+  <h2 class="text-center fs-5 mb-3">By this author</h2>
+  {% include 'articles/includes/articles-list.html' %}
+  {% else %}
+  <div class="text-center">
+    {% if request.user == author %}
+    <h2 class="fs-5">You do not have any articles yet.</h2>
+    <a href="{% url 'articles:article_create' %}" class="btn btn-primary">Create an article</a>
+    {% else %}
+    <h2 class="fs-5">This author does not have any articles yet.</h2>
+    <a href="{% url 'articles:home' %}" class="btn btn-primary">See featured articles</a>
+    {% endif %}
+  </div>
+  {% endif %}
+</section>
+{% endblock content %}

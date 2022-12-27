@@ -1,5 +1,4 @@
 from django.http import Http404
-from django.shortcuts import get_object_or_404
 from django.views.generic import UpdateView
 
 from core.utils import TitleMixin
@@ -21,7 +20,7 @@ class ArticleAuthorRequiredMixin:
 
 class ArticleEditorMixin:
     form_class = ArticleEditorForm
-    template_name = 'articles/article_editor.html'
+    template_name = 'articles/article-editor.html'
     submit_button_text = None
 
     def get_context_data(self, **kwargs):

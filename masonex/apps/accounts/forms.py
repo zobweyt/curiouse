@@ -46,7 +46,12 @@ class ProfileUpdateForm(DecorateFormFieldsMixin, forms.ModelForm):
         }))
     first_name = forms.CharField(required=True)
     last_name = forms.CharField(required=True)
-    bio = forms.CharField(required=False, widget=forms.Textarea(attrs={'rows': 5}))
+    bio = forms.CharField(
+        required=False,
+        widget=forms.Textarea(attrs={
+            'rows': 5,
+            'placeholder': 'Describe your activities'
+        }))
 
     class Meta:
         model = User

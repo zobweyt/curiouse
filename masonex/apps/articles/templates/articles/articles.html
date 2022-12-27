@@ -1,5 +1,10 @@
 {% extends 'base.html' %}
 
 {% block content %}
-{% include 'articles/includes/article_list.html' %}
+{% if articles %}
+{% include 'articles/includes/articles-list.html' %}
+{% else %}
+<h2 class="fs-4">There are no articles yet.</h2>
+<a href="{% url 'articles:article_create' %}" class="btn btn-primary">Create an article</a>
+{% endif %}
 {% endblock content %}

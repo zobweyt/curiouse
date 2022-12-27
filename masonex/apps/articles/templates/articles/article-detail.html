@@ -3,13 +3,12 @@
 
 {% block content %}
 <div class="flex-fill d-flex flex-column" style="max-width: 40rem;">
-
   <section class="lh-1 mb-3 d-flex gap-2">
       <a href="{{ article.author.get_absolute_url }}" class="picture-scale-in">
         {% user_avatar user=article.author width="2.25em" %}
       </a>
       <div class="d-flex flex-column justify-content-between">
-          <a href="{{ article.author.get_absolute_url }}" class="fw-medium link-dark">
+          <a href="{{ article.author.get_absolute_url }}" class="fw-medium text-body">
               {{ article.author.get_full_name }}
           </a>
           <div class="text-muted d-flex gap-1 fs-sm">
@@ -18,15 +17,19 @@
               </time>
               <span class="circle-divider"></span>
               <p class="mb-0 user-select-all">{{ article.category.name }}</p>
+              {% if request.user == article.author or request.user.is_staff %}
+              <span class="circle-divider"></span>
+              <a href="#manage">Manage</a>
+              {% endif %}
           </div>
       </div>
   </section>
-  
-  <article class="article__body text-break">{{ article.body | editorjs }}</article>
-
+  <article class="article__body text-break">
+    {{ article.body | editorjs }}
+  </article>
   {% if request.user == article.author or request.user.is_staff %}
   <section class="mt-2 flex-fill d-flex flex-column justify-content-end">
-    <h5>Manage article</h5>
+    <h5 id="manage">Manage article</h5>
     <ul class="list-group">
       <li class="list-group-item flush-control">
         <hgroup class="flush-control-body">
@@ -47,6 +50,5 @@
     </ul>
   </section>
   {% endif %}
-
 </div>
 {% endblock content %}

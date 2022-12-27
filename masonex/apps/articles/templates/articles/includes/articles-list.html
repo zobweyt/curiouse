@@ -3,7 +3,7 @@
 {% if articles %}
 <ul class="list-unstyled row">
   {% for article in articles %}
-  <li class="col-lg-3 col-md-4 col-6 mb-4">
+  <li class="col-lg-3 col-md-4 col-sm-6 col-12 mb-4">
     <article class="component-article-listing scale-in">
       <img src="{{ article.thumbnail.url }}" class="article-listing__thumbnail" alt="Thumbnail" loading="lazy">
       <h6 class="mt-xl-3 mt-2 mb-1 article-listing__category">{{ article.category.name }}</h6>

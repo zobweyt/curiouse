@@ -8,6 +8,13 @@
   border-radius: $border-radius;
 }
 
+.article-listing__heading {
+  color: $dark;
+  font-size: $font-size-lg;
+  font-weight: $font-weight-bold;
+  line-height: $line-height-sm;
+}
+
 .article-listing__heading:after {
   content: "";
   display: block;
@@ -18,21 +25,18 @@
   left: 0;
 }
 
-.article-listing__heading {
-  font-size: clamp(0.75rem, 2vw, 1rem);
-  font-weight: bold;
-  color: $dark;
-  transition: color 0.1s ease-out;
-}
-
-.article-listing__category {
-  font-weight: bold;
-  text-transform: uppercase;
-  letter-spacing: 0.03125rem;
+.article-listing__heading:hover {
+  color: $blue-400;
 }
 
 .article-listing__category,
 .article-listing__author {
-  font-size: 0.6875rem;
+  font-size: $font-size-sm;
   color: $text-muted;
+}
+
+.article-listing__category {
+  font-weight: $font-weight-semibold;
+  letter-spacing: $spacer * 0.03125;
+  text-transform: uppercase;
 }

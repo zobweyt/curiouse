@@ -1,7 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect
-from django.urls import reverse_lazy
 from django.shortcuts import get_object_or_404
 from django.views.generic import CreateView, DetailView, UpdateView, ListView
 from django.db.models import Q
@@ -24,14 +23,14 @@ class ArticleCreateView(LoginRequiredMixin, TitleMixin, ArticleEditorMixin, Crea
 
 
 class ArticleDetailView(ArticleTitleMixin, DetailView):
-    template_name = 'articles/article.html'
+    template_name = 'articles/article-detail.html'
 
     def get_queryset(self):
         return super().get_queryset().select_related(
             'author', 'category'
         ).only(
-            'category__name',
             'author__first_name', 'author__last_name', 'author__username', 'author__avatar',
+            'category__name',
             'title', 'slug', 'created_at', 'body', 'modified_at'
         )
     
@@ -67,9 +66,8 @@ class ArticleListView(TitleMixin, ListView):
         )
 
 
-class ArticleSearchView(ArticleListView, ListView):
-    template_name = 'articles/search.html'
-    extra_context = {'form': SearchForm}
+class ArticleSearchView(ArticleListView):
+    template_name = 'articles/articles-search.html'
     query = None
     
     def get(self, request, *args, **kwargs):
@@ -105,7 +103,7 @@ class ArticleSearchView(ArticleListView, ListView):
 
 
 class AuthorArticleListView(ArticleListView):
-    template_name = 'articles/author.html'
+    template_name = 'articles/article-author.html'
 
     def get(self, request, *args, **kwargs):
         self.author = get_object_or_404(get_user_model(), username=self.kwargs['username'])

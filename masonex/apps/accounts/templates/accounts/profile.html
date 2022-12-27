@@ -1,12 +1,17 @@
 {% extends 'accounts/form.html' %}
 {% load static helpers accounts_tags %}
 
-{% if messages %}
+{% if messages or not user.bio %}
 {% block messages %}
 <ul class="list-unstyled mb-0">
+  {% if not user.bio %}
+  <li>{% alert style="secondary" content="Your bio is missing." %}</li>
+  {% endif %}
+  {% if messages %}
   {% for message in messages %}
-    <li>{% alert style=message.tags content=message %}</li>
+  <li>{% alert style=message.tags content=message %}</li>
   {% endfor %}
+  {% endif %}
 </ul>
 {% endblock messages %}
 {% endif %}
@@ -43,7 +48,6 @@
     <p class="mb-0 text-muted lh-sm fs-sm">Provide basic information to make using Masonex more convenient</p>
   </hgroup>
 </section>
-
 <section class="mb-3">
   <div class="row mb-1">
     <div class="col-6">
@@ -60,7 +64,6 @@
     {{ form.bio }}
   </div>
 </section>
-
 <section class="mb-1">
   <ul class="list-group">
     <li class="list-group-item flush-control">

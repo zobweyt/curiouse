@@ -5,17 +5,10 @@ $(document).ready(function() {
         $(this).closest('.search-form').toggleClass('active');
     });
 
-    let form = $('.needs-validation');
-    let originalForm = form.serialize();
+    const form = $('.needs-validation');
 
     form.on('change input', function() {
         let button = $(this).find('button[type=submit]');
-
-        if ($(this).serialize() == originalForm) {
-            button.attr('disabled', true);
-            return;
-        }
-
         let fields = $(this).find('[required]').toArray();
 
         if (fields.some((field) => !field.value.trim().length)) {
@@ -26,7 +19,7 @@ $(document).ready(function() {
     });
 
     form.submit(function() {
-        const button = $(this).find('button[type=submit]');
+        let button = $(this).find('button[type=submit]');
         button.prop('disabled', true);
 
         if (!$(this)[0].checkValidity()) {

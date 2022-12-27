@@ -1,7 +1,6 @@
 from django import forms
 
 from core.utils import DecorateFormFieldsMixin
-
 from articles.models import Article, Category
 
 
@@ -22,8 +21,8 @@ class ArticleEditorForm(DecorateFormFieldsMixin, forms.ModelForm):
             'required': 'true',
             'title': 'Select an item',
             'data-size': 5,
-            'data-style': 'btn-bordered',
             'data-live-search': 'true',
+            'data-style': 'btn-bordered',
             'class': 'selectpicker',
         }),
     )

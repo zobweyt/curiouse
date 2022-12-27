@@ -166,7 +166,7 @@ MEDIA_URL = 'media/'
 
 PHOTOS_PATH = 'photos/%Y/%m/%d/'
 
-EDITORJS_VERSION = '2.26.2'
+EDITORJS_VERSION = '2.26.4'
 
 EDITORJS_DEFAULT_PLUGINS = (
     '@editorjs/paragraph',

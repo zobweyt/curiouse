@@ -4,4 +4,4 @@ Masonex is an article posting platform with [rich text editor](https://editorjs.
 
 ## License
 
-Distributed under the MIT License. See [LICENSE](https://github.com/zobweyt/masonex/blob/master/LICENSE.txt) for more information.
+Distributed under the MIT License. See [LICENSE](https://github.com/zobweyt/masonex/blob/master/LICENSE.md) for more information.

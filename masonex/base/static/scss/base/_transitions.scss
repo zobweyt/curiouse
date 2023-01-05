@@ -1,5 +1,3 @@
-@import "scss/vendor/bootstrap/mixins";
-
 a {
   @include transition($link-transition);
 }

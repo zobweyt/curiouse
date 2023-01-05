@@ -1,8 +1,3 @@
-@import "scss/vendor/bootstrap/functions";
-@import "scss/vendor/bootstrap/variables";
-@import "scss/vendor/bootstrap/maps";
-@import "scss/vendor/bootstrap/utilities";
-
 $utilities: map-merge(
   $utilities,
   (

@@ -1,0 +1,3 @@
+$theme-colors: map-remove($theme-colors, "info", "warning");
+
+$font-sizes: map-merge($font-sizes, $custom-font-sizes);

@@ -1,15 +1,6 @@
 $google-fonts: (
   "Rubik",
-
-  // "Inter", // sans-serif
   "JetBrains Mono",
-
-  // TODO:
-  // 1. Select font for headings.
-  // 2. Find serif font.
-
-  // Heading font variants:
-  // "Epilogue",
 );
 
 @each $google-font in $google-fonts {

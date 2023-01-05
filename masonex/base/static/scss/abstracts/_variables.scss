@@ -1,9 +1,13 @@
+$prefix: "msx-";
+
 // Colors
 
 // scss-docs-start color-variables
-$primary:     #3d64e4;
+$primary:     #3f6ee3;
 $secondary:   #606b71;
 $dark:        #2e2e30;
+$danger:      #d23b4b;
+$success:     #198754;
 
 $text-muted:    $secondary;
 
@@ -23,7 +27,6 @@ $spacer: 1rem;
 // scss-docs-start font-variables
 $font-family-sans-serif:    "Rubik", sans-serif;
 $font-family-monospace:     "JetBrains Mono", monospace;
-// $headings-font-family:      "Montserrat", sans-serif;
 
 $font-size-base:      0.875rem;
 $font-size-sm:        0.75rem;
@@ -105,15 +108,8 @@ $badge-font-weight: $font-weight-medium;
 // Alerts
 
 // scss-docs-start alert-variables
-$alert-bg-scale: -87.5%;
+$alert-bg-scale: -80%;
 // scss-docs-end alert-variables
-
-
-// Modals
-
-// scss-docs-start modal-variables
-$modal-fade-transform: translateY(16px) scale(0.875, 0.925);
-// scss-docs-end modal-variables
 
 
 // Forms
@@ -138,8 +134,8 @@ $form-label-color:           $text-muted;
 // scss-docs-end form-label-variables
 
 // scss-docs-start form-feedback-variables
-$form-feedback-icon-valid-color: #198754;
-$form-feedback-icon-invalid-color: #dc3545;
+$form-feedback-icon-valid-color:     $success;
+$form-feedback-icon-invalid-color:   $danger;
 
 $form-feedback-icon-valid: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' stroke-width='2' stroke='#{$form-feedback-icon-valid-color}' fill='none' stroke-linecap='round' stroke-linejoin='round'><path stroke='none' d='M0 0h24v24H0z' fill='none'></path><circle cx='12' cy='12' r='9'></circle><path d='M9 12l2 2l4 -4'></path></svg>");
 $form-feedback-icon-invalid: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' stroke-width='2' stroke='#{$form-feedback-icon-invalid-color}' fill='none' stroke-linecap='round' stroke-linejoin='round'><path stroke='none' d='M0 0h24v24H0z' fill='none'></path><circle cx='12' cy='12' r='9'></circle><line x1='12' y1='8' x2='12' y2='12'></line><line x1='12' y1='16' x2='12.01' y2='16'></line></svg>");
@@ -172,10 +168,8 @@ $dropdown-link-transition:       background-color 0.1s ease-out, transform 0.1s 
 
 $dropdown-link-hover-bg:       #f4f6f7;
 
-$dropdown-link-active-bg:        $dropdown-link-hover-bg;
-$dropdown-link-active-color:     auto;
-
-$dropdown-link-focus-opacity:    0.8;
+$dropdown-link-active-bg:      #ecf0f0;
+$dropdown-link-active-color:     $primary;
 // scss-docs-end dropdown-variables
 
 

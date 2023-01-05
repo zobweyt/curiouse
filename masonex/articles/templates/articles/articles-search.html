@@ -7,7 +7,7 @@
     <form action="{% url 'articles:search' %}" method="GET" class="search-form">
       <div class="input-group">
         <input type="text" name="query" placeholder="Search articles" maxlength="64" class="form-item form-control shadow-none" value="{{ request.GET.query.strip }}">
-        <button type="submit" class="form-item rounded-end d-flex align-items-center"><i class="ti ti-search fw-semibold"></i></button>
+        <button type="submit" class="form-item rounded-end d-flex align-items-center"><i class="ti ti-search fw-semibold fs-base"></i></button>
       </div>
     </form>
   </section>

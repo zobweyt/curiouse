@@ -2,53 +2,78 @@
 {% load editorjs helpers %}
 
 {% block content %}
-<div class="flex-fill d-flex flex-column" style="max-width: 40rem;">
-  <section class="lh-1 mb-3 d-flex gap-2">
-      <a href="{{ article.author.get_absolute_url }}" class="picture-scale-in">
-        {% user_avatar user=article.author width="2.25em" %}
-      </a>
-      <div class="d-flex flex-column justify-content-between">
-          <a href="{{ article.author.get_absolute_url }}" class="fw-medium text-body">
-              {{ article.author.get_full_name }}
-          </a>
-          <div class="text-muted d-flex gap-1 fs-sm">
-              <time datetime="{{ article.created_at|date:"Y-m-d" }}" class="user-select-all">
-                  {{ article.created_at|date:"F d, Y" }}
-              </time>
-              <span class="circle-divider"></span>
-              <p class="mb-0 user-select-all">{{ article.category.name }}</p>
-              {% if request.user == article.author or request.user.is_staff %}
-              <span class="circle-divider"></span>
-              <a href="#manage">Manage</a>
-              {% endif %}
-          </div>
-      </div>
-  </section>
-  <article class="article__body text-break">
-    {{ article.body | editorjs }}
-  </article>
-  {% if request.user == article.author or request.user.is_staff %}
-  <section class="mt-2 flex-fill d-flex flex-column justify-content-end">
-    <h5 id="manage">Manage article</h5>
-    <ul class="list-group">
-      <li class="list-group-item flush-control">
-        <hgroup class="flush-control-body">
-          <h6 class="flush-control-title">Update this article</h6>
-          <p class="flush-control-text user-select-all">Last modified at {{ article.modified_at|date:"F d, Y" }}.</p>
-        </hgroup>
-        <a href="{% url 'articles:article_update' article.pk article.slug %}" class="btn btn-outline-secondary">Edit</a>
-      </li>
-      <li class="list-group-item flush-control">
+<div class="row">
+  <div class="col-3">
+    <section class="mb-3 sticky-top" style="top: 4.597rem;">
+      <hgroup>
+        <h3 class="text-muted fs-base text-uppercase">related</h3>
+      </hgroup>
+    </section>
+  </div>
+  <div class="flex-fill d-flex flex-column col-6">
+    <section class="lh-1 mb-3 d-flex gap-2">
+        <a href="{{ article.author.get_absolute_url }}" class="picture-scale-in">
+          {% user_avatar user=article.author width="2.25em" %}
+        </a>
+        <div class="d-flex flex-column justify-content-between">
+            <a href="{{ article.author.get_absolute_url }}" class="fw-medium text-body">
+                {{ article.author.get_full_name }}
+            </a>
+            <div class="text-muted d-flex gap-1 fs-sm">
+                <time datetime="{{ article.created_at|date:"Y-m-d" }}" class="user-select-all">
+                    {{ article.created_at|date:"F d, Y" }}
+                </time>
+                <span class="circle-divider"></span>
+                <p class="mb-0 user-select-all">{{ article.category.name }}</p>
+                {% if request.user == article.author or request.user.is_staff %}
+                <span class="circle-divider"></span>
+                <a href="#manage">Manage</a>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+    <article class="article__body text-break fs-lg">
+      {{ article.body | editorjs }}
+    </article>
+    {% if request.user == article.author or request.user.is_staff %}
+    <section class="mt-2 flex-fill d-flex flex-column justify-content-end">
+      <h5 id="manage">Manage article</h5>
+      <ul class="list-group">
+        <li class="list-group-item flush-control">
           <hgroup class="flush-control-body">
-              <h6 class="flush-control-title">Delete this article</h6>
-              <p class="flush-control-text">Once you delete an article, there is no going back. Please be certain.</p>
+            <h6 class="flush-control-title">Update this article</h6>
+            <p class="flush-control-text user-select-all">Last modified at {{ article.modified_at|date:"F d, Y" }}.</p>
           </hgroup>
-          <a href="#" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#articleDeleteModal">Delete</a>
-          {% url 'articles:article_delete' article.pk article.slug as article_delete_url %}
-          {% delete_confirm_modal object_name="article" delete_url=article_delete_url %}
-      </li>
-    </ul>
-  </section>
-  {% endif %}
+          <a href="{% url 'articles:article_update' article.pk article.slug %}" class="btn btn-outline-secondary">Edit</a>
+        </li>
+        <li class="list-group-item flush-control">
+            <hgroup class="flush-control-body">
+                <h6 class="flush-control-title">Delete this article</h6>
+                <p class="flush-control-text">Once you delete an article, there is no going back. Please be certain.</p>
+            </hgroup>
+            <a href="#" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#articleDeleteModal">Delete</a>
+            {% url 'articles:article_delete' article.pk article.slug as article_delete_url %}
+            {% delete_confirm_modal object_name="article" delete_url=article_delete_url %}
+        </li>
+      </ul>
+    </section>
+    {% endif %}
+  </div>
+  
+  <div class="col-3">
+    {% if not request.user.is_authenticated %}
+    <section class="mb-3 sticky-top" style="top: 4.597rem;">
+      <div class="p-3 border border-primary rounded">
+        <hgroup>
+          <h2 class="fs-4 mb-3">Try Masonex for free</h2>
+          <p class="fs-lg">
+            Click below to sign up and become a part of our <strong>large</strong> community!
+          </p>
+        </hgroup>
+        <a href="{% url 'accounts:new' %}" class="font-monospace fw-semibold fs-lg">Sign up -></a>
+      </div>
+    </section>
+    {% endif %}
+  </div>
 </div>
 {% endblock content %}

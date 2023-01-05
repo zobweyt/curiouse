@@ -1,17 +1,12 @@
 {% extends 'accounts/form.html' %}
 {% load static helpers accounts_tags %}
 
-{% if messages or not user.bio %}
+{% if messages %}
 {% block messages %}
 <ul class="list-unstyled mb-0">
-  {% if not user.bio %}
-  <li>{% alert style="secondary" content="Your bio is missing." %}</li>
-  {% endif %}
-  {% if messages %}
   {% for message in messages %}
   <li>{% alert style=message.tags content=message %}</li>
   {% endfor %}
-  {% endif %}
 </ul>
 {% endblock messages %}
 {% endif %}

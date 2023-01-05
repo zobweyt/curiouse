@@ -7,8 +7,8 @@
 
 *.env
 
-**/node_modules
-**/bootstrap
+**/node_modules/**
+**/bootstrap/**
 **/dist
 
 **/logs

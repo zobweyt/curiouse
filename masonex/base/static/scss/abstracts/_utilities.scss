@@ -1,0 +1,41 @@
+@import "scss/vendor/bootstrap/functions";
+@import "scss/vendor/bootstrap/variables";
+@import "scss/vendor/bootstrap/maps";
+@import "scss/vendor/bootstrap/utilities";
+
+$utilities: map-merge(
+  $utilities,
+  (
+    "resize": (
+      property: resize,
+      class: resize,
+      values: vertical horizontal both none,
+    ),
+    "cursor": (
+      property: cursor,
+      class: cursor,
+      values: auto pointer,
+    ),
+    "font-weight": map-merge(
+      map-get($utilities, "font-weight"),
+      (
+        values: map-merge(
+            map-get(map-get($utilities, "font-weight"), "values"),
+            ( medium: $font-weight-medium ),
+          ),
+      )
+    ),
+    "width": map-merge(
+      map-get($utilities, "width"),
+      ( responsive: true )
+    ),
+    "height": map-merge(
+      map-get($utilities, "height"),
+      ( responsive: true )
+    ),
+    "border": map-merge(
+      map-get($utilities, "border"),
+      ( responsive: true )
+    ),
+  )
+);

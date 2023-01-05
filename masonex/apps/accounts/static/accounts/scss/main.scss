@@ -1,9 +1,0 @@
-@import "bootstrap/scss/mixins";
-
-.accounts-form {
-  width: 100%;
-
-  @include media-breakpoint-up("md") {
-    width: 22.625em;
-  }
-}

@@ -1,0 +1,30 @@
+@import "scss/vendor/bootstrap/mixins";
+
+.article__body {
+  img {
+    width: 100%;
+    border-radius: $border-radius;
+    margin-bottom: $spacer * 0.625;
+  }
+
+  ol,
+  ul {
+    padding-left: $spacer !important;
+
+    li {
+      padding: 0 $list-inline-padding !important;
+    }
+  }
+
+  blockquote {
+    border-left: 2px $border-style $border-color;
+    padding-left: $spacer * 0.625;
+
+    cite {
+      color: $gray-700;
+      font-style: italic;
+      margin-top: $spacer * 0.125;
+      display: block;
+    }
+  }
+}

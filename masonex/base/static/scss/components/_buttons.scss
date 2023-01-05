@@ -1,0 +1,19 @@
+.btn-bordered {
+  display: flex !important;
+  align-items: center !important;
+  border: $border-width $border-style $border-color !important;
+
+  &:hover {
+    border-color: $gray-500 !important;
+  }
+
+  &:active {
+    background-color: $light !important;
+    border-color: $gray-700 !important;
+  }
+
+  &:focus-visible {
+    background-color: $gray-200 !important;
+    box-shadow: $btn-focus-box-shadow !important;
+  }
+}

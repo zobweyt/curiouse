@@ -6,8 +6,8 @@ from django.views.generic.base import RedirectView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('editorjs/', include('django_editorjs_fields.urls')),
-    path('accounts/', include('apps.accounts.urls')),
-    path('articles/', include('apps.articles.urls')),
+    path('accounts/', include('accounts.urls')),
+    path('articles/', include('articles.urls')),
     path('',  RedirectView.as_view(pattern_name='articles:home', permanent=False), name='index'),
 ]
 

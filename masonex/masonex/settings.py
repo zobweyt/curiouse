@@ -1,5 +1,4 @@
 import os
-import sys
 
 from pathlib import Path
 from dotenv import load_dotenv
@@ -10,8 +9,6 @@ load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
-
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 DEBUG = True
@@ -21,14 +18,15 @@ ALLOWED_HOSTS = ['127.0.0.1']
 INTERNAL_IPS = ['127.0.0.1']
 
 INSTALLED_APPS = [
-    'accounts.apps.AccountsConfig',
-    'articles.apps.ArticlesConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'base.apps.BaseConfig',
+    'accounts.apps.AccountsConfig',
+    'articles.apps.ArticlesConfig',
     'django_cleanup.apps.CleanupConfig',
     'django_editorjs_fields',
     'debug_toolbar',
@@ -51,7 +49,6 @@ ROOT_URLCONF = 'masonex.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -61,7 +58,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
             ],
             'libraries': {
-                'helpers': 'templatetags.helpers',
+                'helpers': 'base.templatetags.helpers',
             },
         },
     },
@@ -156,10 +153,8 @@ USE_TZ = False
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = 'static/'
-
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = 'media/'

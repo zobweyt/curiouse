@@ -1,16 +1,16 @@
-from django.forms.fields import CharField, ChoiceField
+from django.forms.fields import CharField
 
 
 class TitleMixin:
     """
-    Provides an easy way to work with page title.
+    Adds "title" to the context.
     """
 
     title = None
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = self.get_title()
+        context["title"] = self.get_title()
         return context
     
     def get_title(self):
@@ -19,14 +19,13 @@ class TitleMixin:
 
 class DecorateFormFieldsMixin:
     """
-    Adds 'css_class' CSS class attribute to every 'css_decorated_fields' fields in a form.
+    Adds "css_class" to every "decorated_fields" in a form.
     """
 
-    css_class_decorated_fields = (
+    css_class = 'form-control'
+    decorated_fields = (
         CharField,
     )
-
-    css_class = 'form-control'
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -35,7 +34,7 @@ class DecorateFormFieldsMixin:
             self.__decorate_field(field)
 
     def __decorate_field(self, field):
-        if isinstance(field, self.css_class_decorated_fields):
-            additional_css_class = field.widget.attrs.get('class')
-            coupled_css_class = (additional_css_class + ' ' if additional_css_class else '') + self.css_class 
-            field.widget.attrs.update({'class': coupled_css_class})
+        if isinstance(field, self.decorated_fields):
+            extra_css_class = field.widget.attrs.get('class')
+            self.css_class += (extra_css_class + ' ' if extra_css_class else '') 
+            field.widget.attrs.update({'class': self.css_class})

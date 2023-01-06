@@ -35,6 +35,5 @@ class DecorateFormFieldsMixin:
 
     def __decorate_field(self, field):
         if isinstance(field, self.decorated_fields):
-            extra_css_class = field.widget.attrs.get("class")
-            self.css_class += (extra_css_class + " " if extra_css_class else "") 
-            field.widget.attrs.update({"class": self.css_class})
+            extra_css_class = field.widget.attrs.get("class", "")
+            field.widget.attrs["class"] = " ".join((self.css_class, extra_css_class))

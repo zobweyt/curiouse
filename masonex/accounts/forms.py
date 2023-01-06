@@ -7,6 +7,7 @@ from base.utils import DecorateFormFieldsMixin
 from .models import User
 
 
+# define in models.py?
 PASSWORD_HELP_TEXT = 'Come up with a strong password of at least 8 characters.'
 
 

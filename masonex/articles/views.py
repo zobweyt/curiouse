@@ -9,6 +9,7 @@ from base.utils import TitleMixin
 from .models import Article
 from .mixins import ArticleAuthorRequiredMixin, ArticleEditorMixin, ArticleTitleMixin
 from .forms import SearchForm
+from .services import get_popular_categories
 
 
 class ArticleCreateView(LoginRequiredMixin, TitleMixin, ArticleEditorMixin, CreateView):
@@ -24,6 +25,12 @@ class ArticleCreateView(LoginRequiredMixin, TitleMixin, ArticleEditorMixin, Crea
 
 class ArticleDetailView(ArticleTitleMixin, DetailView):
     template_name = 'articles/article-detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["related_articles"] = Article.objects.exclude(pk=self.object.pk).filter(category__name=self.object.category.name)[:2]
+        context["popular_categories"] = get_popular_categories(limit=10)
+        return context
 
     def get_queryset(self):
         return super().get_queryset().select_related(

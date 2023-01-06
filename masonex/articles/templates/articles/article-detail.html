@@ -4,9 +4,21 @@
 {% block content %}
 <div class="row">
   <div class="col-3">
-    <section class="mb-3 sticky-top" style="top: 4.597rem;">
+    <section class="mb-3 sticky-top z-index-1" style="top: 4.597rem;">
       <hgroup>
-        <h3 class="text-muted fs-base text-uppercase">related</h3>
+        <h5 class="text-muted fs-sm text-uppercase">Contents</h5>
+        <ul id="contents" class="list-unstyled"></ul>
+      </hgroup>
+      <hgroup>
+        <h5 class="text-muted fs-sm text-uppercase">Related</h5>
+        <ul class="list-unstyled d-flex flex-column gap-3">
+          {% for related_article in related_articles %}
+          <li>
+            <h6 class="fs-base">{{ related_article.title }}</h6>
+            <a href="{{ related_article.get_absolute_url }}" class="font-monospace">View -></a>
+          </li>  
+          {% endfor %}
+        </ul>
       </hgroup>
     </section>
   </div>
@@ -61,19 +73,41 @@
   </div>
   
   <div class="col-3">
-    {% if not request.user.is_authenticated %}
-    <section class="mb-3 sticky-top" style="top: 4.597rem;">
-      <div class="p-3 border border-primary rounded">
+    <section class="mb-3 sticky-top z-index-1" style="top: 4.597rem;">
+      {% if not request.user.is_authenticated %}
+      <div class="p-3 border border-primary rounded mb-3">
         <hgroup>
-          <h2 class="fs-4 mb-3">Try Masonex for free</h2>
+          <h6 class="mb-3">Try Masonex for free</h6>
           <p>
             Click below to sign up and become a part of our <strong>large</strong> community!
           </p>
         </hgroup>
         <a href="{% url 'accounts:new' %}" class="font-monospace fw-semibold">Sign up -></a>
       </div>
+      {% endif %}
+      <h5 class="text-muted fs-base">Popular Categories</h5>
+      <ul class="list-unstyled">
+        {% for popular_category in popular_categories %}
+        <li>{{ popular_category.name }}</li>
+        {% endfor %}
+      </ul>
+      <a href="#" class="font-monospace">Browse all categories -></a>
     </section>
-    {% endif %}
   </div>
 </div>
 {% endblock content %}
+
+{% block extrascript %}
+<script>
+  $(function() {
+    var contents = $("#contents");
+
+    $('h2').each(function() {
+      const text = $(this).text();
+      const id = text.replace(/ /g, '_');
+      $(this).attr('id', id)
+      contents.append(`<li><a href=#${id} class="text-body fs-sm">${text}</a></li>`);
+    });
+  });
+</script>
+{% endblock extrascript %}

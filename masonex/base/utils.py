@@ -22,7 +22,7 @@ class DecorateFormFieldsMixin:
     Adds "css_class" to every "decorated_fields" in a form.
     """
 
-    css_class = 'form-control'
+    css_class = "form-control"
     decorated_fields = (
         CharField,
     )
@@ -35,6 +35,6 @@ class DecorateFormFieldsMixin:
 
     def __decorate_field(self, field):
         if isinstance(field, self.decorated_fields):
-            extra_css_class = field.widget.attrs.get('class')
-            self.css_class += (extra_css_class + ' ' if extra_css_class else '') 
-            field.widget.attrs.update({'class': self.css_class})
+            extra_css_class = field.widget.attrs.get("class")
+            self.css_class += (extra_css_class + " " if extra_css_class else "") 
+            field.widget.attrs.update({"class": self.css_class})

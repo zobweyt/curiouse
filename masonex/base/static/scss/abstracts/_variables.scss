@@ -1,13 +1,16 @@
-$prefix: "msx-";
+// Prefix for :root CSS variables
+
+$variable-prefix: "";
 
 // Colors
 
 // scss-docs-start color-variables
 $primary:     #3f6ee3;
 $secondary:   #606b71;
-$dark:        #2e2e30;
-$danger:      #d23b4b;
 $success:     #198754;
+$danger:      #d23b4b;
+$light:       #f8f9fa;
+$dark:        #2e2e30;
 
 $text-muted:    $secondary;
 
@@ -28,13 +31,11 @@ $spacer: 1rem;
 $font-family-sans-serif:    "Rubik", sans-serif;
 $font-family-monospace:     "JetBrains Mono", monospace;
 
-$font-size-base:      0.875rem;
-$font-size-sm:        0.75rem;
-$font-size-lg:        1rem;
+$font-size-base:      1rem;
+$font-size-sm:        $font-size-base * .875;
+$font-size-lg:        $font-size-base * 1.25;
 
-$icon-font-size-base: $font-size-base * 1.25;
-$icon-font-size-sm:   $font-size-sm * 1.25;
-$icon-font-size-lg:   $font-size-lg * 1.25;
+$icon-font-size: $font-size-lg;
 
 $custom-font-sizes: (
   "base":       $font-size-base,
@@ -63,6 +64,7 @@ $list-inline-padding:  0;
 $mark-padding:         0;
 
 $legend-font-size:     $h4-font-size;
+$legend-font-weight:   $font-weight-medium;
 // scss-docs-end type-variables
 
 
@@ -87,7 +89,7 @@ $link-transition:     color 0.1s ease-out, background-color 0.1s ease-out;
 // Paragraphs
 
 // scss-docs-start paragraph-variables
-$paragraph-margin-bottom: 0.875rem;
+$paragraph-margin-bottom: $spacer;
 // scss-docs-end paragraph-variables
 
 
@@ -117,12 +119,9 @@ $alert-bg-scale: -80%;
 $input-line-height:          $line-height-sm;
 $input-btn-focus-width:      0;
 
-$btn-focus-width:            0.15rem;
-
 $input-focus-border-color:   $secondary;
 
-$btn-close-focus-shadow:     none;
-
+$btn-focus-width:            $spacer * 0.15;
 $btn-transition:             color 0.1s ease-out, background-color 0.1s ease-out, 
   border-color 0.1s ease-out, box-shadow 0.1s ease-out, transform 0.1s ease-out;
 
@@ -157,19 +156,20 @@ $form-validation-states: (
 
 // scss-docs-start dropdown-variables
 $dropdown-min-width:             auto;
-$dropdown-spacer:                0.125rem;
-$dropdown-li-padding-x:          $dropdown-spacer * 4;
-$dropdown-item-padding-x:        $spacer * 0.45;
-$dropdown-item-padding-y:        $spacer * 0.35;
+$dropdown-spacer:                $spacer * 0.125;
+$dropdown-item-padding-x:        $dropdown-spacer * 4;
+$dropdown-item-padding-y:        $dropdown-spacer * 3;
 $dropdown-font-size:             $font-size-lg;
-$dropdown-icon-font-size:        $icon-font-size-lg;
+$dropdown-icon-font-size:        $dropdown-font-size * 1.15;
 
-$dropdown-link-transition:       background-color 0.1s ease-out, transform 0.1s ease-out, opacity 0.1s ease-out;
+$dropdown-link-transition:       color 0.1s ease-out, background-color 0.1s ease-out, transform 0.1s ease-out;
 
-$dropdown-link-hover-bg:       #f4f6f7;
+$dropdown-link-color:            $body-color;
+$dropdown-link-hover-color:      $dropdown-link-color;
+$dropdown-link-hover-bg:         shade-color($light, 2.5%);
 
-$dropdown-link-active-bg:      #ecf0f0;
-$dropdown-link-active-color:     $primary;
+$dropdown-link-active-color:     $link-color;
+$dropdown-link-active-bg:        $dropdown-link-hover-bg;
 // scss-docs-end dropdown-variables
 
 

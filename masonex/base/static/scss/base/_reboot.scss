@@ -1,6 +1,5 @@
-.ti,
-.icon {
-  font-size: $icon-font-size-base;
+.ti {
+  font-size: $icon-font-size;
 }
 
 .ce-scroll-locked header {
@@ -9,12 +8,12 @@
 
 .dropdown {
   li {
-    padding: 0 $dropdown-li-padding-x;
+    padding: 0 $dropdown-item-padding-x;
   }
 }
 
 .dropdown-menu {
-  i {
+  .ti {
     font-size: $dropdown-icon-font-size !important;
   }
 }
@@ -23,7 +22,7 @@
   border-radius: $border-radius;
   display: flex !important;
   align-items: center;
-  gap: $dropdown-li-padding-x;
+  gap: $dropdown-item-padding-x;
 }
 
 .bootstrap-select {
@@ -45,6 +44,6 @@
     background-color: $white;
     border-radius: 0;
     margin: 0;
-    padding: $dropdown-item-padding-y calc(#{$dropdown-li-padding-x} + #{$dropdown-item-padding-x});
+    padding: $dropdown-item-padding-y $dropdown-item-padding-x * 2;
   }
 }

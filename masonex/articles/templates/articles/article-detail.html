@@ -32,7 +32,7 @@
             </div>
         </div>
     </section>
-    <article class="article__body text-break fs-lg">
+    <article class="article__body text-break">
       {{ article.body | editorjs }}
     </article>
     {% if request.user == article.author or request.user.is_staff %}
@@ -66,11 +66,11 @@
       <div class="p-3 border border-primary rounded">
         <hgroup>
           <h2 class="fs-4 mb-3">Try Masonex for free</h2>
-          <p class="fs-lg">
+          <p>
             Click below to sign up and become a part of our <strong>large</strong> community!
           </p>
         </hgroup>
-        <a href="{% url 'accounts:new' %}" class="font-monospace fw-semibold fs-lg">Sign up -></a>
+        <a href="{% url 'accounts:new' %}" class="font-monospace fw-semibold">Sign up -></a>
       </div>
     </section>
     {% endif %}

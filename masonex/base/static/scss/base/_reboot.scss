@@ -1,4 +1,5 @@
-.ti {
+.ti,
+.icon {
   font-size: $icon-font-size;
 }
 
@@ -34,6 +35,10 @@
     .filter-option-inner-inner {
       color: $body-color;
     }
+  }
+
+  .dropdown-menu {
+    font-size: $font-size-base;
   }
 
   .bs-searchbox {

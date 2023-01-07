@@ -8,16 +8,15 @@
     <aside class="pe-2">
       <nav class="mb-3">
         <h5 class="text-muted fs-sm text-uppercase">Contents</h5>
-        <ul id="contents" class="nav d-flex flex-column gap-2 lh-sm"></ul>
+        <ul id="contents" class="list-unstyled d-flex flex-column gap-2 lh-sm"></ul>
       </nav>
       {% if related_articles %}
       <nav>
         <h5 class="text-muted fs-sm text-uppercase">Related</h5>
-        <ul class="list-unstyled d-flex flex-column gap-3">
+        <ul class="list-unstyled d-flex flex-column gap-2 lh-sm fw-medium">
           {% for article in related_articles %}
           <li>
-            <h6 class="fs-base">{{ article.title }}</h6>
-            <a href="{{ article.get_absolute_url }}" class="font-monospace fw-medium">View -></a>
+            <a href="{{ article.get_absolute_url }}">{{ article.title }}</a>
           </li>
           {% endfor %}
         </ul>
@@ -81,7 +80,7 @@
         </li>
         {% endfor %}
       </ul>
-      <a href="{% url 'articles:home' %}" class="font-monospace fw-medium">Browse all -></a>
+      <a href="{% url 'articles:home' %}">Browse all</a>
     </aside>
   </div>
 

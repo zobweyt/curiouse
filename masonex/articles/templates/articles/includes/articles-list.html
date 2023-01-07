@@ -7,7 +7,7 @@
     <article class="component-article-listing scale-in">
       <img src="{{ article.thumbnail.url }}" class="article-listing__thumbnail" alt="Thumbnail" loading="lazy">
       <h6 class="mt-xl-3 mt-2 mb-1 article-listing__category">{{ article.category.name }}</h6>
-      <a href="{{ article.get_absolute_url }}" class="text-break article-listing__heading">{{ article.title|truncatechars:56 }}</a>
+      <a href="{{ article.get_absolute_url }}" class="text-break article-listing__heading fs-base">{{ article.title|truncatechars:56 }}</a>
       <h6 class="mt-1 article-listing__author">By {{ article.author.get_full_name }}</h6>
     </article>
   </li>

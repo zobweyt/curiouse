@@ -8,7 +8,7 @@ header {
 
 .ti,
 .icon {
-  font-size: $icon-font-size;
+  font-size: $icon-font-size !important;
 }
 
 .ce-scroll-locked header {

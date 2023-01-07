@@ -1,10 +1,6 @@
 $(document).ready(function() {
     $('.bs-searchbox').find('.form-control').attr('placeholder', 'Filter');
 
-    $('.search-form .form-control').on('focus focusout', function() {
-        $(this).closest('.search-form').toggleClass('active');
-    });
-
     const form = $('.needs-validation');
 
     form.on('change input', function() {
@@ -31,7 +27,7 @@ $(document).ready(function() {
         const text = button.attr('on-validation-text');
 
         if (text != "") {
-            button.html(text);
+            button.text(text);
         }
     });
 

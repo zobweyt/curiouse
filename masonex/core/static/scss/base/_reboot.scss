@@ -1,5 +1,9 @@
-h2 {
-  scroll-margin-top: 2em !important;
+[id] {
+  scroll-margin-top: calc(#{$header-height} / 2 + 0.5em) !important;
+}
+
+header {
+  height: $header-height;
 }
 
 .ti,

@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm
 from django.core.exceptions import ValidationError
 
-from base.utils import DecorateFormFieldsMixin
+from core.utils import DecorateFormFieldsMixin
 
 from .models import User
 

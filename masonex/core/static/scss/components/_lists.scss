@@ -7,13 +7,14 @@
     margin-right: map-get($spacers, 3);
 
     .flush-control-title {
-      font-size: $font-size-lg;
+      font-size: $font-size-base;
       line-height: $line-height-base;
-      margin-bottom: map-get($spacers, 1);
+      margin-bottom: 0;
     }
 
     .flush-control-text {
-      line-height: 1;
+      font-style: $font-size-sm;
+      line-height: $line-height-sm;
       margin-bottom: 0;
     }
   }

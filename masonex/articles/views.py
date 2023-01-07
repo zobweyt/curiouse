@@ -5,7 +5,7 @@ from django.shortcuts import get_object_or_404
 from django.views.generic import CreateView, DetailView, UpdateView, ListView
 from django.db.models import Q
 
-from base.utils import TitleMixin
+from core.utils import TitleMixin
 from .models import Article
 from .mixins import ArticleAuthorRequiredMixin, ArticleEditorMixin, ArticleTitleMixin
 from .forms import SearchForm

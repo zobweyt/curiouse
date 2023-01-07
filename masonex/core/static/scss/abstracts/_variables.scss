@@ -1,5 +1,6 @@
 // Prefix for :root CSS variables
 
+$header-height: 3.4375em;
 $variable-prefix: "";
 
 // Colors
@@ -46,9 +47,9 @@ $custom-font-sizes: (
 $font-weight-normal:  400;
 $font-weight-medium:  500;
 
-$line-height-base:    1.35;
+$line-height-base:    1.45;
 $line-height-sm:      1.25;
-$line-height-lg:      1.55;
+$line-height-lg:      1.65;
 
 $h1-font-size:        $font-size-base * 2.2;
 $h2-font-size:        $font-size-base * 2;
@@ -100,11 +101,20 @@ $component-active-bg:         $dark;
 $component-active-transform:  scale(0.95);
 // scss-docs-end component-variables
 
+
 // Badges
 
 // scss-docs-start badge-variables
 $badge-font-weight: $font-weight-medium;
 // scss-docs-end badge-variables
+
+
+// Navs
+
+// scss-docs-start nav-variables
+$nav-link-padding-y:      0;
+$nav-link-padding-x:      0;
+// scss-docs-end nav-variables
 
 
 // Alerts

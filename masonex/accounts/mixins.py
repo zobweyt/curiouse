@@ -3,7 +3,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 
-from base.utils import TitleMixin
+from core.utils import TitleMixin
 
 
 class RedirectAuthenticatedUsersMixin:

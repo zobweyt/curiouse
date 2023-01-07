@@ -24,7 +24,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'base.apps.BaseConfig',
+    'core.apps.CoreConfig',
     'accounts.apps.AccountsConfig',
     'articles.apps.ArticlesConfig',
     'django_cleanup.apps.CleanupConfig',
@@ -58,7 +58,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
             ],
             'libraries': {
-                'helpers': 'base.templatetags.helpers',
+                'helpers': 'core.templatetags.helpers',
             },
         },
     },

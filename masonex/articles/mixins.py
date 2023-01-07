@@ -1,7 +1,7 @@
 from django.http import Http404
 from django.views.generic import UpdateView
 
-from base.utils import TitleMixin
+from core.utils import TitleMixin
 from articles.models import Article
 from articles.forms import ArticleEditorForm
 

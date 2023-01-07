@@ -1,6 +1,6 @@
 from django import forms
 
-from base.utils import DecorateFormFieldsMixin
+from core.utils import DecorateFormFieldsMixin
 from articles.models import Article, Category
 
 

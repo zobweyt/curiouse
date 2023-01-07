@@ -1,3 +1,12 @@
+aside {
+  // 3rem is margin y of main
+  --height: calc(#{$header-height} + 1.5rem);
+  position: sticky;
+  top: var(--height);
+  max-height: calc(100vh - var(--height) - 1.5rem);
+  overflow-y: auto;
+}
+
 .article__body {
   img {
     width: 100%;

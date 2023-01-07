@@ -6,7 +6,7 @@ from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, FormView
 
-from base.utils import TitleMixin
+from core.utils import TitleMixin
 from .models import User
 from .mixins import RedirectAuthenticatedUsersMixin, ProfileUpdateMixin
 from .forms import *

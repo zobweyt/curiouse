@@ -5,7 +5,7 @@ from django.conf import settings
 
 
 class User(AbstractUser):
-    bio = models.TextField(max_length=128, blank=True)
+    bio = models.TextField(max_length=64, blank=True)
     avatar = models.ImageField(upload_to=settings.PHOTOS_PATH, null=True, blank=True)
 
     def __str__(self):

@@ -25,7 +25,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'core.apps.CoreConfig',
-    'accounts.apps.AccountsConfig',
+    'users.apps.UsersConfig',
     'articles.apps.ArticlesConfig',
     'django_cleanup.apps.CleanupConfig',
     'django_editorjs_fields',
@@ -124,7 +124,7 @@ LOGGING = {
             'level': os.getenv('DJANGO_LOG_LEVEL', 'WARNING'),
             'propagate': False,
         },
-        'accounts': {
+        'users': {
             'handlers': ['console', 'file'],
             'level': GLOBAL_LOG_LEVEL,
             'propagate': False,
@@ -141,7 +141,7 @@ LOGGING = {
     },
 }
 
-AUTH_USER_MODEL = 'accounts.User'
+AUTH_USER_MODEL = 'users.User'
 
 LANGUAGE_CODE = 'en-us'
 

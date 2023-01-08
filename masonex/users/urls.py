@@ -1,8 +1,8 @@
 from django.urls import path
 
-from accounts.views import *
+from users.views import *
 
-app_name = 'accounts'
+app_name = 'users'
 
 urlpatterns = [
     path('new/', SignUpView.as_view(), name='new'),

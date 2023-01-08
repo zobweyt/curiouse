@@ -28,7 +28,7 @@
           </a>
           <ul class="dropdown-menu dropdown-menu-end shadow-sm mt-1">
               <li class="py-1">
-                <a class="dropdown-item py-2 pe-1 rounded border" href="{% url 'accounts:profile' %}">
+                <a class="dropdown-item py-2 pe-1 rounded border" href="{% url 'users:profile' %}">
                   <div class="d-flex align-items-center fs-sm gap-2">
                     {% user_avatar width="2.75em" %}
                     <div>
@@ -64,14 +64,14 @@
               {% endif %}
               <li class="p-0"><hr class="dropdown-divider"></li>
               <li>
-                <a href="{% url 'accounts:logout' %}" class="dropdown-item">
+                <a href="{% url 'users:logout' %}" class="dropdown-item">
                   <i class="ti ti-logout"></i>Sign out
                 </a>
               </li>
           </ul>
           {% else %}
-          <a href="{% url 'accounts:login' %}" type="button" class="btn btn-outline-primary">Login</a>
-          <a href="{% url 'accounts:new' %}" type="button" class="btn btn-primary">Sign up</a>
+          <a href="{% url 'users:login' %}" type="button" class="btn btn-outline-primary">Login</a>
+          <a href="{% url 'users:new' %}" type="button" class="btn btn-primary">Sign up</a>
           {% endif %}
         </div>
       </div>

@@ -14,7 +14,7 @@ from .forms import *
 
 class SignUpView(RedirectAuthenticatedUsersMixin, TitleMixin, CreateView):
     form_class = SignUpForm
-    template_name = 'accounts/form.html'
+    template_name = 'users/form.html'
     title = 'Sign up'
 
     def form_valid(self, form):
@@ -25,7 +25,7 @@ class SignUpView(RedirectAuthenticatedUsersMixin, TitleMixin, CreateView):
 
 class SignInView(RedirectAuthenticatedUsersMixin, TitleMixin, LoginView):
     form_class = SignInForm
-    template_name = 'accounts/form.html'
+    template_name = 'users/form.html'
     title = 'Sign in'    
 
     def get_success_url(self):
@@ -34,7 +34,7 @@ class SignInView(RedirectAuthenticatedUsersMixin, TitleMixin, LoginView):
 
 def logout_user_view(request):
     logout(request)
-    return redirect('accounts:login')
+    return redirect('users:login')
 
 
 class ProfileUpdateView(ProfileUpdateMixin, UpdateView):
@@ -51,12 +51,12 @@ class ProfileUpdateView(ProfileUpdateMixin, UpdateView):
 def user_avatar_delete_view(request):
     request.user.avatar.delete()
     messages.success(request, 'Your avatar has been deleted.')
-    return redirect('accounts:profile')
+    return redirect('users:profile')
 
 
 class UserEmailChangeView(ProfileUpdateMixin, FormView):
     form_class = UserEmailChangeForm
-    template_name = 'accounts/security.html'
+    template_name = 'users/security.html'
     updating_object = 'email'
 
     def get_form_kwargs(self):
@@ -71,7 +71,7 @@ class UserEmailChangeView(ProfileUpdateMixin, FormView):
 
 class UserPasswordChangeView(ProfileUpdateMixin, PasswordChangeView):
     form_class = UserPasswordChangeForm
-    template_name = 'accounts/security.html'
+    template_name = 'users/security.html'
     updating_object = 'password'
 
 

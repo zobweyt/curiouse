@@ -1,5 +1,5 @@
-{% extends 'accounts/form.html' %}
-{% load static helpers accounts_tags %}
+{% extends 'users/form.html' %}
+{% load static helpers users_tags %}
 
 {% if messages %}
 {% block messages %}
@@ -42,7 +42,7 @@
         {% endif %}
       </ul>
     </div>
-    {% url 'accounts:user_avatar_delete' as avatar_delete_url %}
+    {% url 'users:user_avatar_delete' as avatar_delete_url %}
     {% delete_confirm_modal object_name='avatar' delete_url=avatar_delete_url %}
   </div>
   <hgroup>
@@ -73,14 +73,14 @@
         <h6 class="form-label">Email</h6>
         <p class="flush-control-text fs-sm user-select-all">{{ request.user.email|truncatemail:2 }}</p>
       </hgroup>
-      <a href="{% url 'accounts:email_change' %}" class="btn btn-secondary py-1">Edit</a>
+      <a href="{% url 'users:email_change' %}" class="btn btn-secondary py-1">Edit</a>
     </li>
     <li class="list-group-item flush-control">
       <hgroup class="flush-control-body">
         <h6 class="form-label">Password</h6>
         <p class="flush-control-text fs-sm">∗∗∗∗∗∗∗∗</p>
       </hgroup>
-      <a href="{% url 'accounts:password_change' %}" class="btn btn-secondary py-1">Edit</a>
+      <a href="{% url 'users:password_change' %}" class="btn btn-secondary py-1">Edit</a>
     </li>
   </ul>
 </section>

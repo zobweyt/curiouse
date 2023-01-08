@@ -1,18 +1,8 @@
-// Configuration & Overrides
-@import "vendor/bootstrap/functions";
-
+@import "node_modules/bootstrap/scss/functions";
 @import "abstracts/webfonts";
-@import "abstracts/variables";
-@import "vendor/bootstrap/variables";
 
-@import "abstracts/maps";
-@import "vendor/bootstrap/maps";
+@import "config";
 
-@import "vendor/bootstrap/mixins";
-@import "vendor/bootstrap/utilities";
-@import "abstracts/utilities";
-
-// Layout & Components
 @import "base/transitions";
 @import "base/helpers";
 @import "base/reboot";
@@ -21,7 +11,3 @@
 @import "components/lists";
 
 @import "vendor/bootstrap";
-
-// Applications
-@import "accounts/scss/main";
-@import "articles/scss/main";

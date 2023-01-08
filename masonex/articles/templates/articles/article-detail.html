@@ -1,103 +1,95 @@
 {% extends 'base.html' %}
-{% load editorjs helpers %}
+{% load static editorjs helpers %}
 
 {% block content %}
 <div class="row">
-
   <div class="col-lg-3">
     <aside class="pe-2">
-      <nav class="mb-3">
-        <h5 class="text-muted fs-sm text-uppercase">Contents</h5>
-        <ul id="contents" class="list-unstyled d-flex flex-column gap-2 lh-sm"></ul>
+      <nav>
+        <h6 class="text-uppercase">Contents</h6>
+        <ul id="contents"></ul>
       </nav>
       {% if related_articles %}
       <nav>
-        <h5 class="text-muted fs-sm text-uppercase">Related</h5>
-        <ul class="list-unstyled d-flex flex-column gap-2 lh-sm fw-medium">
+        <h6 class="text-uppercase">Related</h6>
+        <ul>
           {% for article in related_articles %}
-          <li>
-            <a href="{{ article.get_absolute_url }}">{{ article.title }}</a>
-          </li>
+          <li><a href="{{ article.get_absolute_url }}">{{ article }}</a></li>
           {% endfor %}
         </ul>
       </nav>
       {% endif %}
     </aside>
   </div>
-  
+
   <div class="col-lg-6">
-    <section class="lh-1 mb-3 d-flex gap-2">
-      <a href="{{ article.author.get_absolute_url }}" class="picture-scale-in">
-        {% user_avatar user=article.author width="2.25em" %}
-      </a>
-      <div class="d-flex flex-column justify-content-between">
-        <a href="{{ article.author.get_absolute_url }}" class="fw-medium text-body">
-          {{ article.author.get_full_name }}
+    <div class="mb-3 d-flex justify-content-between align-items-center">
+      <section class="d-flex gap-2">
+        <a href="{{ article.author.get_absolute_url }}" class="picture-scale-in">
+          {% user_avatar user=article.author width="2.125em" %}
         </a>
-        <p class="mb-0 text-muted fs-sm">
-          {{ article.created_at|date:"F d, Y" }}
-          <span class="circle-divider"></span>
-          {{ article.category.name }}
-        </p>
-      </div>
-    </section>
+        <div class="d-flex flex-column justify-content-between lh-1">
+          <a href="{{ article.author.get_absolute_url }}" class="fw-medium text-body">
+            {{ article.author.get_full_name }}
+          </a>
+          <p class="mb-0 fs-sm text-muted">
+            {{ article.created_at|date:"F d, Y" }}
+            <span class="circle-divider"></span>
+            {{ article.category }}
+          </p>
+        </div>
+      </section>
+      
+      <section class="d-flex gap-2">
+        <a href="#" class="btn btn-bordered"><i class="ti ti-bookmark"></i></a>
+        {% if request.user == article.author or request.user.is_staff %}
+        <div class="dropdown">
+          <a href="#" class="btn btn-bordered" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="ti ti-dots"></i>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end shadow mt-1">
+            <li><h6 class="dropdown-header">Manage this article</h6></li>
+            <li>
+              <a class="dropdown-item" href="{% url 'articles:article_update' article.pk article.slug %}">
+                <i class="ti ti-pencil"></i> Edit
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item text-danger" href="#" data-bs-toggle="modal" data-bs-target="#articleDeleteModal">
+                <i class="ti ti-trash"></i> Delete
+              </a>
+            </li>
+          </ul>
+        </div>
+        {% url 'articles:article_delete' article.pk article.slug as article_delete_url %}
+        {% delete_confirm_modal object_name="article" delete_url=article_delete_url %}
+        {% endif %}
+      </section>
+    </div>
 
     <article class="article__body text-break">
       {{ article.body | editorjs }}
     </article>
-
-    {% if request.user == article.author or request.user.is_staff %}
-    <section class="mt-2 flex-fill d-flex flex-column justify-content-end">
-      <ul class="list-group">
-        <li class="list-group-item flush-control">
-          <hgroup class="flush-control-body">
-            <h6 class="flush-control-title">Update this article</h6>
-            <p class="flush-control-text">Last modified at {{ article.modified_at|date:"F d, Y" }}.</p>
-          </hgroup>
-          <a href="{% url 'articles:article_update' article.pk article.slug %}" class="btn btn-outline-secondary">Edit</a>
-        </li>
-        <li class="list-group-item flush-control">
-          <hgroup class="flush-control-body">
-            <h6 class="flush-control-title">Delete this article</h6>
-            <p class="flush-control-text">Once you delete an article, there is no going back. Please be certain.</p>
-          </hgroup>
-          <a href="#" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#articleDeleteModal">Delete</a>
-          {% url 'articles:article_delete' article.pk article.slug as article_delete_url %}
-          {% delete_confirm_modal object_name="article" delete_url=article_delete_url %}
-        </li>
-      </ul>
-    </section>
-    {% endif %}
   </div>
-  
+
   <div class="col-lg-3">
     <aside class="ps-2">
-      <h5 class="text-muted fs-base">Popular Categories</h5>
-      <ul class="list-unstyled">
-        {% for category in popular_categories %}
-        <li>
-          <a href="{{ category.get_absolute_url }}">{{ category.name }}</a>
-        </li>
-        {% endfor %}
-      </ul>
-      <a href="{% url 'articles:home' %}">Browse all</a>
+      {% if popular_categories %}
+      <nav>
+        <h6>Popular</h6>
+        <ul class="gap-1">
+          {% for category in popular_categories %}
+          <li><a href="{{ category.get_absolute_url }}">{{ category }}</a></li>
+          {% endfor %}
+        </ul>
+      </nav>
+      {% endif %}
+      <a href="{% url 'articles:categories' %}">Explore all</a>
     </aside>
   </div>
-
 </div>
 {% endblock content %}
 
 {% block extrascript %}
-<script type="module">
-  $(document).ready(function() {
-    let contents = $("#contents");
-
-    $(".article__body").find('h1, h2, h3, h4').each(function() {
-      const text = $(this).text();
-      const id = escape(text.toLowerCase());
-      $(this).attr('id', id)
-      contents.append($("<li>").append($("<a>", {"href": "#" + id}).text(text)));
-    });
-  });
-</script>
+<script src="{% static "articles/js/headers.js" %}"></script>
 {% endblock extrascript %}

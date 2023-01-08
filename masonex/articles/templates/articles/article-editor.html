@@ -3,7 +3,7 @@
 
 {% block body %}
 {% include 'includes/header.html' %}
-<main class="container-xxl mx-auto my-3 my-md-4" style="max-width: 60em;">
+<main class="container-xxl mx-auto my-3 my-md-4">
   <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
     {% csrf_token %}
     {{ form.media }}

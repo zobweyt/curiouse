@@ -5,9 +5,32 @@ aside {
   top: var(--height);
   max-height: calc(100vh - var(--height) - 1.5rem);
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: map-get($spacers, 3);
+
+  ul {
+    @include list-unstyled();
+    line-height: $line-height-sm;
+    display: flex;
+    flex-direction: column;
+    gap: map-get($spacers, 2);
+    margin-bottom: 0;
+  }
+
+  h6 {
+    font-size: $font-size-base;
+    color: $text-muted;
+  }
+
+  a {
+    color: $body-color;
+  }
 }
 
 .article__body {
+  // @include text-break();
+
   img {
     width: 100%;
     border-radius: $border-radius;

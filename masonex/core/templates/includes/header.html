@@ -11,11 +11,10 @@
       <div class="col-xl-6 d-none d-xl-block">
         <form action="{% url 'articles:search' %}" method="GET">
           <div class="input-group">
-            <input type="text" name="query" placeholder="Search articles" maxlength="64" 
-                   class="form-control" value="{{ request.GET.query.strip }}">
-            <button type="submit" class="btn d-flex align-items-center border">
+            <span class="input-group-text">
               <i class="ti ti-search fs-base text-muted"></i>
-            </button>
+            </span>
+            <input type="text" name="query" placeholder="Search articles" maxlength="64" class="form-control" value="{{ request.GET.query.strip }}">
           </div>
         </form>
       </div>

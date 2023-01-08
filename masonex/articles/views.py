@@ -6,7 +6,7 @@ from django.views.generic import CreateView, DetailView, UpdateView, ListView
 from django.db.models import Q
 
 from core.utils import TitleMixin
-from .models import Article
+from .models import Article, Category
 from .mixins import ArticleAuthorRequiredMixin, ArticleEditorMixin, ArticleTitleMixin
 from .forms import SearchForm
 from .services import get_popular_categories
@@ -126,3 +126,23 @@ class AuthorArticleListView(ArticleListView):
 
     def get_title(self):
         return self.author.get_full_name()
+
+
+class CategoryDetailView(TitleMixin, DetailView):
+    model = Category
+    template_name = 'articles/category-detail.html'
+    context_object_name = 'category'
+    title = 'Category'
+
+
+
+class CategoryListView(TitleMixin, ListView):
+    model = Category
+    template_name = 'articles/category-list.html'
+    context_object_name = 'categories'
+    title = 'Categories'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["popular_categories"] = get_popular_categories(limit=3)
+        return context

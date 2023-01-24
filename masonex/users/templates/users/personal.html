@@ -1,0 +1,51 @@
+{% extends 'users/settings.html' %}
+{% load static helpers %}
+
+{% block form_body %}
+<div class="d-flex align-items-center gap-2">
+  <div>
+    <div class="dropdown">
+      <a href="#" class="dropdown-toggle" id="avatar" data-bs-toggle="dropdown" aria-expanded="false"> 
+        {% user_avatar css_class='d-block rounded' width='3.25em' %} 
+      </a>
+      <ul class="dropdown-menu">
+        <li>
+          <label for="id_avatar" class="dropdown-item cursor-pointer">
+            <i class="icon ti ti-photo-edit"></i>
+            {{ form.avatar.label }}
+            {{ form.avatar }}
+        </li>
+        {% if user.avatar %}
+        <li>
+          <a href="#" class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#avatarDeleteModal">
+            <i class="icon ti ti-trash"></i>Delete photo
+          </a>
+        </li>
+        {% endif %}
+      </ul>
+    </div>
+    {% url 'users:user_avatar_delete' as avatar_delete_url %}
+    {% delete_confirm_modal object_name='avatar' delete_url=avatar_delete_url %}
+  </div>
+  <hgroup class="lh-sm">
+    <h2 class="mb-1 fs-base">{{ user.get_full_name }}</h2>
+    <p class="mb-0 text-muted fs-sm">Provide basic information to make using Masonex more convenient</p>
+  </hgroup>
+</div>
+<section class="mt-2">
+  <div class="row mb-1">
+    <div class="col-6">
+      <label for="{{ form.first_name.id_for_label }}" class="form-label">{{ form.first_name.label }}</label>
+      {{ form.first_name }}
+    </div>
+    <div class="col-6">
+      <label for="{{ form.last_name.id_for_label }}" class="form-label">{{ form.last_name.label }}</label>
+      {{ form.last_name }}
+    </div>
+  </div>
+  <div class="col-12">
+    <label for="{{ form.bio.id_for_label }}" class="form-label">{{ form.bio.label }}</label>
+    {{ form.bio }}
+  </div>
+</section>
+{% endblock form_body %}

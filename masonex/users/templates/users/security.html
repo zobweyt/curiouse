@@ -1,9 +1,20 @@
-{% extends 'users/form.html' %}
+{% extends 'users/settings.html' %}
+{% load static helpers %}
 
-{% block form_before %}
-<div class="mb-2 d-flex">
-  <a href="{% url 'users:profile' %}" class="btn btn-bordered">
-    <i class="ti ti-arrow-left text-muted fs-5"></i>
-  </a>
-</div>
-{% endblock form_before %}
+{% block form_body %}
+<hgroup class="mb-3">
+  <h6 class="card-title">Email</h6>
+  <p class="card-subtitle mb-2">Used for account recovery and notifications.</p>
+  <div class="d-flex flex-wrap gap-2">
+    <input type="email" readonly class="form-control w-auto" value="{{ request.user.email }}">
+    <a href="{% url 'users:email_change' %}" class="btn btn-muted">Change</a>
+  </div>
+</hgroup>
+<hgroup>
+  <h6 class="card-title">Password</h6>
+  <p class="card-subtitle mb-2">Update the password regularly to protect your account.</p>
+  <div class="d-flex">
+    <a href="{% url 'users:password_change' %}" class="btn btn-muted">Set new password</a>
+  </div>
+</hgroup>
+{% endblock form_body %}

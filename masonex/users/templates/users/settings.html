@@ -1,0 +1,18 @@
+{% extends 'users/form.html' %}
+
+{% block aside %}
+<div class="col-lg-2 col-12">
+  <ul class="nav nav-pills flex-lg-column mb-3">
+    <li class="nav-item">
+      <a class="nav-link" href="{% url 'users:profile' %}">
+        <i class="icon ti ti-id-badge-2"></i>Personal
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{% url 'users:security' %}">
+        <i class="icon ti ti-shield-check"></i>Security
+      </a>
+    </li>
+  </ul>
+</div>
+{% endblock aside %}

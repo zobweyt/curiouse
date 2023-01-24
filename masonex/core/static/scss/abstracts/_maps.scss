@@ -1,3 +1,14 @@
 $theme-colors: map-remove($theme-colors, "info", "warning");
 
 $font-sizes: map-merge($font-sizes, $custom-font-sizes);
+
+$form-validation-states: (
+  "valid": (
+    "color":  $form-feedback-icon-valid-color,
+    "icon":   $form-feedback-icon-valid
+  ),
+  "invalid": (
+    "color":  $form-feedback-icon-invalid-color,
+    "icon":   $form-feedback-icon-invalid
+  )
+);

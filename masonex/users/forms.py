@@ -35,7 +35,7 @@ class SignInForm(DecorateFormFieldsMixin, AuthenticationForm):
         return ValidationError('Incorrect username or password.')
 
 
-class ProfileUpdateForm(DecorateFormFieldsMixin, forms.ModelForm):
+class ProfileUpdateForm(DecorateFormFieldsMixin, forms.ModelForm):    
     avatar = forms.ImageField(
         label='Upload photo',
         required=False,
@@ -76,7 +76,7 @@ class UserEmailChangeForm(DecorateFormFieldsMixin, forms.Form):
         return self.user
 
 
-class UserPasswordChangeForm(DecorateFormFieldsMixin, PasswordChangeForm):
+class UserPasswordChangeForm(DecorateFormFieldsMixin, PasswordChangeForm):    
     new_password1 = forms.CharField(
         label='New password', 
         widget=forms.PasswordInput(), 

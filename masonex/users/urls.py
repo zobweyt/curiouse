@@ -8,8 +8,9 @@ urlpatterns = [
     path('new/', SignUpView.as_view(), name='new'),
     path('login/', SignInView.as_view(), name='login'),
     path('logout/', logout_user_view, name='logout'),
-    path('profile/', ProfileUpdateView.as_view(), name='profile'),
-    path('profile/delete-avatar/', user_avatar_delete_view, name='user_avatar_delete'),
-    path('profile/change-email/', UserEmailChangeView.as_view(), name='email_change'),
-    path('profile/change-password/', UserPasswordChangeView.as_view(), name='password_change'),
+    path('settings/personal/', PersonalSettingsView.as_view(), name='profile'),
+    path('settings/personal/avatar-delete/', user_avatar_delete_view, name='user_avatar_delete'),
+    path('settings/security/', security_settings_view, name='security'),
+    path('settings/security/email-change/', UserEmailChangeView.as_view(), name='email_change'),
+    path('settings/security/password-change/', UserPasswordChangeView.as_view(), name='password_change'),
 ]

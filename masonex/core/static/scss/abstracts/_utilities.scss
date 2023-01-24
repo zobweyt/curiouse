@@ -11,15 +11,6 @@ $utilities: map-merge(
       class: cursor,
       values: auto pointer,
     ),
-    "font-weight": map-merge(
-      map-get($utilities, "font-weight"),
-      (
-        values: map-merge(
-            map-get(map-get($utilities, "font-weight"), "values"),
-            ( medium: $font-weight-medium ),
-          ),
-      )
-    ),
     "width": map-merge(
       map-get($utilities, "width"),
       ( responsive: true )

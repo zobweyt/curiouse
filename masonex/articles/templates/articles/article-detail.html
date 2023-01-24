@@ -41,22 +41,22 @@
       </section>
       
       <section class="d-flex gap-2">
-        <a href="#" class="btn btn-bordered"><i class="ti ti-bookmark"></i></a>
+        <a href="#" class="btn btn-muted"><i class="icon ti ti-bookmark"></i></a>
         {% if request.user == article.author or request.user.is_staff %}
         <div class="dropdown">
-          <a href="#" class="btn btn-bordered" data-bs-toggle="dropdown" aria-expanded="false">
-            <i class="ti ti-dots"></i>
+          <a href="#" class="btn btn-muted" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="icon ti ti-dots"></i>
           </a>
           <ul class="dropdown-menu dropdown-menu-end shadow mt-1">
             <li><h6 class="dropdown-header">Manage this article</h6></li>
             <li>
               <a class="dropdown-item" href="{% url 'articles:article_update' article.pk article.slug %}">
-                <i class="ti ti-pencil"></i> Edit
+                <i class="icon ti ti-pencil"></i>Edit
               </a>
             </li>
             <li>
               <a class="dropdown-item text-danger" href="#" data-bs-toggle="modal" data-bs-target="#articleDeleteModal">
-                <i class="ti ti-trash"></i> Delete
+                <i class="icon ti ti-trash"></i>Delete
               </a>
             </li>
           </ul>

@@ -1,7 +1,8 @@
+$header-height: 3.4375em;
+
 // Prefix for :root CSS variables
 
-$header-height: 3.4375em;
-$variable-prefix: "";
+$variable-prefix: "msx-";
 
 // Colors
 
@@ -13,9 +14,10 @@ $danger:      #d23b4b;
 $light:       #f8f9fa;
 $dark:        #2e2e30;
 
+$body-color:    $dark;
 $text-muted:    $secondary;
 
-$body-color:    $dark;
+$primary-fg:    tint-color($primary, 92.5%);
 // scss-docs-end color-variables
 
 
@@ -61,7 +63,6 @@ $h6-font-size:        $font-size-base * 1.2;
 
 // scss-docs-start type-variables
 $list-inline-padding:  0;
-
 $mark-padding:         0;
 
 $legend-font-size:     $h4-font-size;
@@ -73,7 +74,6 @@ $legend-font-weight:   $font-weight-medium;
 
 // scss-docs-start option-variables
 $enable-caret:             false;
-$enable-negative-margins:  true;
 // scss-docs-end option-variables
 
 
@@ -94,27 +94,11 @@ $paragraph-margin-bottom: $spacer;
 // scss-docs-end paragraph-variables
 
 
-// Components
-
-// scss-docs-start component-variables
-$component-active-bg:         $dark;
-$component-active-transform:  scale(0.95);
-// scss-docs-end component-variables
-
-
 // Badges
 
 // scss-docs-start badge-variables
 $badge-font-weight: $font-weight-medium;
 // scss-docs-end badge-variables
-
-
-// Navs
-
-// scss-docs-start nav-variables
-$nav-link-padding-y:      0;
-$nav-link-padding-x:      0;
-// scss-docs-end nav-variables
 
 
 // Alerts
@@ -127,12 +111,11 @@ $alert-bg-scale: -80%;
 // Forms
 
 $input-line-height:          $line-height-sm;
-$input-btn-focus-width:      0;
+$input-btn-focus-width:      $spacer * 0.15;
 
-$input-focus-border-color:   $secondary;
-
-$btn-focus-width:            $spacer * 0.15;
-$btn-transition:             color 0.1s ease-out, background-color 0.1s ease-out, border-color 0.1s ease-out, box-shadow 0.1s ease-out, transform 0.1s ease-out;
+$btn-padding-x:              $spacer;
+$btn-padding-y:              $btn-padding-x * 0.535;
+$btn-line-height:            1;
 
 // scss-docs-start form-label-variables
 $form-label-margin-bottom:   $spacer * 0.125;
@@ -142,22 +125,11 @@ $form-label-color:           $text-muted;
 // scss-docs-end form-label-variables
 
 // scss-docs-start form-feedback-variables
-$form-feedback-icon-valid-color:     $success;
-$form-feedback-icon-invalid-color:   $danger;
+$form-feedback-icon-valid-color: $success;
+$form-feedback-icon-invalid-color: $danger;
 
 $form-feedback-icon-valid: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' stroke-width='2' stroke='#{$form-feedback-icon-valid-color}' fill='none' stroke-linecap='round' stroke-linejoin='round'><path stroke='none' d='M0 0h24v24H0z' fill='none'></path><circle cx='12' cy='12' r='9'></circle><path d='M9 12l2 2l4 -4'></path></svg>");
 $form-feedback-icon-invalid: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' stroke-width='2' stroke='#{$form-feedback-icon-invalid-color}' fill='none' stroke-linecap='round' stroke-linejoin='round'><path stroke='none' d='M0 0h24v24H0z' fill='none'></path><circle cx='12' cy='12' r='9'></circle><line x1='12' y1='8' x2='12' y2='12'></line><line x1='12' y1='16' x2='12.01' y2='16'></line></svg>");
-
-$form-validation-states: (
-  "valid": (
-    "color":  $form-feedback-icon-valid-color,
-    "icon":   $form-feedback-icon-valid
-  ),
-  "invalid": (
-    "color":  $form-feedback-icon-invalid-color,
-    "icon":   $form-feedback-icon-invalid
-  )
-);
 // scss-docs-end form-feedback-variables
 
 
@@ -166,26 +138,17 @@ $form-validation-states: (
 // scss-docs-start dropdown-variables
 $dropdown-min-width:             auto;
 $dropdown-spacer:                $spacer * 0.125;
-$dropdown-item-padding-x:        $dropdown-spacer * 4;
+$dropdown-padding-x:             $dropdown-spacer * 4;
+$dropdown-item-padding-x:        $dropdown-padding-x;
 $dropdown-item-padding-y:        $dropdown-spacer * 3;
-$dropdown-font-size:             $font-size-lg;
-$dropdown-icon-font-size:        $dropdown-font-size * 1.15;
-
-$dropdown-link-transition:       color 0.1s ease-out, background-color 0.1s ease-out, transform 0.1s ease-out;
 
 $dropdown-link-color:            $body-color;
 $dropdown-link-hover-color:      $dropdown-link-color;
-$dropdown-link-hover-bg:         shade-color($light, 2.5%);
+$dropdown-link-hover-bg:         $primary-fg;
 
-$dropdown-link-active-color:     $link-color;
+$dropdown-link-active-color:     $primary;
 $dropdown-link-active-bg:        $dropdown-link-hover-bg;
+$dropdown-box-shadow:            var(--#{$variable-prefix}box-shadow-sm);
 // scss-docs-end dropdown-variables
 
-
-// Transitions
-
-// scss-docs-start transition-variables
-$scale-in-transition:          transform 0.1s ease-out;
-
-$picture-scale-in-transition:  filter 0.1s ease-out, transform 0.1s ease-out;
-// scss-docs-end transition-variables
+$card-subtitle-color: $text-muted;

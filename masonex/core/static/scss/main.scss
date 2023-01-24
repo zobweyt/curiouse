@@ -1,13 +1,11 @@
-@import "node_modules/bootstrap/scss/functions";
+@import "../node_modules/bootstrap/scss/functions";
 @import "abstracts/webfonts";
 
 @import "config";
+@import "vendor/bootstrap";
 
 @import "base/transitions";
 @import "base/helpers";
 @import "base/reboot";
 
 @import "components/buttons";
-@import "components/lists";
-
-@import "vendor/bootstrap";

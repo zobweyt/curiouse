@@ -10,8 +10,8 @@
         <p class="mb-0 text-muted">{% if help_text %}{{ help_text }}{% else %}This action cannot be undone.{% endif %}</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <a href="{{ delete_url }}" class="btn btn-danger">Delete {{ object_name }}</a>
+        <button type="button" class="btn btn-muted" data-bs-dismiss="modal">Cancel</button>
+        <a href="{{ delete_url }}" class="btn btn-danger">Delete</a>
       </div>
     </div>
   </div>

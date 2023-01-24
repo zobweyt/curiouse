@@ -22,7 +22,7 @@ class ArticleEditorForm(DecorateFormFieldsMixin, forms.ModelForm):
             'title': 'Select an item',
             'data-size': 5,
             'data-live-search': 'true',
-            'data-style': 'btn-bordered',
+            'data-style': 'btn-muted',
             'class': 'selectpicker',
         }),
     )

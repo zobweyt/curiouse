@@ -1,19 +1,15 @@
-.btn-bordered {
-  display: flex !important;
-  align-items: center !important;
-  border: $border-width $border-style $border-color !important;
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-  &:hover {
-    border-color: $gray-500 !important;
-  }
-
-  &:active {
-    background-color: $light !important;
-    border-color: $gray-700 !important;
-  }
-
-  &:focus-visible {
-    background-color: $gray-200 !important;
-    box-shadow: $btn-focus-box-shadow !important;
-  }
+.btn-muted {
+  --#{$prefix}btn-color: #{$gray-700};
+  --#{$prefix}btn-border-color: #{$border-color};
+  --#{$prefix}btn-hover-color: #{$gray-700};
+  --#{$prefix}btn-hover-border-color: #{$gray-500};
+  --#{$prefix}btn-active-color: #{$component-active-bg};
+  --#{$prefix}btn-active-bg: #{$primary-fg};
+  --#{$prefix}btn-active-border-color: #{$component-active-bg};
 }

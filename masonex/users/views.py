@@ -1,10 +1,11 @@
 from django.contrib import messages
 from django.contrib.auth import login, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView, PasswordChangeView
 from django.utils.safestring import mark_safe
-from django.shortcuts import redirect
-from django.urls import reverse_lazy
-from django.views.generic import CreateView, UpdateView, FormView
+from django.shortcuts import render, redirect, resolve_url
+from django.urls import reverse, reverse_lazy
+from django.views.generic import CreateView, UpdateView, FormView, View
 
 from core.utils import TitleMixin
 from .models import User
@@ -26,10 +27,7 @@ class SignUpView(RedirectAuthenticatedUsersMixin, TitleMixin, CreateView):
 class SignInView(RedirectAuthenticatedUsersMixin, TitleMixin, LoginView):
     form_class = SignInForm
     template_name = 'users/form.html'
-    title = 'Sign in'    
-
-    def get_success_url(self):
-        return reverse_lazy('index')
+    title = 'Sign in'
 
 
 def logout_user_view(request):
@@ -37,15 +35,21 @@ def logout_user_view(request):
     return redirect('users:login')
 
 
-class ProfileUpdateView(ProfileUpdateMixin, UpdateView):
+class PersonalSettingsView(ProfileUpdateMixin, UpdateView):
     model = User
     form_class = ProfileUpdateForm
+    template_name = "users/personal.html"
 
     def get_object(self):
         return self.request.user
 
     def get_title(self):
-        return 'Customize profile'
+        return 'Personal'
+    
+
+@login_required
+def security_settings_view(request):
+    return render(request, "users/security.html", {"title": "Security"})
 
 
 def user_avatar_delete_view(request):
@@ -56,7 +60,6 @@ def user_avatar_delete_view(request):
 
 class UserEmailChangeView(ProfileUpdateMixin, FormView):
     form_class = UserEmailChangeForm
-    template_name = 'users/security.html'
     updating_object = 'email'
 
     def get_form_kwargs(self):
@@ -71,7 +74,6 @@ class UserEmailChangeView(ProfileUpdateMixin, FormView):
 
 class UserPasswordChangeView(ProfileUpdateMixin, PasswordChangeView):
     form_class = UserPasswordChangeForm
-    template_name = 'users/security.html'
     updating_object = 'password'
 
 
@@ -79,7 +81,8 @@ __all__ = [
     'SignUpView',
     'SignInView',
     'logout_user_view',
-    'ProfileUpdateView',
+    'PersonalSettingsView',
+    'security_settings_view',
     'user_avatar_delete_view',
     'UserEmailChangeView',
     'UserPasswordChangeView',

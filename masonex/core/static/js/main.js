@@ -54,12 +54,4 @@ $(document).ready(function() {
 
         changeImage(this, image);
     });
-
-    $('.dropdown-toggle').on('show.bs.dropdown', function() {
-        $(this).find('.dropdown-chevron').addClass('flip');
-    });
-
-    $('.dropdown-toggle').on('hide.bs.dropdown', function() {
-        $(this).find('.dropdown-chevron').removeClass('flip');
-    });
 });

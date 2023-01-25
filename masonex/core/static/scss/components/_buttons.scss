@@ -1,9 +1,3 @@
-.btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .btn-muted {
   --#{$prefix}btn-color: #{$gray-700};
   --#{$prefix}btn-border-color: #{$border-color};
@@ -12,4 +6,10 @@
   --#{$prefix}btn-active-color: #{$component-active-bg};
   --#{$prefix}btn-active-bg: #{$primary-fg};
   --#{$prefix}btn-active-border-color: #{$component-active-bg};
+}
+
+.btn-icon {
+  @extend .btn-muted;
+  --#{$prefix}btn-padding-x: #{$btn-icon-padding-x};
+  --#{$prefix}btn-padding-y: #{$btn-icon-padding-y};
 }

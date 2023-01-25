@@ -2,13 +2,15 @@
 {% load helpers %}
 
 {% block content %}
-<section class="text-center mb-4 pb-5 border-bottom d-flex justify-content-center">
-  <div class="w-6">
-    {% user_avatar user=author css_class="rounded" width="10em" %}
-    <h1 class="mb-1 mt-3 fs-4">{{ author.get_full_name }}</h1>
-    {% if author.bio %}
-    <p class="mb-0 lh-sm">{{ author.bio }}</p>
-    {% endif %}
+<section class="mb-4 pb-5 border-bottom d-flex">
+  <div class="w-6 d-flex align-items-center">
+    {% user_avatar user=author height="4em" %}
+    <hgroup class="ms-3">
+      <h1 class="mb-1 fs-4">{{ author.get_full_name }}</h1>
+      {% if author.bio %}
+      <p class="mb-0 lh-sm">{{ author.bio }}</p>
+      {% endif %}
+    </hgroup>
   </div>
 </section>
 

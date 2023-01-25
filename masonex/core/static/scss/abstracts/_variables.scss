@@ -117,6 +117,9 @@ $btn-padding-x:              $spacer;
 $btn-padding-y:              $btn-padding-x * 0.535;
 $btn-line-height:            1;
 
+$btn-icon-padding-x:              $spacer * 0.5;
+$btn-icon-padding-y:              $btn-icon-padding-x;
+
 // scss-docs-start form-label-variables
 $form-label-margin-bottom:   $spacer * 0.125;
 $form-label-font-size:       $font-size-sm;

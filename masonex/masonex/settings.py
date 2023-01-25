@@ -237,7 +237,7 @@ EDITORJS_DEFAULT_CONFIG_TOOLS = {
 
 EDITORJS_CONFIG_OVERRIDE = {
     'inlineToolbar': ('bold', 'italic', 'Underline', 'InlineCode', 'Marker', 'link'),
-    'minHeight': 256,
+    'minHeight': -1,
     'i18n': {
         'messages': {
             'toolNames': {

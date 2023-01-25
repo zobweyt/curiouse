@@ -5,8 +5,11 @@
 [data-editorjs-holder] {
   width: 100% !important;
   max-width: none !important;
-  border: $border-width $border-style $border-color !important;
-  background-color: $light !important;
+  border: $border-width $border-style $border-color-translucent !important;
+}
+
+.codex-editor__redactor {
+  min-height: 30vh;
 }
 
 .codex-editor {

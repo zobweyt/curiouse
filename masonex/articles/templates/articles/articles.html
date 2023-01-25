@@ -8,3 +8,23 @@
 <a href="{% url 'articles:article_create' %}" class="btn btn-primary">Create an article</a>
 {% endif %}
 {% endblock content %}
+
+{% block extrastyle %}
+<style>
+  body > :not(.pace),
+  body:before, 
+  body:after {
+    -webkit-transition: opacity 0.3s ease-out;
+    -moz-transition: opacity 0.3s ease-out;
+    -o-transition: opacity 0.3s ease-out;
+    -ms-transition: opacity 0.3s ease-out;
+    transition: opacity 0.3s ease-out
+  }
+  
+  body:not(.pace-done) > :not(.pace), 
+  body:not(.pace-done):before, 
+  body:not(.pace-done):after {
+    opacity: 0
+  }
+</style>
+{% endblock extrastyle %}

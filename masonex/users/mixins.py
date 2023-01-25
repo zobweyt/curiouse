@@ -16,7 +16,6 @@ class RedirectAuthenticatedUsersMixin:
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated:
             return HttpResponseRedirect(self.fail_url)
-
         return super().dispatch(request, *args, **kwargs)
 
 
@@ -27,14 +26,7 @@ class ProfileUpdateMixin(LoginRequiredMixin, SuccessMessageMixin, TitleMixin):
 
     template_name = 'users/settings.html'
     success_url = reverse_lazy('users:profile')
-
     updating_object = 'profile'
-    submit_button_text = 'Save'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['submit_button_text'] = self.submit_button_text
-        return context
 
     def get_success_message(self, cleaned_data):
         return f'The {self.updating_object} has been updated.'

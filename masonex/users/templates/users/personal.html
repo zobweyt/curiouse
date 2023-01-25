@@ -1,4 +1,4 @@
-{% extends 'users/settings.html' %}
+{% extends "users/settings.html" %}
 {% load static helpers %}
 
 {% block form_body %}
@@ -6,7 +6,7 @@
   <div>
     <div class="dropdown">
       <a href="#" class="dropdown-toggle" id="avatar" data-bs-toggle="dropdown" aria-expanded="false"> 
-        {% user_avatar css_class='d-block rounded' width='3.25em' %} 
+        {% user_avatar css_class="d-block rounded" width="3.25em" %} 
       </a>
       <ul class="dropdown-menu">
         <li>
@@ -24,8 +24,8 @@
         {% endif %}
       </ul>
     </div>
-    {% url 'users:user_avatar_delete' as avatar_delete_url %}
-    {% delete_confirm_modal object_name='avatar' delete_url=avatar_delete_url %}
+    {% url "users:user_avatar_delete" as avatar_delete_url %}
+    {% delete_confirm_modal object_name="avatar" delete_url=avatar_delete_url %}
   </div>
   <hgroup class="lh-sm">
     <h2 class="mb-1 fs-base">{{ user.get_full_name }}</h2>

@@ -7,7 +7,8 @@ from .models import Category, Article
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('id', 'name')
     list_display_links = ('name',)
-    search_fields = ('name',)
+    search_fields = ('name', 'slug')
+    prepopulated_fields = {'slug': ('name',)}
 
 
 @admin.register(Article)

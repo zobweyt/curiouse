@@ -2,10 +2,8 @@ from django.contrib import messages
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView, PasswordChangeView
-from django.utils.safestring import mark_safe
-from django.shortcuts import render, redirect, resolve_url
-from django.urls import reverse, reverse_lazy
-from django.views.generic import CreateView, UpdateView, FormView, View
+from django.shortcuts import render, redirect
+from django.views.generic import CreateView, UpdateView, FormView
 
 from core.utils import TitleMixin
 from .models import User
@@ -38,7 +36,7 @@ def logout_user_view(request):
 class PersonalSettingsView(ProfileUpdateMixin, UpdateView):
     model = User
     form_class = ProfileUpdateForm
-    template_name = "users/personal.html"
+    template_name = 'users/personal.html'
 
     def get_object(self):
         return self.request.user
@@ -49,7 +47,7 @@ class PersonalSettingsView(ProfileUpdateMixin, UpdateView):
 
 @login_required
 def security_settings_view(request):
-    return render(request, "users/security.html", {"title": "Security"})
+    return render(request, 'users/security.html', {'title': 'Security'})
 
 
 def user_avatar_delete_view(request):

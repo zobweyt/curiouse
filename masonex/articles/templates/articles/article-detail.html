@@ -1,28 +1,16 @@
 {% extends 'base.html' %}
-{% load static editorjs helpers %}
+{% load static helpers editorjs %}
 
 {% block content %}
 <div class="row">
-  <div class="col-lg-3">
+  <div class="col-lg-3 d-lg-block d-none">
     <aside class="pe-2 aside-col">
-      <nav>
-        <h6 class="text-uppercase">Contents</h6>
-        <ul id="contents"></ul>
-      </nav>
-      {% if related_articles %}
-      <nav>
-        <h6 class="text-uppercase">Related</h6>
-        <ul>
-          {% for article in related_articles %}
-          <li><a href="{{ article.get_absolute_url }}">{{ article }}</a></li>
-          {% endfor %}
-        </ul>
-      </nav>
-      {% endif %}
+      <h6 class="text-uppercase">Contents</h6>
+      <ul id="contents"></ul>
     </aside>
   </div>
 
-  <div class="col-lg-6">
+  <div class="col-lg-9 col-xl-6">
     <div class="mb-3 d-flex justify-content-between align-items-center">
       <section class="d-flex gap-2">
         <a href="{{ article.author.get_absolute_url }}" class="picture-scale-in">
@@ -35,7 +23,7 @@
           <p class="mb-0 fs-sm text-muted">
             {{ article.created_at|date:"F d, Y" }}
             <span class="circle-divider"></span>
-            {{ article.category }}
+            <a href="{{ article.category.get_absolute_url }}">{{ article.category }}</a>
           </p>
         </div>
       </section>
@@ -72,21 +60,18 @@
     </article>
   </div>
 
-  <div class="col-lg-3">
+  {% if popular_categories %}
+  <div class="col-lg-3 d-xl-block d-none">
     <aside class="ps-2 aside-col">
-      {% if popular_categories %}
-      <nav>
-        <h6>Popular</h6>
-        <ul class="gap-1">
-          {% for category in popular_categories %}
-          <li><a href="{{ category.get_absolute_url }}">{{ category }}</a></li>
-          {% endfor %}
-        </ul>
-      </nav>
-      {% endif %}
-      <a href="{% url 'articles:categories' %}">Explore all</a>
+      <h6>Popular</h6>
+      <ul class="gap-1">
+        {% for category in popular_categories %}
+        <li><a href="{{ category.get_absolute_url }}">{{ category }}</a></li>
+        {% endfor %}
+      </ul>
     </aside>
   </div>
+  {% endif %}
 </div>
 {% endblock content %}
 

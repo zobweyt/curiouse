@@ -1,7 +1,5 @@
-{% load static %}
-
 {% if articles %}
-<ul class="list-unstyled row">
+<ul class="list-unstyled mb-0 row">
   {% for article in articles %}
   <li class="col-lg-3 col-md-4 col-sm-6 col-12 mb-4">
     <article class="component-article-listing scale-in">
@@ -16,4 +14,9 @@
   {% endfor %}
 </ul>
 {% include 'articles/includes/pagination.html' %}
+{% else %}
+<h1 class="fs-4">There are no articles yet.</h1>
+<div class="d-flex">
+  <a href="{% url 'articles:article_create' %}" class="btn btn-primary">Create an article</a>
+</div>
 {% endif %}

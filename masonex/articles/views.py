@@ -13,14 +13,19 @@ from .services import get_popular_categories
 
 
 class ArticleCreateView(LoginRequiredMixin, TitleMixin, ArticleEditorMixin, CreateView):
-    submit_button_text = 'Publish'
     title = 'New article'
 
     def form_valid(self, form):
         article = form.save(commit=False)
         article.author = self.request.user
-        article.save()
-        return redirect(article.get_absolute_url())
+        return super().form_valid(form)
+    
+
+class ArticleUpdateView(ArticleAuthorRequiredMixin, ArticleTitleMixin, ArticleEditorMixin, UpdateView):
+    def get_queryset(self):
+        return super().get_queryset().only(
+            'category__id', 'title', 'slug', 'body', 'thumbnail', 'description'
+        )
 
 
 class ArticleDetailView(ArticleTitleMixin, DetailView):
@@ -28,7 +33,6 @@ class ArticleDetailView(ArticleTitleMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["related_articles"] = Article.objects.exclude(pk=self.object.pk).filter(category__name=self.object.category.name)[:2]
         context["popular_categories"] = get_popular_categories(limit=10)
         return context
 
@@ -38,16 +42,7 @@ class ArticleDetailView(ArticleTitleMixin, DetailView):
         ).only(
             'author__first_name', 'author__last_name', 'author__username', 'author__avatar',
             'category__name',
-            'title', 'slug', 'created_at', 'body', 'modified_at'
-        )
-    
-
-class ArticleUpdateView(ArticleAuthorRequiredMixin, ArticleTitleMixin, ArticleEditorMixin, UpdateView):
-    submit_button_text = 'Update'
-
-    def get_queryset(self):
-        return super().get_queryset().only(
-            'category__name', 'title', 'slug', 'body', 'thumbnail', 'description'
+            'title', 'slug', 'created_at', 'body'
         )
 
 
@@ -58,7 +53,7 @@ def article_delete(request, article_pk, article_slug):
 
 class ArticleListView(TitleMixin, ListView):
     model = Article
-    template_name = 'articles/articles.html'
+    template_name = 'articles/article-list.html'
     context_object_name = 'articles'
     paginate_by = 24
     title = 'Articles'
@@ -74,7 +69,6 @@ class ArticleListView(TitleMixin, ListView):
 
 
 class ArticleSearchView(ArticleListView):
-    template_name = 'articles/articles-search.html'
     query = None
     
     def get(self, request, *args, **kwargs):
@@ -128,21 +122,13 @@ class AuthorArticleListView(ArticleListView):
         return self.author.get_full_name()
 
 
-class CategoryDetailView(TitleMixin, DetailView):
-    model = Category
-    template_name = 'articles/category-detail.html'
-    context_object_name = 'category'
-    title = 'Category'
-
-
-
-class CategoryListView(TitleMixin, ListView):
-    model = Category
-    template_name = 'articles/category-list.html'
-    context_object_name = 'categories'
-    title = 'Categories'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["popular_categories"] = get_popular_categories(limit=3)
-        return context
+class CategoryDetailView(ArticleListView):
+    def get(self, request, *args, **kwargs):
+        self.category = get_object_or_404(Category, id=self.kwargs['pk'])
+        return super().get(request, *args, **kwargs)
+    
+    def get_queryset(self):
+        return super().get_queryset().filter(category__id=self.category.id)
+    
+    def get_title(self):
+        return self.category

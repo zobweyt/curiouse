@@ -2,7 +2,7 @@
 {% load helpers %}
 
 {% block content %}
-<section class="mb-4 pb-5 border-bottom d-flex">
+<section class="mb-4 d-flex">
   <div class="w-6 d-flex align-items-center">
     {% user_avatar user=author height="4em" %}
     <hgroup class="ms-3">
@@ -13,21 +13,5 @@
     </hgroup>
   </div>
 </section>
-
-<section>
-  {% if articles %}
-  <h2 class="text-center fs-5 mb-3">By this author</h2>
-  {% include 'articles/includes/articles-list.html' %}
-  {% else %}
-  <div class="text-center">
-    {% if request.user == author %}
-    <h2 class="fs-5">You do not have any articles yet.</h2>
-    <a href="{% url 'articles:article_create' %}" class="btn btn-primary">Create an article</a>
-    {% else %}
-    <h2 class="fs-5">This author does not have any articles yet.</h2>
-    <a href="{% url 'articles:home' %}" class="btn btn-primary">See featured articles</a>
-    {% endif %}
-  </div>
-  {% endif %}
-</section>
+{% include 'articles/includes/articles-list.html' %}
 {% endblock content %}

@@ -1,25 +1,24 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
-from django.http import HttpResponseRedirect
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
+from django.conf import settings
 
 from core.utils import TitleMixin
 
 
 class RedirectAuthenticatedUsersMixin:
     """
-    Redirects the current user to 'fail_url' if authenticated.
+    Redirects the request user to 'settings.LOGIN_REDIRECT_URL' if authenticated.
     """
-
-    fail_url = reverse_lazy('index')
 
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated:
-            return HttpResponseRedirect(self.fail_url)
+            return redirect(settings.LOGIN_REDIRECT_URL)
         return super().dispatch(request, *args, **kwargs)
 
 
-class ProfileUpdateMixin(LoginRequiredMixin, SuccessMessageMixin, TitleMixin):
+class SettingsMixin(LoginRequiredMixin, SuccessMessageMixin, TitleMixin):
     """
     Adds title to the context and creates success message depending on 'updating_object'.
     """

@@ -1,13 +1,13 @@
 from django.contrib import messages
-from django.contrib.auth import login, logout
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth import login
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, PasswordChangeView
-from django.shortcuts import render, redirect
-from django.views.generic import CreateView, UpdateView, FormView
+from django.shortcuts import redirect
+from django.views.generic import CreateView, UpdateView, FormView, TemplateView
 
 from core.utils import TitleMixin
 from .models import User
-from .mixins import RedirectAuthenticatedUsersMixin, ProfileUpdateMixin
+from .mixins import RedirectAuthenticatedUsersMixin, SettingsMixin
 from .forms import *
 
 
@@ -28,12 +28,7 @@ class SignInView(RedirectAuthenticatedUsersMixin, TitleMixin, LoginView):
     title = 'Sign in'
 
 
-def logout_user_view(request):
-    logout(request)
-    return redirect('users:login')
-
-
-class PersonalSettingsView(ProfileUpdateMixin, UpdateView):
+class PersonalSettingsView(SettingsMixin, UpdateView):
     model = User
     form_class = ProfileUpdateForm
     template_name = 'users/personal.html'
@@ -45,18 +40,18 @@ class PersonalSettingsView(ProfileUpdateMixin, UpdateView):
         return 'Personal'
     
 
-@login_required
-def security_settings_view(request):
-    return render(request, 'users/security.html', {'title': 'Security'})
-
-
 def user_avatar_delete_view(request):
     request.user.avatar.delete()
     messages.success(request, 'Your avatar has been deleted.')
     return redirect('users:profile')
 
 
-class UserEmailChangeView(ProfileUpdateMixin, FormView):
+class SecuritySettingsView(LoginRequiredMixin, TitleMixin, TemplateView):
+    template_name = 'users/security.html'
+    title = 'Security'
+
+
+class UserEmailChangeView(SettingsMixin, FormView):
     form_class = UserEmailChangeForm
     updating_object = 'email'
 
@@ -70,7 +65,7 @@ class UserEmailChangeView(ProfileUpdateMixin, FormView):
         return super().form_valid(form)
 
 
-class UserPasswordChangeView(ProfileUpdateMixin, PasswordChangeView):
+class UserPasswordChangeView(SettingsMixin, PasswordChangeView):
     form_class = UserPasswordChangeForm
     updating_object = 'password'
 
@@ -78,9 +73,8 @@ class UserPasswordChangeView(ProfileUpdateMixin, PasswordChangeView):
 __all__ = [
     'SignUpView',
     'SignInView',
-    'logout_user_view',
     'PersonalSettingsView',
-    'security_settings_view',
+    'SecuritySettingsView',
     'user_avatar_delete_view',
     'UserEmailChangeView',
     'UserPasswordChangeView',

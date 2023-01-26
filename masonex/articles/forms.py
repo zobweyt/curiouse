@@ -40,6 +40,5 @@ class ArticleEditorForm(DecorateFormFieldsMixin, forms.ModelForm):
 
 
 class SearchForm(DecorateFormFieldsMixin, forms.Form):
-    query = forms.CharField(max_length=64, required=True,
-        widget=forms.TextInput(attrs={'placeholder': 'Search'}))
+    query = forms.CharField(max_length=64, required=True)
     

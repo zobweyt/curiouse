@@ -4,50 +4,53 @@
 {% block content %}
 <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
   {% csrf_token %}
-  {{ form.media }}
   <div class="row">
-    <aside class="col-lg-4 col-12 aside-col sticky-lg-top">
-      {% include "includes/notifications.html" %}
-      <div class="card">
-        <div class="card-header bg-transparent">
-          <h5 class="mb-0">Cover</h5>
-        </div>
-        <div class="card-body">
-          <label for="{{ form.thumbnail.id_for_label }}" class="mb-2">
-            <div id="thumbnail" class="image-upload cursor-pointer">
-              {% if object %}
-              <img src="{{ object.thumbnail.url }}" class="rounded" loading="lazy">
-              {% else %}
-              <div class="border-dashed d-flex flex-column justify-content-center align-items-center h-100">
-                <i class="ti ti-sunset-2 text-body fs-3"></i>
-                <p class="mb-0 mt-2 fw-medium">Upload thumbnail</p>
+    <div class="col-lg-4 col-12 mb-lg-0 mb-3">
+      <aside class="aside-col pe-lg-1">
+        {% include "includes/notifications.html" %}
+        <div class="card">
+          <div class="card-header bg-transparent">
+            <h5 class="mb-0">Cover</h5>
+          </div>
+          <div class="card-body">
+            <label for="{{ form.thumbnail.id_for_label }}" class="mb-2">
+              <div id="thumbnail" class="image-upload cursor-pointer">
+                {% if article %}
+                <img src="{{ article.thumbnail.url }}" class="rounded" loading="lazy">
+                {% else %}
+                <div class="border-dashed d-flex flex-column justify-content-center align-items-center h-100">
+                  <i class="ti ti-sunset-2 text-body fs-3"></i>
+                  <p class="mb-0 mt-2 fw-medium">Upload thumbnail</p>
+                </div>
+                {% endif %}
               </div>
-              {% endif %}
-            </div>
-            {{ form.thumbnail }}
-          </label>
-          <div>
-            {{ form.category }}
-            {{ form.title }}
-          </div>          
-          <div class="d-flex flex-column mt-2">
-            <label for="{{ form.description.id_for_label }}" class="form-label">{{ form.description.label }}</label>
-            {{ form.description }}
-          </div>     
+              {{ form.thumbnail }}
+            </label>
+            <div>
+              {{ form.category }}
+              {{ form.title }}
+            </div>          
+            <div class="d-flex flex-column mt-2">
+              <label for="{{ form.description.id_for_label }}" class="form-label">{{ form.description.label }}</label>
+              {{ form.description }}
+            </div>     
+          </div>
+          <div class="card-footer bg-transparent">
+            <button type="submit" class="btn btn-dark" disabled on-validation-text="Processing...">Submit</button>
+            {% if article %}
+            <a href="{{ article.get_absolute_url }}" class="btn btn-muted">Cancel</a>
+            {% endif %}
+          </div>
         </div>
-        <div class="card-footer bg-transparent">
-          <button type="submit" class="btn btn-dark" disabled on-validation-text="Processing...">
-            {{ submit_button_text }}
-          </button>
-          {% if object %}
-          <a href="{{ object.get_absolute_url }}" class="btn btn-muted">Cancel</a>
-          {% endif %}
-        </div>
-      </div>
-    </aside>
+      </aside>
+    </div>
     <section class="col-lg-8 col-12">
       {{ form.body }}
     </section>
   </div>
 </form>
 {% endblock content %}
+
+{% block extrascript %}
+{{ form.media }}
+{% endblock extrascript %}

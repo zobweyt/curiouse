@@ -9,7 +9,7 @@ from core.utils import TitleMixin
 
 class RedirectAuthenticatedUsersMixin:
     """
-    Redirects the request user to 'settings.LOGIN_REDIRECT_URL' if authenticated.
+    Redirects the request user to `settings.LOGIN_REDIRECT_URL` if authenticated.
     """
 
     def dispatch(self, request, *args, **kwargs):
@@ -20,7 +20,7 @@ class RedirectAuthenticatedUsersMixin:
 
 class SettingsMixin(LoginRequiredMixin, SuccessMessageMixin, TitleMixin):
     """
-    Adds title to the context and creates success message depending on 'updating_object'.
+    Adds title to the context and creates success message depending on `updating_object`.
     """
 
     template_name = 'users/settings.html'

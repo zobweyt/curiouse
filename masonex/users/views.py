@@ -8,7 +8,13 @@ from django.views.generic import CreateView, UpdateView, FormView, TemplateView
 from core.utils import TitleMixin
 from .models import User
 from .mixins import RedirectAuthenticatedUsersMixin, SettingsMixin
-from .forms import *
+from .forms import (
+    SignInForm,
+    SignUpForm,
+    ProfileUpdateForm,
+    UserEmailChangeForm,
+    UserPasswordChangeForm
+)
 
 
 class SignUpView(RedirectAuthenticatedUsersMixin, TitleMixin, CreateView):
@@ -68,14 +74,3 @@ class UserEmailChangeView(SettingsMixin, FormView):
 class UserPasswordChangeView(SettingsMixin, PasswordChangeView):
     form_class = UserPasswordChangeForm
     updating_object = 'password'
-
-
-__all__ = [
-    'SignUpView',
-    'SignInView',
-    'PersonalSettingsView',
-    'SecuritySettingsView',
-    'user_avatar_delete_view',
-    'UserEmailChangeView',
-    'UserPasswordChangeView',
-]

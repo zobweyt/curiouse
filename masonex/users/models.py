@@ -6,12 +6,13 @@ from django.urls import reverse
 
 
 class User(AbstractUser):
-    bio = models.TextField(max_length=64, blank=True)
+    bio = models.TextField(max_length=196, blank=True)
     avatar = models.ImageField(
         verbose_name='Upload photo',
         upload_to=settings.PHOTOS_PATH,
         blank=True,
-        null=True)
+        null=True
+    )
 
     def __str__(self):
         return self.username
@@ -23,6 +24,4 @@ class User(AbstractUser):
         return self.avatar.url if self.avatar else staticfiles_storage.url('images/user.svg')        
 
     class Meta:
-        # verbose_name = 'user'
-        # verbose_name_plural = 'users'
         ordering = ['username']

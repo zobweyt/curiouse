@@ -1,7 +1,15 @@
 from django.urls import path
 from django.contrib.auth.views import logout_then_login
 
-from users.views import *
+from users.views import (
+    SignUpView,
+    SignInView,
+    PersonalSettingsView,
+    SecuritySettingsView,
+    user_avatar_delete_view,
+    UserEmailChangeView,
+    UserPasswordChangeView,
+)
 
 app_name = 'users'
 

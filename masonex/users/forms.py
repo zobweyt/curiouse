@@ -9,12 +9,14 @@ class SignUpForm(DecorateFormFieldsMixin, UserCreationForm):
     first_name = forms.CharField(required=True, widget=forms.TextInput(attrs={'autofocus': True}))
     last_name = forms.CharField(required=True)
     email = forms.EmailField(required=True)
-    password1 = forms.CharField(label='Password', required=True, widget=forms.PasswordInput)
-    password2 = forms.CharField(label='Confirm password', required=True, widget=forms.PasswordInput)
 
     class Meta:
         model = User
         fields = ('first_name', 'last_name', 'username', 'email', 'password1', 'password2')
+        labels = {
+            'password1': 'Password',
+            'password2': 'Confirm password'
+        }
 
 
 class SignInForm(DecorateFormFieldsMixin, AuthenticationForm):
@@ -57,17 +59,4 @@ class UserEmailChangeForm(DecorateFormFieldsMixin, forms.Form):
 
 
 class UserPasswordChangeForm(DecorateFormFieldsMixin, PasswordChangeForm):
-    
-    class Meta:
-        help_texts = {
-            'new_password1': None
-        }
-
-
-__all__ = [
-    'SignUpForm',
-    'SignInForm',
-    'ProfileUpdateForm',
-    'UserEmailChangeForm',
-    'UserPasswordChangeForm',
-]
+    pass

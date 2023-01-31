@@ -1,0 +1,10 @@
+<div class="alert alert-{{ style }} {% if not dismissible %}alert-dismissible{% endif %} fade show" 
+     role="alert">
+  <p class="mb-0">
+    {{ text }}
+  </p>
+
+  {% if not dismissible %}
+    <button type="button" class="btn-close fs-sm" data-bs-dismiss="alert" aria-label="Close"></button>
+  {% endif %}
+</div>

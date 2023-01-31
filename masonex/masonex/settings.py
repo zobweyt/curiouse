@@ -15,22 +15,20 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1']
 
-INTERNAL_IPS = ['127.0.0.1']
-
 INSTALLED_APPS = [
+    'core',
+    'users',
+    'articles',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'core.apps.CoreConfig',
-    'users.apps.UsersConfig',
-    'articles.apps.ArticlesConfig',
-    'django_cleanup.apps.CleanupConfig',
+    'django_sass',
+    'django_cleanup',
     'django_editorjs_fields',
     'debug_toolbar',
-    'django_sass',
 ]
 
 MIDDLEWARE = [
@@ -57,9 +55,6 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
-            'libraries': {
-                'helpers': 'core.templatetags.helpers',
-            },
         },
     },
 ]
@@ -214,10 +209,10 @@ EDITORJS_DEFAULT_CONFIG_TOOLS = {
     'Image': {
         'class': 'ImageTool',
         'shortcut': 'CMD+SHIFT+U',
-        "config": {
-            "endpoints": {
-                "byFile": reverse_lazy('editorjs_image_upload'),
-                "byUrl": reverse_lazy('editorjs_image_by_url')
+        'config': {
+            'endpoints': {
+                'byFile': reverse_lazy('editorjs_image_upload'),
+                'byUrl': reverse_lazy('editorjs_image_by_url')
             }
         },
     },

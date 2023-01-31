@@ -1,10 +1,12 @@
-{% load static helpers %}
+{% load static %}
 
 <header class="sticky-top bg-body border-bottom">
   <div class="container-xxl py-2">
     <div class="row d-flex align-items-center justify-content-xl-start justify-content-between">
       <div class="col-xl-3 col-auto d-block">
-        <a href="{% url 'index' %}"><img src="{% static 'images/logo.svg' %}" style="height: 2em"></a>
+        <a href="{% url 'index' %}">
+          <img src="{% static 'images/logo.svg' %}" style="height: 2em">
+        </a>
       </div>
       <div class="col-xl-6 d-none d-xl-block">
         <form action="{% url 'articles:search' %}" method="GET">
@@ -21,13 +23,13 @@
         <a href="{% url 'articles:article_create' %}" class="btn btn-muted d-sm-block d-none">New article</a>
         <div class="dropdown text-end">
           <a href="#" type="button" class="dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
-            {% user_avatar width="2em" css_class="rounded" %}
+            <img src="{{ request.user.get_avatar_url }}" class="rounded-circle" style="width: 2em">
           </a>
           <ul class="dropdown-menu dropdown-menu-end">
             <li class="py-1">
               <a class="dropdown-item py-2 pe-1 rounded border" href="{% url 'articles:user' request.user.username %}">
                 <div class="d-flex align-items-center fs-sm gap-2">
-                  {% user_avatar width="2.75em" css_class="rounded" %}
+                  <img src="{{ request.user.get_avatar_url }}" class="rounded" style="width: 2.75em">
                   <div class="fs-sm lh-sm me-2">
                     <p class="mb-0 fw-medium">{{ request.user.get_full_name }}</p>
                     <p class="mb-0 text-muted">View profile</p>
@@ -54,7 +56,7 @@
               </a>
             </li>
             <li>
-              <a href="{% url 'users:profile' %}" class="dropdown-item">
+              <a href="{% url 'users:personal' %}" class="dropdown-item">
                 <i class="icon ti ti-settings"></i>Settings
               </a>
             </li>

@@ -1,10 +1,9 @@
 {% extends 'base.html' %}
-{% load helpers %}
 
 {% block content %}
 <section class="mb-4 d-flex">
   <div class="w-6 d-flex align-items-center">
-    {% user_avatar user=author height="4em" %}
+    <img src="{{ request.user.get_avatar_url }}" class="rounded-circle" style="height: 4em">
     <hgroup class="ms-3">
       <h1 class="mb-1 fs-4">{{ author.get_full_name }}</h1>
       {% if author.bio %}

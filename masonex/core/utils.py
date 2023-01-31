@@ -3,7 +3,7 @@ from django.forms.fields import CharField
 
 class TitleMixin:
     """
-    Adds "title" to the context.
+    Adds `title` to the context.
     """
 
     title = None
@@ -19,7 +19,7 @@ class TitleMixin:
 
 class DecorateFormFieldsMixin:
     """
-    Adds "css_class" to every "decorated_fields" in a form.
+    Adds `css_class` to every `decorated_fields` in a form.
     """
 
     css_class = "form-control"

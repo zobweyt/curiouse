@@ -43,7 +43,7 @@ class PersonalSettingsView(SettingsMixin, UpdateView):
 def user_avatar_delete_view(request):
     request.user.avatar.delete()
     messages.success(request, 'Your avatar has been deleted.')
-    return redirect('users:profile')
+    return redirect('users:personal')
 
 
 class SecuritySettingsView(LoginRequiredMixin, TitleMixin, TemplateView):

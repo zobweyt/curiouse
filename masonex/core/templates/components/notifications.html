@@ -1,0 +1,14 @@
+{% if messages or form.non_field_errors %}
+<ul class="list-unstyled mb-0">
+  {% if messages %}
+    {% for message in messages %}
+      <li>{% include "components/alert.html" with style=message.tags text=message %}</li>
+    {% endfor %}
+  {% endif %}
+  {% if form.non_field_errors %}
+    {% for error in form.non_field_errors %}
+      <li>{% include "components/alert.html" with style="danger" text=error %}</li>
+    {% endfor %}
+  {% endif %}
+</ul>
+{% endif %}

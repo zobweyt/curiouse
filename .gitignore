@@ -13,5 +13,5 @@
 **/logs
 **/cache
 **/media
-**/staticfiles
+static
 *.sqlite3

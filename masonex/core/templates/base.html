@@ -1,9 +1,10 @@
-{% load static helpers %}
+{% load static %}
 
 <!DOCTYPE html>
 <html lang="en">
   <head>
     {% if title %}<title>{{ title }} - Masonex</title>{% endif %}
+    <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon"/>
     <meta charset="UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
@@ -20,7 +21,6 @@
     <script src="{% static 'js/main.js' %}"></script>
     {% block extrascript %}
     {% endblock extrascript %}
-    <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon"/>
   </head>
   <body class="d-flex flex-column min-vh-100">
     {% block body %}

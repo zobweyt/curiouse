@@ -1,17 +1,16 @@
-<div class="modal fade" id="{{ object_name }}DeleteModal" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="{{ id }}" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5">Delete {{ object_name }}?</h1>
+        <h1 class="modal-title fs-5">{{ title }}</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <p class="mb-0">Do you really want to delete the {{ object_name }}?</p>
-        <p class="mb-0 text-muted">{% if help_text %}{{ help_text }}{% else %}This action cannot be undone.{% endif %}</p>
+        <p class="mb-0">{{ text }}</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-muted" data-bs-dismiss="modal">Cancel</button>
-        <a href="{{ delete_url }}" class="btn btn-danger">Delete</a>
+        <a href="{{ action_url }}" class="btn btn-danger">Confirm</a>
       </div>
     </div>
   </div>

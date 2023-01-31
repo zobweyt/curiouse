@@ -24,7 +24,7 @@ class SettingsMixin(LoginRequiredMixin, SuccessMessageMixin, TitleMixin):
     """
 
     template_name = 'users/settings.html'
-    success_url = reverse_lazy('users:profile')
+    success_url = reverse_lazy('users:personal')
     updating_object = 'profile'
 
     def get_success_message(self, cleaned_data):

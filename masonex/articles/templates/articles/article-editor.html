@@ -24,16 +24,11 @@
                 </div>
                 {% endif %}
               </div>
-              {{ form.thumbnail }}
+              {% include 'components/input.html' with field=form.thumbnail %}
             </label>
-            <div>
-              {{ form.category }}
-              {{ form.title }}
-            </div>          
-            <div class="d-flex flex-column mt-2">
-              <label for="{{ form.description.id_for_label }}" class="form-label">{{ form.description.label }}</label>
-              {{ form.description }}
-            </div>     
+            {{ form.category }}
+            {{ form.title }}
+            {% include 'components/input.html' with field=form.description wrapper_class='mt-2' %}
           </div>
           <div class="card-footer bg-transparent">
             <button type="submit" class="btn btn-dark" disabled on-validation-text="Processing...">Submit</button>

@@ -12,10 +12,10 @@
       <div class="card-header bg-transparent">
         <h1 class="fs-5 mb-0">{{ title }}</h1>
       </div>
-      <div class="card-body">
+      <div class="card-body d-flex flex-column gap-3">
         {% block form_body %}
           {% for field in form %}
-            {% include "components/input.html" with wrapper_class="mt-2" %}
+            {% include "components/input.html" %}
           {% endfor %}
         {% endblock form_body %}
       </div>

@@ -44,7 +44,10 @@ class ProfileUpdateForm(DecorateFormFieldsMixin, forms.ModelForm):
 
 
 class UserEmailChangeForm(DecorateFormFieldsMixin, forms.Form):
-    email = forms.EmailField(widget=forms.EmailInput(attrs={'autofocus': True}))
+    email = forms.EmailField(
+        widget=forms.EmailInput(attrs={'autofocus': True}),
+        help_text='Email will be used to recive notifications.'
+    )
 
     def __init__(self, user, *args, **kwargs):
         self.user = user
@@ -59,4 +62,6 @@ class UserEmailChangeForm(DecorateFormFieldsMixin, forms.Form):
 
 
 class UserPasswordChangeForm(DecorateFormFieldsMixin, PasswordChangeForm):
-    pass
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['new_password1'].help_text = 'Come up with a strong password of at least 8 characters.'

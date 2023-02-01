@@ -65,16 +65,17 @@ header {
 
   .dropdown-menu {
     font-size: $font-size-base;
+    padding-right: map-get($spacers, 2) !important;
   }
 
   .bs-searchbox {
-    margin-bottom: map-get($spacers, 1);
+    margin-bottom: map-get($spacers, 2);
   }
 
   .no-results {
     background-color: $white;
     border-radius: 0;
     margin: 0;
-    padding: $dropdown-item-padding-y $dropdown-item-padding-x * 2;
+    padding: $dropdown-item-padding-y $dropdown-item-padding-x;
   }
 }

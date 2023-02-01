@@ -21,7 +21,7 @@ class Command(BaseCommand):
 
         for scss_file in scss_files:
             path = Path(scss_file)
-            css_file = os.path.join(path.parent.parent, 'dist', 'css' f'{path.stem}.min.css')
+            css_file = os.path.join(path.parent.parent, f'dist\\css\\{path.stem}.min.css')
 
             compile_sass(
                 inpath=scss_file,

@@ -15,6 +15,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1']
 
+INTERNAL_IPS = ['127.0.0.1']
+
 INSTALLED_APPS = [
     'core',
     'users',
@@ -140,7 +142,7 @@ AUTH_USER_MODEL = 'users.User'
 
 LOGIN_URL = 'users:login'
 LOGOUT_URL = 'users:logout'
-LOGIN_REDIRECT_URL = 'articles:home'
+LOGIN_REDIRECT_URL = 'articles:article_list'
 
 LANGUAGE_CODE = 'en-us'
 

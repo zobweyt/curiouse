@@ -1,14 +1,13 @@
+from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import redirect
-from django.shortcuts import get_object_or_404
+from django.shortcuts import redirect, get_object_or_404
 from django.views.generic import CreateView, DetailView, UpdateView, ListView
-from django.db.models import Q
 
 from core.utils import TitleMixin
 from .models import Article, Category
-from .mixins import ArticleAuthorRequiredMixin, ArticleEditorMixin, ArticleTitleMixin
-from .forms import SearchForm
+from .decorators import require_article_author
+from .mixins import ArticleEditorMixin, ArticleTitleMixin
 from .services import get_popular_categories
 
 
@@ -21,7 +20,7 @@ class ArticleCreateView(LoginRequiredMixin, TitleMixin, ArticleEditorMixin, Crea
         return super().form_valid(form)
     
 
-class ArticleUpdateView(ArticleAuthorRequiredMixin, ArticleTitleMixin, ArticleEditorMixin, UpdateView):
+class ArticleUpdateView(ArticleTitleMixin, ArticleEditorMixin, UpdateView):
     def get_queryset(self):
         return super().get_queryset().only(
             'category__id', 'title', 'slug', 'body', 'thumbnail', 'description'
@@ -46,9 +45,11 @@ class ArticleDetailView(ArticleTitleMixin, DetailView):
         )
 
 
-def article_delete(request, article_pk, article_slug):
-    get_object_or_404(Article, pk=article_pk, slug=article_slug).delete()
-    return redirect('index')
+@require_article_author
+def article_delete_view(request, pk, slug):
+    get_object_or_404(Article, pk=pk, slug=slug).delete()
+    messages.success(request, 'The article has been successfully deleted.')
+    return redirect('articles:article_list')
 
 
 class ArticleListView(TitleMixin, ListView):
@@ -66,41 +67,6 @@ class ArticleListView(TitleMixin, ListView):
             'category__name', 
             'title', 'thumbnail', 'slug'
         )
-
-
-class ArticleSearchView(ArticleListView):
-    query = None
-    
-    def get(self, request, *args, **kwargs):
-        query = self.request.GET.get('query')
-
-        if query:
-            self.query = query.strip()
-
-        return super().get(request, *args, **kwargs)
-
-    def get_queryset(self):
-        articles = super().get_queryset()
-
-        if self.request.method == 'GET':
-            form = SearchForm(self.request.GET)
-
-            if form.is_valid():
-                if self.query:
-                    lookups = {'title__icontains', 'slug__icontains', 'description__icontains'}
-                    query_filter = Q()
-
-                    for lookup in lookups:
-                        query_filter |= Q(**{lookup: self.query})
-
-                    return articles.filter(query_filter)
-
-            return Article.objects.none()
-
-        return articles
-
-    def get_title(self):
-        return 'Search results for' + (f' "{self.query}"' if self.query else '')
 
 
 class AuthorArticleListView(ArticleListView):
@@ -124,7 +90,7 @@ class AuthorArticleListView(ArticleListView):
 
 class CategoryDetailView(ArticleListView):
     def get(self, request, *args, **kwargs):
-        self.category = get_object_or_404(Category, id=self.kwargs['pk'])
+        self.category = get_object_or_404(Category, pk=self.kwargs['pk'])
         return super().get(request, *args, **kwargs)
     
     def get_queryset(self):

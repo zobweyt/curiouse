@@ -1,10 +1,11 @@
 {% extends "users/form.html" %}
+{% load users_tags %}
 
 {% block aside %}
 <aside class="col-lg-2 col-12">
   <ul class="list-group mb-3">
-    <a class="list-group-item list-group-item-action" href="{% url 'users:personal' %}">Personal</a>
-    <a class="list-group-item list-group-item-action" href="{% url 'users:security' %}">Security</a>
+    <a class="list-group-item list-group-item-action {% get_active_class 'users:personal' %}" href="{% url 'users:personal' %}">Personal</a>
+    <a class="list-group-item list-group-item-action {% get_active_class 'users:security' %}" href="{% url 'users:security' %}">Security</a>
   </ul>
 </aside>
 {% endblock aside %}

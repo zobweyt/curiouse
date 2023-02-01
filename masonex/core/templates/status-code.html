@@ -1,17 +1,19 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<section class="flex-fill d-flex flex-column align-items-center justify-content-center">
-  <hgroup>
-    <h1 class="fs-4 my-3 mb-1">
-      {% block title %}
-      {% endblock title %}
-    </h1>
-    <p class="text-muted">
-      {% block description %}
-      {% endblock description %}
-    </p>
-  </hgroup>
-  <a href="{% url 'index' %}" class="btn btn-primary">Back on main page</a>
+<section class="d-flex justify-content-center">
+  <div>
+    <hgroup>
+      <h1 class="fs-4 my-3 mb-1">
+        {% block title %}
+        {% endblock title %}
+      </h1>
+      <p class="text-muted">
+        {% block description %}
+        {% endblock description %}
+      </p>
+    </hgroup>
+    <a href="{% url 'index' %}" class="btn btn-primary">Back on main page</a>
+  </div>
 </section>
 {% endblock content %}

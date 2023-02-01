@@ -8,7 +8,7 @@ urlpatterns = [
     path('editorjs/', include('django_editorjs_fields.urls')),
     path('users/', include('users.urls')),
     path('articles/', include('articles.urls')),
-    path('',  RedirectView.as_view(pattern_name='articles:home', permanent=False), name='index'),
+    path('',  RedirectView.as_view(pattern_name='articles:article_list', permanent=False), name='index'),
 ]
 
 if settings.DEBUG:

@@ -11,7 +11,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
         scss_files = []
-        ignore_patterns = ['node_modules', '_*.scss']
+        ignore_patterns = ['node_modules', '_*.scss', 'core']
 
         for finder in get_finders():
             for path, storage in finder.list(ignore_patterns):

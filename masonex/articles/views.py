@@ -33,6 +33,8 @@ class ArticleDetailView(ArticleTitleMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["popular_categories"] = get_popular_categories(limit=10)
+        related_articles = Article.objects.filter(category__id=self.object.category.id).exclude(pk=self.object.pk)[:3]
+        context["related_articles"] = related_articles
         return context
 
     def get_queryset(self):

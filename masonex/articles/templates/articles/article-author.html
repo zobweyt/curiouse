@@ -3,7 +3,7 @@
 {% block content %}
 <section class="mb-4 d-flex">
   <div class="w-6 d-flex align-items-center">
-    <img src="{{ request.user.get_avatar_url }}" class="rounded-circle" style="height: 4em">
+    <img src="{{ author.get_avatar_url }}" class="rounded-circle" style="height: 4em">
     <hgroup class="ms-3">
       <h1 class="mb-1 fs-4">{{ author.get_full_name }}</h1>
       {% if author.bio %}

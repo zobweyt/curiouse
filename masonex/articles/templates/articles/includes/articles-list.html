@@ -1,8 +1,8 @@
 {% if articles %}
-<ul class="list-unstyled mb-0 row">
+<ul class="list-unstyled mb-0 row row-gap-4">
   {% for article in articles %}
-  <li class="col-lg-3 col-md-4 col-sm-6 col-12 mb-4">
-    <article class="component-article-listing scale-in">
+  <li class="{% if col_class %}{{ col_class }}{% else %}col-lg-3 col-md-4 col-sm-6 col-12{% endif %}">
+    <article class="component-article-listing">
       <img src="{{ article.thumbnail.url }}" class="article-listing__thumbnail" alt="Thumbnail" loading="lazy">
       <h6 class="mt-xl-3 mt-2 mb-1 article-listing__category">{{ article.category }}</h6>
       <a href="{{ article.get_absolute_url }}" class="article-listing__heading">

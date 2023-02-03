@@ -162,24 +162,30 @@ MEDIA_URL = 'media/'
 
 PHOTOS_PATH = 'photos/%Y/%m/%d/'
 
-EDITORJS_VERSION = '2.26.4'
+EDITORJS_VERSION = '2.26.5'
 
 EDITORJS_DEFAULT_PLUGINS = (
     '@editorjs/paragraph',
     '@editorjs/header',
     '@editorjs/list',
     '@editorjs/quote',
+    '@editorjs/warning',
     '@editorjs/image',
     '@editorjs/code',
+    '@editorjs/embed',
     '@editorjs/underline',
+    '@sotaproject/strikethrough',
     '@editorjs/marker',
     '@editorjs/inline-code',
+    '@editorjs/delimiter',
 )
 
 EDITORJS_DEFAULT_CONFIG_TOOLS = {
     'paragraph': {
         'class': 'Paragraph',
-        'shortcut': 'CMD+SHIFT+A',
+    },
+    'Delimiter': {
+        'class': 'Delimiter'
     },
     'Header': {
         'class': 'Header',
@@ -187,7 +193,7 @@ EDITORJS_DEFAULT_CONFIG_TOOLS = {
         'shortcut': 'CMD+SHIFT+H',
         'config': {
             'placeholder': 'Enter a header',
-            'levels': [1, 2, 3, 4],
+            'levels': [2, 3],
         },
     },
     'List': {
@@ -204,6 +210,11 @@ EDITORJS_DEFAULT_CONFIG_TOOLS = {
             'captionPlaceholder': 'Quote by',
         },
     },
+    'Warning': {
+        'class': 'Warning',
+        'inlineToolbar': True,
+        'shortcut': 'CMD+SHIFT+W',
+    },
     'Code': {
         'class': 'CodeTool',
         'shortcut': 'CMD+SHIFT+C',
@@ -214,26 +225,41 @@ EDITORJS_DEFAULT_CONFIG_TOOLS = {
         'config': {
             'endpoints': {
                 'byFile': reverse_lazy('editorjs_image_upload'),
-                'byUrl': reverse_lazy('editorjs_image_by_url')
+                'byUrl': reverse_lazy('editorjs_image_by_url'),
             }
         },
     },
-    'Underline': {
+    'Embed': {
+        'class': 'Embed',
+    },
+    'underline': {
         'class': 'Underline',
         'shortcut': 'CMD+U',
     },
-    'InlineCode': {
+    'inlineCode': {
         'class': 'InlineCode',
         'shortcut': 'CMD+SHIFT+M',
     },
-    'Marker': {
+    'marker': {
         'class': 'Marker',
         'shortcut': 'CMD+SHIFT+E',
+    },
+    'strikethrough': {
+        'class': 'Strikethrough',
+        'shortcut': 'CMD+SHIFT+X',
     },
 }
 
 EDITORJS_CONFIG_OVERRIDE = {
-    'inlineToolbar': ('bold', 'italic', 'Underline', 'InlineCode', 'Marker', 'link'),
+    'inlineToolbar': (
+        'bold',
+        'italic',
+        'underline',
+        'strikethrough',
+        'inlineCode',
+        'marker',
+        'link',
+    ),
     'minHeight': -1,
     'i18n': {
         'messages': {

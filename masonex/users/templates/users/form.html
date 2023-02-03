@@ -6,6 +6,11 @@
   {% block aside %}
   {% endblock aside %}
   <div class="col-xl-4 col-lg-7 col-12">
+    {% if request.GET.from %}
+      <a href="{{ request.GET.from }}" class="btn btn-icon btn-muted fs-5 mb-2">
+        <i class="ti ti-arrow-left"></i>
+      </a>
+    {% endif %}
     {% include "components/notifications.html" %}
     <form method="post" enctype="multipart/form-data" class="card needs-validation" novalidate>
       {% csrf_token %}

@@ -3,6 +3,7 @@ $header-height: 3.4375em;
 // Prefix for :root CSS variables
 
 $variable-prefix: "msx-";
+$prefix:          $variable-prefix;
 
 // Colors
 
@@ -74,6 +75,7 @@ $legend-font-weight:   $font-weight-medium;
 
 // scss-docs-start option-variables
 $enable-caret:             false;
+$enable-negative-margins:  true;
 // scss-docs-end option-variables
 
 
@@ -85,6 +87,10 @@ $link-hover-color:  #0a58ca;
 $link-decoration:     none;
 $link-transition:     color 0.1s ease-out, background-color 0.1s ease-out;
 // scss-docs-end link-variables
+
+
+$component-hover-bg: $primary-fg;
+$component-hover-color: $primary;
 
 
 // Paragraphs

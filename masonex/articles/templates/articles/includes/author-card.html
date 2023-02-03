@@ -1,0 +1,21 @@
+{% if article.author.bio %}
+<section class="card">
+  <div class="card-stamp">
+    <span class="card-stamp-icon bg-primary"><i class="icon ti ti-license"></i></span>
+  </div>
+  <div class="card-body">
+    <h5 class="mb-3">About the author</h5>
+    <div class="d-flex gap-3 px-3">
+      <a href="{{ author.get_absolute_url }}" class="align-self-start">
+        <img src="{{ author.get_avatar_url }}" class="rounded-4 shadow-sm" style="width: 3.5em">
+      </a>
+      <div class="lh-sm">
+        <a href="{{ author.get_absolute_url }}" class="d-inline-flex mb-1 fs-lg fw-medium text-decoration-underline">
+          {{ author.get_full_name }}
+        </a>
+        <p class="text-muted">{{ author.bio }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+{% endif %}

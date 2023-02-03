@@ -1,9 +1,9 @@
 $(document).ready(function() {
-    let contents = $("#contents");
+    let tableOfContents = $("#tableOfContents");
     const headers = $(".article__body").find('h1, h2, h3, h4');
 
     if (!headers[0]) {
-        contents.append("This article has no headers.");
+        tableOfContents.append("This article has no headers.");
         return;
     }
 
@@ -11,6 +11,7 @@ $(document).ready(function() {
         const text = $(this).text();
         const id = escape(text.toLowerCase());
         $(this).attr('id', id)
-        contents.append($("<li>").append($("<a>", {"href": "#" + id}).text(text)));
+        tableOfContents.append($("<li>", {"class": "nav-item"}).append(
+            $("<a>", {"href": "#" + id, "class": "nav-link"}).text(text)));
     });
 });

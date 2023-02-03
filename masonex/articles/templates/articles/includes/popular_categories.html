@@ -1,0 +1,21 @@
+{% if popular_categories %}
+<div class="card mb-3">
+  <div class="card-stamp">
+    <div class="card-stamp-icon bg-danger">
+      <i class="icon ti ti-stars"></i>
+    </div>
+  </div>
+  <div class="card-body">
+    <h6 class="mb-2 fw-medium">Popular Topics</h6>
+    <ul class="nav nav-pills">
+      {% for category in popular_categories %}
+      <li class="nav-item">
+        <a href="{{ category.get_absolute_url }}" class="nav-link">
+          {{ category }}
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+{% endif %}

@@ -1,6 +1,6 @@
 $(document).ready(function() {
     $('.bs-searchbox').find('.form-control').attr('placeholder', 'Filter');
-
+    
     const form = $('.needs-validation');
 
     form.on('change input', function() {

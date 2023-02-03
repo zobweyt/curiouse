@@ -3,184 +3,72 @@
 
 {% block content %}
 <div class="row">
+
   <div class="col-lg-3 d-lg-block d-none">
-    <aside class="pe-2 aside-col">
-      <div class="card shadow-sm mb-3">
+    <aside class="aside-col pe-2">
+      <div class="card mb-3">
         <div class="card-stamp">
-          <div class="card-stamp-icon bg-primary">
-            <i class="icon ti ti-h-5"></i>
-          </div>
+          <span class="card-stamp-icon bg-primary"><i class="icon ti ti-album"></i></span>
         </div>
         <div class="card-body">
-          <h6 class="">On this page</h6>
-          <ul id="contents"></ul>
-        </div>
-      </div>
-      <div class="card shadow-sm">
-        <div class="card-stamp">
-          <div class="card-stamp-icon bg-primary">
-            <i class="icon ti ti-album"></i>
-          </div>
-        </div>
-        <div class="card-body">
-          <h6 class="mb-2 fw-medium">Your bookmarks</h6>
-          <ul class="list-unstyled">
-            {% for related_article in related_articles %}
-            <li class="mb-1">
-              <article>
-                <a href="{{ related_article.get_absolute_url }}" class="fw-medium">
-                  <p class="mb-0 fs-base">{{ related_article }}</p>
-                </a>
-              </article>
-            </li>
-            {% endfor %}
-            <li><a href="#" class="d-inline-flex mt-2 font-monospace fw-semibold">View all -></a></li>
-          </ul>
+          <h6>On this page</h6>
+          <ul id="tableOfContents" class="nav nav-pills"></ul>
         </div>
       </div>
     </aside>
   </div>
 
-  <div class="col-lg-9 col-xl-6">
-    
-    <small class="d-inline-flex mb-3 px-2 py-1 fw-semibold text-success-emphasis bg-success-subtle border border-success-subtle rounded-2">
-      {{ article.category }}
-    </small>
-    <div class="mb-3 d-flex justify-content-between align-items-center pb-3 border-bottom">
-      <section class="d-flex gap-2">
-        <a href="{{ article.author.get_absolute_url }}">
-          <img src="{{ article.author.get_avatar_url }}" class="rounded-circle" style="width: 2.125em">
-        </a>
-        <div class="d-flex flex-column justify-content-between lh-1">
-          <a href="{{ article.author.get_absolute_url }}" class="fw-medium text-body">
-            {{ article.author.get_full_name }}
+  <div class="col-lg-9 col-xl-6 d-flex flex-column gap-4">
+    <section class="pb-3 border-bottom">
+      <a href="{{ article.category.get_absolute_url }}" class="subtle subtle-primary">
+        {{ article.category }}
+      </a>
+      <h1 class="mb-3 fs-4 lh-1">{{ article }}</h1>
+      <div class="d-flex justify-content-between align-items-center">
+        <section class="d-flex gap-2">
+          <a href="{{ article.author.get_absolute_url }}">
+            <img src="{{ article.author.get_avatar_url }}" class="rounded-circle" style="width: 2.25em">
           </a>
-          <p class="mb-0 fs-sm text-muted">
-            {{ article.created_at|date:"F d, Y" }}
-          </p>
-        </div>
-      </section>
-      
-      <section class="d-flex gap-2">
-        <a href="#" class="btn btn-icon"><i class="icon ti ti-bookmark"></i></a>
-        {% if request.user == article.author or request.user.is_staff %}
-        <div class="dropdown">
-          <a href="#" class="btn btn-icon" data-bs-toggle="dropdown" aria-expanded="false">
-            <i class="icon ti ti-dots"></i>
+          <div class="lh-sm">
+            <a href="{{ article.author.get_absolute_url }}" class="fw-medium text-body">
+              {{ article.author.get_full_name }}
+            </a>
+            <small class="d-block text-muted">{{ article.created_at|date:"F d, Y" }}</small>
+          </div>
+        </section>
+
+        <section class="d-flex gap-2">
+          <a href="#" class="btn btn-icon"><i class="icon ti ti-bookmark"></i></a>
+          {% if request.user == article.author or request.user.is_staff %}
+          <a href="{% url 'articles:article_update' article.pk article.slug %}" class="btn btn-icon">
+            <i class="icon ti ti-pencil"></i>
           </a>
-          <ul class="dropdown-menu dropdown-menu-end">
-            <li><h6 class="dropdown-header">Manage this article</h6></li>
-            <li>
-              <a class="dropdown-item" href="{% url 'articles:article_update' article.pk article.slug %}">
-                <i class="icon ti ti-pencil"></i>Edit
-              </a>
-            </li>
-            <li>
-              <a class="dropdown-item text-danger" href="#" data-bs-toggle="modal" data-bs-target="#articleDeleteModal">
-                <i class="icon ti ti-trash"></i>Delete
-              </a>
-            </li>
-          </ul>
-        </div>
-        {% url 'articles:article_delete' article.pk article.slug as article_delete_url %}
-        {% include "components/confirm.html" with id="articleDeleteModal" title="Delete article?" text="Do you really want to delete this article?" action_url=article_delete_url %}
-        {% endif %}
-      </section>
-    </div>
+          <div>
+            <a class="btn btn-icon text-danger" href="#" data-bs-toggle="modal" data-bs-target="#articleDeleteModal">
+              <i class="icon ti ti-trash"></i>
+            </a>
+            {% url 'articles:article_delete' article.pk article.slug as article_delete_url %}
+            {% include "components/confirm.html" with id="articleDeleteModal" title="Delete article?" text="Do you really want to delete this article?" action_url=article_delete_url %}
+          </div>
+          {% endif %}
+        </section>
+      </div>      
+    </section>
 
     <article class="article__body text-break">
       {{ article.body | editorjs }}
     </article>
-    
-    <section class="mt-4">
-      {% if not user.is_authenticated %}
-        <div class="card mb-3 shadow-sm">
-          <div class="card-stamp">
-            <div class="card-stamp-icon bg-success">
-              <i class="icon ti ti-360"></i>
-            </div>
-          </div>
-          <div class="card-body">
-            <h5 class="mb-3">Want to learn more?</h5>            
-            <div class="px-3">
-              <p>Join our Masonex community of over a million authors for free! Get help and share knowledge, find tutorials and tools that will help you grow, and subscribe to topics of interest.</p>
-              <a href="{% url 'users:new' %}" class="btn btn-primary">Sign up now</a>
-            </div>
-          </div>
-        </div>
-      {% endif %}
 
-      {% if article.author.bio %}
-      <div class="card shadow-sm">
-        <div class="card-stamp">
-          <div class="card-stamp-icon bg-primary">
-            <i class="icon ti ti-license"></i>
-          </div>
-        </div>
-        <div class="card-body">
-          <h5 class="mb-3">About the author</h5>
-          <div class="d-flex px-3">
-            <a href="{{ article.author.get_absolute_url }}">
-              <img src="{{ article.author.get_avatar_url }}" class="rounded-4 shadow-sm" style="width: 3.5em">
-            </a>
-            <hgroup class="ms-3">
-              <a href="{{ article.author.get_absolute_url }}" class="d-inline-flex mb-1 fs-lg fw-medium text-decoration-underline">
-                {{ article.author.get_full_name }}
-              </a>
-              <p class="lh-sm text-muted">{{ article.author.bio }}</p>
-            </hgroup>
-          </div>
-        </div>        
-      </div>        
-      {% endif %}
-    </section>
-
-    <ul class="list-unstyled mt-4 row">
-      {% for related_article in related_articles %}
-      <li class="col-lg-4 col-6 mb-4">
-        <article class="component-article-listing scale-in">
-          <img src="{{ related_article.thumbnail.url }}" class="article-listing__thumbnail shadow-sm" alt="Thumbnail" loading="lazy">
-          <h6 class="mt-xl-3 mt-2 mb-1 article-listing__category">{{ related_article.category }}</h6>
-          <a href="{{ related_article.get_absolute_url }}" class="article-listing__heading">
-            <p class="mb-0 fs-base text-truncate">{{ related_article }}</p>
-          </a>
-          <h6 class="mt-1 article-listing__author">By {{ related_article.author.get_full_name }}</h6>
-        </article>
-      </li>
-      {% endfor %}
-    </ul>
+    {% include 'articles/includes/signup-card.html' %}
+    {% include 'articles/includes/author-card.html' with author=article.author %}
+    {% include 'articles/includes/articles-list.html' with articles=related_articles col_class='col-lg-4 col-6' %}
   </div>
 
-  {% if popular_categories %}
+  {% if popular_categories or not user.is_authenticated %}
   <div class="col-lg-3 d-xl-block d-none">
     <aside class="ps-2 aside-col">
-      <div class="mb-3 p-3 text-black-50 bg-warning-subtle border border-warning-subtle rounded-2 shadow-sm">
-        <div class="card-stamp">
-          <div class="card-stamp-icon bg-secondary">
-            <i class="icon ti ti-bell"></i>
-          </div>
-        </div>
-        <h6>Explore with Masonex!</h6>
-        <p class="lh-sm">Get personalized recommendations based on the articles you've viewed directly to your inbox.</p>
-        <a href="" class="btn btn-sm btn-outline-success">Turn on</a>
-        <a href="" class="btn btn-sm btn-outline-secondary ms-2">No, thanks</a>
-      </div>
-      <div class="card shadow-sm">
-        <div class="card-stamp">
-          <div class="card-stamp-icon bg-danger">
-            <i class="icon ti ti-stars"></i>
-          </div>
-        </div>
-        <div class="card-body">
-          <h6 class="mb-2 fw-medium">Popular Topics</h6>
-          <ul class="gap-1">
-            {% for category in popular_categories %}
-            <li><a href="{{ category.get_absolute_url }}">{{ category }}</a></li>
-            {% endfor %}
-            <li><a href="#" class="d-inline-flex mt-2 font-monospace fw-semibold">Explore all -></a></li>
-          </ul>
-        </div>
-      </div>
+      {% include 'articles/includes/signup-alert.html' with author=article.author %}
+      {% include 'articles/includes/popular_categories.html' %}
     </aside>
   </div>
   {% endif %}
@@ -188,5 +76,5 @@
 {% endblock content %}
 
 {% block extrascript %}
-<script src="{% static "articles/js/headers.js" %}"></script>
+<script src="{% static 'articles/js/headers.js' %}"></script>
 {% endblock extrascript %}

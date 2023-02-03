@@ -1,4 +1,5 @@
 .btn-muted {
+  --#{$prefix}btn-bg: #{$body-bg};
   --#{$prefix}btn-color: #{$gray-700};
   --#{$prefix}btn-border-color: #{$border-color};
   --#{$prefix}btn-hover-color: #{$gray-700};
@@ -12,39 +13,4 @@
   @extend .btn-muted;
   --#{$prefix}btn-padding-x: #{$btn-icon-padding-x};
   --#{$prefix}btn-padding-y: #{$btn-icon-padding-y};
-}
-
-.card-stamp {
-  --#{$prefix}stamp-size: 7rem;
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: calc(var(--#{$prefix}stamp-size) * 1);
-  height: calc(var(--#{$prefix}stamp-size) * 1);
-  max-height: 100%;
-  border-top-right-radius: 4px;
-  opacity: .2;
-  overflow: hidden;
-  pointer-events: none;
-}
-
-.card-stamp-icon {
-  color: $white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 100rem;
-  width: calc(var(--#{$prefix}stamp-size) * 1);
-  height: calc(var(--#{$prefix}stamp-size) * 1);
-  position: relative;
-  top: calc(var(--#{$prefix}stamp-size) * -.25);
-  right: calc(var(--#{$prefix}stamp-size) * -.25);
-  font-size: calc(var(--#{$prefix}stamp-size) * .75);
-  transform: rotate(10deg);
-}
-
-.card-stamp-icon .icon {
-  font-size: inherit !important;
-  width: calc(var(--#{$prefix}stamp-size) * .75) !important;
-  height: calc(var(--#{$prefix}stamp-size) * .75) !important;
 }

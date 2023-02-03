@@ -1,0 +1,12 @@
+{% if not user.is_authenticated %}
+<div class="alert alert-warning text-black-50">
+  <div class="card-stamp">
+    <div class="card-stamp-icon bg-secondary">
+      <i class="icon ti ti-telescope"></i>
+    </div>
+  </div>
+  <h6>Explore with Masonex!</h6>
+  <p class="lh-sm">Get personalized recommendations based on the articles you've viewed directly to your inbox.</p>
+  <a href="{% url 'users:new' %}?from={{ request.path }}" class="btn btn-sm btn-outline-secondary">Start Journey</a>
+</div>
+{% endif %}

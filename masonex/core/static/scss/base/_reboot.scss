@@ -2,23 +2,23 @@
   scroll-margin-top: calc(#{$header-height} / 2 + 0.5em) !important;
 }
 
+img,
+.card,
+.alert,
+.pagination,
+.list-group {
+  box-shadow: $box-shadow-sm;
+}
+
 header {
   height: $header-height;
+  box-shadow: $box-shadow-sm;
+  background-color: rgba($white, 0.95);
+  backdrop-filter: blur(2px);
 }
 
 .ce-scroll-locked header {
   z-index: 0 !important;
-}
-
-.nav-link {
-  &:hover {
-    background-color: $primary-fg;
-  }
-
-  &:active {
-    color: $nav-pills-link-active-color;
-    background-color: $nav-pills-link-active-bg;
-  }
 }
 
 .icon {

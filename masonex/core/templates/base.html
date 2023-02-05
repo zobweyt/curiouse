@@ -10,37 +10,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons@latest/iconfont/tabler-icons.min.css"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/css/tabler.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/css/tom-select.min.css">
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/css/tom-select.min.css"> -->
     <script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/js/tabler.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/js/tom-select.complete.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/autosize@5.0.2/dist/autosize.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/js/tom-select.complete.min.js"></script> -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/autosize@5.0.2/dist/autosize.min.js"></script> -->
     <link rel="stylesheet" href="{% static 'articles/dist/css/main.min.css' %}"/>
     <style>
-      @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&display=swap');
-
+      @import url('https://rsms.me/inter/inter.css');
       :root {
-        --tblr-font-sans-serif: 'Rubik', -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, sans-serif;
+      	--tblr-font-sans-serif: 'Inter Var', -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, sans-serif;
+      }
+      body {
+      	font-feature-settings: "cv03", "cv04", "cv11";
       }
     </style>
     {% block extrastyle %}
     {% endblock extrastyle %}
-    <script>
-      autosize(document.querySelectorAll('textarea'));
-      console.log(autosize)
-    </script>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
     <script src="{% static 'js/main.js' %}"></script>
     {% block extrascript %}
     {% endblock extrascript %}
   </head>
-  <body class="d-flex flex-column min-vh-100">
-    {% block body %}
-    {% include 'includes/header.html' %}
-    <main class="container-xxl flex-fill d-flex flex-column my-md-4 my-2">
-      {% block content %}
-      {% endblock content %}
-    </main>
-    {% include 'includes/footer.html' %}
-    {% endblock body %}
+  <body>
+    <div class="page">
+      {% block body %}
+      {% include 'includes/header.html' %}
+      <div class="page-wrapper">
+        <div class="container-xxl">
+          <main class="page-body">
+            {% block content %}
+            {% endblock content %}
+          </main>
+        </div>
+        {% include 'includes/footer.html' %}
+      </div>
+      {% endblock body %}
+    </div>    
   </body>
 </html>

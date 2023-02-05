@@ -1,8 +1,0 @@
-$google-fonts: (
-  "Rubik",
-  "JetBrains Mono"
-);
-
-@each $google-font in $google-fonts {
-  @import url("https://fonts.googleapis.com/css2?family=#{str-replace($google-font, ' ', '+')}:wght@300;400;500;600;700&display=swap");
-}

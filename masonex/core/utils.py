@@ -1,4 +1,4 @@
-from django.forms.fields import CharField
+from django.forms.fields import CharField, ChoiceField
 
 
 class TitleMixin:
@@ -25,6 +25,7 @@ class DecorateFormFieldsMixin:
     css_class = "form-control"
     decorated_fields = (
         CharField,
+        ChoiceField,
     )
 
     def __init__(self, *args, **kwargs):

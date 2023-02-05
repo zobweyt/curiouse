@@ -46,7 +46,7 @@ class ArticleDetailView(ArticleTitleMixin, DetailView):
             'title', 'slug', 'created_at', 'body'
         )
 
-
+ 
 @require_article_author
 def article_delete_view(request, pk, slug):
     get_object_or_404(Article, pk=pk, slug=slug).delete()

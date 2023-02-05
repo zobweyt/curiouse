@@ -11,7 +11,6 @@ class ArticleEditorForm(DecorateFormFieldsMixin, forms.ModelForm):
         widget=forms.Select(attrs={
             'required': 'true',
             'title': 'Choose category',
-            'class': 'selectpicker',
             'data-size': 4,
             'data-live-search': 'true',
             'data-style': 'btn-sm btn-muted w-auto',

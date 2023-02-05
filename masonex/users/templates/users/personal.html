@@ -3,40 +3,36 @@
 
 {% block form_body %}
 <div class="d-flex align-items-center gap-2">
-  <div>
-    <div class="dropdown">
-      <a href="#" class="dropdown-toggle" id="avatar" data-bs-toggle="dropdown" aria-expanded="false"> 
-        <img src="{{ user.get_avatar_url }}" class="d-block rounded" style="width: 3.5em">
-      </a>
-      <ul class="dropdown-menu">
-        <li>
-          <label for="id_avatar" class="dropdown-item cursor-pointer">
-            <i class="icon ti ti-photo-edit"></i>
-            {{ form.avatar.label }}
-            {{ form.avatar }}
-        </li>
-        {% if user.avatar %}
-        <li>
-          <a href="#" class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#avatarRemoveModal">
-            <i class="icon ti ti-trash"></i>Delete photo
-          </a>
-        </li>
-        {% endif %}
-      </ul>
-    </div>
+  <div class="dropdown">
+    <a id="avatar" class="avatar avatar-md d-block" data-bs-toggle="dropdown" aria-expanded="false"> 
+      <img src="{{ user.get_avatar_url }}" class="avatar avatar-md d-block">
+    </a>
+    <ul class="dropdown-menu">
+      <li>
+        <label for="id_avatar" class="dropdown-item cursor-pointer">
+          <i class="icon dropdown-item-icon ti ti-photo-edit"></i>
+          {{ form.avatar.label }}
+          {{ form.avatar }}
+      </li>
+      {% if user.avatar %}
+      <li>
+        <a href="#" class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#avatarRemoveModal">
+          <i class="icon dropdown-item-icon text-danger ti ti-trash"></i>Delete photo
+        </a>
+      </li>
+      {% endif %}
+    </ul>
     {% url "users:user_avatar_delete" as avatar_delete_url %}
     {% include "components/confirm.html" with id="avatarRemoveModal" title="Remove avatar?" text="Do you really want to remove the current avatar?" action_url=avatar_delete_url %}
   </div>
-  <hgroup class="lh-sm">
-    <h2 class="mb-1 fs-base">{{ user.get_full_name }}</h2>
-    <p class="mb-0 text-muted fs-sm">Provide basic information to make using Masonex more convenient</p>
-  </hgroup>
-</div>
-<section>
-  <div class="row mb-1">
-    {% include "components/input.html" with field=form.first_name wrapper_class="col-6" %}
-    {% include "components/input.html" with field=form.last_name wrapper_class="col-6" %}
+  <div>
+    <h3 class="mb-1">{{ user.get_full_name }}</h3>
+    <div class="text-muted">Provide some basic information to make using Masonex more convenient.</div>
   </div>
-  {% include "components/input.html" with field=form.bio %}
-</section>
+</div>
+<div class="row">
+  {% include "components/input.html" with field=form.first_name wrapper_class="col-6" %}
+  {% include "components/input.html" with field=form.last_name wrapper_class="col-6" %}
+</div>
+{% include "components/input.html" with field=form.bio %}
 {% endblock form_body %}

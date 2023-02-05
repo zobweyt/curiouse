@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-{% load %}
 
 {% block content %}
 <div class="row d-flex justify-content-center">
@@ -7,22 +6,26 @@
   {% endblock aside %}
   <div class="col-xl-4 col-lg-7 col-12">
     {% if request.GET.from %}
-      <a href="{{ request.GET.from }}" class="btn btn-icon btn-muted fs-5 mb-2">
-        <i class="ti ti-arrow-left"></i>
+      <a href="{{ request.GET.from }}" class="btn mb-2">
+        <i class="icon ti ti-arrow-left"></i>Back
       </a>
     {% endif %}
     {% include "components/notifications.html" %}
     <form method="post" enctype="multipart/form-data" class="card needs-validation" novalidate>
       {% csrf_token %}
-      <div class="card-header bg-transparent">
-        <h1 class="fs-5 mb-0">{{ title }}</h1>
+      <div class="card-status-start bg-primary"></div>
+      <div class="ribbon bg-red">beta</div>
+      <div class="card-header">
+        <h3 class="card-title">{{ title }}</h3>
       </div>
-      <div class="card-body d-flex flex-column gap-3">
-        {% block form_body %}
-          {% for field in form %}
-            {% include "components/input.html" %}
-          {% endfor %}
-        {% endblock form_body %}
+      <div class="card-body">
+        <div class="d-flex flex-column gap-3">
+          {% block form_body %}
+            {% for field in form %}
+              {% include "components/input.html" %}
+            {% endfor %}
+          {% endblock form_body %}
+        </div>
       </div>
       <div class="card-footer bg-transparent">
         <button type="submit" disabled class="btn btn-success">Submit</button>

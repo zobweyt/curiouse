@@ -2,10 +2,68 @@
 {% load users_tags %}
 
 {% block aside %}
-<aside class="col-lg-2 col-12">
-  <ul class="list-group mb-3">
-    <a class="list-group-item list-group-item-action {% get_active_class 'users:personal' %}" href="{% url 'users:personal' %}">Personal</a>
-    <a class="list-group-item list-group-item-action {% get_active_class 'users:security' %}" href="{% url 'users:security' %}">Security</a>
-  </ul>
+<div class="container ">
+  <a class="btn d-lg-none d-block mb-2 float-start" data-bs-toggle="offcanvas" href="#settingsOffcanvas" role="button" aria-controls="a">
+    <i class="icon ti ti-menu-2"></i>
+    Settings
+  </a>
+</div>
+<aside class="col-lg-3 col-12">
+  <div class="offcanvas-lg offcanvas-end" id="settingsOffcanvas">
+    <div class="offcanvas-header">
+      <h2 class="offcanvas-title">{{ title }}</h2>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" data-bs-target="#settingsOffcanvas"></button>
+    </div>
+    <div class="offcanvas-body flex-column">
+      <div class="card mb-3">
+        <div class="card-stamp">
+          <div class="card-stamp-icon bg-cyan"><i class="ti ti-adjustments-horizontal"></i></div>
+        </div>
+        <div class="card-header">
+          <h3 class="card-title">Settings</h3>
+        </div>
+        <div class="list-group list-group-flush">
+          <a class="list-group-item list-group-item-action {% get_active_class 'users:personal' %}" href="{% url 'users:personal' %}">
+            <i class="icon ti ti-id me-1"></i>
+            Personal
+          </a>
+          <a class="list-group-item list-group-item-action {% get_active_class 'users:security' %}" href="{% url 'users:security' %}">
+            <i class="icon ti ti-fingerprint me-1"></i>
+            Security
+          </a>
+          <a class="list-group-item list-group-item-action" href="#">
+            <i class="icon ti ti-bell-ringing me-1"></i>
+            Notifications
+          </a>
+        </div>
+      </div>
+      {% if not user.bio %}
+      <div class="card">
+        <div class="card-body">
+          <h3 class="card-title">Finish customizing profile</h3>
+          <ul class="steps steps-vertical">
+            <li class="step-item">
+              <div class="h4 m-0">Create account</div>
+              <div class="text-muted">Get interested in the possibilities of our platform.</div>
+            </li>
+            <li class="step-item active">
+              <div class="h4 m-0">Full readiness</div>
+              <div class="text-muted">Describe your personal activities in <a href="{% url 'users:personal' %}"> bio section</a>.</div>
+            </li>
+            <li class="step-item">
+              <div class="h4 m-0">Finalized</div>
+              <div class="text-muted">Finish setting up your profile.</div>
+            </li>
+          </ul>
+        </div>
+        <div class="progress card-progress">
+          <div class="progress-bar" style="width: 66%" role="progressbar" aria-valuenow="38" aria-valuemin="0" aria-valuemax="100" aria-label="38% Complete">
+            <span class="visually-hidden">66% Complete</span>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+  </div>
 </aside>
 {% endblock aside %}

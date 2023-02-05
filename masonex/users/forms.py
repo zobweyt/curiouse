@@ -32,8 +32,8 @@ class ProfileUpdateForm(DecorateFormFieldsMixin, forms.ModelForm):
         fields = ('avatar', 'first_name', 'last_name', 'bio')
         widgets = {
             'bio': forms.Textarea(attrs={
-                'rows': 5,
-                'placeholder': 'Describe your activities'
+                'rows': 4,
+                'placeholder': 'Describe your activities',
             }),
             'avatar': forms.FileInput(attrs={
                 'hidden': True,

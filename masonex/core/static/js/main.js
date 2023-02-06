@@ -48,7 +48,7 @@ $(document).ready(function() {
 
         if (tagName == undefined || tagName.toLowerCase() != 'img') {
             image = $(document.createElement('img'));
-            image.addClass('rounded cover-image cursor-pointer');
+            image.addClass('rounded-4 flex-fill');
             target.html(image);
         }
 

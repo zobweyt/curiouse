@@ -1,18 +1,28 @@
 {% if articles %}
-<ul class="list-unstyled mb-0 row row-gap-4">
+<div class="row row-gap-4">
   {% for article in articles %}
-  <li class="{% if col_class %}{{ col_class }}{% else %}col-lg-3 col-md-4 col-sm-6 col-12{% endif %}">
-    <article class="component-article-listing">
-      <img src="{{ article.thumbnail.url }}" class="article-listing__thumbnail" alt="Thumbnail" loading="lazy">
-      <h6 class="mt-xl-3 mt-2 mb-1 article-listing__category">{{ article.category }}</h6>
-      <a href="{{ article.get_absolute_url }}" class="article-listing__heading">
-        <p class="mb-0 fs-base text-truncate">{{ article }}</p>
-      </a>
-      <h6 class="mt-1 article-listing__author">By {{ article.author.get_full_name }}</h6>
+  <div class="{% if col_class %}{{ col_class }}{% else %}col-lg-3 col-md-4 col-sm-6 col-12{% endif %}">
+    <article class="card border-0 bg-body card-link-pop">
+      <a href="{{ article.get_absolute_url }}" class="text-decoration-none text-body fw-bold" title="{{ article }}">
+        <div class="ratio ratio-4x3">
+          <img src="{{ article.thumbnail.url }}" class="rounded-4" loading="lazy">
+        </div>
+        <div class="d-flex mt-2">
+          <img src="{{ article.author.get_avatar_url }}" class="avatar rounded-4">
+          <div class="ms-2">
+            <span class="badge bg-primary-lt">{{ article.category }}</span>
+            {% if chars %}
+            <div class="fs-3 mt-1">{{ article|truncatechars:chars }}</div>
+            {% else %}
+            <div class="fs-3 mt-1">{{ article|truncatechars:32 }}</div>
+            {% endif %}
+          </div>
+        </div>
+      </a>      
     </article>
-  </li>
+  </div>
   {% endfor %}
-</ul>
+</div>
 {% include 'articles/includes/pagination.html' %}
 {% else %}
 <h1 class="fs-4">There are no articles yet.</h1>

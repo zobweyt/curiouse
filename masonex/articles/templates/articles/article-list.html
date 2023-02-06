@@ -2,5 +2,36 @@
 
 {% block content %}
 {% include "components/notifications.html" %}
-{% include 'articles/includes/articles-list.html' %}
+<div class="row mb-3">
+  <div class="col-4">
+    <div id="carousel-captions" class="carousel slide carousel-fade" data-bs-ride="carousel">
+      <div class="carousel-inner rounded-4">
+        {% for article in articles|slice:":3" %}
+        <a href="{{ article.get_absolute_url }}" class="carousel-item {% if forloop.counter == 1 %}active{% endif %}">
+          <div class="ratio" style="--tblr-aspect-ratio: 65%;">
+            <img src="{{ article.thumbnail.url }}" class="d-block w-100" loading="lazy">
+          </div>
+          <div class="carousel-caption-background d-none d-md-block"></div>
+          <div class="carousel-caption d-none d-md-block pb-2">
+            <h6>{{ article.category }}</h6>
+            <h3 class="mb-0">{{ article }}</h3>
+          </div>
+        </a>
+        {% endfor %}
+      </div>
+      <a class="carousel-control-prev" href="#carousel-captions" role="button" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#carousel-captions" role="button" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </a>
+    </div>
+  </div>
+  <div class="col-8">
+    {% include 'articles/includes/articles-list.html' with articles=articles|slice:"3:6" col_class="col-4" chars=48 %}
+  </div>
+</div>
+{% include 'articles/includes/articles-list.html' with articles=articles|slice:"6:" %}
 {% endblock content %}

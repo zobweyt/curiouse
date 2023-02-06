@@ -8,7 +8,10 @@
     <div class="navbar-nav flex-row">
       {% if request.user.is_authenticated %}
       <div class="nav-item me-3">
-        <a href="{% url 'articles:article_create' %}" class="btn btn-primary d-sm-block d-none">New article</a>
+        <a href="{% url 'articles:article_create' %}" class="btn btn-primary d-sm-block d-none">
+          <i class="icon ti ti-text-plus"></i>
+          New article
+        </a>
       </div>
       <div class="nav-item dropdown text-end">
         <a type="button" class="nav-link" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">

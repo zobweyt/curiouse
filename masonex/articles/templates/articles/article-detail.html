@@ -37,7 +37,7 @@
           </div>
         </section>
 
-        <section class="d-flex gap-2">
+        <section class="btn-list">
           <a href="#" class="btn btn-icon"><i class="icon ti ti-bookmark"></i></a>
           {% if request.user == article.author or request.user.is_staff %}
           <a href="{% url 'articles:article_update' article.pk article.slug %}" class="btn btn-icon">

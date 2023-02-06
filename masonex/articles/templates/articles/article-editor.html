@@ -4,40 +4,35 @@
 {% block content %}
 <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
   {% csrf_token %}
-  <div class="col-lg-3 col-12 mb-lg-0 mb-3">
-    {% include "components/notifications.html" %}
-      <div class="card">
-        <div class="card-header bg-transparent">
-          <h5 class="mb-0">Cover</h5>
-        </div>
-        <div class="card-body">
-          <label for="{{ form.thumbnail.id_for_label }}" class="ratio ratio-4x3 cursor-pointer">
-            <div id="thumbnail" class="d-flex w-100">
-              {% if article %}
-              <img src="{{ article.thumbnail.url }}" class="rounded-4">
-              {% else %}
-              <div class="px-2 py-5 border-dashed rounded-4 flex-fill d-flex align-items-center justify-content-center flex-column">
-                <i class="icon icon-lg ti ti-upload mb-3"></i>
-                <h3>Upload thumbnail</h3>
-                <div class="form-hint">Aspect ratio 4x3</div>
-              </div>
-              {% endif %}
-            </div>
-            {% include 'components/input.html' with field=form.thumbnail %}
-          </label>
-          {{ form.category }}
-          {{ form.title }}
-          {% include 'components/input.html' with field=form.description wrapper_class='mt-2' %}
-        </div>
-        <div class="card-footer bg-transparent">
-          <button type="submit" class="btn btn-dark" disabled on-validation-text="Processing...">Submit</button>
+  {% include "components/notifications.html" %}
+  <div class="card">
+    <div class="card-header">
+      <h3>Cover</h3>
+    </div>
+    <div class="card-body">
+      <label for="{{ form.thumbnail.id_for_label }}" class="ratio ratio-4x3 cursor-pointer">
+        <div id="thumbnail" class="d-flex w-100">
           {% if article %}
-          <a href="{{ article.get_absolute_url }}" class="btn btn-muted">Cancel</a>
+          <img src="{{ article.thumbnail.url }}" class="rounded-4">
+          {% else %}
+          <div class="px-2 py-5 border-dashed rounded-4 flex-fill d-flex align-items-center justify-content-center flex-column">
+            <i class="icon icon-lg ti ti-upload mb-3"></i>
+            <h3>Upload thumbnail</h3>
+            <div class="form-hint">Aspect ratio 4x3</div>
+          </div>
           {% endif %}
         </div>
-      </div>
+        {% include 'components/input.html' with field=form.thumbnail %}
+      </label>
+      {{ form.category }}
+      {{ form.title }}
+    </div>
   </div>
   {{ form.body }}
+  <div class="card card-body mt-2">
+    {% include 'components/input.html' with field=form.description wrapper_class='mt-2' %}
+  </div>
+  <button type="submit" class="btn btn-success mt-2" disabled on-validation-text="Processing...">Submit</button>
 </form>
 {% endblock content %}
 

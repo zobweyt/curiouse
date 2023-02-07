@@ -25,7 +25,7 @@ class DecorateFormFieldsMixin:
     css_class = "form-control"
     decorated_fields = (
         CharField,
-        ChoiceField,
+        # ChoiceField,
     )
 
     def __init__(self, *args, **kwargs):

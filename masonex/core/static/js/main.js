@@ -15,19 +15,19 @@ $(document).ready(function() {
     });
 
     form.submit(function() {
-        let button = $(this).find('button[type=submit]');
+        var button = $(this).find('button[type=submit]');
         button.prop('disabled', true);
 
         if (!$(this)[0].checkValidity()) {
             $(this).addClass('was-validated');
-            $(this).find('.form-control:invalid').filter(':first').focus()
+            $(this).find('.form-control:invalid').filter(':first').focus();
             return false;
         }
 
         const text = button.attr('on-validation-text');
 
-        if (text != "") {
-            button.text(text);
+        if (text != "" && text != undefined) {
+            button.html('<span class="spinner-border spinner-border-sm me-2" role="status"></span>' + text);
         }
     });
 

@@ -4,11 +4,11 @@
     <div class="card-stamp-icon bg-danger"><i class="ti ti-stars"></i></div>
   </div>
   <div class="card-body">
-    <h6 class="mb-2 fw-medium">Popular Topics</h6>
-    <ul class="nav nav-pills">
+    <h3 class="card-title">Popular now</h3>
+    <ul class="d-flex gap-2 list-unstyled flex-wrap">
       {% for category in popular_categories %}
-      <li class="nav-item">
-        <a href="{{ category.get_absolute_url }}" class="nav-link">
+      <li>
+        <a href="{{ category.get_absolute_url }}" class="badge bg-primary-lt text-decoration-none">
           {{ category }}
         </a>
       </li>

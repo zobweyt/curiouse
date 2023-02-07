@@ -11,7 +11,6 @@ $(document).ready(function() {
         const text = $(this).text();
         const id = escape(text.toLowerCase());
         $(this).attr('id', id)
-        tableOfContents.append($("<li>", {"class": "nav-item"}).append(
-            $("<a>", {"href": "#" + id, "class": "nav-link"}).text(text)));
+        tableOfContents.append($("<li>").append($("<a>", {"href": "#" + id}).text(text)));
     });
 });

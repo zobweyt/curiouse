@@ -8,26 +8,26 @@
     <meta charset="UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+    <link rel="stylesheet" href="{% static 'articles/dist/css/main.min.css' %}"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons@latest/iconfont/tabler-icons.min.css"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/css/tabler.min.css">
-    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/css/tom-select.min.css"> -->
-    <script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/js/tabler.min.js"></script>
-    <!-- <script src="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/js/tom-select.complete.min.js"></script> -->
-    <!-- <script src="https://cdn.jsdelivr.net/npm/autosize@5.0.2/dist/autosize.min.js"></script> -->
-    <link rel="stylesheet" href="{% static 'articles/dist/css/main.min.css' %}"/>
     <style>
       @import url('https://rsms.me/inter/inter.css');
+
       :root {
       	--tblr-font-sans-serif: 'Inter Var', -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, sans-serif;
       }
+      
       body {
       	font-feature-settings: "cv03", "cv04", "cv11";
       }
     </style>
-    {% block extrastyle %}
-    {% endblock extrastyle %}
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
     <script src="{% static 'js/main.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/autosize@5.0.2/dist/autosize.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/js/tabler.min.js"></script>
+    {% block extrastyle %}
+    {% endblock extrastyle %}
     {% block extrascript %}
     {% endblock extrascript %}
   </head>

@@ -5,14 +5,14 @@
 <div class="row">
 
   <div class="col-lg-3 d-lg-block d-none">
-    <aside class="aside-col pe-2">
+    <aside class="sticky-top" style="top: 4rem; z-index: 1;" >
       <div class="card mb-3">
         <div class="card-stamp">
           <span class="card-stamp-icon bg-primary"><i class="ti ti-album"></i></span>
         </div>
         <div class="card-body">
-          <h6>On this page</h6>
-          <ul id="tableOfContents" class="nav nav-pills"></ul>
+          <h3 class="card-title">On this page</h3>
+          <ul id="tableOfContents" class="d-flex gap-2 list-unstyled flex-column"></ul>
         </div>
       </div>
     </aside>
@@ -20,20 +20,20 @@
 
   <div class="col-lg-9 col-xl-6 d-flex flex-column gap-4">
     <section class="pb-3 border-bottom">
-      <a href="{{ article.category.get_absolute_url }}" class="badge bg-primary-lt">
+      <a href="{{ article.category.get_absolute_url }}" class="badge bg-primary-lt text-decoration-none mb-2">
         {{ article.category }}
       </a>
-      <h1 class="mb-3 fs-4 lh-1">{{ article }}</h1>
+      <h1 class="mb-3 lh-1">{{ article }}</h1>
       <div class="d-flex justify-content-between align-items-center">
         <section class="d-flex gap-2">
           <a href="{{ article.author.get_absolute_url }}">
-            <img src="{{ article.author.get_avatar_url }}" class="rounded-circle" style="width: 2.25em">
+            <img src="{{ article.author.get_avatar_url }}" class="avatar rounded-4">
           </a>
           <div class="lh-sm">
-            <a href="{{ article.author.get_absolute_url }}" class="fw-medium text-body">
+            <a href="{{ article.author.get_absolute_url }}" class="fw-bold fs-3 d-inline-flex mb-1 text-body">
               {{ article.author.get_full_name }}
             </a>
-            <small class="d-block text-muted">{{ article.created_at|date:"F d, Y" }}</small>
+            <span class="d-block text-muted">{{ article.created_at|date:"F d, Y" }}</span>
           </div>
         </section>
 
@@ -61,12 +61,12 @@
 
     {% include 'articles/includes/signup-card.html' %}
     {% include 'articles/includes/author-card.html' with author=article.author %}
-    {% include 'articles/includes/articles-list.html' with articles=related_articles col_class='col-lg-4 col-6' %}
+    {% include 'articles/includes/articles-list.html' with articles=related_articles col_class='col-lg-4 col-6' chars=18 %}
   </div>
 
   {% if popular_categories or not user.is_authenticated %}
   <div class="col-lg-3 d-xl-block d-none">
-    <aside class="ps-2 aside-col">
+    <aside class="sticky-top" style="top: 4rem; z-index: 1;">
       {% include 'articles/includes/signup-alert.html' %}
       {% include 'articles/includes/popular-categories.html' %}
     </aside>

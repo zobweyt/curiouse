@@ -7,13 +7,11 @@ from articles.models import Article, Category
 class ArticleEditorForm(DecorateFormFieldsMixin, forms.ModelForm):
     category = forms.ModelChoiceField(
         queryset=Category.objects.only('name'),
-        empty_label=None,
+        required=True,
         widget=forms.Select(attrs={
-            'required': 'true',
-            'title': 'Choose category',
-            'data-size': 4,
-            'data-live-search': 'true',
-            'data-style': 'btn-sm btn-muted w-auto',
+            'class': 'form-select tomselected',
+            'data-bs-toggle': 'tom-select',
+            'placeholder': 'Select a category'
         }),
     )
 
@@ -22,15 +20,20 @@ class ArticleEditorForm(DecorateFormFieldsMixin, forms.ModelForm):
         fields = ('thumbnail', 'title', 'description', 'body', 'category')
         exclude = ('author', 'slug')
         labels = {'thumbnail': ''}
+        help_texts = {
+            'title': "The title will be shown on the article's page."
+        }
         widgets = {
-            'title': forms.TextInput(attrs={
+            'title': forms.Textarea(attrs={
+                'rows': 1,
                 'placeholder': 'This article is about...',
-                'class': 'fw-medium mt-1'
+                'class': 'fw-medium',
+                'data-bs-toggle': 'autosize'
             }),
             'description': forms.Textarea(attrs={
-                'rows': 4,
+                'rows': 2,
                 'placeholder': 'Briefly introduce the contents of the article',
-                'class': 'resize-none'
+                'data-bs-toggle': 'autosize'
             }),
             'thumbnail': forms.FileInput(attrs={
                 'hidden': True,

@@ -2,40 +2,111 @@
 {% load static %}
 
 {% block content %}
-<form method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
-  {% csrf_token %}
-  {% include "components/notifications.html" %}
-  <div class="card">
-    <div class="card-header">
-      <h3>Cover</h3>
-    </div>
-    <div class="card-body">
-      <label for="{{ form.thumbnail.id_for_label }}" class="ratio ratio-4x3 cursor-pointer">
-        <div id="thumbnail" class="d-flex w-100">
+<div class="row d-flex align-items-center justify-content-center">
+  <div class="col-xl-8">
+    <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+      {% csrf_token %}
+      {% include "components/notifications.html" %}
+      <div class="sticky-top" style="top: 4rem;">
+        <div class="container gx-2 px-3 py-2 mb-2 d-flex">
           {% if article %}
-          <img src="{{ article.thumbnail.url }}" class="rounded-4">
-          {% else %}
-          <div class="px-2 py-5 border-dashed rounded-4 flex-fill d-flex align-items-center justify-content-center flex-column">
-            <i class="icon icon-lg ti ti-upload mb-3"></i>
-            <h3>Upload thumbnail</h3>
-            <div class="form-hint">Aspect ratio 4x3</div>
-          </div>
+          <a href="{% url 'articles:article_detail' article.pk article.slug %}" class="btn btn-danger">
+            <i class="icon ti ti-x"></i>Cancel
+          </a>
           {% endif %}
+          <button type="submit" class="btn btn-success ms-auto" on-validation-text="Saving">
+            <i class="icon ti ti-check"></i>
+            Save
+          </button>
         </div>
-        {% include 'components/input.html' with field=form.thumbnail %}
-      </label>
-      {{ form.category }}
-      {{ form.title }}
-    </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-md-5 d-flex">
+          <div class="card flex-fill">
+            <div class="card-status-start bg-primary"></div>
+            <div class="card-stamp">
+              <div class="card-stamp-icon bg-red"><i class="ti ti-stack"></i></div>
+            </div>
+            <div class="card-header">
+              <h3 class="card-title">Article cover</h3>
+            </div>
+            <div class="card-body">
+              <div class="me-5 mb-2">
+                <label for="{{ form.thumbnail.id_for_label }}" class="ratio ratio-4x3 cursor-pointer">
+                  <div id="thumbnail" class="d-flex w-100">
+                    {% if article %}
+                    <img src="{{ article.thumbnail.url }}" class="rounded-4">
+                    {% else %}
+                    <div class="px-2 py-3 border rounded-4 flex-fill d-flex align-items-center justify-content-center flex-column">
+                      <i class="icon fs-1 ti ti-aspect-ratio mb-3"></i>
+                      <h3>Upload thumbnail</h3>
+                      <div class="form-hint">Aspect ratio 4x3</div>
+                    </div>
+                    {% endif %}
+                  </div>
+                  {% include 'components/input.html' with field=form.thumbnail %}
+                </label>
+              </div>
+              <div class="d-grid gap-2">
+                {% include 'components/input.html' with field=form.category %}
+                {% include 'components/input.html' with field=form.title %}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-7 mt-md-0 mt-3 d-flex">
+          <div class="card flex-fill">
+            <div class="card-stamp">
+              <div class="card-stamp-icon bg-yellow"><i class="ti ti-list-search"></i></div>
+            </div>
+            <div class="card-header">
+              <span class="status-indicator status-success status-indicator-animated">
+                <span class="status-indicator-circle"></span>
+                <span class="status-indicator-circle"></span>
+                <span class="status-indicator-circle"></span>
+              </span>
+              <div class="d-grid ms-2">
+                <h3 class="card-title">
+                  SEO
+                </h3>
+                <span class="card-subtitle">Search engine optimization</span>
+              </div>
+            </div>
+            <div class="card-body">
+              {% include 'components/input.html' with field=form.description %}
+              <div class="container gx-5 mt-4">
+                <img src="{% static 'articles/images/description.svg' %}">
+              </div>
+            </div>
+            <div class="progress card-progress">
+              <div class="progress-bar progress-bar-indeterminate"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {{ form.body }}
+    </form>
   </div>
-  {{ form.body }}
-  <div class="card card-body mt-2">
-    {% include 'components/input.html' with field=form.description wrapper_class='mt-2' %}
-  </div>
-  <button type="submit" class="btn btn-success mt-2" disabled on-validation-text="Processing...">Submit</button>
-</form>
+</div>
 {% endblock content %}
 
 {% block extrascript %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/css/tabler-vendors.min.css">
+<script src="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/js/tom-select.complete.min.js"></script>
 {{ form.media }}
 {% endblock extrascript %}
+
+{% block body %}
+{{ block.super }}
+<script>
+  let settings = {
+    itemClass: 'badge bg-primary-lt',
+    render: {
+		  no_results: function(data, escape) {
+		  	return '<div class="no-results">Nothing found</div>';
+		  },
+	}};
+
+  new TomSelect('[data-bs-toggle="tom-select"]', settings);
+</script>
+{% endblock body %}

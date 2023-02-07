@@ -69,34 +69,3 @@ class ArticleListView(TitleMixin, ListView):
             'category__name', 
             'title', 'thumbnail', 'slug'
         )
-
-
-class AuthorArticleListView(ArticleListView):
-    template_name = 'articles/article-author.html'
-
-    def get(self, request, *args, **kwargs):
-        self.author = get_object_or_404(get_user_model(), username=self.kwargs['username'])
-        return super().get(request, *args, **kwargs)
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['author'] = self.author
-        return context
-
-    def get_queryset(self):
-        return super().get_queryset().filter(author=self.author)
-
-    def get_title(self):
-        return self.author.get_full_name()
-
-
-class CategoryDetailView(ArticleListView):
-    def get(self, request, *args, **kwargs):
-        self.category = get_object_or_404(Category, pk=self.kwargs['pk'])
-        return super().get(request, *args, **kwargs)
-    
-    def get_queryset(self):
-        return super().get_queryset().filter(category__id=self.category.id)
-    
-    def get_title(self):
-        return self.category

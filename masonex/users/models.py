@@ -16,9 +16,6 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.username
-
-    def get_absolute_url(self):
-        return reverse('articles:author_detail', kwargs={'username': self})
     
     def get_avatar_url(self):
         return self.avatar.url if self.avatar else staticfiles_storage.url('images/user.svg')        

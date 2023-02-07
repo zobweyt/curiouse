@@ -13,13 +13,6 @@
             <i class="icon ti ti-text-plus"></i>
             New article
           </a>
-          <a href="#" class="btn btn-icon">
-            <i class="icon ti ti-bookmarks"></i>
-          </a>
-          <a href="#" class="btn btn-icon position-relative">
-            <i class="icon ti ti-bell"></i>
-            <span class="position-absolute top-0 start-100 translate-middle badge bg-red"></span>
-          </a>
         </div>
       </div>
       <div class="nav-item dropdown text-end">
@@ -27,12 +20,6 @@
           <img src="{{ request.user.get_avatar_url }}" class="avatar avatar-sm avatar-rounded">
         </a>
         <ul class="dropdown-menu dropdown-menu-end">
-          <li>
-            <a class="dropdown-item" href="{% url 'articles:author_detail' request.user.username %}">
-              <i class="icon dropdown-item-icon ti ti-id"></i>Profile
-            </a>
-          </li>
-          <li><hr class="dropdown-divider"></li>
           <li class="d-sm-none d-block">
             <a href="{% url 'articles:article_create' %}" class="dropdown-item">
               <i class="icon dropdown-item-icon ti ti-typography"></i>New article

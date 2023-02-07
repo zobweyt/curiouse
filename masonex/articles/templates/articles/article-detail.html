@@ -20,19 +20,17 @@
 
   <div class="col-lg-9 col-xl-6 d-flex flex-column gap-4">
     <section class="pb-3 border-bottom">
-      <a href="{{ article.category.get_absolute_url }}" class="badge bg-primary-lt text-decoration-none mb-2">
+      <span class="badge bg-primary-lt text-decoration-none mb-2">
         {{ article.category }}
-      </a>
+      </span>
       <h1 class="mb-3 lh-1">{{ article }}</h1>
       <div class="d-flex justify-content-between align-items-center">
         <section class="d-flex gap-2">
-          <a href="{{ article.author.get_absolute_url }}">
-            <img src="{{ article.author.get_avatar_url }}" class="avatar rounded-4">
-          </a>
-          <div class="lh-sm">
-            <a href="{{ article.author.get_absolute_url }}" class="fw-bold fs-3 d-inline-flex mb-1 text-body">
+          <img src="{{ article.author.get_avatar_url }}" class="avatar rounded-4">
+          <div class="">
+            <h3 class="mb-1 lh-sm">
               {{ article.author.get_full_name }}
-            </a>
+            </h3>
             <span class="d-block text-muted">{{ article.created_at|date:"F d, Y" }}</span>
           </div>
         </section>

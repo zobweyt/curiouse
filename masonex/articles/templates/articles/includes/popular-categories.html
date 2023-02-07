@@ -7,11 +7,7 @@
     <h3 class="card-title">Popular now</h3>
     <ul class="d-flex gap-2 list-unstyled flex-wrap">
       {% for category in popular_categories %}
-      <li>
-        <a href="{{ category.get_absolute_url }}" class="badge bg-primary-lt text-decoration-none">
-          {{ category }}
-        </a>
-      </li>
+      <li><span class="badge bg-primary-lt text-decoration-none">{{ category }}</span></li>
       {% endfor %}
     </ul>
   </div>

@@ -23,7 +23,7 @@ class ArticleCreateView(LoginRequiredMixin, TitleMixin, ArticleEditorMixin, Crea
 class ArticleUpdateView(ArticleTitleMixin, ArticleEditorMixin, UpdateView):
     def get_queryset(self):
         return super().get_queryset().only(
-            'category__id', 'title', 'slug', 'body', 'thumbnail', 'description'
+            'category__id', 'title', 'slug', 'body', 'thumbnail'
         )
 
 

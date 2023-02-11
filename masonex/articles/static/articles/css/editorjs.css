@@ -1,0 +1,15 @@
+[data-editorjs-textarea] {
+  display: none !important;
+}
+
+[data-editorjs-holder] {
+  width: 100% !important;
+  max-width: none !important;
+  border: none !important;
+  background-color: transparent !important;
+  padding: 0 !important;
+}
+
+[data-placeholder]:empty::before {
+  cursor: text !important;
+}

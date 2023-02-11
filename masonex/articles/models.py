@@ -9,7 +9,7 @@ from django_editorjs_fields import EditorJsJSONField
 
 class Category(models.Model):
     name = models.CharField(max_length=64, db_index=True)
-    slug = models.SlugField(max_length=64, db_index=True)
+    slug = models.SlugField(max_length=64, null=True, db_index=True)
 
     def __str__(self):
         return self.name
@@ -28,8 +28,7 @@ class Article(models.Model):
     author = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.PROTECT)
     title = models.CharField(max_length=128, db_index=True)
-    slug = models.SlugField(max_length=128, db_index=True)
-    description = models.CharField(max_length=256, db_index=True)
+    slug = models.SlugField(max_length=128, null=True, db_index=True)
     thumbnail = models.ImageField(upload_to=settings.PHOTOS_PATH)
     body = EditorJsJSONField(**settings.EDITORJS_CONFIG_OVERRIDE)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -48,4 +47,4 @@ class Article(models.Model):
     class Meta:
         verbose_name = 'article'
         verbose_name_plural = 'articles'
-        ordering = ['-created_at', 'title', 'description', 'slug', 'pk']
+        ordering = ['-created_at', 'title', 'slug', 'pk']

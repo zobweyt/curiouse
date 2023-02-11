@@ -16,7 +16,7 @@ class ArticleAdmin(admin.ModelAdmin):
     list_display = ('id', 'title', 'created_at')
     list_display_links = ('title',)
     list_filter = ('category', 'created_at', 'modified_at')
-    search_fields = ('title', 'slug', 'description')
+    search_fields = ('title', 'slug')
     exclude = ['author']
 
     def save_model(self, request, obj, form, change):

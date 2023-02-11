@@ -8,7 +8,6 @@
     <meta charset="UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
-    <link rel="stylesheet" href="{% static 'articles/dist/css/main.min.css' %}"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons@latest/iconfont/tabler-icons.min.css"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/css/tabler.min.css">
     <style>
@@ -32,19 +31,20 @@
     {% endblock extrascript %}
   </head>
   <body>
+    {% block body %}
     <div class="page">
-      {% block body %}
       {% include 'includes/header.html' %}
       <div class="page-wrapper">
+        {% block wrapper %}
         <div class="container-xxl">
           <main class="page-body">
             {% block content %}
             {% endblock content %}
           </main>
         </div>
-        {% include 'includes/footer.html' %}
+        {% endblock wrapper %}
       </div>
-      {% endblock body %}
     </div>    
+    {% endblock body %}
   </body>
 </html>

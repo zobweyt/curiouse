@@ -33,7 +33,6 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('title', models.CharField(db_index=True, max_length=128)),
-                ('description', models.CharField(db_index=True, max_length=256)),
                 ('thumbnail', models.ImageField(upload_to='photos/%Y/%m/%d/')),
                 ('body', django_editorjs_fields.fields.EditorJsJSONField()),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
@@ -44,7 +43,7 @@ class Migration(migrations.Migration):
             options={
                 'verbose_name': 'article',
                 'verbose_name_plural': 'articles',
-                'ordering': ['-created_at', 'title', 'description', 'slug', 'pk'],
+                'ordering': ['-created_at', 'title', 'slug', 'pk'],
             },
         ),
     ]

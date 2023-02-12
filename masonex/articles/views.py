@@ -23,7 +23,7 @@ class ArticleCreateView(LoginRequiredMixin, TitleMixin, ArticleEditorMixin, Crea
 class ArticleUpdateView(ArticleTitleMixin, ArticleEditorMixin, UpdateView):
     def get_queryset(self):
         return super().get_queryset().only(
-            'category__id', 'title', 'slug', 'body', 'thumbnail'
+            'categories__id', 'title', 'slug', 'body', 'thumbnail'
         )
 
 
@@ -32,17 +32,15 @@ class ArticleDetailView(ArticleTitleMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["popular_categories"] = get_popular_categories(limit=10)
-        related_articles = Article.objects.filter(category__id=self.object.category.id).exclude(pk=self.object.pk)[:3]
-        context["related_articles"] = related_articles
+        # context["popular_categories"] = get_popular_categories(limit=10)
+        # related_articles = Article.objects.filter(categories__id=self.object.categories.id).exclude(pk=self.object.pk)[:3]
+        # context["related_articles"] = related_articles
         return context
 
     def get_queryset(self):
-        return super().get_queryset().select_related(
-            'author', 'category'
-        ).only(
+        return super().get_queryset().select_related('author').only(
             'author__first_name', 'author__last_name', 'author__username', 'author__avatar',
-            'category__name',
+            'categories__name',
             'title', 'slug', 'created_at', 'body'
         )
 
@@ -62,10 +60,8 @@ class ArticleListView(TitleMixin, ListView):
     title = 'Articles'
 
     def get_queryset(self):
-        return super().get_queryset().select_related(
-            'author', 'category'
-        ).only(
+        return super().get_queryset().select_related('author').only(
             'author__first_name', 'author__last_name', 
-            'category__name', 
+            'categories__name', 
             'title', 'thumbnail', 'slug'
         )

@@ -7,25 +7,39 @@
   {% include "components/notifications.html" %}
   <div class="row d-flex justify-content-end">
     <div class="col-xl-6 col-md-9">
-      <div class="mb-2 w-50">
-        <label for="{{ form.thumbnail.id_for_label }}" class="ratio ratio-4x3 cursor-pointer">
-          <div id="thumbnail" class="d-flex w-100">
-            {% if article %}
-            <img src="{{ article.thumbnail.url }}" class="rounded-4">
-            {% else %}
-            <div class="px-2 py-3 border rounded-4 flex-fill d-flex align-items-center justify-content-center flex-column">
-              <i class="icon fs-1 ti ti-aspect-ratio mb-3"></i>
-              <h3>Upload thumbnail</h3>
-              <div class="form-hint">Aspect ratio 4x3</div>
-            </div>
-            {% endif %}
+      <h2>{% if article %}Edit{% else %}New{% endif %} article</h2>
+      <div class="row mb-3">
+        <div class="col-xl-8 pe-5">
+          <label for="{{ form.thumbnail.id_for_label }}" class="form-label">
+            {{ form.thumbnail.label }}
+          </label>
+          <div class="form-hint mb-3">
+            {{ form.thumbnail.help_text }}
           </div>
-          {% include 'components/input.html' with field=form.thumbnail %}
-        </label>
-      </div>      
-      <div style="max-width: 16em;">
-        {{ form.category }}
+          <label for="{{ form.thumbnail.id_for_label }}" class="btn btn-secondary">
+            <i class="icon ti ti-upload"></i>
+            Upload Thumbnail
+          </label>
+        </div>
+        <div class="col-xl-4">
+          <label for="{{ form.thumbnail.id_for_label }}" class="ratio ratio-4x3 cursor-pointer">
+            <div id="thumbnail" class="d-flex w-100">
+              {% if article %}
+              <img src="{{ article.thumbnail.url }}" class="rounded-4">
+              {% else %}
+              <div class="px-2 py-3 border rounded-4 flex-fill d-flex align-items-center justify-content-center flex-column">
+                <i class="icon fs-1 ti ti-aspect-ratio mb-3"></i>
+                <h3>Upload thumbnail</h3>
+                <div class="form-hint">Aspect ratio 4:3</div>
+              </div>
+              {% endif %}
+            </div>
+          </label>
+        </div>
+        {{ form.thumbnail }}
       </div>
+      {% include 'components/input.html' with field=form.categories %}
+      <div class="hr-text">content</div>
       {{ form.title }}
       {{ form.body }}
     </div>
@@ -52,12 +66,16 @@
 {{ block.super }}
 <script>
   let settings = {
-    itemClass: 'badge bg-primary-lt',
-    render: {
-		  no_results: function(data, escape) {
-		  	return '<div class="no-results">Nothing found</div>';
-		  },
-	}};
+    maxItems: 3,
+    plugins: {
+	  	remove_button:{
+        label: '',
+        className: 'text-decoration-none ti ti-x align-middle text-center ms-1'
+	  	}
+	  },
+	  persist: false,
+    itemClass: 'badge bg-primary-lt m-0 py-1 ps-2 pe-1 me-1',
+	};
 
   new TomSelect('[data-bs-toggle="tom-select"]', settings);
 </script>

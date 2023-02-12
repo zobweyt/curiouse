@@ -15,7 +15,7 @@ class CategoryAdmin(admin.ModelAdmin):
 class ArticleAdmin(admin.ModelAdmin):
     list_display = ('id', 'title', 'created_at')
     list_display_links = ('title',)
-    list_filter = ('category', 'created_at', 'modified_at')
+    list_filter = ('categories', 'created_at', 'modified_at')
     search_fields = ('title', 'slug')
     exclude = ['author']
 

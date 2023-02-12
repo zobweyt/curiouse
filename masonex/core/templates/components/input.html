@@ -4,9 +4,15 @@
     {{ field.label }}
   </label>
   {% endif %}
-
-  {{ field }}
   
+  {% if field.help_text %}
+    <p class="form-hint mb-1">
+      {{ field.help_text }}
+    </p>
+  {% endif %}
+  
+  {{ field }}
+
   {% if field.errors %}
     <ul class="list-unstyled mb-0 mt-1 text-danger">
       {% for error in field.errors %}
@@ -17,11 +23,5 @@
         </li>
       {% endfor %}
     </ul>
-  {% endif %}
-  
-  {% if field.help_text %}
-    <small class="form-hint">
-      {{ field.help_text }}
-    </small>
   {% endif %}
 </div>

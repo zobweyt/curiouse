@@ -6,8 +6,8 @@
   <div class="card-body">
     <h3 class="card-title">Popular now</h3>
     <ul class="d-flex gap-2 list-unstyled flex-wrap">
-      {% for category in popular_categories %}
-      <li><span class="badge bg-primary-lt text-decoration-none">{{ category }}</span></li>
+      {% for categories in popular_categories %}
+      <li><span class="badge bg-primary-lt text-decoration-none">{{ categories }}</span></li>
       {% endfor %}
     </ul>
   </div>

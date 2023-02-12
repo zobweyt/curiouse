@@ -3,6 +3,7 @@ from django.conf import settings
 from django.db import models
 from django.urls import reverse
 from django.template.defaultfilters import slugify
+from django.core.validators import MinLengthValidator
 
 from django_editorjs_fields import EditorJsJSONField
 
@@ -19,15 +20,21 @@ class Category(models.Model):
         super().save(*args, **kwargs)
 
     class Meta:
-        verbose_name = 'category'
+        verbose_name = 'categories'
         verbose_name_plural = 'categories'
         ordering = ['name', 'pk']
 
 
 class Article(models.Model):
     author = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
-    category = models.ForeignKey(Category, on_delete=models.PROTECT)
-    title = models.CharField(max_length=128, db_index=True)
+    categories = models.ManyToManyField(Category)
+    title = models.CharField(
+        max_length=128,
+        validators=[
+            MinLengthValidator(3, 'The title must contain at least 3 characters.'),
+        ],
+        db_index=True,
+    )
     slug = models.SlugField(max_length=128, null=True, db_index=True)
     thumbnail = models.ImageField(upload_to=settings.PHOTOS_PATH)
     body = EditorJsJSONField(**settings.EDITORJS_CONFIG_OVERRIDE)

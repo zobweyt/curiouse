@@ -10,7 +10,7 @@
         <div class="d-flex mt-2">
           <img src="{{ article.author.get_avatar_url }}" class="avatar rounded-4">
           <div class="ms-2">
-            <span class="badge bg-primary-lt">{{ article.category }}</span>
+            <span class="badge bg-primary-lt">{{ article.categories }}</span>
             {% if chars %}
             <div class="fs-3 mt-1">{{ article|truncatechars:chars }}</div>
             {% else %}

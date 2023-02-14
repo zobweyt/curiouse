@@ -1,0 +1,11 @@
+.img-darken {
+  transition: filter 200ms ease-out;
+}
+
+.img-darken:hover {
+  filter: brightness(90%);
+}
+
+.img-darken:active {
+  filter: brightness(75%);
+}

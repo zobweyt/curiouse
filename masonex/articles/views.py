@@ -30,12 +30,12 @@ class ArticleUpdateView(ArticleTitleMixin, ArticleEditorMixin, UpdateView):
 class ArticleDetailView(ArticleTitleMixin, DetailView):
     template_name = 'articles/article-detail.html'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        # context["popular_categories"] = get_popular_categories(limit=10)
-        # related_articles = Article.objects.filter(categories__id=self.object.categories.id).exclude(pk=self.object.pk)[:3]
-        # context["related_articles"] = related_articles
-        return context
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     context["popular_categories"] = get_popular_categories(limit=10)
+    #     related_articles = Article.objects.filter(categories__id=self.object.categories.id).exclude(pk=self.object.pk)[:3]
+    #     context["related_articles"] = related_articles
+    #     return context
 
     def get_queryset(self):
         return super().get_queryset().select_related('author').only(

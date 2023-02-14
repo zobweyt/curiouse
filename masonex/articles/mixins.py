@@ -15,5 +15,6 @@ class ArticleTitleMixin(TitleMixin):
     context_object_name = 'article'
 
     def get_title(self):
+        # issubclass(self.__class__, UpdateView)
         is_update_view = self.__class__.__bases__.__contains__(UpdateView)
         return ('Edit: ' if is_update_view else '') + self.object.title

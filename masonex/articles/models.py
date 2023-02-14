@@ -20,23 +20,30 @@ class Category(models.Model):
         super().save(*args, **kwargs)
 
     class Meta:
-        verbose_name = 'categories'
+        verbose_name = 'category'
         verbose_name_plural = 'categories'
         ordering = ['name', 'pk']
 
 
 class Article(models.Model):
     author = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
-    categories = models.ManyToManyField(Category)
+    categories = models.ManyToManyField(
+        Category,
+        help_text='Categories help Masonex readers explore articles that interest them. Select at least 1 to 3.',
+    )
     title = models.CharField(
         max_length=128,
         validators=[
-            MinLengthValidator(3, 'The title must contain at least 3 characters.'),
+            MinLengthValidator(3),
         ],
         db_index=True,
     )
     slug = models.SlugField(max_length=128, null=True, db_index=True)
-    thumbnail = models.ImageField(upload_to=settings.PHOTOS_PATH)
+    thumbnail = models.ImageField(
+        upload_to=settings.PHOTOS_PATH,
+        verbose_name='Article listing cover image',
+        help_text='This image will be displayed on article listing. The recommended size 1920x1440 and recommended ratio is 4:3.',
+    )
     body = EditorJsJSONField(**settings.EDITORJS_CONFIG_OVERRIDE)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
@@ -54,4 +61,4 @@ class Article(models.Model):
     class Meta:
         verbose_name = 'article'
         verbose_name_plural = 'articles'
-        ordering = ['-created_at', 'title', 'slug', 'pk']
+        ordering = ['-created_at', 'title', 'pk']

@@ -1,50 +1,41 @@
-$(document).ready(function() {
-    $('.bs-searchbox').find('.form-control').attr('placeholder', 'Filter');
+$(document).ready(function() {    
+    function initDefaultFormValues(form) {
+        Array.from(form).forEach(el => el.dataset.defaultValue = el.value);
+    }
     
-    const form = $('.needs-validation');
-    const origForm = form.serialize();
+    function isFormChanged(form) {
+        return Array.from(form).some(el => 'defaultValue' in el.dataset && el.dataset.defaultValue !== el.value);
+    }
 
-    form.on('change input', function() {
-        var button = $(this).find('button[type=submit]');
-        let disabled = $(this).find('.ce-paragraph').toArray().every((x) => !$(x).text().length)
-        console.log(disabled);
+    // TODO: make additional functions for every event. (then try this.button to access submit button)
+    document.querySelectorAll('.needs-validation').forEach(form => {
+        initDefaultFormValues(form);
+        let button = form.querySelector('button[type=submit]');
 
-        if (disabled) {
-            button.prop('disabled', true);
-            $(this).addClass('was-validated');
-            return false;
-        }
-        
-        if (!$(this)[0].checkValidity()) {
-            button.prop('disabled', true);
-            $(this).addClass('was-validated');
-            return false;
-        }
+        form.addEventListener('input', function() {
+            const isValid = isFormChanged(this) && $(this)[0].checkValidity();
 
-        button.prop('disabled', form.serialize() == origForm);
-    });
+            if (isValid) {
+                button.removeAttribute('disabled');   
+            } else {
+                button.setAttribute('disabled', true);
+            }
+        });
 
-    // TODO: make another js file for this (article editor).
-    $('#id_title').keydown(function(event) {
-        if (event.which == 13) {
-            $(this.form).find('.ce-paragraph').filter(':first').focus();
-            event.preventDefault();
-         }
-    });
+        form.addEventListener('submit', function() {
+            button.setAttribute('disabled', true);
+            let icon = button.querySelector('.icon');
+            
+            if (icon) {
+                icon.remove();
+            }
 
-    // $('form').on('change input', function() {
-    //     var button = $(this).find('button[type=submit]');
-    //     button.prop('disabled', form.serialize() == origForm);
-    // });
+            let spinner = document.createElement('span');
+            spinner.classList.add('spinner-border', 'spinner-border-sm', 'me-2');
+            spinner.setAttribute('role', 'status');
 
-    form.submit(function() {
-        var button = $(this).find('button[type=submit]');
-        button.prop('disabled', true);
-        const text = button.attr('on-validation-text');
-        
-        if (text != "" && text != undefined) {
-            button.html('<span class="spinner-border spinner-border-sm me-2" role="status"></span>' + text);
-        }
+            button.insertBefore(spinner, button.firstChild);
+        });
     });
 
     function changeImage(input, image) {
@@ -57,7 +48,7 @@ $(document).ready(function() {
         }
     }
 
-    $('[data-toggle="image"]').change(function () {
+    $('[data-toggle="image"]').change(function() {
         let target = $($(this).attr('data-target'));
         let image = $(target.find('img'));
         const tagName = image.prop('tagName');

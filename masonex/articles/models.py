@@ -29,7 +29,7 @@ class Article(models.Model):
     author = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     categories = models.ManyToManyField(
         Category,
-        help_text='Categories help Masonex readers explore articles that interest them. Select at least 1 to 3.',
+        help_text='Select up to 3 categories to help Masonex readers explore articles that interest them.',
     )
     title = models.CharField(
         max_length=128,

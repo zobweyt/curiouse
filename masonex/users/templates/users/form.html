@@ -14,7 +14,6 @@
     <form method="post" enctype="multipart/form-data" class="card needs-validation" novalidate>
       {% csrf_token %}
       <div class="card-status-start bg-primary"></div>
-      <div class="ribbon bg-red">beta</div>
       <div class="card-header">
         <h3 class="card-title">{{ title }}</h3>
       </div>
@@ -28,7 +27,7 @@
         </div>
       </div>
       <div class="card-footer bg-transparent">
-        <button type="submit" class="btn btn-success">Submit</button>
+        <button type="submit" disabled class="btn btn-success">Submit</button>
       </div>
     </form>    
   </div>

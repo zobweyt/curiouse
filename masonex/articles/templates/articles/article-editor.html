@@ -4,24 +4,14 @@
 {% block content %}
 <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
   {% csrf_token %}
-  {% include "components/notifications.html" %}
   <div class="row d-flex justify-content-end">
-    <div class="col-xl-6 col-md-9">
+    <div class="col-lg-9 col-xl-6">
       <h2>{% if article %}Edit{% else %}New{% endif %} article</h2>
       <div class="row mb-3">
-        <div class="col-xl-8 pe-5">
-          <label for="{{ form.thumbnail.id_for_label }}" class="form-label">
-            {{ form.thumbnail.label }}
-          </label>
-          <div class="form-hint mb-3">
-            {{ form.thumbnail.help_text }}
-          </div>
-          <label for="{{ form.thumbnail.id_for_label }}" class="btn btn-secondary">
-            <i class="icon ti ti-upload"></i>
-            Upload Thumbnail
-          </label>
+        <div class="col-xl-8 col-md-9 col-sm-8 pe-0 pe-md-5">
+          {% include 'components/input.html' with field=form.thumbnail %}
         </div>
-        <div class="col-xl-4">
+        <div class="col-xl-4 col-md-3 col-sm-4">
           <label for="{{ form.thumbnail.id_for_label }}" class="ratio ratio-4x3 cursor-pointer">
             <div id="thumbnail" class="d-flex w-100">
               {% if article %}
@@ -40,39 +30,38 @@
       </div>
       {% include 'components/input.html' with field=form.categories %}
       <div class="hr-text">content</div>
-      {{ form.title }}
-      <div class="invalid-feedback">
-        The title must be at least 3 characters.
-      </div>
-      {{ form.body }}
+      <article>
+        {{ form.title }}
+        {{ form.body }}
+      </article>
     </div>
-    <div class="col-md-3">
-      <div class="sticky-top btn-list" style="top: 4rem; z-index: 0;">
-        <button type="submit" disabled class="btn btn-success" on-validation-text="Saving">
-          <i class="icon ti ti-check"></i>Save
-        </button>
-        <a href="javascript:history.back()" class="btn"><i class="icon ti ti-x"></i>Back</a>
-      </div>
+
+    <div class="col-lg-3">
+      <aside class="sidebar">
+        <div class="btn-list">
+          <button type="submit" disabled class="btn btn-primary">
+            {% if article %}Update{% else %}Publish{% endif %}
+          </button>
+          <a href="javascript:history.back()" class="btn">Cancel</a>
+        </div>
+        {% include "components/notifications.html" %}
+      </aside>
     </div>
-  </div>     
+  </div>
 </form>
 {% endblock content %}
 
-{% block extrascript %}
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/css/tabler-vendors.min.css">
-<link rel="stylesheet" href="{% static 'articles/css/editorjs.css' %}"/>
-<script src="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/js/tom-select.complete.min.js"></script>
+{% block head %}
 {{ form.media }}
-<script defer src="{% static 'articles/js/editorjs.js' %}"></script>
-{% endblock extrascript %}
-
-{% block body %}
-{{ block.super }}
-<script>
-  let settings = {
+<link rel="stylesheet" href="{% static 'articles/css/editorjs.css' %}"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/css/tabler-vendors.min.css">
+<script src="{% static 'articles/js/editorjs.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/js/tom-select.complete.min.js"></script>
+<script type="module">
+  const settings = {
     maxItems: 3,
     plugins: {
-	  	remove_button:{
+	  	remove_button: {
         label: '',
         className: 'text-decoration-none ti ti-x align-middle text-center ms-1'
 	  	}
@@ -83,4 +72,4 @@
 
   new TomSelect('[data-bs-toggle="tom-select"]', settings);
 </script>
-{% endblock body %}
+{% endblock head %}

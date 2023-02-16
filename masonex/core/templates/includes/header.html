@@ -16,7 +16,7 @@
         </div>
       </div>
       <div class="nav-item dropdown text-end">
-        <a type="button" class="nav-link" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+        <a href="#" class="nav-link" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
           <img src="{{ request.user.get_avatar_url }}" class="avatar avatar-sm avatar-rounded img-darken">
         </a>
         <ul class="dropdown-menu dropdown-menu-end">
@@ -25,12 +25,7 @@
               <i class="icon dropdown-item-icon ti ti-typography"></i>New article
             </a>
           </li>
-          <li>
-            <a href="#" class="dropdown-item">
-              <i class="icon dropdown-item-icon ti ti-bookmarks"></i>Bookmarks
-            </a>
-          </li>
-          <li><hr class="dropdown-divider"></li>
+          <li><hr class="dropdown-divider d-sm-none d-block"></li>
           <li>
             <a href="{% url 'admin:index' %}" target="_blank" class="dropdown-item">
               <i class="icon dropdown-item-icon ti ti-layers-linked"></i>Dashboard

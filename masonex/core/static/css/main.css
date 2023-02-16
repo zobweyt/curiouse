@@ -9,3 +9,13 @@
 .img-darken:active {
   filter: brightness(75%);
 }
+
+@media (min-width: 992px) {
+  .sidebar {
+    position: sticky;
+    z-index: 1;
+    top: 4rem;
+    overflow-y: auto;
+    height: 85vh;
+  }
+}

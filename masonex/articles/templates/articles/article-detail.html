@@ -4,9 +4,10 @@
 {% block content %}
 <div class="row">
 
+  <!-- add collapse here on lg -->
   <div class="col-lg-3 d-lg-block d-none">
-    <aside class="sticky-top" style="top: 4rem; z-index: 1;" >
-      <div class="card mb-3">
+    <aside class="sidebar">
+      <div class="card">
         <div class="card-stamp">
           <span class="card-stamp-icon bg-primary"><i class="ti ti-album"></i></span>
         </div>
@@ -18,63 +19,59 @@
     </aside>
   </div>
 
-  <div class="col-lg-9 col-xl-6 d-flex flex-column gap-4">
-    <section class="pb-3 border-bottom">
-      {% for a in article.categories.all %}
-      <span class="badge bg-primary-lt text-decoration-none mb-2">
-          {{ a }}
-      </span>
+  <div class="col-lg-9 col-xl-6">
+    <ul class="list-unstyled badges-list">
+      {% for category in article.categories.all %}
+      <li><span class="badge bg-primary-lt">{{ category }}</span></li>
       {% endfor %}
-      <h1 class="mb-3 lh-1">{{ article }}</h1>
-      <div class="d-flex justify-content-between align-items-center">
-        <section class="d-flex gap-2">
-          <img src="{{ article.author.get_avatar_url }}" class="avatar rounded-4">
-          <div class="">
-            <h3 class="mb-1 lh-sm">
-              {{ article.author.get_full_name }}
-            </h3>
-            <span class="d-block text-muted">{{ article.created_at|date:"F d, Y" }}</span>
-          </div>
-        </section>
+    </ul>
 
-        <section class="btn-list">
-          <a href="#" class="btn btn-icon"><i class="icon ti ti-bookmark"></i></a>
-          {% if request.user == article.author or request.user.is_staff %}
-          <a href="{% url 'articles:article_update' article.pk article.slug %}" class="btn btn-icon">
-            <i class="icon ti ti-pencil"></i>
-          </a>
-          <div>
-            <a class="btn btn-icon text-danger" href="#" data-bs-toggle="modal" data-bs-target="#articleDeleteModal">
-              <i class="icon ti ti-trash"></i>
-            </a>
-            {% url 'articles:article_delete' article.pk article.slug as article_delete_url %}
-            {% include "components/confirm.html" with id="articleDeleteModal" title="Delete article?" text="Do you really want to delete this article?" action_url=article_delete_url %}
+    <section class="d-flex align-items-center mb-3">
+      <div class="d-flex align-items-center me-auto">
+        <img src="{{ article.author.get_avatar_url }}" class="avatar avatar-sm avatar-rounded">
+        <div class="ms-2">
+          <h4 class="mb-1 lh-sm">
+            {{ article.author.get_full_name }}
+          </h4>
+          <small class="d-block text-muted">{{ article.created_at|date:"F d, Y" }}</small>
+        </div>
+      </div>
+      <div class="btn-list">
+        <a href="#" class="btn btn-action"><i class="icon ti ti-bookmark"></i></a>
+        {% if request.user == article.author or request.user.is_staff %}
+        <div class="dropdown">
+          <button type="button" class="btn btn-action" data-bs-toggle="dropdown"><div class="icon ti ti-dots-vertical"></div></button>
+          <div class="dropdown-menu dropdown-menu-end">
+            <li><h6 class="dropdown-header">Manage article</h6></li>
+            <li>
+              <a href="{% url 'articles:article_update' article.pk article.slug %}" class="dropdown-item">
+                <i class="dropdown-item-icon icon ti ti-pencil"></i>Edit article
+              </a>
+            </li>
+            <li>
+              <a href="#" class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#articleDeleteModal">
+                <i class="dropdown-item-icon icon ti ti-trash text-danger"></i>Delete article
+              </a>
+            </li>
           </div>
-          {% endif %}
-        </section>
+        </div>
+        {% url 'articles:article_delete' article.pk article.slug as article_delete_url %}
+        {% include "components/confirm.html" with id="articleDeleteModal" title="Delete article?" text="Do you really want to delete this article?" action_url=article_delete_url %}
+        {% endif %}
       </div>
     </section>
 
     <article class="article__body text-break">
+      <h1 class="lh-sm">{{ article }}</h1>
       {{ article.body | editorjs }}
     </article>
 
-    {% include 'articles/includes/signup-card.html' %}
     {% include 'articles/includes/author-card.html' with author=article.author %}
     {% include 'articles/includes/articles-list.html' with articles=related_articles col_class='col-lg-4 col-6' chars=18 %}
   </div>
-
-  {% if popular_categories or not user.is_authenticated %}
-  <div class="col-lg-3 d-xl-block d-none">
-    <aside class="sticky-top" style="top: 4rem; z-index: 1;">
-      {% include 'articles/includes/signup-alert.html' %}
-      {% include 'articles/includes/popular-categories.html' %}
-    </aside>
-  </div>
-  {% endif %}
 </div>
 {% endblock content %}
 
-{% block extrascript %}
+{% block head %}
 <script src="{% static 'articles/js/headers.js' %}"></script>
-{% endblock extrascript %}
+{% endblock head %}

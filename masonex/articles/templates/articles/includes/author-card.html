@@ -4,14 +4,17 @@
     <div class="card-stamp-icon bg-yellow"><i class="ti ti-license"></i></div>
   </div>
   <div class="card-body">
-    <h3 class="card-title">About the author</h3>
-    <div class="d-flex gap-3 px-3">
+    <h2>About the author</h2>
+    <div class="d-flex gap-3">
       <img src="{{ author.get_avatar_url }}" class="align-self-start avatar avatar-md rounded-4">
-      <div class="lh-sm">
-        <h3 class="d-inline-flex mb-1">
-          {{ author.get_full_name }}
-        </h3>
-        <p class="text-muted">{{ author.bio }}</p>
+      <div>
+        <div class="d-flex align-items-center gap-2 mb-1">
+          <h3 class="card-title mb-0">
+            {{ author.get_full_name }}
+          </h3>
+          <span class="badge bg-success-lt">Author</span>
+        </div>
+        <p class="card-text">{{ author.bio }}</p>
       </div>
     </div>
   </div>

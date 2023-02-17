@@ -2,7 +2,6 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.contrib.staticfiles.storage import staticfiles_storage
 from django.conf import settings
-from django.urls import reverse
 
 
 class User(AbstractUser):

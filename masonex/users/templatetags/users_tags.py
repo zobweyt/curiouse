@@ -6,6 +6,6 @@ register = template.Library()
 
 @register.simple_tag(takes_context=True)
 def get_active_class(context, url_to_check):
-    if context['request'].get_full_path().__contains__(reverse(url_to_check)):
-        return 'active'
+    if context['request'].path.__contains__(reverse(url_to_check)):
+        return ' active'
     return ''

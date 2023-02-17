@@ -3,8 +3,6 @@
 
 {% block content %}
 <div class="row">
-
-  <!-- add collapse here on lg -->
   <div class="col-lg-3 d-lg-block d-none">
     <aside class="sidebar">
       <div class="card">
@@ -13,7 +11,7 @@
         </div>
         <div class="card-body">
           <h3 class="card-title">On this page</h3>
-          <ul id="tableOfContents" class="d-flex gap-2 list-unstyled flex-column"></ul>
+          <ul id="tableOfContents" class="list-unstyled d-flex flex-column gap-2"></ul>
         </div>
       </div>
     </aside>
@@ -25,39 +23,20 @@
       <li><span class="badge bg-primary-lt">{{ category }}</span></li>
       {% endfor %}
     </ul>
-
+    
     <section class="d-flex align-items-center mb-3">
-      <div class="d-flex align-items-center me-auto">
-        <img src="{{ article.author.get_avatar_url }}" class="avatar avatar-sm avatar-rounded">
-        <div class="ms-2">
-          <h4 class="mb-1 lh-sm">
-            {{ article.author.get_full_name }}
-          </h4>
-          <small class="d-block text-muted">{{ article.created_at|date:"F d, Y" }}</small>
+      <div class="row align-items-center me-auto">
+        <div class="col-auto">
+          <img src="{{ article.author.get_avatar_url }}" class="avatar avatar-rounded">
+        </div>
+        <div class="col gx-0">
+          <h3 class="mb-1 lh-1">{{ article.author.get_full_name }}</h3>
+          <p class="d-block text-muted mb-0">{{ article.created_at|date:"F d, Y" }}</p>
         </div>
       </div>
-      <div class="btn-list">
-        <a href="#" class="btn btn-action"><i class="icon ti ti-bookmark"></i></a>
-        {% if request.user == article.author or request.user.is_staff %}
-        <div class="dropdown">
-          <button type="button" class="btn btn-action" data-bs-toggle="dropdown"><div class="icon ti ti-dots-vertical"></div></button>
-          <div class="dropdown-menu dropdown-menu-end">
-            <li><h6 class="dropdown-header">Manage article</h6></li>
-            <li>
-              <a href="{% url 'articles:article_update' article.pk article.slug %}" class="dropdown-item">
-                <i class="dropdown-item-icon icon ti ti-pencil"></i>Edit article
-              </a>
-            </li>
-            <li>
-              <a href="#" class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#articleDeleteModal">
-                <i class="dropdown-item-icon icon ti ti-trash text-danger"></i>Delete article
-              </a>
-            </li>
-          </div>
-        </div>
-        {% include "components/confirm.html" with id="articleDeleteModal" url='articles:article_delete' title="Delete article?" hint="Do you really want to delete this article?" %}
-        {% endif %}
-      </div>
+      {% if request.user == article.author %}
+      <a href="{% url 'articles:article_update' article.pk article.slug %}" class="btn">Edit</a>
+      {% endif %}
     </section>
 
     <article class="article__body text-break">

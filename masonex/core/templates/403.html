@@ -1,9 +1,1 @@
-{% extends 'status-code.html' %}
-
-{% block title %}
-Forbidden
-{% endblock title %}
-
-{% block description %}
-You don't have permission to access this page.
-{% endblock description %}
+{% include "status-code.html" with title="Forbidden" hint="You don't have permission to access this page." %}

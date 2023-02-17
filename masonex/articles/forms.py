@@ -26,6 +26,7 @@ class ArticleEditorForm(forms.ModelForm):
                 'hidden': True,
                 'data-toggle': 'image',
                 'data-target': '#thumbnail',
+                'data-style': 'img-darken flex-fill rounded-4',
             })
         }
     

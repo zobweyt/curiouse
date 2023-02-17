@@ -1,9 +1,4 @@
-$(document).ready(function() {
-    document.querySelectorAll('input[type=email]').forEach(input => {
-        input.setAttribute('pattern', "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$");
-    });
-    
-    // TODO: make additional functions for every event. (then try this.button to access submit button)
+document.addEventListener("DOMContentLoaded", function() {
     document.querySelectorAll('.needs-validation').forEach(form => {
         let button = form.querySelector('button[type=submit]');
         button.setAttribute('disabled', true);
@@ -32,27 +27,29 @@ $(document).ready(function() {
         });
     });
 
-    function changeImage(input, image) {
+    function changeImage(input, image, target) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
-            reader.onload = function (e) {
-                image.attr('src', e.target.result);
+            reader.onload = function(event) {
+                image.src = event.target.result;
+                target.innerHTML = image.outerHTML;
             }
             reader.readAsDataURL(input.files[0]);
         }
     }
 
-    $('[data-toggle="image"]').change(function() {
-        let target = $($(this).attr('data-target'));
-        let image = $(target.find('img'));
-        const tagName = image.prop('tagName');
-
-        if (tagName == undefined || tagName.toLowerCase() != 'img') {
-            image = $(document.createElement('img'));
-            image.addClass('rounded-4 flex-fill img-darken');
-            target.html(image);
+    document.querySelectorAll('[data-toggle="image"]').forEach(el => el.addEventListener("change", function() {
+        let target = document.querySelector(this.getAttribute("data-target"));
+        let image = target.querySelector("img");
+        const style = this.getAttribute("data-style");
+        
+        if (image?.tagName != "IMG") {
+            image = document.createElement("img");
+            if (style) {
+                style.split(" ").forEach(cls => image.classList.add(cls));
+            }
         }
-
-        changeImage(this, image);
-    });
+        
+        changeImage(this, image, target);
+    }));
 });

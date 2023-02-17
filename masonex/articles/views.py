@@ -1,14 +1,9 @@
-from django.contrib import messages
-from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import redirect, get_object_or_404
 from django.views.generic import CreateView, DetailView, UpdateView, ListView
 
 from core.utils import TitleMixin
-from .models import Article, Category
-from .decorators import require_article_author
-from .mixins import ArticleEditorMixin, ArticleTitleMixin
-from .services import get_popular_categories
+from .models import Article
+from .mixins import ArticleEditorMixin, ArticleTitleMixin, ArticleAuthorRequiredMixin
 
 
 class ArticleCreateView(LoginRequiredMixin, TitleMixin, ArticleEditorMixin, CreateView):
@@ -20,7 +15,7 @@ class ArticleCreateView(LoginRequiredMixin, TitleMixin, ArticleEditorMixin, Crea
         return super().form_valid(form)
     
 
-class ArticleUpdateView(ArticleTitleMixin, ArticleEditorMixin, UpdateView):
+class ArticleUpdateView(ArticleAuthorRequiredMixin, ArticleTitleMixin, ArticleEditorMixin, UpdateView):
     def get_queryset(self):
         return super().get_queryset().only(
             'categories__id', 'title', 'slug', 'body', 'thumbnail'
@@ -43,13 +38,6 @@ class ArticleDetailView(ArticleTitleMixin, DetailView):
             'categories__name',
             'title', 'slug', 'created_at', 'body'
         )
-
- 
-@require_article_author
-def article_delete_view(request, pk, slug):
-    get_object_or_404(Article, pk=pk, slug=slug).delete()
-    messages.success(request, 'The article has been successfully deleted.')
-    return redirect('articles:article_list')
 
 
 class ArticleListView(TitleMixin, ListView):

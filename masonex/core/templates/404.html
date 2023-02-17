@@ -1,9 +1,1 @@
-{% extends 'status-code.html' %}
-
-{% block title %}
-Woops
-{% endblock title %}
-
-{% block description %}
-We couldn't find the page you're looking for.
-{% endblock description %}
+{% include "status-code.html" with title="Woops" hint="We couldn't find the page you're looking for." %}

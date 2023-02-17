@@ -1,9 +1,1 @@
-{% extends 'status-code.html' %}
-
-{% block title %}
-Server error occured.
-{% endblock title %}
-
-{% block description %}
-We have received enough information to solve it soon.
-{% endblock description %}
+{% include "status-code.html" with title="Server error occured." hint="We have received enough information to solve it soon." %}

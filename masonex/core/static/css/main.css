@@ -1,3 +1,17 @@
+@import url('https://rsms.me/inter/inter.css');
+
+:root {
+  --tblr-font-sans-serif: 'Inter Var', -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, sans-serif;
+}
+
+body {
+  font-feature-settings: "cv03", "cv04", "cv11";
+}
+
+[id] {
+  scroll-margin: 4rem;
+}
+
 .img-darken {
   transition: filter 200ms ease-out;
 }
@@ -16,6 +30,6 @@
     z-index: 1;
     top: 4rem;
     overflow-y: auto;
-    height: 85vh;
+    height: 90vh;
   }
 }

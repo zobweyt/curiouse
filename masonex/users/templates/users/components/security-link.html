@@ -1,0 +1,18 @@
+<a href="{% url "users:"|add:url %}" class="card card-body">
+  <div class="row align-items-center">
+    <div class="col-auto">
+      <i class="icon fs-1 ti ti-{{ icon }} text-{% if style %}{{ style }}{% else %}primary{% endif %}"></i>      
+    </div>
+    <div class="col">
+      <h3 class="card-title mb-1 {% if style %}text-{{ style }}{% endif %}">
+        {{ url|cut:"_change"|capfirst }}
+      </h3>
+      <p class="form-hint lh-sm">
+        {{ hint }}
+      </p>
+    </div>
+    <div class="col-auto">
+      <i class="ms-auto icon ti ti-chevron-right text-muted"></i>
+    </div>
+  </div>
+</a>

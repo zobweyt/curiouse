@@ -1,62 +1,32 @@
 {% extends "users/form.html" %}
-{% load users_tags %}
+
+{% block form_header %}
+{{ block.super }}
+<a href="#settingsOffcanvas" class="btn btn-action d-lg-none d-inline-flex ms-auto" data-bs-toggle="offcanvas">
+  <i class="icon ti ti-menu-2"></i>
+</a>
+{% endblock form_header %}
 
 {% block aside %}
-<div class="container ">
-  <a class="btn d-lg-none d-block mb-2 float-start" data-bs-toggle="offcanvas" href="#settingsOffcanvas" role="button" aria-controls="a">
-    <i class="icon ti ti-menu-2"></i>
-    Settings
-  </a>
-</div>
 <aside class="col-lg-3 col-12">
   <div class="offcanvas-lg offcanvas-end" id="settingsOffcanvas">
     <div class="offcanvas-header">
       <h2 class="offcanvas-title">{{ title }}</h2>
-      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" data-bs-target="#settingsOffcanvas"></button>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#settingsOffcanvas"></button>
     </div>
     <div class="offcanvas-body flex-column">
-      <div class="card mb-3">
+      <div class="card">
         <div class="card-stamp">
-          <div class="card-stamp-icon bg-cyan"><i class="ti ti-adjustments-horizontal"></i></div>
+          <span class="card-stamp-icon bg-cyan"><i class="ti ti-adjustments-horizontal"></i></span>
         </div>
-        <div class="card-header">
+        <div class="card-header d-lg-block d-none">
           <h3 class="card-title">Settings</h3>
         </div>
         <div class="list-group list-group-flush">
-          <a class="list-group-item list-group-item-action {% get_active_class 'users:personal' %}" href="{% url 'users:personal' %}">
-            <i class="icon ti ti-id me-1"></i>
-            Personal
-          </a>
-          <a class="list-group-item list-group-item-action {% get_active_class 'users:security' %}" href="{% url 'users:security' %}">
-            <i class="icon ti ti-fingerprint me-1"></i>
-            Security
-          </a>
+          {% include 'users/components/settings-link.html' with url="personal" icon="id" %}
+          {% include 'users/components/settings-link.html' with url="security" icon="fingerprint" %}
         </div>
       </div>
-      {% if not user.bio %}
-      <div class="card">
-        <div class="card-body">
-          <h3 class="card-title">Finish customizing profile</h3>
-          <ul class="steps steps-vertical">
-            <li class="step-item">
-              <div class="h4 m-0">Create account</div>
-              <div class="text-muted">Get interested in the possibilities of our platform.</div>
-            </li>
-            <li class="step-item active">
-              <div class="h4 m-0">Full readiness</div>
-              <div class="text-muted">Describe your personal activities in <a href="{% url 'users:personal' %}"> bio section</a>.</div>
-            </li>
-            <li class="step-item">
-              <div class="h4 m-0">Finalized</div>
-              <div class="text-muted">Finish setting up your profile.</div>
-            </li>
-          </ul>
-        </div>
-        <div class="progress card-progress">
-          <div class="progress-bar progress-bar-indeterminate"></div>
-        </div>
-      </div>
-      {% endif %}
     </div>
   </div>
 </aside>

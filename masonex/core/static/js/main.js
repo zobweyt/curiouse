@@ -1,31 +1,25 @@
-$(document).ready(function() {    
-    function initDefaultFormValues(form) {
-        Array.from(form).forEach(el => el.dataset.defaultValue = el.value);
-    }
+$(document).ready(function() {
+    document.querySelectorAll('input[type=email]').forEach(input => {
+        input.setAttribute('pattern', "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$");
+    });
     
-    function isFormChanged(form) {
-        return Array.from(form).some(el => 'defaultValue' in el.dataset && el.dataset.defaultValue !== el.value);
-    }
-
     // TODO: make additional functions for every event. (then try this.button to access submit button)
     document.querySelectorAll('.needs-validation').forEach(form => {
-        initDefaultFormValues(form);
         let button = form.querySelector('button[type=submit]');
+        button.setAttribute('disabled', true);
 
         form.addEventListener('input', function() {
-            const isValid = isFormChanged(this) && $(this)[0].checkValidity();
-
-            if (isValid) {
-                button.removeAttribute('disabled');   
+            if (form.checkValidity()) {
+                button.removeAttribute('disabled');
             } else {
                 button.setAttribute('disabled', true);
             }
         });
 
         form.addEventListener('submit', function() {
-            button.setAttribute('disabled', true);
+            button.setAttribute('disabled', true);         
             let icon = button.querySelector('.icon');
-            
+
             if (icon) {
                 icon.remove();
             }

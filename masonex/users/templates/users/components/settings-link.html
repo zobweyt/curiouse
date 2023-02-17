@@ -1,0 +1,8 @@
+{% load users_tags %}
+
+{% with "users:"|add:url as url %}
+<a class="list-group-item list-group-item-action {% get_active_class url %}" href="{% url url %}">
+{% endwith %}
+  <i class="icon ti ti-{{ icon }} me-1"></i>
+  {{ url|capfirst }}
+</a>

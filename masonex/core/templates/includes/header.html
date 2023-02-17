@@ -16,7 +16,7 @@
         </div>
       </div>
       <div class="nav-item dropdown text-end">
-        <a href="#" class="nav-link" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+        <a href="#" class="nav-link" data-bs-toggle="dropdown">
           <img src="{{ request.user.get_avatar_url }}" class="avatar avatar-sm avatar-rounded img-darken">
         </a>
         <ul class="dropdown-menu dropdown-menu-end">
@@ -32,7 +32,7 @@
             </a>
           </li>
           <li>
-            <a href="{% url 'users:personal' %}?from={{ request.path }}" class="dropdown-item">
+            <a href="{% url 'users:personal' %}" class="dropdown-item">
               <i class="icon dropdown-item-icon ti ti-settings"></i>Settings
             </a>
           </li>
@@ -47,8 +47,8 @@
       {% else %}
       <div class="nav-item">
         <div class="btn-list">
-          <a href="{% url 'users:login' %}?from={{ request.path }}" type="button" class="btn">Login</a>
-          <a href="{% url 'users:new' %}?from={{ request.path }}" type="button" class="btn btn-primary">Sign up</a>
+          <a href="{% url 'users:login' %}" type="button" class="btn">Login</a>
+          <a href="{% url 'users:new' %}" type="button" class="btn btn-primary">Sign up</a>
         </div>
       </div>
       {% endif %}

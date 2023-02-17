@@ -55,8 +55,7 @@
             </li>
           </div>
         </div>
-        {% url 'articles:article_delete' article.pk article.slug as article_delete_url %}
-        {% include "components/confirm.html" with id="articleDeleteModal" title="Delete article?" text="Do you really want to delete this article?" action_url=article_delete_url %}
+        {% include "components/confirm.html" with id="articleDeleteModal" url='articles:article_delete' title="Delete article?" hint="Do you really want to delete this article?" %}
         {% endif %}
       </div>
     </section>

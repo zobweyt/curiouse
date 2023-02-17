@@ -1,19 +1,12 @@
 {% extends "users/settings.html" %}
 
 {% block form_body %}
-<hgroup>
-  <h3 class="card-title">Email</h3>
-  <p class="card-subtitle mb-2">Used for account recovery and notifications.</p>
-  <div class="d-flex flex-wrap gap-2">
-    <input type="email" readonly class="form-control w-auto" value="{{ request.user.email }}">
-    <a href="{% url 'users:email_change' %}?from={{ request.path }}" class="btn">Change</a>
-  </div>
-</hgroup>
-<hgroup>
-  <h3 class="card-title">Password</h3>
-  <p class="card-subtitle mb-2">Update the password regularly to protect your account.</p>
-  <div class="d-flex">
-    <a href="{% url 'users:password_change' %}?from={{ request.path }}" class="btn">Set new password</a>
-  </div>
-</hgroup>
+<div class="d-grid gap-2">
+  {% include 'users/components/security-link.html' with url="email_change" icon="mail" hint=request.user.email %}
+  {% include 'users/components/security-link.html' with url="password_change" icon="key" hint="Your account is protected" %}
+</div>
 {% endblock form_body %}
+
+{% block form_footer %}
+{% include 'users/components/security-link.html' with style="danger" url="logout" icon="logout" hint="End the current session" %}
+{% endblock form_footer %}

@@ -47,7 +47,7 @@ class ProfileUpdateForm(DecorateFormFieldsMixin, forms.ModelForm):
 class UserEmailChangeForm(DecorateFormFieldsMixin, forms.Form):
     email = forms.EmailField(
         widget=forms.EmailInput(attrs={'autofocus': True}),
-        help_text='Email will be used to recive notifications.'
+        help_text='Will be used to recive notifications.'
     )
 
     def __init__(self, user, *args, **kwargs):

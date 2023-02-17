@@ -1,38 +1,21 @@
 {% extends "users/settings.html" %}
-{% load static %}
 
 {% block form_body %}
-<div class="d-flex align-items-center gap-2">
-  <div class="dropdown">
-    <a id="avatar" class="avatar avatar-md d-block" data-bs-toggle="dropdown" aria-expanded="false"> 
-      <img src="{{ user.get_avatar_url }}" class="avatar avatar-md d-block img-darken">
-    </a>
-    <ul class="dropdown-menu">
-      <li>
-        <label for="id_avatar" class="dropdown-item cursor-pointer">
-          <i class="icon dropdown-item-icon ti ti-photo-edit"></i>
-          {{ form.avatar.label }}
-          {{ form.avatar }}
-      </li>
-      {% if user.avatar %}
-      <li>
-        <a href="#" class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#avatarRemoveModal">
-          <i class="icon dropdown-item-icon text-danger ti ti-trash"></i>Delete photo
-        </a>
-      </li>
-      {% endif %}
-    </ul>
-    {% url "users:user_avatar_delete" as avatar_delete_url %}
-    {% include "components/confirm.html" with id="avatarRemoveModal" title="Remove avatar?" text="Do you really want to remove the current avatar?" action_url=avatar_delete_url %}
+<div class="row align-items-center">
+  <div class="col-auto">
+    <label for="{{ form.avatar.id_for_label }}" id="avatar" class="d-block cursor-pointer"> 
+      <img src="{{ user.get_avatar_url }}" class="avatar avatar-md img-darken">
+    </label>
+    {{ form.avatar }}
   </div>
-  <div>
+  <div class="col gx-0">
     <h3 class="mb-1">{{ user.get_full_name }}</h3>
     <div class="text-muted">Provide some basic information to make using Masonex more convenient.</div>
   </div>
 </div>
-<div class="row">
-  {% include "components/input.html" with field=form.first_name wrapper_class="col-6" %}
-  {% include "components/input.html" with field=form.last_name wrapper_class="col-6" %}
+<div class="d-flex justify-content-between gap-3">
+  {% include "components/input.html" with field=form.first_name %}
+  {% include "components/input.html" with field=form.last_name %}
 </div>
 {% include "components/input.html" with field=form.bio %}
 {% endblock form_body %}

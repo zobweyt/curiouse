@@ -1,4 +1,5 @@
-from django.contrib.auth import get_user_model
+from string import capwords
+
 from django.conf import settings
 from django.db import models
 from django.urls import reverse
@@ -10,13 +11,12 @@ from django_editorjs_fields import EditorJsJSONField
 
 class Category(models.Model):
     name = models.CharField(max_length=64, db_index=True)
-    slug = models.SlugField(max_length=64, null=True, db_index=True)
 
     def __str__(self):
         return self.name
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.name)
+        self.name = capwords(self.name)
         super().save(*args, **kwargs)
 
     class Meta:
@@ -26,18 +26,12 @@ class Category(models.Model):
 
 
 class Article(models.Model):
-    author = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     categories = models.ManyToManyField(
         Category,
         help_text='Select up to 3 categories to help Masonex readers explore articles that interest them.',
     )
-    title = models.CharField(
-        max_length=128,
-        validators=[
-            MinLengthValidator(3),
-        ],
-        db_index=True,
-    )
+    title = models.CharField(max_length=128, db_index=True)
     slug = models.SlugField(max_length=128, null=True, db_index=True)
     thumbnail = models.ImageField(
         upload_to=settings.PHOTOS_PATH,
@@ -59,6 +53,4 @@ class Article(models.Model):
         return reverse('articles:article_detail', kwargs={'pk': self.pk, 'slug': self.slug})
 
     class Meta:
-        verbose_name = 'article'
-        verbose_name_plural = 'articles'
         ordering = ['-created_at', 'title', 'pk']

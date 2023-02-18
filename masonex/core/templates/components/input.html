@@ -6,13 +6,13 @@
   {% endif %}
   
   {% if field.help_text %}
-    <p class="form-hint mb-2">
+    <div class="form-hint mb-2">
       {{ field.help_text }}
-    </p>
+    </div>
   {% endif %}
   
   {% if field.field.widget.input_type == "file" %}
-    <label for="{{ field.id_for_label }}" class="btn btn-secondary d-sm-inline-block d-none mt-3">
+    <label for="{{ field.id_for_label }}" class="btn btn-secondary d-sm-inline-block d-none mt-2">
       <i class="icon ti ti-upload"></i>
       Upload {{ field.name|capfirst }}
     </label>

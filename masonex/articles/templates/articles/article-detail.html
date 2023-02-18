@@ -30,7 +30,7 @@
           <img src="{{ article.author.get_avatar_url }}" class="avatar avatar-rounded">
         </div>
         <div class="col gx-0">
-          <h3 class="mb-1 lh-1">{{ article.author.get_full_name }}</h3>
+          <h3 class="mb-1 lh-1">{{ article.author }}</h3>
           <p class="d-block text-muted mb-0">{{ article.created_at|date:"F d, Y" }}</p>
         </div>
       </div>
@@ -45,7 +45,6 @@
     </article>
 
     {% include 'articles/includes/author-card.html' with author=article.author %}
-    {% include 'articles/includes/articles-list.html' with articles=related_articles col_class='col-lg-4 col-6' chars=18 %}
   </div>
 </div>
 {% endblock content %}

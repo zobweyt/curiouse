@@ -41,9 +41,6 @@ class PersonalSettingsView(SettingsMixin, UpdateView):
     def get_object(self):
         return self.request.user
 
-    def get_title(self):
-        return 'Personal'
-
 
 class SecuritySettingsView(LoginRequiredMixin, TitleMixin, TemplateView):
     template_name = 'users/security.html'
@@ -54,13 +51,9 @@ class UserEmailChangeView(SecurityMixin, FormView):
     form_class = UserEmailChangeForm
     updating_object_name = 'email'
 
-    def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()
-        kwargs.update(user=self.request.user)
-        return kwargs
-
     def form_valid(self, form):
-        form.save()
+        self.request.user.email = form.cleaned_data['email']
+        self.request.user.save()
         return super().form_valid(form)
 
 

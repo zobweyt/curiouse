@@ -2,11 +2,11 @@
 
 {% block form_body %}
 <div class="d-grid gap-2">
-  {% include 'users/components/security-link.html' with url="email_change" icon="mail" hint=request.user.email %}
-  {% include 'users/components/security-link.html' with url="password_change" icon="key" hint="Your account is protected" %}
+  {% include "users/components/security-link.html" with url="email_change" icon="mail" hint=request.user.email %}
+  {% include "users/components/security-link.html" with url="password_change" icon="key" hint="Your account is protected" %}
 </div>
 {% endblock form_body %}
 
 {% block form_footer %}
-{% include 'users/components/security-link.html' with style="danger" url="logout" icon="logout" hint="End the current session" %}
+{% include "users/components/security-link.html" with style="danger" url="logout" icon="logout" hint="End the current session" %}
 {% endblock form_footer %}

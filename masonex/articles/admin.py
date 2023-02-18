@@ -7,8 +7,7 @@ from .models import Category, Article
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('id', 'name')
     list_display_links = ('name',)
-    search_fields = ('name', 'slug')
-    prepopulated_fields = {'slug': ('name',)}
+    search_fields = ('name',)
 
 
 @admin.register(Article)
@@ -18,6 +17,7 @@ class ArticleAdmin(admin.ModelAdmin):
     list_filter = ('categories', 'created_at', 'modified_at')
     search_fields = ('title', 'slug')
     exclude = ['author']
+    save_as = True
 
     def save_model(self, request, obj, form, change):
         obj.author = request.user

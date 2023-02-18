@@ -1,4 +1,17 @@
 document.addEventListener("DOMContentLoaded", function() {
+    const settings = {
+        maxItems: 3,
+        plugins: {
+            remove_button: {
+                label: '',
+                className: 'text-decoration-none ti ti-x ms-1'
+            }
+        },
+        itemClass: 'badge bg-primary-lt m-0 py-1 ps-2 pe-1 me-1 d-flex align-items-center',
+    };
+    
+    new TomSelect('[data-bs-toggle="tom-select"]', settings);
+
     const form = document.querySelector(".needs-validation");
     let submit = form.querySelector("button[type=submit]");
 

@@ -1,4 +1,4 @@
-from django.forms.fields import CharField, ChoiceField
+from django.forms.fields import Field
 
 
 class TitleMixin:
@@ -19,14 +19,10 @@ class TitleMixin:
 
 class DecorateFormFieldsMixin:
     """
-    Adds `css_class` to every `decorated_fields` in a form.
+    Adds `css_class` to every `Field` instance in a form.
     """
 
     css_class = "form-control"
-    decorated_fields = (
-        CharField,
-        # ChoiceField,
-    )
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -35,6 +31,6 @@ class DecorateFormFieldsMixin:
             self.__decorate_field(field)
 
     def __decorate_field(self, field):
-        if isinstance(field, self.decorated_fields):
+        if isinstance(field, Field):
             extra_css_class = field.widget.attrs.get("class", "")
             field.widget.attrs["class"] = " ".join((self.css_class, extra_css_class))

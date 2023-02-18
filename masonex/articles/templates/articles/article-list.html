@@ -1,7 +1,6 @@
 {% extends 'base-site.html' %}
 
 {% block content %}
-{% include "components/notifications.html" %}
 <div class="row mb-3">
   <div class="col-4">
     <div id="carousel-captions" class="carousel slide carousel-fade" data-bs-ride="carousel">
@@ -13,7 +12,6 @@
           </div>
           <div class="carousel-caption-background d-none d-md-block"></div>
           <div class="carousel-caption d-none d-md-block pb-2">
-            <h6>{{ article.categories }}</h6>
             <h3 class="mb-0">{{ article }}</h3>
           </div>
         </a>
@@ -27,10 +25,7 @@
       </a>
     </div>
   </div>
-  <div class="col-8">
-    {% include 'articles/includes/articles-list.html' with articles=articles|slice:"3:6" col_class="col-4" chars=48 %}
-  </div>
 </div>
-{% include 'articles/includes/articles-list.html' with articles=articles|slice:"6:" %}
+{% include 'articles/includes/articles-list.html' with articles=articles|slice:"3:" %}
 {% include 'articles/includes/pagination.html' %}
 {% endblock content %}

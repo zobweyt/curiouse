@@ -6,10 +6,11 @@ from .models import User
 
 
 class SignUpForm(DecorateFormFieldsMixin, UserCreationForm):
-    first_name = forms.CharField(required=True, widget=forms.TextInput(attrs={'autofocus': True}))
-    last_name = forms.CharField(required=True)
-    email = forms.EmailField(required=True)
-
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['username'].help_text = None
+        self.fields['password1'].help_text = None
+    
     class Meta:
         model = User
         fields = ('first_name', 'last_name', 'username', 'email', 'password1', 'password2')
@@ -20,16 +21,19 @@ class SignUpForm(DecorateFormFieldsMixin, UserCreationForm):
 
 
 class SignInForm(DecorateFormFieldsMixin, AuthenticationForm):
-    error_messages = {'invalid_login': 'Incorrect username or password.'}
+    error_messages = {
+        'invalid_login': 'Incorrect username or password.'
+    }
 
 
 class ProfileUpdateForm(DecorateFormFieldsMixin, forms.ModelForm):
-    first_name = forms.CharField(required=True)
-    last_name = forms.CharField(required=True)
 
     class Meta:
         model = User
-        fields = ('avatar', 'first_name', 'last_name', 'bio')
+        fields = ('avatar', 'first_name', 'last_name', 'username', 'bio')
+        help_texts = {
+            'username': None
+        }
         widgets = {
             'bio': forms.Textarea(attrs={
                 'rows': 2,
@@ -44,25 +48,19 @@ class ProfileUpdateForm(DecorateFormFieldsMixin, forms.ModelForm):
         }
 
 
-class UserEmailChangeForm(DecorateFormFieldsMixin, forms.Form):
-    email = forms.EmailField(
-        widget=forms.EmailInput(attrs={'autofocus': True}),
-        help_text='Will be used to recive notifications.'
-    )
+class UserEmailChangeForm(DecorateFormFieldsMixin, forms.ModelForm):
 
-    def __init__(self, user, *args, **kwargs):
-        self.user = user
-        super().__init__(*args, **kwargs)
-
-    def save(self, commit=True):
-        email = self.cleaned_data['email']
-        self.user.email = email
-        if commit:
-            self.user.save()
-        return self.user
+    class Meta:
+        model = User
+        fields = ('email',)
+        widgets = {
+            'email': forms.EmailInput(attrs={
+                'autofocus': True
+            })
+        }
 
 
 class UserPasswordChangeForm(DecorateFormFieldsMixin, PasswordChangeForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['new_password1'].help_text = 'Come up with a strong password of at least 8 characters.'
+        self.fields['new_password1'].help_text = None

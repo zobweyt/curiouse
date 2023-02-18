@@ -21,7 +21,7 @@ class RedirectAuthenticatedUsersMixin:
 class AuthMixin(RedirectAuthenticatedUsersMixin, TitleMixin):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["submit_button_text"] = self.get_title()
+        context['submit_button_text'] = self.get_title()
         return context
 
 
@@ -33,7 +33,7 @@ class SettingsMixin(LoginRequiredMixin, SuccessMessageMixin, TitleMixin):
     template_name = 'users/settings.html'
     success_url = reverse_lazy('users:personal')
     updating_object_name = 'profile'
-    extra_context = {"submit_button_text": "Save"}
+    extra_context = {'submit_button_text': 'Save'}
     
     def get_success_message(self, cleaned_data):
         return f'The {self.updating_object_name} has been updated.'

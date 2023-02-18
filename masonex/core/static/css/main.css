@@ -2,6 +2,7 @@
 
 :root {
   --tblr-font-sans-serif: 'Inter Var', -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, sans-serif;
+  --scroll-margin: 4rem;
 }
 
 body {
@@ -9,27 +10,15 @@ body {
 }
 
 [id] {
-  scroll-margin: 4rem;
-}
-
-.img-darken {
-  transition: filter 200ms ease-out;
-}
-
-.img-darken:hover {
-  filter: brightness(90%);
-}
-
-.img-darken:active {
-  filter: brightness(75%);
+  scroll-margin: var(--scroll-margin);
 }
 
 @media (min-width: 992px) {
   .sidebar {
     position: sticky;
     z-index: 1;
-    top: 4rem;
+    top: var(--scroll-margin);
     overflow-y: auto;
-    height: 90vh;
+    max-height: 90vh;
   }
 }

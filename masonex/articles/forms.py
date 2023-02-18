@@ -1,6 +1,6 @@
 from django import forms
 
-from articles.models import Article, Category
+from articles.models import Article
 
 
 class ArticleEditorForm(forms.ModelForm):
@@ -15,7 +15,6 @@ class ArticleEditorForm(forms.ModelForm):
                 'placeholder': 'This article is about...',
                 'class': 'form-control-plaintext h1',
                 'data-bs-toggle': 'autosize',
-                'minlength': 3,
             }),
             'categories': forms.SelectMultiple(attrs={
                 'class': 'form-select tomselected',
@@ -26,7 +25,7 @@ class ArticleEditorForm(forms.ModelForm):
                 'hidden': True,
                 'data-toggle': 'image',
                 'data-target': '#thumbnail',
-                'data-style': 'img-darken flex-fill rounded-4',
+                'data-style': 'flex-fill rounded-4',
             })
         }
     

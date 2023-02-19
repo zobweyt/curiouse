@@ -2,7 +2,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import CreateView, DetailView, UpdateView, ListView
 
 from core.utils import TitleMixin
-from .models import Article
+from .models import Article, Author
 from .mixins import ArticleEditorMixin, ArticleTitleMixin, ArticleAuthorRequiredMixin
 
 
@@ -11,7 +11,7 @@ class ArticleCreateView(LoginRequiredMixin, TitleMixin, ArticleEditorMixin, Crea
 
     def form_valid(self, form):
         article = form.save(commit=False)
-        article.author = self.request.user
+        article.author = Author.objects.get(user=self.request.user)
         return super().form_valid(form)
     
 
@@ -26,8 +26,11 @@ class ArticleDetailView(ArticleTitleMixin, DetailView):
     template_name = 'articles/article-detail.html'
 
     def get_queryset(self):
+        # from notifications.signals import notify
+        # u = Author.objects.first()
+        # notify.send(u, recipient=u.user, verb="test", description="desc")
         return super().get_queryset().select_related('author').only(
-            'author__first_name', 'author__last_name', 'author__avatar', 'author__bio',
+            'author__user__first_name', 'author__user__last_name', 'author__user__avatar', 'author__user__bio',
             'title', 'slug', 'created_at', 'body'
         )
 
@@ -41,7 +44,7 @@ class ArticleListView(TitleMixin, ListView):
 
     def get_queryset(self):
         return super().get_queryset().select_related('author').only(
-            'author__first_name', 'author__last_name', 
+            'author__user__first_name', 'author__user__last_name', 
             'categories__name', 
             'title', 'thumbnail', 'slug'
         )

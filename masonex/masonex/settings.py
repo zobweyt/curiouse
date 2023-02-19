@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_sass',
     'django_cleanup',
+    'notifications',
     'django_editorjs_fields',
     'debug_toolbar',
 ]

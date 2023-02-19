@@ -19,7 +19,7 @@ class User(AbstractUser):
     REQUIRED_FIELDS = ['email', 'first_name', 'last_name']
 
     def __str__(self):
-        return self.get_full_name()
+        return self.username
     
     def get_avatar_url(self):
         return self.avatar.url if self.avatar else staticfiles_storage.url('images/user.svg')

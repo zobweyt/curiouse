@@ -1,30 +1,22 @@
 document.addEventListener("DOMContentLoaded", function() {
+    function appendSpinner() {
+        let button = this.querySelector('button[type=submit]');
+        button.setAttribute('disabled', true);         
+        let icon = button.querySelector('.icon');
+
+        if (icon) {
+            icon.remove();
+        }
+
+        let spinner = document.createElement('span');
+        spinner.classList.add('spinner-border', 'spinner-border-sm', 'me-2');
+        spinner.setAttribute('role', 'status');
+
+        button.insertBefore(spinner, button.firstChild);
+    }
+
     document.querySelectorAll('.needs-validation').forEach(form => {
-        let button = form.querySelector('button[type=submit]');
-        button.setAttribute('disabled', true);
-
-        form.addEventListener('input', function() {
-            if (form.checkValidity()) {
-                button.removeAttribute('disabled');
-            } else {
-                button.setAttribute('disabled', true);
-            }
-        });
-
-        form.addEventListener('submit', function() {
-            button.setAttribute('disabled', true);         
-            let icon = button.querySelector('.icon');
-
-            if (icon) {
-                icon.remove();
-            }
-
-            let spinner = document.createElement('span');
-            spinner.classList.add('spinner-border', 'spinner-border-sm', 'me-2');
-            spinner.setAttribute('role', 'status');
-
-            button.insertBefore(spinner, button.firstChild);
-        });
+        form.addEventListener('submit', appendSpinner);
     });
 
     function changeImage(input, image, target) {

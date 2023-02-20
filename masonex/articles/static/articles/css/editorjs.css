@@ -14,7 +14,9 @@
   cursor: text !important;
 }
 
-.form-control-plaintext.h1 {
+.form-control-plaintext.h1,
+.error-list,
+.sidebar {
   max-width: 650px;
   margin: 0 auto;
 }

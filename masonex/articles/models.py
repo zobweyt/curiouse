@@ -3,6 +3,7 @@ from string import capwords
 from django.conf import settings
 from django.db import models
 from django.db.models import Q, F
+from django.core.validators import MinLengthValidator
 from django.urls import reverse
 from django.template.defaultfilters import slugify
 
@@ -83,12 +84,19 @@ class Article(models.Model):
         Category,
         help_text='Select up to 3 categories to help Masonex readers explore articles that interest them.',
     )
-    title = models.CharField(max_length=128, db_index=True)
+    title = models.CharField(
+        max_length=128,
+        validators=[MinLengthValidator(3)],
+        db_index=True
+    )
     slug = models.SlugField(max_length=128, null=True, db_index=True)
     thumbnail = models.ImageField(
         upload_to=settings.PHOTOS_PATH,
         verbose_name='Article listing cover image',
-        help_text='This image will be displayed on article listing. The recommended size 1920x1440 and recommended ratio is 4:3.',
+        help_text='''
+            This image will be displayed on article listing.
+            The recommended size 1920x1440 and recommended ratio is 4:3.
+        ''',
     )
     body = EditorJsJSONField(**settings.EDITORJS_CONFIG_OVERRIDE)
     created_at = models.DateTimeField(auto_now_add=True)

@@ -31,12 +31,12 @@
       {% include "components/input.html" with field=form.categories %}
       <div class="hr-text">Content</div>
       <article>
-        {{ form.title }}
-        {{ form.body }}
+        {% include "components/input.html" with field=form.title %}
+        {% include "components/input.html" with field=form.body %}
       </article>
     </div>
 
-    <div class="col-lg-3">
+    <div class="col-lg-3 mt-lg-0 mt-3">
       <aside class="sidebar">
         <div class="btn-list">
           <button type="submit" class="btn btn-primary">

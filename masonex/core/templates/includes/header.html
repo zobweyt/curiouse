@@ -1,21 +1,28 @@
-{% load static %}
+{% load static notifications_tags %}
 
 <header class="navbar navbar-light d-print-none sticky-top">
   <div class="container-xxl">
-    <a href="{% url 'articles:article_list' %}" class="navbar-brand">
+    <a href="{% url 'articles:article_list' %}" class="navbar-brand" title="Main Masonex page">
       <img src="{% static 'images/logo.svg' %}" class="navbar-brand-image">
     </a>
     <div class="navbar-nav flex-row">
       {% if request.user.is_authenticated %}
-      <div class="nav-item me-3">
-        <div class="btn-list">
-          <a href="{% url 'articles:article_create' %}" class="btn btn-primary d-sm-block d-none">
-            <i class="icon ti ti-text-plus"></i>
-            New article
-          </a>
-        </div>
+      <div class="nav-item me-1">
+        <a href="{% url 'articles:article_create' %}" class="btn btn-primary d-sm-block d-none">
+          <i class="icon ti ti-text-plus"></i>
+          New article
+        </a>
       </div>
-      <div class="nav-item dropdown text-end">
+      <div class="nav-item">
+        {% notifications_unread as unread_count %}
+        <a href="{% url 'notifications:unread' %}" class="nav-link">
+          <i class="icon ti ti-bell"></i>
+          {% if unread_count %}
+          <span class="badge bg-red"></span>
+          {% endif %}
+        </a>
+      </div>
+      <div class="nav-item dropdown text-end ms-3">
         <a href="#" class="nav-link" data-bs-toggle="dropdown">
           <img src="{{ request.user.get_avatar_url }}" class="avatar avatar-sm avatar-rounded">
         </a>

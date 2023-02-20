@@ -1,7 +1,7 @@
 {% load articles_tags %}
 
 {% if page_obj.has_other_pages %}
-<div class="card mt-4">
+<div class="card mt-3">
   <div class="card-body">
     <ul class="pagination">
       <li class="page-item page-prev {% if not page_obj.has_previous %}disabled{% endif %}">

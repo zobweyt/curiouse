@@ -1,0 +1,44 @@
+{% extends 'base-site.html' %}
+{% load static notifications_tags users_tags %}
+
+{% block title %}
+Notifications
+{% endblock title %}
+
+{% block content %}
+<div class="mb-3">
+  <div class="btn-group">
+    <a href="{% url 'notifications:all' %}" class="btn {% get_active_class 'notifications:all' False %} position-relative">All</a>
+    <a href="{% url 'notifications:unread' %}" class="btn {% get_active_class 'notifications:unread' False %} position-relative">Unread</a>
+  </div>
+  <!-- DISPLAY IF UNREAD COUNT -->
+  <a href="{% url 'notifications:mark_all_as_read' %}" class="btn float-end">
+    <i class="icon ti ti-list-check"></i>
+    Mark all as read
+  </a>
+</div>
+
+{% if notifications %}
+<div class="card">
+  <div class="card-stamp">
+    <span class="card-stamp-icon bg-primary"><i class="ti ti-bell"></i></span>
+  </div>
+  <div class="card-header">
+    <h3 class="card-title">Notifications</h3>
+  </div>
+  <ul class="list-unstyled list-group list-group-flush list-group-hoverable">
+    {% for notice in notifications %}
+      {% include 'notifications/notice.html' %}
+    {% endfor %}
+  </ul>
+</div>
+{% else %}
+<div class="container-tight py-4 text-center">
+  <img src="{% static 'images/feeling_of_joy.svg' %}" height="180" class="mb-4">
+  <h2>No new notifications</h2>
+  <p class="text-muted">You do not have unread notifications.</p>
+</div>
+{% endif %}
+
+{% include 'articles/includes/pagination.html' %}
+{% endblock content %}

@@ -1,0 +1,34 @@
+<div class="list-group-item" title="{{ notice.timesince }} ago">
+  <div class="row align-items-center">
+    <div class="col-auto">
+      {% if notice.unread %}
+      <i class="icon ti ti-circle-dot text-teal"></i>
+      {% else %}
+      <i class="icon ti ti-circle-check text-purple"></i>      
+      {% endif %}
+    </div>
+    <div class="col text-truncate">
+      <div class="{% if notice.unread %}fw-bold{% endif %}">
+        {{ notice.actor }} 
+        {{ notice.verb }}
+        {% if notice.target %}
+        {{ notice.target }}
+        {% endif %}
+      </div>
+      <div class="d-block {% if not notice.unread %}text-muted{% endif %} text-truncate mt-n1">
+        {{ notice.description }}
+      </div>
+    </div>
+    <div class="col-auto">
+      {% if notice.unread %}
+      <a href="{% url 'notifications:mark_as_read' notice.slug %}" class="list-group-item-actions btn btn-action" title="Mark as read">
+        <i class="icon ti ti-check"></i>
+      </a>
+      {% else %}
+      <a href="{% url 'notifications:mark_as_unread' notice.slug %}" class="list-group-item-actions btn btn-action" title="Mark as unread">
+        <i class="icon ti ti-arrow-right"></i>
+      </a>
+      {% endif %}
+    </div>
+  </div>
+</div>

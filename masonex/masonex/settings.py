@@ -50,6 +50,7 @@ ROOT_URLCONF = 'masonex.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -271,4 +272,8 @@ EDITORJS_CONFIG_OVERRIDE = {
             },
         },
     },
+}
+
+DJANGO_NOTIFICATIONS_CONFIG = {
+    'PAGINATE_BY': 10,
 }

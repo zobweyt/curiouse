@@ -4,11 +4,17 @@ from articles.models import Article
 
 
 class ArticleEditorForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['body'].label = ''
 
     class Meta:
         model = Article
         fields = ('thumbnail', 'title', 'body', 'categories')
         exclude = ('author', 'slug')
+        labels = {
+            'title': '',
+        }
         widgets = {
             'title': forms.Textarea(attrs={
                 'rows': 1,
@@ -17,9 +23,8 @@ class ArticleEditorForm(forms.ModelForm):
                 'data-bs-toggle': 'autosize',
             }),
             'categories': forms.SelectMultiple(attrs={
-                'class': 'form-select tomselected',
+                'placeholder': 'Type to search...',
                 'data-bs-toggle': 'tom-select',
-                'placeholder': 'Type to search...'
             }),
             'thumbnail': forms.FileInput(attrs={
                 'hidden': True,

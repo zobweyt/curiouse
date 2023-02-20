@@ -26,9 +26,6 @@ class ArticleDetailView(ArticleTitleMixin, DetailView):
     template_name = 'articles/article-detail.html'
 
     def get_queryset(self):
-        # from notifications.signals import notify
-        # u = Author.objects.first()
-        # notify.send(u, recipient=u.user, verb="test", description="desc")
         return super().get_queryset().select_related('author').only(
             'author__user__first_name', 'author__user__last_name', 'author__user__avatar', 'author__user__bio',
             'title', 'slug', 'created_at', 'body'

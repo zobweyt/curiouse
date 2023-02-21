@@ -1,6 +1,12 @@
 {% extends 'base-site.html' %}
 
 {% block content %}
+
+<div class="row row-gap-3 row-cols-lg-4 row-cols-md-3 row-cols-2">
+  {% include 'articles/includes/articles-list.html' %}
+</div>
+
+{% comment %}
 <div class="row mb-3">
   <div class="col-4">
     <div id="carousel-captions" class="carousel slide carousel-fade" data-bs-ride="carousel">
@@ -25,7 +31,8 @@
       </a>
     </div>
   </div>
-</div>
+</div>-->
 {% include 'articles/includes/articles-list.html' with articles=articles|slice:"3:" %}
-{% include 'articles/includes/pagination.html' %}
+{% include 'components/pagination.html' %} 
+{% endcomment %} 
 {% endblock content %}

@@ -11,3 +11,13 @@ def get_active_class(context, url_to_check, exact=True):
     if path.__contains__(url) if exact else path == url:
         return ' active'
     return ''
+
+
+@register.filter
+def replace(value, arg):
+    """
+    Replacing filter
+    Usege: `{{ "aaa"|replace:"a|b" }}`
+    """
+    what, to = arg.split('|')
+    return value.replace(what, to)

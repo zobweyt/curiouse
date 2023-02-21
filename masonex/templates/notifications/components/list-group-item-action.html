@@ -1,0 +1,9 @@
+{% load helpers %}
+
+<button type="button" 
+        class="btn btn-action"
+        hx-get="{% url 'notifications:'|add:url notice.slug %}"
+        hx-target="body"
+        title="{{ url|replace:'_| '|capfirst }}">
+  <i class="icon ti ti-{{ icon }}"></i>
+</button>

@@ -164,7 +164,7 @@ MEDIA_URL = 'media/'
 
 PHOTOS_PATH = 'photos/%Y/%m/%d/'
 
-EDITORJS_VERSION = '2.26.5'
+EDITORJS_VERSION = '2.27.0-rc.1'
 
 EDITORJS_DEFAULT_PLUGINS = (
     '@editorjs/paragraph',
@@ -272,8 +272,4 @@ EDITORJS_CONFIG_OVERRIDE = {
             },
         },
     },
-}
-
-DJANGO_NOTIFICATIONS_CONFIG = {
-    'PAGINATE_BY': 10,
 }

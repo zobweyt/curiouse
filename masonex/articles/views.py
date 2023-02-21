@@ -36,8 +36,12 @@ class ArticleListView(TitleMixin, ListView):
     model = Article
     template_name = 'articles/article-list.html'
     context_object_name = 'articles'
-    paginate_by = 24
+    paginate_by = 4
     title = 'Articles'
+    
+    def get_template_names(self):
+        is_htmx = self.request.headers.get('HX-Request') == 'true'
+        return 'articles/includes/articles-list.html' if is_htmx else 'articles/article-list.html'
 
     def get_queryset(self):
         return super().get_queryset().select_related('author').only(

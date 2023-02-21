@@ -1,9 +1,20 @@
-{% load static %}
+{% load static notifications_tags %}
 
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>{% block title %}{% if title %}{{ title }}{% endif %}{% endblock title %} - Masonex</title>
+    <title>
+      {% notifications_unread as unread_notifications_count %}
+      {% if unread_notifications_count %}
+      ({{ unread_notifications_count}}) 
+      {% endif %}
+      {% block title %}
+        {% if title %}
+          {{ title }}
+        {% endif %}
+      {% endblock title %}
+       - Masonex
+    </title>
     <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon"/>
     <meta charset="UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -12,6 +23,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons@latest/iconfont/tabler-icons.min.css"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/css/tabler.min.css">
     <script src="{% static 'js/main.js' %}"></script>
+    <script src="https://unpkg.com/htmx.org@1.8.5"></script>
     <script src="https://cdn.jsdelivr.net/npm/autosize@5.0.2/dist/autosize.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/js/tabler.min.js"></script>
     {% block head %}

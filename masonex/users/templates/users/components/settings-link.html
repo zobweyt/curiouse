@@ -1,4 +1,4 @@
-{% load users_tags %}
+{% load helpers %}
 
 {% with "users:"|add:url as url %}
 <a class="list-group-item list-group-item-action{% get_active_class url %}" href="{% url url %}">

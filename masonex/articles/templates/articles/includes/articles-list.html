@@ -1,13 +1,18 @@
-{% if articles %}
-<div class="row row-gap-4 row-cols-lg-4 row-cols-md-3 row-cols-2">
-  {% for article in articles %}
-  <article class="card card-borderless bg-transparent card-link-pop">
+{% for article in articles %}
+  <article class="card card-borderless bg-transparent card-link-pop"
+           title="{{ article }}"
+           {% if forloop.last and page_obj.has_next %}
+           hx-get="?page={{ page_obj.next_page_number }}"
+           hx-trigger="revealed"
+           hx-target="this"
+           hx-swap="afterend"
+           {% endif %}>
     <a href="{{ article.get_absolute_url }}" class="text-decoration-none text-body">
       <div class="ratio ratio-4x3">
         <img src="{{ article.thumbnail.url }}" class="rounded-4" loading="lazy">
       </div>
       <div class="d-flex mt-2">
-        <img src="{{ article.author.get_avatar_url }}" class="avatar avatar-rounded">
+        <img src="{{ article.author.user.get_avatar_url }}" class="avatar avatar-rounded">
         <div class="ms-2">
           <div class="fs-3 fw-bold lh-sm">{{ article|truncatechars:56 }}</div>
           <small class="text-muted">{{ article.author }}</small>
@@ -15,6 +20,4 @@
       </div>
     </a>
   </article>
-  {% endfor %}
-</div>
-{% endif %}
+{% endfor %}

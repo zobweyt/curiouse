@@ -1,34 +1,35 @@
-<div class="list-group-item" title="{{ notice.timesince }} ago">
+<div class="list-group-item">
   <div class="row align-items-center">
-    <div class="col-auto">
+    <div class="col-auto col-auto">
       {% if notice.unread %}
-      <i class="icon ti ti-circle-dot text-teal"></i>
+      <i class="icon ti ti-circle-dot text-{{ notice.level }}"></i>
       {% else %}
-      <i class="icon ti ti-circle-check text-purple"></i>      
+      <i class="icon ti ti-circle-check text-muted"></i>      
       {% endif %}
     </div>
     <div class="col text-truncate">
-      <div class="{% if notice.unread %}fw-bold{% endif %}">
-        {{ notice.actor }} 
-        {{ notice.verb }}
-        {% if notice.target %}
-        {{ notice.target }}
-        {% endif %}
-      </div>
-      <div class="d-block {% if not notice.unread %}text-muted{% endif %} text-truncate mt-n1">
+      <a href="{{ notice.action_object.get_absolute_url }}" class="text-body d-block{% if notice.unread %} fw-bold{% endif %}">
+        {{ notice.actor }} {{ notice.verb }}{% if notice.action_object %} {{ notice.action_object }}{% endif %}
+      </a>
+      {% if notice.description %}
+      <div class="d-block {% if not notice.unread %}text-muted{% endif %}">
         {{ notice.description }}
       </div>
+      {% endif %}
+      <small class="text-muted lh-1">{{ notice.timesince }} ago</small>
     </div>
     <div class="col-auto">
-      {% if notice.unread %}
-      <a href="{% url 'notifications:mark_as_read' notice.slug %}" class="list-group-item-actions btn btn-action" title="Mark as read">
-        <i class="icon ti ti-check"></i>
-      </a>
-      {% else %}
-      <a href="{% url 'notifications:mark_as_unread' notice.slug %}" class="list-group-item-actions btn btn-action" title="Mark as unread">
-        <i class="icon ti ti-arrow-right"></i>
-      </a>
-      {% endif %}
+      <img src="{{ notice.actor.user.get_avatar_url }}" class="avatar avatar-sm avatar-rounded" title="{{ notice.actor }}">
+    </div>
+    <div class="col-auto">
+      <div class="list-group-item-actions">
+        {% if notice.unread %}
+          {% include 'notifications/components/list-group-item-action.html' with url="mark_as_read" icon="check" %}
+        {% else %}
+          {% include 'notifications/components/list-group-item-action.html' with url="mark_as_unread" icon="arrow-right" %}
+        {% endif %}
+        {% include 'notifications/components/list-group-item-action.html' with url="delete" icon="trash" %}
+      </div>
     </div>
   </div>
 </div>

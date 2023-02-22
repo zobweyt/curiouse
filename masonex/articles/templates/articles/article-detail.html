@@ -20,7 +20,11 @@
   <div class="col-lg-9 col-xl-6">
     <ul class="list-unstyled badges-list">
       {% for category in article.categories.all %}
-      <li><span class="badge bg-primary-lt">{{ category }}</span></li>
+      <li>
+        <span class="badge text-primary-emphasis bg-primary-subtle border-primary-subtle shadow-sm">
+          {{ category }}
+        </span>
+      </li>
       {% endfor %}
     </ul>
     

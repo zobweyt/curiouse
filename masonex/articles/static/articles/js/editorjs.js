@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 className: 'text-decoration-none ti ti-x ms-1'
             }
         },
-        itemClass: 'badge bg-primary-lt m-0 py-1 ps-2 pe-1 me-1 d-flex align-items-center',
+        itemClass: 'badge text-primary-emphasis bg-primary-subtle border border-primary-subtle shadow-sm m-0 py-1 ps-2 pe-1 me-1 d-flex align-items-center',
     });
 
     document.querySelector(".form-control-plaintext.h1").addEventListener("keydown", function(event) {

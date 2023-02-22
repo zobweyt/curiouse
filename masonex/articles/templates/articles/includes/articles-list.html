@@ -1,23 +1,34 @@
+{% comment %}
+!! Need fix for gutter of element start. !!
+{% endcomment %}
+
 {% for article in articles %}
-  <article class="card card-borderless bg-transparent card-link-pop"
-           title="{{ article }}"
-           {% if forloop.last and page_obj.has_next %}
-           hx-get="?page={{ page_obj.next_page_number }}"
-           hx-trigger="revealed"
-           hx-target="this"
-           hx-swap="afterend"
-           {% endif %}>
-    <a href="{{ article.get_absolute_url }}" class="text-decoration-none text-body">
-      <div class="ratio ratio-4x3">
-        <img src="{{ article.thumbnail.url }}" class="rounded-4" loading="lazy">
+<li {% if forloop.last and page_obj.has_next %}
+    hx-get="?page={{ page_obj.next_page_number }}"
+    hx-trigger="revealed"
+    hx-target="this"
+    hx-swap="afterend"
+    {% endif %}>
+  <a href="{{ article.get_absolute_url }}" class="card border-0 bg-transparent shadow-none card-link-pop rounded-4 gap-1">
+    <div class="ratio ratio-4x3">
+      <img src="{{ article.thumbnail.url }}" class="rounded-4 shadow-sm" loading="lazy">
+    </div>
+    <ul class="list-unstyled badges-list gap-1">
+      {% for category in article.categories.all %}
+        <li>
+          <span class="badge text-primary-emphasis bg-primary-subtle border-primary-subtle shadow-sm">
+            {{ category }}
+          </span>
+        </li>
+      {% endfor %}
+    </ul>
+    <div class="d-flex mt-1">
+      <img src="{{ article.author.user.get_avatar_url }}" class="avatar avatar-rounded shadow-sm">
+      <div class="ms-2">
+        <div class="fs-3 lh-sm fw-bolder truncate">{{ article }}</div>
+        <small class="text-muted fw-medium">By {{ article.author }}, {{ article.created_at|date:"F d" }}</small>
       </div>
-      <div class="d-flex mt-2">
-        <img src="{{ article.author.user.get_avatar_url }}" class="avatar avatar-rounded">
-        <div class="ms-2">
-          <div class="fs-3 fw-bold lh-sm">{{ article|truncatechars:56 }}</div>
-          <small class="text-muted">{{ article.author }}</small>
-        </div>
-      </div>
-    </a>
-  </article>
+    </div>
+  </a>
+</li>
 {% endfor %}

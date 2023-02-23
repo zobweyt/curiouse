@@ -27,7 +27,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_sass',
     'django_cleanup',
     'notifications',
     'django_editorjs_fields',

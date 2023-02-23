@@ -15,7 +15,7 @@
           <label for="{{ form.thumbnail.id_for_label }}" class="ratio ratio-4x3 cursor-pointer">
             <div id="thumbnail" class="d-flex w-100">
               {% if article %}
-              <img src="{{ article.thumbnail.url }}" class="rounded-4">
+              <img src="{{ article.thumbnail.url }}" class="rounded-4 flex-fill">
               {% else %}
               <div class="px-2 py-3 border rounded-4 flex-fill d-flex align-items-center justify-content-center flex-column">
                 <i class="icon fs-1 ti ti-sunset-2 mb-3"></i>

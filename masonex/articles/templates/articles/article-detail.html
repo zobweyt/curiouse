@@ -30,17 +30,22 @@
     
     <section class="d-flex align-items-center mb-3">
       <div class="row align-items-center me-auto">
-        <div class="col-auto">
+        <a href="{{ article.author.get_absolute_url }}" class="col-auto" title="{{ article.author }}">
           <img src="{{ article.author.user.get_avatar_url }}" class="avatar avatar-rounded">
-        </div>
+        </a>
         <div class="col gx-0">
-          <h3 class="mb-1 lh-1">{{ article.author }}</h3>
+          <a href="{{ article.author.get_absolute_url }}" class="h3 mb-1 lh-1">{{ article.author }}</a>
           <p class="d-block text-muted mb-0">{{ article.created_at|date:"F d, Y" }}</p>
         </div>
       </div>
-      {% if request.user == article.author.user %}
-      <a href="{% url 'articles:article_update' article.pk article.slug %}" class="btn">Edit</a>
-      {% endif %}
+      <div class="btn-list">
+        {% include 'articles/includes/bookmark-button.html' %}
+        {% if request.user == article.author.user %}
+        <a href="{% url 'articles:article_update' article.pk article.slug %}" class="btn btn-icon">
+          <i class="icon ti ti-pencil"></i>
+        </a>
+        {% endif %}
+      </div>
     </section>
 
     <article class="article__body text-break">

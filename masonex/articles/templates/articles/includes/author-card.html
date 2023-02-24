@@ -1,20 +1,39 @@
-{% if article.author.bio %}
+{% if author.user.bio %}
 <section class="card">
   <div class="card-stamp">
     <div class="card-stamp-icon bg-yellow"><i class="ti ti-license"></i></div>
   </div>
   <div class="card-body">
-    <h2>About the author</h2>
-    <div class="d-flex gap-3">
-      <img src="{{ author.get_avatar_url }}" class="align-self-start avatar avatar-md rounded-4">
-      <div>
+    <div class="row">
+      <a href="{{ author.get_absolute_url }}" class="col-auto align-self-start" title="{{ author }}">
+        <img src="{{ author.user.get_avatar_url }}" class="avatar avatar-md avatar-rounded">
+      </a>
+      <div class="col">
+        {% with followers_count=author.followers.count %}  
+        <small class="text-muted">
+          {{ followers_count }} follower{% if followers_count != 1 %}s{% endif %}
+        </small>
+        {% endwith %}
         <div class="d-flex align-items-center gap-2 mb-1">
-          <h3 class="card-title mb-0">
+          <a href="{{ author.get_absolute_url }}" class="h3 card-title mb-0">
             {{ author }}
-          </h3>
+          </a>
           <span class="badge bg-success-lt">Author</span>
         </div>
-        <p class="card-text">{{ author.bio }}</p>
+        <p class="card-text">{{ author.user.bio }}</p>
+        {% if request.user.pk != author.user.pk %}
+        {% if not request.user in author.followers.all %}
+        <button hx-get="{% url 'articles:follow_author' author.user.username %}" hx-target="closest .card" hx-swap="outerHTML" class="btn">
+          <i class="icon ti ti-bell-plus"></i>
+          Follow
+        </button>
+        {% else %}
+        <button hx-get="{% url 'articles:unfollow_author' author.user.username %}" hx-target="closest .card" hx-swap="outerHTML" class="btn active">
+          <i class="icon ti ti-bell-ringing"></i>
+          Following
+        </button>
+        {% endif %}
+        {% endif %}
       </div>
     </div>
   </div>

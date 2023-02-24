@@ -27,9 +27,20 @@
           <img src="{{ request.user.get_avatar_url }}" class="avatar avatar-sm avatar-rounded">
         </a>
         <ul class="dropdown-menu dropdown-menu-end">
+          <li>
+            <a href="{% url 'articles:author_detail' request.user %}" class="dropdown-item">
+              <i class="icon dropdown-item-icon ti ti-id-badge-2"></i>My profile
+            </a>
+          </li>
+          <li><hr class="dropdown-divider"></li>
           <li class="d-sm-none d-block">
             <a href="{% url 'articles:article_create' %}" class="dropdown-item">
               <i class="icon dropdown-item-icon ti ti-typography"></i>New article
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'articles:bookmarks' %}" class="dropdown-item">
+              <i class="icon dropdown-item-icon ti ti-bookmarks"></i>Bookmarks
             </a>
           </li>
           <li><hr class="dropdown-divider d-sm-none d-block"></li>

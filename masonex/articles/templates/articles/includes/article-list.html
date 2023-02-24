@@ -1,0 +1,12 @@
+{% for article in articles %}
+{% if forloop.last and page_obj.has_next %}
+<li hx-get="?page={{ page_obj.next_page_number }}"
+    hx-trigger="revealed"
+    hx-target="this"
+    hx-swap="afterend">
+{% else %}
+<li>
+{% endif %}
+  {% include 'articles/includes/article-card.html' %}
+</li>
+{% endfor %}

@@ -16,8 +16,9 @@ class Author(models.Model):
         on_delete=models.CASCADE
     )
     followers = models.ManyToManyField(
-        'self',
+        settings.AUTH_USER_MODEL,
         through='Follow',
+        related_name='followers',
         symmetrical=False,
         blank=True
     )
@@ -32,7 +33,7 @@ class Author(models.Model):
         return self.user.get_full_name()
     
     def get_absolute_url(self):
-        return reverse('articles:author_detail', kwargs={'username': self.user.username})
+        return reverse('articles:author_detail', kwargs={'username': self.user})
 
 
 class Follow(models.Model):
@@ -41,7 +42,7 @@ class Follow(models.Model):
         on_delete=models.CASCADE
     )
     follower = models.ForeignKey(
-        Author,
+        settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         related_name='follower'
     )

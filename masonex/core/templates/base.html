@@ -1,4 +1,4 @@
-{% load static notifications_tags %}
+{% load static notifications_tags django_htmx %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -26,6 +26,7 @@
     <script src="https://unpkg.com/htmx.org@1.8.5"></script>
     <script src="https://cdn.jsdelivr.net/npm/autosize@5.0.2/dist/autosize.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/js/tabler.min.js"></script>
+    {% django_htmx_script %}
     {% block head %}
     {% endblock head %}
   </head>

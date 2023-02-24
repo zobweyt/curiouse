@@ -2,8 +2,10 @@
 
 {% block content %}
 
-<ul class="list-unstyled mb-0 row row-gap-3 row-cols-lg-4 row-cols-md-3 row-cols-2">
-  {% include 'articles/includes/articles-list.html' %}
+<ul class="list-unstyled mb-0">
+  <div class="row row-gap-3 row-cols-lg-4 row-cols-md-3 row-cols-2">
+    {% include 'articles/includes/article-list.html' %}
+  </div>
 </ul>
 
 {% comment %}

@@ -1,0 +1,30 @@
+<article class="d-grid gap-1">
+  <a href="{{ article.get_absolute_url }}" class="ratio ratio-4x3" title="{{ article }}">
+    <img src="{{ article.thumbnail.url }}" class="rounded-4" loading="lazy">
+  </a>
+  <ul class="list-unstyled badges-list gap-1">
+    {% for category in article.categories.all %}
+      <li>
+        <span class="badge text-primary-emphasis bg-primary-subtle border-primary-subtle shadow-sm">
+          {{ category }}
+        </span>
+      </li>
+    {% endfor %}
+  </ul>
+  <div class="">
+    <div class="row mt-1">
+      <div class="col-auto">
+        <a href="{{ article.author.get_absolute_url }}" title="{{ article.author }}">
+          <img src="{{ article.author.user.get_avatar_url }}" class="avatar avatar-rounded shadow-sm" loading="lazy">
+        </a>
+      </div>
+      <div class="col ps-0">
+        <a href="{{ article.get_absolute_url }}" class="text-body fs-3 lh-sm fw-bolder truncate">{{ article }}</a>
+        <small class="text-muted fw-medium">
+          By <a href="{{ article.author.get_absolute_url }}">{{ article.author }}</a>,
+          {{ article.created_at|date:"F d" }}
+        </small>
+      </div>
+    </div>
+  </div>
+</article>

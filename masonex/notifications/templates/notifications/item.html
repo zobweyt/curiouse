@@ -1,0 +1,24 @@
+{% if notification %}
+<div class="row align-items-center">
+  <div class="col-auto gx-0 align-self-start">
+    <img src="{{ notification.sender.get_avatar_url }}" 
+         class="avatar avatar-sm"
+         title="{{ notification.sender.get_full_name }}">
+  </div>
+  <a href="{{ notification.target.get_absolute_url }}" class="col text-decoration-none text-body">
+    <p class="mb-0">{{ notification.sender.get_full_name }} {{ notification.content }}</p>
+    <small class="text-muted">{{ notification.created_at|date:"F d" }}</small>
+  </a>
+  <div class="col-auto gx-0 align-self-start">
+    <div class="list-group-item-actions">
+      <button type="button"
+              class="btn-action"
+              hx-get="{% url 'notifications:delete' notification.pk %}"
+              hx-target="closest li"
+              hx-swap="outerHTML">
+        <i class="icon ti ti-check"></i>
+      </button>
+    </div>
+  </div>
+</div>
+{% endif %}

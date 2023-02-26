@@ -30,3 +30,12 @@ body {
   -webkit-box-orient: vertical;
   --max-lines: 2;
 }
+
+.htmx-indicator:not(.htmx-request) {
+  display: none !important;
+}
+
+.dropdown-menu-arrow.dropdown-menu-end:before {
+  right: 0.5rem !important;
+  left: auto;
+}

@@ -1,7 +1,8 @@
 from django.db.models.signals import post_save, m2m_changed
 from django.dispatch import receiver
+from django.contrib.auth import get_user_model
 from django.conf import settings
-from notifications.signals import notify
+from notifications.models import Notification
 
 from .models import Author, Article
 
@@ -15,12 +16,14 @@ def create_author(sender, instance, created, **kwargs):
 @receiver(m2m_changed, sender=Author.followers.through)
 def notify_author_of_follow(sender, instance, action, pk_set, **kwargs):
     if action == 'pre_add':
-        followers = Author.objects.filter(pk__in=pk_set)
+        followers = get_user_model().objects.filter(pk__in=pk_set)
+        print(followers)
+        print(instance.user)
         for follower in followers:
-            notify.send(
+            Notification.objects.create(
                 recipient=instance.user,
                 sender=follower,
-                verb='started following you!',
+                content=f'{follower.get_full_name()} started following you!',
             )
         
 
@@ -28,10 +31,8 @@ def notify_author_of_follow(sender, instance, action, pk_set, **kwargs):
 def notify_followers_of_new_article(sender, instance, created, **kwargs):
     if created:
         for follower in instance.author.followers.all():
-            notify.send(
+            Notification.objects.create(
                 recipient=follower,
-                sender=instance.author,
-                verb='has just published new article:',
-                action_object=instance,
-                description='We advise you to read it!',
+                sender=instance.author.user,
+                content=f'{instance.author} has just published new article: "{instance}". We advise you to read it.',
             )

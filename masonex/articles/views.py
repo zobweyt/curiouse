@@ -47,7 +47,7 @@ class ArticleListView(TitleMixin, ListView):
     
     def get_template_names(self):
         if self.request.htmx:
-            return 'articles/partial/articles.html'
+            return 'articles/includes/article-list.html'
         return 'articles/article-list.html'
 
     def get_queryset(self):

@@ -1,0 +1,44 @@
+<div class="nav-item dropdown">
+  <a href="#" 
+     class="nav-link"
+     data-bs-toggle="dropdown"
+     data-bs-auto-close="outside"
+     hx-get="{% url 'notifications:notifications-list' %}"
+     hx-target="ul"
+     hx-trigger="click once"
+     hx-indicator=".htmx-indicator">
+    <i class="icon ti ti-bell"></i>
+    {% if has_new_notifications %}
+      <span class="badge bg-red"></span>
+    {% endif %}
+  </a>
+  <div class="dropdown-menu dropdown-menu-end dropdown-menu-card dropdown-menu-arrow" style="width: 22.5rem;">
+    <div class="card">
+      <div class="card-header sticky-top">
+        <h3 class="card-title">Notifications</h3>
+        <div class="card-actions btn-actions">
+          {% if has_new_notifications %}
+          <button class="btn-action"
+                  hx-get="{% url 'notifications:delete_all' %}"
+                  hx-target="ul"
+                  hx-trigger="click once"
+                  hx-swap="outerHTML">
+            <i class="icon ti ti-list-check"></i>
+          </button>
+          {% endif %}
+          <a href="#" class="btn-action">
+            <i class="icon ti ti-settings"></i>
+          </a>
+        </div>
+      </div>
+      <div class="overflow-auto d-flex flex-column" style="height: 27.5rem;">
+        <ul class="list-group list-group-hoverable list-group-flush">
+          {% include 'notifications/items.html' %}
+        </ul>
+        <div class="htmx-indicator my-3 flex-fill d-flex justify-content-center">
+          <span class="spinner-border text-muted align-self-center" role="status"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

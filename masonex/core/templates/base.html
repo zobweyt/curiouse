@@ -1,20 +1,9 @@
-{% load static notifications_tags django_htmx %}
+{% load static django_htmx %}
 
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>
-      {% notifications_unread as unread_notifications_count %}
-      {% if unread_notifications_count %}
-      ({{ unread_notifications_count}}) 
-      {% endif %}
-      {% block title %}
-        {% if title %}
-          {{ title }}
-        {% endif %}
-      {% endblock title %}
-       - Masonex
-    </title>
+    <title>{{ title }} - Masonex</title>
     <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon"/>
     <meta charset="UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>

@@ -76,7 +76,7 @@ class Category(models.Model):
     class Meta:
         verbose_name = 'category'
         verbose_name_plural = 'categories'
-        ordering = ['name', 'pk']
+        ordering = ('name', 'pk')
 
 
 class Article(models.Model):
@@ -114,4 +114,4 @@ class Article(models.Model):
         return reverse('articles:article_detail', kwargs={'pk': self.pk, 'slug': self.slug})
 
     class Meta:
-        ordering = ['-created_at', 'title', 'pk']
+        ordering = ('-created_at', 'title', 'pk')

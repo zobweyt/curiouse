@@ -1,0 +1,9 @@
+{% extends "users/settings.html" %}
+
+{% block form_body %}
+<div class="divide-y">
+  {% for checkbox in form %}
+    {% include "components/checkbox.html" %}
+  {% endfor %}
+</div>
+{% endblock form_body %}

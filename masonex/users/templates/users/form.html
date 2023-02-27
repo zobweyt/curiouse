@@ -12,9 +12,14 @@
     {% endif %}
       <div class="card">
         <div class="card-header d-flex align-items-center">
-          {% block form_header %}
           <h3 class="card-title ms-1">{{ title }}</h3>
-          {% endblock form_header %}
+          <div class="card-actions btn-actions">
+            <a href="javascript:history.back()" class="btn-action">
+              <i class="icon ti ti-arrow-left"></i>
+            </a>
+            {% block form_actions %}
+            {% endblock form_actions %}
+          </div>
         </div>
         <div class="card-body">
           <div class="d-flex flex-column gap-3">

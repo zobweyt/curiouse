@@ -12,7 +12,7 @@
       <span class="badge bg-red"></span>
     {% endif %}
   </a>
-  <div class="dropdown-menu dropdown-menu-end dropdown-menu-card dropdown-menu-arrow" style="width: 22.5rem;">
+  <div class="dropdown-menu dropdown-menu-end dropdown-menu-card dropdown-menu-arrow" style="width: 20rem;">
     <div class="card">
       <div class="card-header sticky-top">
         <h3 class="card-title">Notifications</h3>
@@ -26,7 +26,7 @@
             <i class="icon ti ti-list-check"></i>
           </button>
           {% endif %}
-          <a href="#" class="btn-action">
+          <a href="{% url 'users:notifications' %}" class="btn-action">
             <i class="icon ti ti-settings"></i>
           </a>
         </div>

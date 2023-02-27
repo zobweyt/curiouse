@@ -8,6 +8,7 @@ from users.views import (
     SecuritySettingsView,
     UserEmailChangeView,
     UserPasswordChangeView,
+    NotificationSettingsView,
 )
 
 app_name = 'users'
@@ -20,4 +21,5 @@ urlpatterns = [
     path('settings/security/', SecuritySettingsView.as_view(), name='security'),
     path('settings/security/email-change/', UserEmailChangeView.as_view(), name='email_change'),
     path('settings/security/password-change/', UserPasswordChangeView.as_view(), name='password_change'),
+    path('settings/notifications/', NotificationSettingsView.as_view(), name='notifications'),
 ]

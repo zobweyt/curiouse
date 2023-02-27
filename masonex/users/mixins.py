@@ -35,6 +35,9 @@ class SettingsMixin(LoginRequiredMixin, SuccessMessageMixin, TitleMixin):
     updating_object_name = 'profile'
     extra_context = {'submit_button_text': 'Save'}
     
+    def get_object(self):
+        return self.request.user
+    
     def get_success_message(self, cleaned_data):
         return f'The {self.updating_object_name} has been updated.'
 

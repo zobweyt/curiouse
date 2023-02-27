@@ -2,6 +2,7 @@ from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, PasswordChangeView
 from django.shortcuts import redirect
+from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, FormView, TemplateView
 
 from core.utils import TitleMixin
@@ -38,9 +39,6 @@ class PersonalSettingsView(SettingsMixin, UpdateView):
     form_class = ProfileUpdateForm
     template_name = 'users/personal.html'
 
-    def get_object(self):
-        return self.request.user
-
 
 class SecuritySettingsView(LoginRequiredMixin, TitleMixin, TemplateView):
     template_name = 'users/security.html'
@@ -60,3 +58,11 @@ class UserEmailChangeView(SecurityMixin, FormView):
 class UserPasswordChangeView(SecurityMixin, PasswordChangeView):
     form_class = UserPasswordChangeForm
     updating_object_name = 'password'
+    
+    
+class NotificationSettingsView(SettingsMixin, UpdateView):
+    model = User
+    fields = ('new_follow_notifications', 'new_article_notifications')
+    template_name = 'users/notifications.html'
+    success_url = reverse_lazy('users:notifications')
+    updating_object_name = 'notifications'

@@ -15,24 +15,24 @@ def create_author(sender, instance, created, **kwargs):
 
 @receiver(m2m_changed, sender=Author.followers.through)
 def notify_author_of_follow(sender, instance, action, pk_set, **kwargs):
-    if action == 'pre_add':
+    if instance.user.new_follow_notifications and action == 'pre_add':
         followers = get_user_model().objects.filter(pk__in=pk_set)
-        print(followers)
-        print(instance.user)
         for follower in followers:
             Notification.objects.create(
                 recipient=instance.user,
                 sender=follower,
-                content=f'{follower.get_full_name()} started following you!',
+                target=follower,
+                content=f'started following you!',
             )
         
 
 @receiver(post_save, sender=Article)
 def notify_followers_of_new_article(sender, instance, created, **kwargs):
     if created:
-        for follower in instance.author.followers.all():
+        for follower in instance.author.followers.filter(new_article_notifications=True):
             Notification.objects.create(
                 recipient=follower,
                 sender=instance.author.user,
+                target=instance,
                 content=f'{instance.author} has just published new article: "{instance}". We advise you to read it.',
             )

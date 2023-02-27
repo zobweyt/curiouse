@@ -15,6 +15,14 @@ class User(AbstractUser):
         blank=True,
         null=True
     )
+    new_follow_notifications = models.BooleanField(
+        default=True,
+        help_text='Recive notifications of your new followers.'
+    )
+    new_article_notifications = models.BooleanField(
+        default=True,
+        help_text='Get notified about new articles by authors you follow.'
+    )
     
     REQUIRED_FIELDS = ['email', 'first_name', 'last_name']
 

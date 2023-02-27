@@ -1,11 +1,10 @@
 {% extends "users/form.html" %}
 
-{% block form_header %}
-{{ block.super }}
-<a href="#settingsOffcanvas" class="btn btn-action d-lg-none d-inline-flex ms-auto" data-bs-toggle="offcanvas">
+{% block form_actions %}
+<a href="#settingsOffcanvas" class="btn-action d-lg-none d-inline-flex" data-bs-toggle="offcanvas">
   <i class="icon ti ti-menu-2"></i>
 </a>
-{% endblock form_header %}
+{% endblock form_actions %}
 
 {% block aside %}
 <aside class="col-lg-3 col-12">
@@ -25,6 +24,7 @@
         <div class="list-group list-group-flush">
           {% include "users/components/settings-link.html" with url="personal" icon="id" %}
           {% include "users/components/settings-link.html" with url="security" icon="fingerprint" %}
+          {% include "users/components/settings-link.html" with url="notifications" icon="bell-ringing" %}
         </div>
       </div>
     </div>

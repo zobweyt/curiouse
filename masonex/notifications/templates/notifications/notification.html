@@ -1,13 +1,21 @@
+{% load helpers %}
+
 {% if notification %}
 <div class="row align-items-center">
   <div class="col-auto gx-0 align-self-start">
-    <img src="{{ notification.sender.get_avatar_url }}" 
+    <img src="{{ notification.actor.get_avatar_url }}" 
          class="avatar avatar-sm"
-         title="{{ notification.sender.get_full_name }}">
+         title="{{ notification.actor.get_full_name }}">
   </div>
   <a href="{{ notification.target.get_absolute_url }}" class="col text-decoration-none text-body">
-    <p class="mb-0">{{ notification.sender.get_full_name }} {{ notification.content }}</p>
-    <small class="text-muted">{{ notification.created_at|date:"F d" }}</small>
+    <p class="mb-0">
+      {{ notification.actor.get_full_name }}
+      {{ notification.verb }}
+      {% if notification.action_object %}
+      {{ notification.action_object }}
+      {% endif %}
+    </p>
+    <small class="text-muted">{{ notification.created_at|relative }}</small>
   </a>
   <div class="col-auto gx-0 align-self-start">
     <div class="list-group-item-actions">

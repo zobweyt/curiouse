@@ -1,6 +1,9 @@
 <div class="nav-item dropdown">
   <a href="#" 
      class="nav-link"
+     {% if has_new_notifications %}
+     onclick="document.querySelector('.badge.bg-red').style.display = 'none'"
+     {% endif %}
      data-bs-toggle="dropdown"
      data-bs-auto-close="outside"
      hx-get="{% url 'notifications:notifications-list' %}"
@@ -9,7 +12,7 @@
      hx-indicator=".htmx-indicator">
     <i class="icon ti ti-bell"></i>
     {% if has_new_notifications %}
-      <span class="badge bg-red"></span>
+    <span class="badge bg-red"></span>
     {% endif %}
   </a>
   <div class="dropdown-menu dropdown-menu-end dropdown-menu-card dropdown-menu-arrow" style="width: 20rem;">
@@ -33,7 +36,7 @@
       </div>
       <div class="overflow-auto d-flex flex-column" style="height: 27.5rem;">
         <ul class="list-group list-group-hoverable list-group-flush">
-          {% include 'notifications/items.html' %}
+          {% include 'notifications/notification-list.html' %}
         </ul>
         <div class="htmx-indicator my-3 flex-fill d-flex justify-content-center">
           <span class="spinner-border text-muted align-self-center" role="status"></span>

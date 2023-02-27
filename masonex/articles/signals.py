@@ -18,11 +18,12 @@ def notify_author_of_follow(sender, instance, action, pk_set, **kwargs):
     if instance.user.new_follow_notifications and action == 'pre_add':
         followers = get_user_model().objects.filter(pk__in=pk_set)
         for follower in followers:
+            follower_author = Author.objects.get(user=follower)
             Notification.objects.create(
                 recipient=instance.user,
-                sender=follower,
-                target=follower,
-                content=f'started following you!',
+                actor=follower,
+                verb=f'started following you!',
+                target=follower_author,
             )
         
 
@@ -32,7 +33,8 @@ def notify_followers_of_new_article(sender, instance, created, **kwargs):
         for follower in instance.author.followers.filter(new_article_notifications=True):
             Notification.objects.create(
                 recipient=follower,
-                sender=instance.author.user,
+                actor=instance.author.user,
+                verb=f'has just published new article:',
+                action_object=instance,
                 target=instance,
-                content=f'{instance.author} has just published new article: "{instance}". We advise you to read it.',
             )

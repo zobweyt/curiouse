@@ -9,12 +9,12 @@
     hx-indicator=".htmx-indicator"
     hx-swap="afterend"
     {% endif %}>
-  {% include 'notifications/item.html' %}
+  {% include 'notifications/notification.html' %}
 </li>
 {% empty %}
 {% if request.htmx %}
 <div class="container-slim py-5 text-center">
-  <img src="{% static 'images/feeling_of_joy.svg' %}" class="mb-4 pe-none">
+  <img src="{% static 'notifications/images/feeling_of_joy.svg' %}" class="mb-4 pe-none">
   <h2>No new notifications</h2>
   <p class="text-muted">You have not received any new notifications.</p>
 </div>

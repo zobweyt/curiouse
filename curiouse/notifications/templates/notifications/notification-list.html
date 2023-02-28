@@ -6,7 +6,7 @@
     hx-get="{% url 'notifications:notifications-list' %}?page={{ page_obj.next_page_number }}"
     hx-trigger="intersect once"
     hx-target="this"
-    hx-indicator=".htmx-indicator"
+    hx-indicator="#notificationsLoader"
     hx-swap="afterend"
     {% endif %}>
   {% include 'notifications/notification.html' %}

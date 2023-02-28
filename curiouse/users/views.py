@@ -19,7 +19,7 @@ from .forms import (
 
 class SignUpView(AuthMixin, CreateView):
     form_class = SignUpForm
-    template_name = 'users/form.html'
+    template_name = 'users/auth.html'
     title = 'Sign up'
 
     def form_valid(self, form):
@@ -30,7 +30,7 @@ class SignUpView(AuthMixin, CreateView):
 
 class SignInView(AuthMixin, LoginView):
     form_class = SignInForm
-    template_name = 'users/form.html'
+    template_name = 'users/auth.html'
     title = 'Sign in'
 
 

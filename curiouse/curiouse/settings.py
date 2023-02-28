@@ -18,9 +18,6 @@ ALLOWED_HOSTS = ['127.0.0.1']
 INTERNAL_IPS = ['127.0.0.1']
 
 INSTALLED_APPS = [
-    'core',
-    'users',
-    'articles',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -29,8 +26,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_cleanup',
     'django_htmx',
-    'notifications',
     'django_editorjs_fields',
+    'core',
+    'users',
+    'notifications',
+    'articles',
     'debug_toolbar',
 ]
 
@@ -51,7 +51,7 @@ ROOT_URLCONF = 'curiouse.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
+        'DIRS': ['templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -59,7 +59,6 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'notifications.context_processors.new_notifications_processor',
             ],
         },
     },

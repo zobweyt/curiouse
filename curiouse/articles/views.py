@@ -2,9 +2,10 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import CreateView, DetailView, UpdateView, ListView
+from django.templatetags.static import static
 
 from core.utils import TitleMixin
-from .models import Article, Author
+from .models import Article, Author, Category
 from .mixins import ArticleEditorMixin, ArticleTitleMixin, ArticleAuthorRequiredMixin
 
 
@@ -42,10 +43,10 @@ class ArticleDetailView(ArticleTitleMixin, DetailView):
 class ArticleListView(TitleMixin, ListView):
     model = Article
     context_object_name = 'articles'
-    paginate_by = 4
+    paginate_by = 24
     title = 'Articles'
     
-    def get_template_names(self):
+    def get_template_names(self):            
         if self.request.htmx:
             return 'articles/includes/article-list.html'
         return 'articles/article-list.html'

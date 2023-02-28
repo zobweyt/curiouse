@@ -3,6 +3,7 @@
 <li hx-get="?page={{ page_obj.next_page_number }}"
     hx-trigger="revealed"
     hx-target="this"
+    hx-indicator="#articlesLoader"
     hx-swap="afterend">
 {% else %}
 <li>

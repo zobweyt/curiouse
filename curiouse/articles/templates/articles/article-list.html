@@ -1,40 +1,33 @@
-{% extends 'base-site.html' %}
+{% extends 'base.html' %}
+{% load helpers %}
 
 {% block content %}
-
-<ul class="list-unstyled mb-0">
+<ul class="list-unstyled">
   <div class="row row-gap-3 row-cols-lg-4 row-cols-md-3 row-cols-2">
     {% include 'articles/includes/article-list.html' %}
   </div>
 </ul>
-
-{% comment %}
-<div class="row mb-3">
-  <div class="col-4">
-    <div id="carousel-captions" class="carousel slide carousel-fade" data-bs-ride="carousel">
-      <div class="carousel-inner rounded-4">
-        {% for article in articles|slice:":3" %}
-        <a href="{{ article.get_absolute_url }}" class="carousel-item {% if forloop.counter == 1 %}active{% endif %}">
-          <div class="ratio" style="--tblr-aspect-ratio: 65%;">
-            <img src="{{ article.thumbnail.url }}" class="d-block w-100" loading="lazy">
-          </div>
-          <div class="carousel-caption-background d-none d-md-block"></div>
-          <div class="carousel-caption d-none d-md-block pb-2">
-            <h3 class="mb-0">{{ article }}</h3>
-          </div>
-        </a>
+<div id="articlesLoader" class="htmx-indicator">
+  <div class="row row-gap-3 row-cols-lg-4 row-cols-md-3 row-cols-2">
+    {% for _ in 12|range %}
+    <article class="d-grid gap-1 placeholder-glow">
+      <div class="ratio ratio-4x3 rounded-4 placeholder"></div>
+      <div class="badges-list gap-1">
+        {% for i in 3|range %}
+        <div class="col-2 placeholder placeholder-lg"></div>
         {% endfor %}
       </div>
-      <a class="carousel-control-prev" href="#carousel-captions" role="button" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon"></span>
-      </a>
-      <a class="carousel-control-next" href="#carousel-captions" role="button" data-bs-slide="next">
-        <span class="carousel-control-next-icon"></span>
-      </a>
-    </div>
+      <div class="row mt-1">
+        <div class="col-auto">
+          <div class="avatar avatar-rounded placeholder" loading="lazy"></div>
+        </div>
+        <div class="col ps-0">
+          <div class="placeholder col-8"></div>
+          <div class="placeholder placeholder-xs col-4"></div>
+        </div>
+      </div>
+    </article>
+    {% endfor %}
   </div>
-</div>-->
-{% include 'articles/includes/articles-list.html' with articles=articles|slice:"3:" %}
-{% include 'components/pagination.html' %} 
-{% endcomment %} 
+</div>
 {% endblock content %}

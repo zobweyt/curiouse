@@ -29,3 +29,8 @@ def replace(value, arg):
 def relative(value, now=None, depth=1):
     time = timesince(value, now, depth=depth)
     return f'{time} ago'
+
+
+@register.filter(name='range')
+def filter_range(times):
+    return range(times)

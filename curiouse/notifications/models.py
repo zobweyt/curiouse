@@ -18,7 +18,7 @@ class Notification(models.Model):
     Examples::
     
         <Elizabeth Spark> <started following you!> <27 minutes ago>
-        <zobweyt> <has just published a new article:> <Cooking delicious soup> <1 day ago>
+        <Kirsten Nunez> <has just published a new article:> <Cooking delicious soup> <1 day ago>
     """
     recipient = models.ForeignKey(
         settings.AUTH_USER_MODEL,
@@ -30,7 +30,7 @@ class Notification(models.Model):
         related_name='actor',
         on_delete=models.CASCADE
     )
-    verb = models.TextField(max_length=196)
+    verb = models.CharField(max_length=128)
     action_object_content_type = models.ForeignKey(
         ContentType,
         on_delete=models.CASCADE,

@@ -46,7 +46,7 @@ MIDDLEWARE = [
     'django_htmx.middleware.HtmxMiddleware',
 ]
 
-ROOT_URLCONF = 'masonex.urls'
+ROOT_URLCONF = 'curiouse.urls'
 
 TEMPLATES = [
     {
@@ -65,7 +65,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'masonex.wsgi.application'
+WSGI_APPLICATION = 'curiouse.wsgi.application'
 
 DATABASES = {
     'default': {

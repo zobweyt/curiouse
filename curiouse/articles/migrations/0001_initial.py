@@ -75,7 +75,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='article',
             name='categories',
-            field=models.ManyToManyField(help_text='Select up to 3 categories to help Masonex readers explore articles that interest them.', to='articles.category'),
+            field=models.ManyToManyField(help_text='Select up to 3 categories to help Curiouse readers explore articles that interest them.', to='articles.category'),
         ),
         migrations.AddConstraint(
             model_name='follow',

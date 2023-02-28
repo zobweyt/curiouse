@@ -83,7 +83,7 @@ class Article(models.Model):
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
     categories = models.ManyToManyField(
         Category,
-        help_text='Select up to 3 categories to help Masonex readers explore articles that interest them.',
+        help_text='Select up to 3 categories to help Curiouse readers explore articles that interest them.',
     )
     title = models.CharField(
         max_length=128,

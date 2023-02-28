@@ -1,8 +1,23 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
 <div class="row d-flex justify-content-center">
   {% block aside %}
+  <aside class="col-lg-3 col-12 mb-lg-0 mb-3">
+    <div class="card card-body">
+      <section class="text-center">
+        <img src="{% static 'images/favicon.ico' %}" class="mb-3" style="width: 3rem;">
+        <h3>{{ title }} to Curiouse</h3>
+        <p>A professional article posting platform for advanced editors.</p>
+      </section>
+      <section class="mt-2">
+        {% include 'users/components/feature.html' with color="orange" icon="tools" title="Rich text editor" text='Curiouse use <a href="https://editorjs.io/" target="_blank">EditorJS</a> to provide comfort in editing articles.' %}
+        {% include 'users/components/feature.html' with color="purple" icon="bookmarks" title="Add bookmarks" text="Save interesting articles to bookmarks for further reading." %}
+        {% include 'users/components/feature.html' with color="pink" icon="bell-ringing" title="Stay up to date" text="Get notifications about published articles by authors you follow." %}
+      </section>
+    </div>
+  </aside>
   {% endblock aside %}
   <div class="col-xl-4 col-lg-7 col-12">
     {% include "components/notifications.html" %}

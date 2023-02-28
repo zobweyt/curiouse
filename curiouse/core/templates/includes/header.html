@@ -2,13 +2,13 @@
 
 <header class="navbar navbar-light d-print-none sticky-top">
   <div class="container-xxl">
-    <a href="{% url 'articles:article_list' %}" class="navbar-brand" title="Main Masonex page">
+    <a href="{% url 'articles:article_list' %}" class="navbar-brand" title="Main Curiouse page">
       <img src="{% static 'images/logo.svg' %}" class="navbar-brand-image">
     </a>
     <div class="navbar-nav flex-row">
       {% if request.user.is_authenticated %}
-      <div class="nav-item me-1">
-        <a href="{% url 'articles:article_create' %}" class="btn btn-primary d-sm-block d-none">
+      <div class="nav-item me-2">
+        <a href="{% url 'articles:article_create' %}" class="btn d-sm-block d-none">
           <i class="icon ti ti-text-plus"></i>
           New article
         </a>

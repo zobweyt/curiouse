@@ -1,3 +1,6 @@
+{% load notifications_tags %}
+{% has_new_notifications as new %}
+
 <div class="nav-item dropdown">
   <a href="#"
      class="nav-link"
@@ -8,6 +11,11 @@
      hx-trigger="click once"
      hx-indicator="#notificationsLoader">
     <i class="icon ti ti-bell"></i>
+    {% if new %}
+    <span id="newNotificationsBadge" class="badge bg-red"></span>
+    {% else %}
+    <span id="newNotificationsBadge"></span>
+    {% endif %}
   </a>
   <div class="dropdown-menu dropdown-menu-end dropdown-menu-card dropdown-menu-arrow"
        aria-expanded="false"
@@ -17,13 +25,16 @@
       <div class="card-header sticky-top">
         <h3 class="card-title">Notifications</h3>
         <div class="card-actions btn-actions">
+          {% if new %}
           <button class="btn-action"
+                  id="deleteAllNotificationsButton"
                   hx-get="{% url 'notifications:delete_all' %}"
                   hx-target="ul"
                   hx-trigger="click once"
                   hx-swap="outerHTML">
             <i class="icon ti ti-list-check"></i>
           </button>
+          {% endif %}
           <a href="{% url 'users:notifications' %}" class="btn-action">
             <i class="icon ti ti-settings"></i>
           </a>

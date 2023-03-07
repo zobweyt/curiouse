@@ -11,9 +11,10 @@ from django_editorjs_fields import EditorJsJSONField
 
 
 class Author(models.Model):
-    user = models.ForeignKey(
+    user = models.OneToOneField(
         settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE
+        models.CASCADE,
+        primary_key=True,
     )
     followers = models.ManyToManyField(
         settings.AUTH_USER_MODEL,

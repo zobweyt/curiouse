@@ -1,14 +1,20 @@
 [id] {
-  scroll-margin: var(--scroll-margin);
+  scroll-margin: 3.75rem;
 }
 
 @media (min-width: 992px) {
   .sidebar {
+    --body-margin: var(--tblr-content-padding) * 2;
+    --header-height: 3.5rem;
+    --sidebar-margin: var(--body-margin) - var(--header-height);
     position: sticky;
     z-index: 1;
     top: var(--scroll-margin);
     overflow-y: auto;
-    max-height: 90vh;
+    overflow-x: hidden;
+    max-height: calc(100vh - var(--sidebar-margin));
+    flex: 0 0 auto;
+    width: 25%;
   }
 }
 

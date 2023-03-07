@@ -1,33 +1,16 @@
 {% extends "users/form.html" %}
+{% load component_tags %}
 
-{% block form_actions %}
-<a href="#settingsOffcanvas" class="btn-action d-lg-none d-inline-flex" data-bs-toggle="offcanvas">
-  <i class="icon ti ti-menu-2"></i>
-</a>
-{% endblock form_actions %}
+{% block left %}
+{% component_block "navbar" header="Profile settings" back=True %}
+  {% slot "body" %}
+    {% component "navbar-item" icon="id" title="Account" viewname="users:personal" %}
+    {% component "navbar-item" icon="fingerprint" title="Security" viewname="users:security" %}
+    {% component "navbar-item" icon="bell-ringing" title="Notifications" viewname="users:notifications" %}
+  {% endslot "body" %}
+{% endcomponent_block "navbar" %}
+{% endblock left %}
 
-{% block aside %}
-<aside class="col-lg-3 col-12">
-  <div class="offcanvas-lg offcanvas-end" id="settingsOffcanvas">
-    <div class="offcanvas-header">
-      <h2 class="offcanvas-title">{{ title }}</h2>
-      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#settingsOffcanvas"></button>
-    </div>
-    <div class="offcanvas-body flex-column">
-      <div class="card">
-        <div class="card-stamp">
-          <span class="card-stamp-icon bg-cyan"><i class="ti ti-adjustments-horizontal"></i></span>
-        </div>
-        <div class="card-header d-lg-block d-none">
-          <h3 class="card-title">Settings</h3>
-        </div>
-        <div class="list-group list-group-flush">
-          {% include "users/components/settings-link.html" with url="personal" icon="id" %}
-          {% include "users/components/settings-link.html" with url="security" icon="fingerprint" %}
-          {% include "users/components/settings-link.html" with url="notifications" icon="bell-ringing" %}
-        </div>
-      </div>
-    </div>
-  </div>
-</aside>
-{% endblock aside %}
+{% block right %}
+<div class="col-xl-3"></div>
+{% endblock right %}

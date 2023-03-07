@@ -1,32 +1,72 @@
-{% load helpers %}
+{% load helpers editorjs %}
 
-<article class="d-grid gap-1">
-  <a href="{{ article.get_absolute_url }}" class="ratio ratio-4x3" title="{{ article }}">
-    <img src="{{ article.thumbnail.url }}" class="rounded-4" loading="lazy">
-  </a>
-  <ul class="list-unstyled badges-list gap-1">
-    {% for category in article.categories.all %}
-      <li>
-        <span class="badge bg-primary-lt">
-          {{ category }}
-        </span>
-      </li>
-    {% endfor %}
-  </ul>
-  <div class="">
-    <div class="row mt-1">
+<div class="card">
+  <div class="card-header">
+    <div class="row">
       <div class="col-auto">
-        <a href="{{ article.author.get_absolute_url }}" title="{{ article.author }}">
-          <img src="{{ article.author.user.get_avatar_url }}" class="avatar avatar-rounded" loading="lazy">
-        </a>
+        <a href="{{ article.author.get_absolute_url }}" class="avatar avatar-rounded" title="{{ article.author }}" style="background-image: url({{ article.author.user.get_avatar_url }});"></a>
       </div>
       <div class="col ps-0">
-        <a href="{{ article.get_absolute_url }}" class="text-body fs-3 lh-sm fw-bolder truncate">{{ article }}</a>
-        <small class="text-muted fw-medium">
-          By <a href="{{ article.author.get_absolute_url }}">{{ article.author }}</a>,
-          {{ article.created_at|relative }}
-        </small>
+        <div class="d-flex align-items-center gap-2">
+          <a href="{{ article.author.get_absolute_url }}" class="h3 mb-0 lh-1 page-link">{{ article.author }}</a>
+          <span class="badge bg-primary-lt" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Curiouse writer">
+            <i class="ti ti-shield-half-filled"></i>
+            Author
+          </span>
+        </div>
+        <p class="d-block text-muted mb-0">{{ article.author.user.bio|truncatechars:32 }} · {{ article.created_at|relative }}</p>
       </div>
     </div>
   </div>
-</article>
+  <a href="{{ article.get_absolute_url }}" title="{{ article }}">
+    <div class="img-responsive img-responsive-21x9" style="background-image: url({{ article.thumbnail.url }})"></div>
+  </a>
+  <div class="card-body">
+    <a href="{{ article.get_absolute_url }}" class="h3 page-link">{{ article.title }}</a>
+    <div class="mb-3">
+      {{ article.body|editorjs|truncatechars:256 }}
+    </div>
+    <div class="d-flex">
+      <ul class="badges-list list-unstyled mb-0">
+        {% for category in article.categories.all %}
+        <li>
+          <span class="badge bg-light-subtle text-light-emphasis border-light-subtle">
+            {{ category }}
+          </span>
+        </li>
+        {% endfor %}
+      </ul>
+      <div class="btn-actions card-actions">
+        {% include 'articles/includes/bookmark-button.html' %}
+        <a href="#" class="btn-action" data-bs-toggle="tooltip" data-bs-placement="top" title="Share">
+          <i class="icon ti ti-share"></i>
+        </a>
+        <div class="dropdown">
+          <button class="btn-action" data-bs-toggle="dropdown">
+            <i class="icon ti ti-dots"></i>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+            {% if request.user == article.author.user %}
+            <li>
+              <a href="{% url 'articles:article_update' article.pk article.slug %}" class="dropdown-item">
+                <i class="icon dropdown-item-icon ti ti-pencil"></i>Edit article
+              </a>
+            </li>
+            <li>
+              <a href="{% url 'articles:article_update' article.pk article.slug %}" class="dropdown-item text-danger">
+                <i class="icon dropdown-item-icon text-danger ti ti-trash"></i>Delete article
+              </a>
+            </li>
+            {% else %}
+            <li>
+              <a href="{% url 'users:logout' %}" class="dropdown-item">
+                <i class="icon dropdown-item-icon ti ti-alert-octagon"></i>Report
+              </a>
+            </li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,63 +1,92 @@
-{% extends 'base-site.html' %}
-{% load static editorjs %}
+{% extends 'articles/base.html' %}
+{% load static helpers editorjs %}
 
 {% block content %}
-<div class="row">
-  <div class="col-lg-3 d-lg-block d-none">
-    <aside class="sidebar">
-      <div class="card">
-        <div class="card-stamp">
-          <span class="card-stamp-icon bg-primary"><i class="ti ti-album"></i></span>
-        </div>
-        <div class="card-body">
-          <h3 class="card-title">On this page</h3>
-          <ul id="tableOfContents" class="list-unstyled d-flex flex-column gap-2"></ul>
-        </div>
-      </div>
-    </aside>
-  </div>
-
-  <div class="col-lg-9 col-xl-6">
-    <ul class="list-unstyled badges-list">
+<div class="card">
+  <div class="img-responsive img-responsive-21x9 card-img-top" style="background-image: url({{ article.thumbnail.url }})"></div>
+  <div class="card-header d-block">
+    <ul class="badges-list list-unstyled">
       {% for category in article.categories.all %}
       <li>
-        <span class="badge text-primary-emphasis bg-primary-subtle border-primary-subtle shadow-sm">
+        <span class="badge bg-light-subtle text-light-emphasis border-light-subtle">
           {{ category }}
         </span>
       </li>
       {% endfor %}
     </ul>
-    
-    <section class="d-flex align-items-center mb-3">
-      <div class="row align-items-center me-auto">
-        <a href="{{ article.author.get_absolute_url }}" class="col-auto" title="{{ article.author }}">
-          <img src="{{ article.author.user.get_avatar_url }}" class="avatar avatar-rounded">
-        </a>
-        <div class="col gx-0">
-          <a href="{{ article.author.get_absolute_url }}" class="h3 mb-1 lh-1">{{ article.author }}</a>
-          <p class="d-block text-muted mb-0">{{ article.created_at|date:"F d, Y" }}</p>
+    <div class="row">
+      <div class="col">
+        <div class="row">
+          <div class="col-auto">
+              <a href="{{ article.author.get_absolute_url }}" class="avatar avatar-rounded" style="background-image: url({{ article.author.user.get_avatar_url }});" data-bs-trigger="hover" data-bs-placement="bottom" data-bs-toggle="popover" title="{{ article.author }}" data-bs-content="{{ article.author.user.bio }}"></a>
+          </div>
+          <div class="col gx-0">
+            <div class="d-flex align-items-center gap-2">
+              <a href="{{ article.author.get_absolute_url }}" class="h3 mb-0 lh-1 page-link">{{ article.author }}</a>
+              <span class="badge bg-primary-lt" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Curiouse writer">
+                <i class="ti ti-shield-half-filled"></i>
+                Author
+              </span>
+            </div>
+            <p class="d-block text-muted mb-0">{{ article.author.user.bio|truncatechars:64 }} · {{ article.created_at|relative }}</p>
+          </div>
         </div>
       </div>
-      <div class="btn-list">
-        {% include 'articles/includes/bookmark-button.html' %}
-        {% if request.user == article.author.user %}
-        <a href="{% url 'articles:article_update' article.pk article.slug %}" class="btn btn-icon">
-          <i class="icon ti ti-pencil"></i>
-        </a>
-        {% endif %}
+      <div class="col-auto align-self-center">
+        <div class="btn-actions card-actions">
+          <a href="#" class="btn-action" data-bs-toggle="tooltip" data-bs-placement="top" title="Follow">
+            <i class="icon ti ti-user-plus"></i>
+          </a>
+          {% include 'articles/includes/bookmark-button.html' %}
+          <a href="#" class="btn-action" data-bs-toggle="tooltip" data-bs-placement="top" title="Share">
+            <i class="icon ti ti-share"></i>
+          </a>
+          <div class="dropdown">
+            <button class="btn-action" data-bs-toggle="dropdown">
+              <i class="icon ti ti-dots"></i>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+              {% if request.user == article.author.user %}
+              <li>
+                <a href="{% url 'articles:article_update' article.pk article.slug %}" class="dropdown-item">
+                  <i class="icon dropdown-item-icon ti ti-pencil"></i>Edit article
+                </a>
+              </li>
+              <li>
+                <a href="{% url 'articles:article_update' article.pk article.slug %}" class="dropdown-item text-danger">
+                  <i class="icon dropdown-item-icon text-danger ti ti-trash"></i>Delete article
+                </a>
+              </li>
+              {% else %}
+              <li>
+                <a href="{% url 'users:logout' %}" class="dropdown-item">
+                  <i class="icon dropdown-item-icon ti ti-alert-octagon"></i>Report
+                </a>
+              </li>
+              {% endif %}
+            </ul>
+          </div>
+        </div>
       </div>
-    </section>
-
-    <article class="article__body text-break">
-      <h1 class="lh-sm">{{ article }}</h1>
-      {{ article.body | editorjs }}
-    </article>
-
-    {% include 'articles/includes/author-card.html' with author=article.author %}
+    </div>
   </div>
+  <article class="card-body markdown" data-bs-root-margin="-10% 0px -70%" data-bs-spy="scroll" data-bs-target="#tableOfContents" tabindex="0">
+    <h1 class="lh-sm">{{ article }}</h1>
+    {{ article.body|editorjs }}
+  </article>
 </div>
 {% endblock content %}
 
+{% block right %}
+<aside class="sidebar">
+  <nav class="card card-body">
+    <h3 class="card-title">On this page</h3>
+    <ul id="tableOfContents" class="nav nav-pills nav-vertical"></ul>
+  </nav>
+</aside>
+{% endblock right %}
+
 {% block head %}
-<script src="{% static 'articles/js/headers.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/slugify@1.6.5/slugify.min.js"></script>
+<script type="module" src="{% static 'articles/js/headers.js' %}"></script>
 {% endblock head %}

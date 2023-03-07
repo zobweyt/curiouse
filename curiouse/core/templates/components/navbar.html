@@ -1,0 +1,27 @@
+{% load component_tags %}
+
+<aside class="sidebar">
+  <div class="offcanvas-lg offcanvas-end" id="navbarOffcanvas">
+    <div class="offcanvas-header">
+      <h2 class="offcanvas-title">{{ header }}</h2>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#navbarOffcanvas"></button>
+    </div>
+    <div class="offcanvas-body flex-column">
+      <h4 class="subheader d-lg-block d-none">{{ header }}</h4>
+      <nav class="d-lg-flex">
+        <ul class="nav nav-pills nav-vertical">
+          {% slot "body" %}
+          {% endslot "body" %}
+          {% if back %}
+            <li class="nav-item mt-2 d-lg-block d-none">
+              <a href="javascript:history.back()" class="nav-link">
+                <i class="icon nav-link-icon ti ti-arrow-left"></i>
+                Back
+              </a>
+            </li>
+          {% endif %}
+        </ul>
+      </nav>
+    </div>
+  </div>
+</aside>

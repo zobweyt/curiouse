@@ -15,8 +15,7 @@
 }
 
 .form-control-plaintext.h1,
-.error-list,
-.sidebar {
+.error-list {
   max-width: 650px;
   margin: 0 auto;
 }

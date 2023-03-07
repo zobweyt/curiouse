@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load component_tags article_tags %}
+
+{% block left %}
+{% get_bookmark_count as bookmark_count %}
+{% component_block "navbar" header="Explore" %}
+  {% slot "body" %}
+    {% component "navbar-item" icon="home" title="Subscriptions" viewname="articles:article-list" %}
+    {% component "navbar-item" icon="cards" title="Articles" viewname="articles:article-list" %}
+    {% component "navbar-item" icon="tags" title="Categories" viewname="articles:category-list" %}
+    {% component "navbar-item" icon="bookmarks" title="Bookmarks" viewname="articles:bookmark-list" badge=bookmark_count %}
+  {% endslot "body" %}
+{% endcomponent_block "navbar" %}
+{% endblock left %}
+
+{% block right %}
+<div class="col-xl-3"></div>
+{% endblock right %}

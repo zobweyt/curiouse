@@ -1,41 +1,57 @@
-<section class="card">
-  <div class="card-stamp">
-    <div class="card-stamp-icon bg-yellow"><i class="ti ti-license"></i></div>
-  </div>
+<div class="card mb-3">
   <div class="card-body">
-    <div class="row">
-      <a href="{{ author.get_absolute_url }}" class="col-auto align-self-start" title="{{ author }}">
-        <img src="{{ author.user.get_avatar_url }}" class="avatar avatar-md avatar-rounded">
-      </a>
+    <div class="row mb-2">
+      <div class="col-auto">
+        <span class="avatar avatar-lg avatar-rounded" title="{{ author }}" style="background-image: url({{ author.user.get_avatar_url }})"></span>
+      </div>
       <div class="col">
-        {% with followers_count=author.followers.count %}  
-        <small class="text-muted">
-          {{ followers_count }} follower{% if followers_count != 1 %}s{% endif %}
-        </small>
-        {% endwith %}
-        <div class="d-flex align-items-center gap-2 mb-1">
-          <a href="{{ author.get_absolute_url }}" class="h3 card-title mb-0">
-            {{ author }}
-          </a>
-          <span class="badge bg-success-lt">Author</span>
-        </div>
+        <h1 href="{{ author.get_absolute_url }}">
+          {{ author }}
+        </h1>
         {% if author.user.bio %}
         <p class="card-text">{{ author.user.bio }}</p>
         {% endif %}
+      </div>
+    </div>
+    <div class="d-flex align-items-center">
+      {% with followers=author.followers.all %}
+      {% if followers %}
+      {% with followers_count=author.followers.count %}
+      <div>
+        <div class="d-flex">
+          <div class="avatar-list avatar-list-stacked">
+            {% for follower in followers|slice:":3" %}
+            <span class="avatar avatar-sm avatar-rounded" title="{{ follower.get_full_name }}" style="background-image: url({{ follower.get_avatar_url }})"></span>
+            {% endfor %}
+          </div>
+          <span class="ms-3 ps-2 lh-sm">
+            <strong>{{ followers_count }}</strong>
+            <br>
+            followers
+          </span>
+        </div>
+      </div>
+      {% endwith %}
+      {% endif %}
+      {% endwith %}
+      <div class="btn-list card-actions">
         {% if request.user.pk != author.user.pk %}
         {% if not request.user in author.followers.all %}
-        <button hx-get="{% url 'articles:follow_author' author.user.username %}" hx-target="closest .card" hx-swap="outerHTML" class="btn">
-          <i class="icon ti ti-bell-plus"></i>
+        <button hx-get="{% url 'articles:follow_author' author.user.username %}" hx-target="closest .card" hx-swap="outerHTML" class="btn btn-primary">
+          <i class="icon ti ti-user-plus"></i>
           Follow
         </button>
         {% else %}
-        <button hx-get="{% url 'articles:unfollow_author' author.user.username %}" hx-target="closest .card" hx-swap="outerHTML" class="btn active">
-          <i class="icon ti ti-bell-ringing"></i>
+        <a href="#" hx-get="{% url 'articles:unfollow_author' author.user.username %}" hx-target="closest .card" hx-swap="outerHTML" class="btn btn-primary active">
+          <i class="icon ti ti-user-check"></i>
           Following
-        </button>
+        </a>
         {% endif %}
         {% endif %}
+        <a href="#" class="btn btn-icon">
+          <i class="icon ti ti-dots"></i>
+        </a>
       </div>
     </div>
   </div>
-</section>
+</div>

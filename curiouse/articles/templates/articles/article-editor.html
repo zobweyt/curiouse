@@ -1,60 +1,69 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block content %}
+{% block wrapper %}
 <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
   {% csrf_token %}
-  <div class="row d-flex justify-content-end">
-    <div class="col-lg-9 col-xl-6">
-      <h2>{% if article %}Edit{% else %}New{% endif %} article</h2>
-      <div class="row mb-3">
-        <div class="col-xl-8 col-md-9 col-sm-8 pe-0 pe-md-5">
-          {% include "components/input.html" with field=form.thumbnail %}
-        </div>
-        <div class="col-xl-4 col-md-3 col-sm-4">
-          <label for="{{ form.thumbnail.id_for_label }}" class="ratio ratio-4x3 cursor-pointer">
-            <div id="thumbnail" class="d-flex w-100">
-              {% if article %}
-              <img src="{{ article.thumbnail.url }}" class="rounded-4 flex-fill">
-              {% else %}
-              <div class="px-2 py-3 border rounded-4 flex-fill d-flex align-items-center justify-content-center flex-column">
-                <i class="icon fs-1 ti ti-sunset-2 mb-3"></i>
-                <h3>Upload {{ form.thumbnail.name }}</h3>
-                <div class="form-hint">Aspect ratio 4:3</div>
-              </div>
-              {% endif %}
-            </div>
-          </label>
-        </div>
-        {{ form.thumbnail }}
-      </div>
-      {% include "components/input.html" with field=form.categories %}
-      <div class="hr-text">Content</div>
-      <article>
-        {% include "components/input.html" with field=form.title %}
-        {% include "components/input.html" with field=form.body %}
-      </article>
-    </div>
-
-    <div class="col-lg-3 mt-lg-0 mt-3">
-      <aside class="sidebar">
-        <div class="btn-list">
-          <button type="submit" class="btn btn-primary">
-            {% if article %}Update{% else %}Publish{% endif %}
-          </button>
-          <a href="javascript:history.back()" class="btn">Cancel</a>
-        </div>
-        {% include "components/notifications.html" %}
-      </aside>
-    </div>
-  </div>
+  {{ block.super }}
 </form>
+{% endblock wrapper %}
+
+{% block left %}
+<div class="col-xl-3"></div>
+{% endblock left %}
+
+{% block content %}
+<h2>{% if article %}Edit{% else %}New{% endif %} article</h2>
+<div class="row mb-3">
+  <div class="col-xl-8 col-md-9 col-sm-8 pe-0 pe-md-5">
+    {% include "components/input.html" with field=form.thumbnail %}
+  </div>
+  <div class="col-xl-4 col-md-3 col-sm-4">
+    <label for="{{ form.thumbnail.id_for_label }}" class="ratio ratio-4x3 cursor-pointer">
+      <div id="thumbnail" class="d-flex w-100">
+        {% if article %}
+        <img src="{{ article.thumbnail.url }}" class="rounded-4 flex-fill">
+        {% else %}
+        <div class="px-2 py-3 border rounded-4 flex-fill d-flex align-items-center justify-content-center flex-column">
+          <i class="icon fs-1 ti ti-sunset-2 mb-3"></i>
+          <h3>Upload {{ form.thumbnail.name }}</h3>
+          <div class="form-hint">Aspect ratio 4:3</div>
+        </div>
+        {% endif %}
+      </div>
+    </label>
+  </div>
+  {{ form.thumbnail }}
+</div>
+{% include "components/input.html" with field=form.categories %}
+<div class="hr-text">Content</div>
+<article>
+  {% include "components/input.html" with field=form.title %}
+  {% include "components/input.html" with field=form.body %}
+</article>
 {% endblock content %}
+
+{% block right %}
+<aside class="sidebar">
+  <div class="btn-list">
+    <button type="submit" class="btn btn-primary">
+      {% if article %}Update{% else %}Publish{% endif %}
+    </button>
+    <a href="javascript:history.back()" class="btn">Cancel</a>
+  </div>
+  {% include "components/notifications.html" %}
+</aside>
+{% endblock right %}
 
 {% block head %}
 {{ form.media }}
 <link rel="stylesheet" href="{% static 'articles/css/editorjs.css' %}"/>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/css/tabler-vendors.min.css">
+<!-- <style>
+  :root {
+    --tblr-body-bg: 255 255 255;
+  }
+</style> -->
 <script src="{% static 'articles/js/editorjs.js' %}"></script>
 <script src="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/js/tom-select.complete.min.js"></script>
 {% endblock head %}

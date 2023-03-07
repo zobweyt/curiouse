@@ -1,14 +1,29 @@
 {% load static %}
 
-<header class="navbar navbar-light d-print-none sticky-top">
+<header class="navbar bg-body d-print-none sticky-top">
   <div class="container-xxl">
-    <a href="{% url 'articles:article_list' %}" class="navbar-brand" title="Main Curiouse page">
-      <img src="{% static 'images/logo.svg' %}" class="navbar-brand-image">
-    </a>
-    <div class="navbar-nav flex-row">
+    <div class="nav-item d-lg-none d-block me-3">
+      <a href="#navbarOffcanvas" class="nav-link" data-bs-toggle="offcanvas">
+        <i class="icon ti ti-menu-2"></i>
+      </a>
+    </div>
+    <div class="col-lg-3 col">
+      <a href="{% url 'articles:article-list' %}" class="navbar-brand" title="Main Curiouse page">
+        <img src="{% static 'images/logo.svg' %}" class="navbar-brand-image">
+      </a>
+    </div>
+    <div class="col-6 d-lg-block d-none">
+      <div class="input-icon">
+        <input type="text" value="" class="form-control" placeholder="Search…">
+        <span class="input-icon-addon">
+          <i class="icon ti ti-search"></i>
+        </span>
+      </div>
+    </div>
+    <div class="col-3 justify-content-end navbar-nav flex-row">
       {% if request.user.is_authenticated %}
       <div class="nav-item me-2">
-        <a href="{% url 'articles:article_create' %}" class="btn d-sm-block d-none">
+        <a href="{% url 'articles:article_create' %}" class="btn btn-primary d-sm-block d-none">
           <i class="icon ti ti-text-plus"></i>
           New article
         </a>
@@ -24,26 +39,19 @@
               <i class="icon dropdown-item-icon ti ti-id"></i>My profile
             </a>
           </li>
-          <li><hr class="dropdown-divider"></li>
           <li class="d-sm-none d-block">
             <a href="{% url 'articles:article_create' %}" class="dropdown-item">
               <i class="icon dropdown-item-icon ti ti-typography"></i>New article
             </a>
           </li>
           <li>
-            <a href="{% url 'articles:bookmarks' %}" class="dropdown-item">
-              <i class="icon dropdown-item-icon ti ti-bookmarks"></i>Bookmarks
+            <a href="{% url 'users:personal' %}" class="dropdown-item">
+              <i class="icon dropdown-item-icon ti ti-settings"></i>Settings
             </a>
           </li>
-          <li><hr class="dropdown-divider d-sm-none d-block"></li>
           <li>
             <a href="{% url 'admin:index' %}" target="_blank" class="dropdown-item">
               <i class="icon dropdown-item-icon ti ti-layers-linked"></i>Dashboard
-            </a>
-          </li>
-          <li>
-            <a href="{% url 'users:personal' %}" class="dropdown-item">
-              <i class="icon dropdown-item-icon ti ti-settings"></i>Settings
             </a>
           </li>
           <li></li><hr class="dropdown-divider"></li>

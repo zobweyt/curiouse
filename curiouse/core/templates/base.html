@@ -1,4 +1,4 @@
-{% load static django_htmx %}
+{% load static django_htmx helpers %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -9,9 +9,11 @@
     <title>{% if title %}{{ title }} - {% endif %}Curiouse</title>
     <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
     <link rel="stylesheet" href="{% static 'css/pace.css' %}" type="text/css"></link>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" async></script>
+    <script type="text/javascript" data-pace-options='{ "restartOnPushState": false, "startOnPageLoad": true }' src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" async></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/htmx.org@1.8.5/dist/htmx.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.min.js"></script>
     {% django_htmx_script %}
+    <script src="https://unpkg.com/hyperscript.org@0.9.7" defer></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/js/tabler.min.js" defer></script>
     <script type="text/javascript" src="{% static 'js/main.js' %}"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons@latest/iconfont/tabler-icons.min.css" type="text/css">
@@ -22,7 +24,12 @@
 
       :root {
         --tblr-font-sans-serif: 'Inter Var', -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, sans-serif;
-        --scroll-margin: 4rem;
+        --scroll-margin: 4.75rem;
+      }
+
+      .card {
+        --tblr-card-border-radius: 0.725rem;
+        --tblr-card-inner-border-radius: var(--tblr-card-border-radius)
       }
       
       body {
@@ -39,14 +46,20 @@
       <div class="page-wrapper">
         {% block wrapper %}
         <div class="container-xxl">
-          <main class="page-body">
-            {% block content %}
-            {% endblock content %}
-          </main>
+          <div class="page-body row">
+            {% block left %}
+            {% endblock left %}
+            <main class="col">
+              {% block content %}
+              {% endblock content %}
+            </main>
+            {% block right %}
+            {% endblock right %}
+          </div>
         </div>
         {% endblock wrapper %}
       </div>
-    </div>    
+    </div>
     {% endblock body %}
   </body>
 </html>

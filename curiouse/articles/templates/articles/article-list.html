@@ -1,33 +1,5 @@
-{% extends 'base.html' %}
-{% load helpers %}
+{% extends 'articles/base.html' %}
 
 {% block content %}
-<ul class="list-unstyled">
-  <div class="row row-gap-3 row-cols-lg-4 row-cols-md-3 row-cols-2">
-    {% include 'articles/includes/article-list.html' %}
-  </div>
-</ul>
-<div id="articlesLoader" class="htmx-indicator">
-  <div class="row row-gap-3 row-cols-lg-4 row-cols-md-3 row-cols-2">
-    {% for _ in 12|range %}
-    <article class="d-grid gap-1 placeholder-glow">
-      <div class="ratio ratio-4x3 rounded-4 placeholder"></div>
-      <div class="badges-list gap-1">
-        {% for i in 3|range %}
-        <div class="col-2 placeholder placeholder-lg"></div>
-        {% endfor %}
-      </div>
-      <div class="row mt-1">
-        <div class="col-auto">
-          <div class="avatar avatar-rounded placeholder" loading="lazy"></div>
-        </div>
-        <div class="col ps-0">
-          <div class="placeholder col-8"></div>
-          <div class="placeholder placeholder-xs col-4"></div>
-        </div>
-      </div>
-    </article>
-    {% endfor %}
-  </div>
-</div>
+{% include "articles/includes/article-list.html" %}
 {% endblock content %}

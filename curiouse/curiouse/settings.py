@@ -1,9 +1,8 @@
 import os
-
 from pathlib import Path
-from dotenv import load_dotenv
 
 from django.urls import reverse_lazy
+from dotenv import load_dotenv
 
 load_dotenv()
 
@@ -27,6 +26,7 @@ INSTALLED_APPS = [
     'django_cleanup',
     'django_htmx',
     'django_editorjs_fields',
+    'django_components',
     'core',
     'users',
     'notifications',
@@ -42,8 +42,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django_htmx.middleware.HtmxMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'curiouse.urls'
@@ -52,7 +52,6 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': ['templates'],
-        'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -60,9 +59,20 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'loaders':[(
+                'django.template.loaders.cached.Loader', [
+                    'django.template.loaders.filesystem.Loader',
+                    'django.template.loaders.app_directories.Loader',
+                    'django_components.template_loader.Loader',
+                ]
+            )],
         },
     },
 ]
+
+COMPONENTS = {
+    "autodiscover": True,
+}
 
 WSGI_APPLICATION = 'curiouse.wsgi.application'
 
@@ -87,6 +97,10 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+DEBUG_TOOLBAR_CONFIG = {
+    "ROOT_TAG_EXTRA_ATTRS": "hx-preserve"
+}
 
 LOGGING_ROOT = os.path.join(BASE_DIR, 'logs')
 
@@ -145,7 +159,7 @@ AUTH_USER_MODEL = 'users.User'
 
 LOGIN_URL = 'users:login'
 LOGOUT_URL = 'users:logout'
-LOGIN_REDIRECT_URL = 'articles:article_list'
+LOGIN_REDIRECT_URL = 'articles:article-list'
 
 LANGUAGE_CODE = 'en-us'
 

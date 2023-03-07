@@ -1,9 +1,30 @@
+{% load article_tags %}
+
 {% if article in viewer.bookmarks.all %}
-<button hx-get="{% url 'articles:article_unsave' article.pk article.slug %}" hx-swap="outerHTML" class="btn active btn-icon">
-  <i class="icon ti ti-bookmark-off"></i>
-</button>
+  <button class="btn-action btn-icon text-primary"
+          data-bs-placement="top"
+          data-bs-toggle="tooltip"
+          title="Remove bookmark"
+          hx-get="{% url 'articles:article_unsave' article.pk article.slug %}"
+          hx-swap="outerHTML">
+    <i class="icon ti ti-bookmark-off"></i>
+  </button>
 {% else %}
-<button hx-get="{% url 'articles:article_save' article.pk article.slug %}" hx-swap="outerHTML" class="btn btn-icon">
-  <i class="icon ti ti-bookmark"></i>
-</button>
+  <button class="btn-action btn-icon"
+          data-bs-placement="top"
+          data-bs-toggle="tooltip"
+          title="Add bookmark"
+          hx-get="{% url 'articles:article_save' article.pk article.slug %}"
+          hx-swap="outerHTML">
+    <i class="icon ti ti-bookmark"></i>
+  </button>
+{% endif %}
+
+{% if request.htmx %}
+  {% get_bookmark_count as bookmark_count %}
+  {% if bookmark_count == 0 %}
+    <span class="d-none" id="bookmarks-badge" hx-swap-oob="true"></span>
+  {% else %}
+    <span class="badge bg-secondary-lt ms-2" id="bookmarks-badge" hx-swap-oob="true">{{ bookmark_count }}</span>
+  {% endif %}
 {% endif %}

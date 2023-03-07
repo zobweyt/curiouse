@@ -1,46 +1,35 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="row d-flex justify-content-center">
-  {% block aside %}
-  {% endblock aside %}
-  <div class="col-xl-4 col-lg-7 col-12">
-    {% include "components/notifications.html" %}
-    {% if form %}
-    <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
-      {% csrf_token %}
-    {% endif %}
-      <div class="card">
-        <div class="card-header d-flex align-items-center">
-          <h3 class="card-title ms-1">{{ title }}</h3>
-          <div class="card-actions btn-actions">
-            <a href="javascript:history.back()" class="btn-action">
-              <i class="icon ti ti-arrow-left"></i>
-            </a>
-            {% block form_actions %}
-            {% endblock form_actions %}
-          </div>
-        </div>
-        <div class="card-body">
-          <div class="d-flex flex-column gap-3">
-            {% block form_body %}
-              {% for field in form %}
-                {% include "components/input.html" %}
-              {% endfor %}
-            {% endblock form_body %}
-          </div>
-        </div>
-        <div class="card-footer bg-transparent">
-          {% block form_footer %}
-            <button type="submit" class="btn btn-success">
-              {{ submit_button_text }}
-            </button>
-          {% endblock form_footer %}
-        </div>
+<h4 class="subheader">{{ title }}</h4>
+{% include "components/notifications.html" %}
+{% if form %}
+<form method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+  {% csrf_token %}
+{% endif %}
+  <div class="card">
+    <div class="card-body">
+      <div class="d-flex flex-column gap-3">
+        {% block form_body %}
+          {% for field in form %}
+            {% include "components/input.html" %}
+          {% endfor %}
+        {% endblock form_body %}
       </div>
-    {% if form %}
-    </form>
-    {% endif %}
+    </div>
+    <div class="card-footer bg-transparent">
+      {% block form_footer %}
+        <button type="submit" class="btn btn-success">
+          {{ submit_button_text }}
+        </button>
+      {% endblock form_footer %}
+    </div>
   </div>
-</div>
+{% if form %}
+</form>
+{% endif %}
 {% endblock content %}
+
+{% block right %}
+<div class="col-xl-3"></div>
+{% endblock right %}

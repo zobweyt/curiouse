@@ -13,7 +13,7 @@ class FollowAdmin(admin.ModelAdmin):
 
 @admin.register(Author)
 class AuthorAdmin(admin.ModelAdmin):
-    list_display = ('id', '__str__', 'get_articles_count', 'get_followers_count')
+    list_display = ('user', '__str__', 'get_articles_count', 'get_followers_count')
     list_display_links = ('__str__',)
     search_fields = ('__str__',)
     

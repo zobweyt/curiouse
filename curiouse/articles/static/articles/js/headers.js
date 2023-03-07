@@ -1,20 +1,22 @@
-document.addEventListener("DOMContentLoaded", function() {
-    let contents = document.getElementById("tableOfContents");
-    const anchors = document.querySelector(".article__body").querySelectorAll("h1, h2, h3");
+let contents = document.getElementById("tableOfContents");
+const anchors = document.querySelector(".markdown").querySelectorAll("h1, h2");
 
-    anchors.forEach(anchor => {
-        const text = anchor.textContent;
-        const id = escape(text);
+anchors.forEach(anchor => {
+    const text = anchor.textContent;
+    const id = slugify(text, {lower: true, remove: /[0-9]/, strict: true});
 
-        anchor.setAttribute("id", id)
+    $(anchor).nextUntil("h2").add(anchor).wrapAll(`<div id=${id}></div>`);
 
-        let navigationItem = document.createElement("li");
+    // anchor.setAttribute("id", id)
 
-        let anchorLink = document.createElement("a");
-        anchorLink.href = `#${id}`;
-        anchorLink.text = text;
+    let navItem = document.createElement("li");
+    navItem.classList.add("nav-item");
 
-        navigationItem.appendChild(anchorLink);
-        contents.appendChild(navigationItem);
-    });
+    let link = document.createElement("a");
+    link.classList.add("nav-link")
+    link.href = `#${id}`;
+    link.text = text;
+
+    navItem.appendChild(link);
+    contents.appendChild(navItem);
 });

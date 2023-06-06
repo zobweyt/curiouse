@@ -59,7 +59,8 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
-            'loaders':[(
+            'loaders': [
+                'django.template.loaders.app_directories.Loader', (
                 'django.template.loaders.cached.Loader', [
                     'django.template.loaders.filesystem.Loader',
                     'django.template.loaders.app_directories.Loader',
@@ -179,7 +180,7 @@ MEDIA_URL = 'media/'
 
 PHOTOS_PATH = 'photos/%Y/%m/%d/'
 
-EDITORJS_VERSION = '2.27.0-rc.1'
+EDITORJS_VERSION = '2.27.0'
 
 EDITORJS_DEFAULT_PLUGINS = (
     '@editorjs/paragraph',
@@ -208,6 +209,7 @@ EDITORJS_DEFAULT_CONFIG_TOOLS = {
         'class': 'Header',
         'inlineToolbar': False,
         'shortcut': 'CMD+SHIFT+H',
+        'default': 2,
         'config': {
             'placeholder': 'Enter a header',
             'levels': [2, 3],

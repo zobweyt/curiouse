@@ -84,6 +84,18 @@ class AuthorDetailView(ArticleListView):
     
     def get_title(self):
         return self.author
+
+
+class AuthorBookmarksView(ArticleListView):
+    def get_queryset(self):
+        author = Author.objects.get(user=self.request.user)
+        return author.bookmarks.all()
+
+
+class AuthorSubscriptionsView(ArticleListView):
+    def get_queryset(self):
+        author = Author.objects.get(user=self.request.user)
+        return super().get_queryset().filter(author__followers=author.user)
     
 
 @require_htmx
@@ -119,11 +131,4 @@ def unsave_article_view(request, pk, slug):
     author = Author.objects.get(user=request.user)
     author.bookmarks.remove(article)
     
-    return render(request, 'articles/includes/bookmark-button.html', {'viewer': author, 'article': article})
-
-
-class AuthorBookmarksView(ArticleListView):
-    def get_queryset(self):
-        author = Author.objects.get(user=self.request.user)
-        return author.bookmarks.all()
-    
+    return render(request, 'articles/includes/bookmark-button.html', {'viewer': author, 'article': article})    

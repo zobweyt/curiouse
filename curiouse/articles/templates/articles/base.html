@@ -2,17 +2,20 @@
 {% load component_tags article_tags %}
 
 {% block left %}
-{% get_bookmark_count as bookmark_count %}
-{% component_block "navbar" header="Explore" %}
-  {% slot "body" %}
-    {% component "navbar-item" icon="home" title="Subscriptions" viewname="articles:article-list" %}
-    {% component "navbar-item" icon="cards" title="Articles" viewname="articles:article-list" %}
-    {% component "navbar-item" icon="tags" title="Categories" viewname="articles:category-list" %}
-    {% component "navbar-item" icon="bookmarks" title="Bookmarks" viewname="articles:bookmark-list" badge=bookmark_count %}
-  {% endslot "body" %}
-{% endcomponent_block "navbar" %}
+  {% if request.user.is_authenticated %}
+    {% get_bookmark_count as bookmark_count %}
+    {% component_block "navbar" header="Explore" %}
+      {% slot body %}
+        {% component "navbar-item" icon="typography" title="New article" viewname="articles:article_create" mobile=True %}
+        {% component "navbar-item" icon="home" title="Subscriptions" viewname="articles:author-subscriptions-list" %}
+        {% component "navbar-item" icon="bookmarks" title="Bookmarks" viewname="articles:author-bookmarks-list" badge=bookmark_count %}
+      {% endslot body %}
+    {% endcomponent_block "navbar" %}
+  {% else %}
+    <div class="col-lg-3"></div>
+  {% endif %}
 {% endblock left %}
 
 {% block right %}
-<div class="col-xl-3"></div>
+  <div class="col-xl-3"></div>
 {% endblock right %}

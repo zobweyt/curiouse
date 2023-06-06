@@ -1,3 +1,5 @@
+{% load article_tags %}
+
 <div class="card mb-3">
   <div class="card-body">
     <div class="row mb-2">
@@ -21,7 +23,8 @@
         <div class="d-flex">
           <div class="avatar-list avatar-list-stacked">
             {% for follower in followers|slice:":3" %}
-            <span class="avatar avatar-sm avatar-rounded" title="{{ follower.get_full_name }}" style="background-image: url({{ follower.get_avatar_url }})"></span>
+            {% get_author user=follower as f %}
+            <a href="{{ f.get_absolute_url }}" class="avatar avatar-sm avatar-rounded" title="{{ follower.get_full_name }}" style="background-image: url({{ follower.get_avatar_url }})"></a>
             {% endfor %}
           </div>
           <span class="ms-3 ps-2 lh-sm">

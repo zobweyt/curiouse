@@ -2,74 +2,70 @@
 
 <header class="navbar bg-body d-print-none sticky-top">
   <div class="container-xxl">
-    <div class="nav-item d-lg-none d-block me-3">
-      <a href="#navbarOffcanvas" class="nav-link" data-bs-toggle="offcanvas">
-        <i class="icon ti ti-menu-2"></i>
-      </a>
-    </div>
-    <div class="col-lg-3 col">
-      <a href="{% url 'articles:article-list' %}" class="navbar-brand" title="Main Curiouse page">
-        <img src="{% static 'images/logo.svg' %}" class="navbar-brand-image">
-      </a>
-    </div>
-    <div class="col-6 d-lg-block d-none">
-      <div class="input-icon">
-        <input type="text" value="" class="form-control" placeholder="Search…">
-        <span class="input-icon-addon">
-          <i class="icon ti ti-search"></i>
-        </span>
-      </div>
-    </div>
-    <div class="col-3 justify-content-end navbar-nav flex-row">
-      {% if request.user.is_authenticated %}
-      <div class="nav-item me-2">
-        <a href="{% url 'articles:article_create' %}" class="btn btn-primary d-sm-block d-none">
-          <i class="icon ti ti-text-plus"></i>
-          New article
+    <div class="row px-2 d-flex align-items-center justify-content-between flex-fill">
+      <button class="navbar-toggler d-lg-none d-block" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarOffcanvas" aria-controls="navbarOffcanvas" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="col-lg-3 col-auto">
+        <a href="{% url 'articles:article-list' %}" class="navbar-brand" title="Main Curiouse page">
+          <img src="{% static 'images/logo.svg' %}" class="navbar-brand-image">
         </a>
       </div>
-      {% include 'notifications/dropdown.html' %}
-      <div class="nav-item dropdown ms-3">
-        <a href="#" class="nav-link" data-bs-toggle="dropdown">
-          <img src="{{ request.user.get_avatar_url }}" class="avatar avatar-sm avatar-rounded">
-        </a>
-        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-          <li>
-            <a href="{% url 'articles:author_detail' request.user %}" class="dropdown-item">
-              <i class="icon dropdown-item-icon ti ti-id"></i>My profile
-            </a>
-          </li>
-          <li class="d-sm-none d-block">
-            <a href="{% url 'articles:article_create' %}" class="dropdown-item">
-              <i class="icon dropdown-item-icon ti ti-typography"></i>New article
-            </a>
-          </li>
-          <li>
-            <a href="{% url 'users:personal' %}" class="dropdown-item">
-              <i class="icon dropdown-item-icon ti ti-settings"></i>Settings
-            </a>
-          </li>
-          <li>
-            <a href="{% url 'admin:index' %}" target="_blank" class="dropdown-item">
-              <i class="icon dropdown-item-icon ti ti-layers-linked"></i>Dashboard
-            </a>
-          </li>
-          <li></li><hr class="dropdown-divider"></li>
-          <li>
-            <a href="{% url 'users:logout' %}" class="dropdown-item">
-              <i class="icon dropdown-item-icon ti ti-logout"></i>Sign out
-            </a>
-          </li>
-        </ul>
-      </div>
-      {% else %}
-      <div class="nav-item">
-        <div class="btn-list">
-          <a href="{% url 'users:login' %}" type="button" class="btn">Login</a>
-          <a href="{% url 'users:new' %}" type="button" class="btn btn-primary">Sign up</a>
+      <div class="col-lg-6 col-auto d-lg-block d-none">
+        <div class="input-icon ">
+          <input type="text" value="" class="form-control form-control-rounded" placeholder="Search…">
+          <span class="input-icon-addon">
+            <i class="ti ti-search"></i>
+          </span>
         </div>
       </div>
-      {% endif %}
+      <div class="col-lg-3 col-auto justify-content-end navbar-nav flex-row">
+        {% if request.user.is_authenticated %}
+        <div class="nav-item me-3">
+          <a href="{% url 'articles:article_create' %}" class="btn btn-primary d-lg-block d-none">
+            <i class="icon ti ti-text-plus"></i>
+            New article
+          </a>
+        </div>
+        <div class="nav-item dropdown">
+          <a href="#" class="nav-link" data-bs-toggle="dropdown">
+            <img src="{{ request.user.get_avatar_url }}" class="avatar avatar-sm avatar-rounded">
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+            <li>
+              <a href="{% url 'articles:author_detail' request.user %}" class="dropdown-item">
+                <i class="icon dropdown-item-icon ti ti-id"></i>My profile
+              </a>
+            </li>
+            <li>
+              <a href="{% url 'users:personal' %}" class="dropdown-item">
+                <i class="icon dropdown-item-icon ti ti-settings"></i>Settings
+              </a>
+            </li>
+            {% if request.user.is_staff %}
+            <li>
+              <a href="{% url 'admin:index' %}" target="_blank" class="dropdown-item">
+                <i class="icon dropdown-item-icon ti ti-layers-linked"></i>Dashboard
+              </a>
+            </li>            
+            {% endif %}
+            <li></li><hr class="dropdown-divider"></li>
+            <li>
+              <a href="{% url 'users:logout' %}" class="dropdown-item">
+                <i class="icon dropdown-item-icon ti ti-logout"></i>Sign out
+              </a>
+            </li>
+          </ul>
+        </div>
+        {% else %}
+        <div class="nav-item">
+          <div class="btn-list">
+            <a href="{% url 'users:login' %}" type="button" class="btn">Login</a>
+            <a href="{% url 'users:new' %}" type="button" class="btn btn-primary">Sign up</a>
+          </div>
+        </div>
+        {% endif %}
+      </div>
     </div>
   </div>
 </header>

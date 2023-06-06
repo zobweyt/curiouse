@@ -3,13 +3,5 @@
 
 {% block content %}
 {% include 'articles/includes/author-card.html' %}
-{% if articles %}
-  {% include 'articles/includes/article-list.html' %}
-{% else %}
-  <div class="container-slim py-4 text-center">
-    <img src="{% static 'notifications/images/feeling_of_joy.svg' %}" class="mb-4">
-    <h2>Woops!</h2>
-    <p class="text-muted">This author has not published any articles yet.</p>
-  </div>
-{% endif %}
+{% include 'articles/includes/article-list.html' %}
 {% endblock content %}

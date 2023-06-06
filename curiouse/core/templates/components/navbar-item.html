@@ -1,11 +1,15 @@
 {% load helpers %}
 
-<li class="nav-item">
+<li class="nav-item{% if mobile %} d-lg-none{% endif %}">
   <a class="nav-link {% get_active_class viewname exact=False %}" href="{% url viewname %}">
     <i class="icon nav-link-icon ti ti-{{ icon }}"></i>
     {{ title }}
-    {% if badge %}
-      <span class="badge bg-secondary-lt ms-2" id="{{ title|lower }}-badge">{{ badge }}</span>
-    {% endif %}
+    {% with id=title|lower|add:"-badge" %}
+      {% if badge %}
+        <span class="badge bg-secondary-lt ms-2" id="{{ id }}">{{ badge }}</span>
+      {% else %}
+        <span id="{{ id }}"></span>
+      {% endif %}
+    {% endwith %}
   </a>
 </li>

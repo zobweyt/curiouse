@@ -16,11 +16,12 @@ class Navbar(component.Component):
 class NavbarItem(component.Component):
     template_name = "components/navbar-item.html"
     
-    def get_context_data(self, icon, title, viewname, badge=None):
+    def get_context_data(self, icon, title, viewname, badge=None, mobile=False):
         return {
             "icon": icon,
             "title": title,
             "viewname": viewname,
             "badge": badge,
+            "mobile": mobile,
         }
         

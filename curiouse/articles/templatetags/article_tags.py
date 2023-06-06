@@ -14,8 +14,14 @@ def query_transform(context, **kwargs):
 
 
 @register.simple_tag(takes_context=True)
-def get_bookmark_count(context):
-    user = context['request'].user
+def get_author(context, user=None):
+    user = user or context['request'].user
     author = Author.objects.get(user=user)
+    return author
+
+
+@register.simple_tag(takes_context=True)
+def get_bookmark_count(context):
+    author = get_author(context)
     bookmark_count = author.bookmarks.count()
     return bookmark_count
